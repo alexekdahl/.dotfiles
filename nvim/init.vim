@@ -31,14 +31,15 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'olimorris/onedarkpro.nvim'
-Plug 'itchyny/lightline.vim'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
 "Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 Plug 'preservim/nerdtree'
 Plug 'voldikss/vim-floaterm'
 Plug 'gpanders/editorconfig.nvim'
-"Plug 'nvim-lua/completion-nvim'
+Plug 'numToStr/Comment.nvim'
+Plug 'nvim-lua/completion-nvim'
 call plug#end()
 
 
@@ -48,7 +49,7 @@ set termguicolors
 highlight Normal guibg=none
 
 lua require'nvim-treesitter.configs'.setup { highlight = { enable = true }, incremental_selection = { enable = true }, textobjects = { enable = true }}
-
+lua require('Comment').setup()
 let mapleader = " "
 let NERDTreeShowHidden= 1
 let g:NERDTreeChDirMode = 2
@@ -67,7 +68,6 @@ tnoremap <Esc> <C-\><C-n>
 "reload buffers if change happens
 autocmd FileChangedShell * bufdo e!
 " Use completion-nvim in every buffer
-"autocmd BufEnter * lua require'completion'.on_attach()
 
 fun! TrimWhiteSpace()
     let l:save = winsaveview()
@@ -78,6 +78,7 @@ endfun
 augroup THE_ALEX
     autocmd!
     autocmd BufWritePre * :call TrimWhiteSpace()
+    autocmd BufEnter * lua require'completion'.on_attach()
 augroup END
 
 lua << EOF
@@ -86,8 +87,8 @@ require'lspconfig'.tsserver.setup{
   disableAutomaticTypingAcquisition = true,
   init_options = {
     preferences = {
-        disableSuggestions = true
-      }
+      disableSuggestions = true
+    }
   },
   on_attach = function()
   vim.keymap.set("n","gd", vim.lsp.buf.definition, { buffer= 0})
@@ -97,8 +98,12 @@ require'lspconfig'.tsserver.setup{
 }
 EOF
 
-"lua << EOF
-"local saga = require'lspsaga'.init_lsp_saga()
-"EOF
+lua << END
+require('lualine').setup {
+  options = {
+    theme = 'onedark'
+  }
+}
+END
 
 
