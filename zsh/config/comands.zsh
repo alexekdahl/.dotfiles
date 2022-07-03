@@ -119,6 +119,17 @@ function nps() {
   script=$(cat package.json | jq -r '.scripts | keys[] ' | sort | fzf --print0 -m -1 --border=rounded --height 10%) && npm run $(echo "$script")
 }
 
+function goodmorning () {
+  today &&
+  colima start &&
+  dstart;
+}
+
+function goodbye () {
+  tomorrow &&
+  dstop &&
+  colima stop;
+}
 
 # nvm autouse
 function nvm_autouse() {
