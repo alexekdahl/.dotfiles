@@ -55,8 +55,8 @@ let mapleader = " "
 let NERDTreeShowHidden= 1
 let g:NERDTreeChDirMode = 2
 
-nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }, search = vim.fn.input("Grep For > ")})<CR>
-nnoremap <leader>psf :lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
+nnoremap <leader>f :lua require('telescope.builtin').grep_string({ cwd = vim.fn.expand('%:p:h'), find_command = {'rg', '--files', '--hidden', '-g', '!.git' }, search = vim.fn.input("Grep For > ")})<CR>
+nnoremap <leader>p :lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
 nnoremap <leader>d :lua require('telescope.builtin').diagnostics({bufnr=0})<CR>
 
 nnoremap <leader>e :NERDTreeToggle<CR>
