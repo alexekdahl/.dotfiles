@@ -77,7 +77,7 @@ alias repo='cd ~/dev/repo && echo "$(tput setaf 1)Phoenix Repo"$(tput sgr0) && l
 alias war='cd ~/dev/misc && vim .'
 alias copy='pbcopy < '
 alias dotfiles='cd ~/.dotfiles'
-#alias tree='exa --tree --git-ignore'
+alias tree='exa --tree --git-ignore'
 
 # -Docker-
 alias dils='docker image ls'
@@ -85,8 +85,7 @@ alias dps='docker ps'
 alias dprune='docker volume prune --force'
 alias dstop='docker kill $(docker ps -q)'
 alias dkill='docker rmi $(docker images -a -q)'
-alias hkc='docker pull gitlab.hkcsecurity.net:5000/phoenix-software/server/docker/yale/phoenix-hub-app-docker-yale:latest'
-alias Docker='open -a Docker'
+# alias Docker='open -a Docker'
 
 # Association
 alias -s md=code

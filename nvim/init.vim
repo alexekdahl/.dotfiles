@@ -34,12 +34,13 @@ Plug 'olimorris/onedarkpro.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
-"Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+" Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 Plug 'preservim/nerdtree'
 Plug 'voldikss/vim-floaterm'
 Plug 'gpanders/editorconfig.nvim'
 Plug 'numToStr/Comment.nvim'
-Plug 'nvim-lua/completion-nvim'
+" Plug 'nvim-lua/completion-nvim'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 
@@ -65,7 +66,7 @@ nnoremap <leader>j  <Esc>:FloatermToggle<CR>
 tnoremap <leader>j  <C-\><C-n>:FloatermToggle<CR>
 tnoremap <Esc> <C-\><C-n>
 
-"reload buffers if change happens
+" reload buffers if change happens
 autocmd FileChangedShell * bufdo e!
 " Use completion-nvim in every buffer
 
@@ -78,7 +79,7 @@ endfun
 augroup THE_ALEX
     autocmd!
     autocmd BufWritePre * :call TrimWhiteSpace()
-    autocmd BufEnter * lua require'completion'.on_attach()
+    " autocmd BufEnter * lua require'completion'.on_attach()
 augroup END
 
 lua << EOF
@@ -96,6 +97,10 @@ require'lspconfig'.tsserver.setup{
   vim.keymap.set("n","K", vim.lsp.buf.hover, { buffer= 0})
   end,
 }
+EOF
+
+lua << EOF
+require'lspconfig'.gopls.setup{}
 EOF
 
 lua << END
