@@ -150,13 +150,14 @@ augroup THE_ALEX
 augroup END
 
 "keybindings"
-nnoremap <leader>f :lua require('telescope.builtin').grep_string({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }, search = vim.fn.input("Grep For > ")})<CR>
+nnoremap <leader>ff :lua require('telescope.builtin').grep_string({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }, search = vim.fn.input("Grep For > ")})<CR>
 nnoremap <leader>p :lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
-nnoremap <leader>o :lua require('telescope.builtin').lsp_references({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
+nnoremap <leader>fr :lua require('telescope.builtin').lsp_references({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
 
 nnoremap <leader>e :NERDTreeToggle<CR>
+nnoremap <leader>s :wa<CR>
 
-nnoremap <leader>j  :FloatermToggle<CR>
-nnoremap <leader>j  <Esc>:FloatermToggle<CR>
-tnoremap <leader>j  <C-\><C-n>:FloatermToggle<CR>
+nnoremap <leader>j :FloatermToggle<CR>
+nnoremap <leader>j <Esc>:FloatermToggle<CR>
+tnoremap <leader>j <C-\><C-n>:FloatermToggle<CR>
 tnoremap <Esc> <C-\><C-n>
