@@ -9,8 +9,9 @@ Plug 'preservim/nerdtree'
 Plug 'voldikss/vim-floaterm'
 Plug 'gpanders/editorconfig.nvim'
 Plug 'numToStr/Comment.nvim'
-" Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
-" Plug 'nvim-lua/completion-nvim'
+Plug 'windwp/nvim-autopairs'
+Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+Plug 'nvim-lua/completion-nvim'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
@@ -73,11 +74,13 @@ require'lspconfig'.tsserver.setup{
     }
   },
   on_attach = function()
+  require'completion'.on_attach()
   vim.keymap.set("n","gd", vim.lsp.buf.definition, { buffer= 0})
   vim.keymap.set("n","gt", vim.lsp.buf.type_definition, { buffer= 0})
   vim.keymap.set("n","K", vim.lsp.buf.hover, { buffer= 0})
-  end,
+  end
 }
+
 EOF
 
 lua << END
@@ -87,6 +90,10 @@ require('lualine').setup {
   }
 }
 END
+
+lua << EOF
+require("nvim-autopairs").setup {}
+EOF
 
 augroup THE_ALEX
     autocmd!
