@@ -10,8 +10,15 @@ Plug 'voldikss/vim-floaterm'
 Plug 'gpanders/editorconfig.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'windwp/nvim-autopairs'
-Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
-Plug 'nvim-lua/completion-nvim'
+
+" lsp autocomplete
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+" Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
@@ -37,6 +44,7 @@ set cmdheight=1
 set updatetime=50
 set termguicolors
 set shortmess+=c
+set completeopt=menu,menuone,noselect
 syntax on
 syntax on
 colorscheme onedarkpro
@@ -65,22 +73,25 @@ ensure_installed = {'javascript', 'typescript'},
 EOF
 
 lua << EOF
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 require'lspconfig'.tsserver.setup{
   filetypes = { "typescript", "javascript" },
-  disableAutomaticTypingAcquisition = true,
-  init_options = {
-    preferences = {
-      disableSuggestions = true
-    }
-  },
+  -- disableAutomaticTypingAcquisition = true,
+  -- init_options = {
+  --   preferences = {
+  --     disableSuggestions = true
+  --   }
+  -- },
+  capabilities = capabilites,
   on_attach = function()
-  require'completion'.on_attach()
-  vim.keymap.set("n","gd", vim.lsp.buf.definition, { buffer= 0})
-  vim.keymap.set("n","gt", vim.lsp.buf.type_definition, { buffer= 0})
-  vim.keymap.set("n","K", vim.lsp.buf.hover, { buffer= 0})
-  end
+    vim.keymap.set("n","gd", vim.lsp.buf.definition, { buffer= 0})
+    vim.keymap.set("n","gt", vim.lsp.buf.type_definition, { buffer= 0})
+    vim.keymap.set("n","K", vim.lsp.buf.hover, { buffer= 0})
+    vim.keymap.set("n","<leader>r", vim.lsp.buf.rename, { buffer= 0})
+    vim.keymap.set("n","<leader>a", vim.lsp.buf.code_action, { buffer= 0})
+    vim.keymap.set("n","<leader>d", "<cmd>Telescope diagnostics<cr>", { buffer= 0})
+  end,
 }
-
 EOF
 
 lua << END
@@ -95,6 +106,43 @@ lua << EOF
 require("nvim-autopairs").setup {}
 EOF
 
+
+lua <<EOF
+  -- Setup nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      end,
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'luasnip' }, -- For luasnip users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Set configuration for specific filetype.
+  cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+EOF
+
 augroup THE_ALEX
     autocmd!
     autocmd BufWritePre * :call TrimWhiteSpace()
@@ -104,7 +152,7 @@ augroup END
 "keybindings"
 nnoremap <leader>f :lua require('telescope.builtin').grep_string({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }, search = vim.fn.input("Grep For > ")})<CR>
 nnoremap <leader>p :lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
-nnoremap <leader>d :lua require('telescope.builtin').diagnostics({bufnr=0})<CR>
+nnoremap <leader>o :lua require('telescope.builtin').lsp_references({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
 
 nnoremap <leader>e :NERDTreeToggle<CR>
 
