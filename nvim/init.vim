@@ -79,10 +79,10 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').grep_string({ find_com
 nnoremap <leader>p <cmd>lua require('telescope.builtin').find_files({ cwd = vim.fn.expand('%:p:h'), find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
 nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references()<CR>
 
-nnoremap <leader>e :NERDTreeToggle<CR>
-nnoremap <leader>s :wa<CR>
+nnoremap <leader>e <cmd>NERDTreeToggle<CR>
+nnoremap <leader>s <cmd>wa<CR>
 
-nnoremap <leader>j :FloatermToggle<CR>
-nnoremap <leader>j <Esc>:FloatermToggle<CR>
-tnoremap <leader>j <C-\><C-n>:FloatermToggle<CR>
+nnoremap <leader>j <cmd>FloatermToggle<CR>
+nnoremap <leader>j <Esc><cmd>FloatermToggle<CR>
+tnoremap <leader>j <C-\><C-n><cmd>FloatermToggle<CR>
 tnoremap <Esc> <C-\><C-n>
