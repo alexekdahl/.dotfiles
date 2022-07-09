@@ -22,13 +22,12 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 call plug#end()
 
-
 set guicursor=
 set relativenumber
 set nohlsearch
 set hidden
 set noerrorbells
-set tabstop=2 softtabstop=2
+set tabstop=1 softtabstop=1
 set shiftwidth=2
 set expandtab
 set smartindent
@@ -72,6 +71,7 @@ augroup THE_ALEX
     autocmd!
     autocmd BufWritePre * :call TrimWhiteSpace()
     autocmd FileChangedShell * bufdo e!
+    autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
 augroup END
 
 "keybindings"

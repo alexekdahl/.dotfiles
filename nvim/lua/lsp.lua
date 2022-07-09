@@ -17,3 +17,6 @@ require'lspconfig'.tsserver.setup{
     vim.keymap.set("n","<leader>d", "<cmd>Telescope diagnostics<cr>", { buffer= 0})
   end,
 }
+require'lspconfig'.eslint.setup{
+  filetypes = { "typescript", "javascript" },
+}
