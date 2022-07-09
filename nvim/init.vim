@@ -76,7 +76,7 @@ augroup END
 
 "keybindings"
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').grep_string({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }, search = vim.fn.input("Grep For > ")})<CR>
-nnoremap <leader>p <cmd>lua require('telescope.builtin').find_files({ cwd = vim.fn.expand('%:p:h'), find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
+nnoremap <leader>p <cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
 nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references()<CR>
 
 nnoremap <leader>e <cmd>NERDTreeToggle<CR>
