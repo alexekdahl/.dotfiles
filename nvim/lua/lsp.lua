@@ -15,5 +15,12 @@ require'lspconfig'.tsserver.setup{
     vim.keymap.set("n","<leader>r", vim.lsp.buf.rename, { buffer= 0})
     vim.keymap.set("n","<leader>a", vim.lsp.buf.code_action, { buffer= 0})
     vim.keymap.set("n","<leader>d", "<cmd>Telescope diagnostics<cr>", { buffer= 0})
+    vim.cmd[[
+      augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]]
   end,
 }
