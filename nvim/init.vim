@@ -10,6 +10,7 @@ Plug 'voldikss/vim-floaterm'
 Plug 'gpanders/editorconfig.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'windwp/nvim-autopairs'
+Plug 'p00f/nvim-ts-rainbow'
 
 " lsp autocomplete
 Plug 'hrsh7th/nvim-cmp'
