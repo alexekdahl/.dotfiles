@@ -28,8 +28,9 @@ export ZSH_THEME="robbyrussell"
 export NVM_DIR="$HOME/.nvm"
 export PATH="/opt/homebrew/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
-export PATH="$BUN_INSTALL/bin:$PATH"
 export BUN_INSTALL="/Users/alex/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$PATH:./node_modules/.bin"
 export APIKEYFILE="$HOME/dev/august-runtime-creds/apicreds.json"
 
 # Plugins

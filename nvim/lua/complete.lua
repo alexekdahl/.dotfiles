@@ -50,6 +50,7 @@
       }),
     },
     sources = cmp.config.sources{
+      { name = 'friendly-snippets' }, -- For luasnip users.
       { name = 'nvim_lsp' }, -- For luasnip users.
       { name = 'luasnip' }, -- For luasnip users.
       { name = 'buffer' },

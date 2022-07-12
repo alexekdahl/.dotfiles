@@ -1,8 +1,7 @@
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-require'lspconfig'.eslint.setup{
-  filetypes = { "typescript", "javascript" },
-}
-require'lspconfig'.tsserver.setup{
+local lsp = require('lspconfig')
+
+lsp.tsserver.setup({
   filetypes = { "typescript", "javascript" },
   -- disableAutomaticTypingAcquisition = true,
   -- init_options = {
@@ -10,8 +9,10 @@ require'lspconfig'.tsserver.setup{
   --     disableSuggestions = true
   --   }
   -- },
+  -- 
   capabilities = capabilites,
-  on_attach = function()
+  on_attach = function(client, bufnr)
+    client.resolved_capabilities.document_formatting = true
     vim.keymap.set("n","gd", vim.lsp.buf.definition, { buffer= 0})
     vim.keymap.set("n","gt", vim.lsp.buf.type_definition, { buffer= 0})
     vim.keymap.set("n","K", vim.lsp.buf.hover, { buffer= 0})
@@ -23,7 +24,9 @@ require'lspconfig'.tsserver.setup{
         autocmd! * <buffer>
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+        autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync() 
       augroup END
     ]]
   end,
-}
+})
+

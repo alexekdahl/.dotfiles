@@ -20,6 +20,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'rafamadriz/friendly-snippets'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -75,7 +76,6 @@ augroup THE_ALEX
     autocmd!
     " autocmd BufWritePre * :call TrimWhiteSpace()
     autocmd FileChangedShell * bufdo e!
-    autocmd BufWritePost *.tsx,*.ts,*.jsx,*.js EslintFixAll
     autocmd VimEnter * lua open_telescope()
 augroup END
 
