@@ -12,13 +12,20 @@
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # ENV
+# fnm
+export PATH="/Users/alex/Library/Caches/fnm_multishells/46837_1657716775291/bin":$PATH
+export FNM_MULTISHELL_PATH="/Users/alex/Library/Caches/fnm_multishells/46837_1657716775291"
+export FNM_VERSION_FILE_STRATEGY="local"
+export FNM_DIR="/Users/alex/Library/Application Support/fnm"
+export FNM_LOGLEVEL="info"
+export FNM_NODE_DIST_MIRROR="https://nodejs.org/dist"
+export FNM_ARCH="arm64"
 
 # Config
 export DISABLE_UPDATE_PROMPT="false"
 export DISABLE_LS_COLORS="true"
 export COMPLETION_WAITING_DOTS="true"
 export HOMEBREW_NO_ANALYTICS=1
-export NVM_LAZY_LOAD=true
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob=!.git --glob=!node_modules"
 export NODE_ENV=local
 
@@ -34,7 +41,7 @@ export PATH="$PATH:./node_modules/.bin"
 export APIKEYFILE="$HOME/dev/august-runtime-creds/apicreds.json"
 
 # Plugins
-plugins=(zsh-autosuggestions zsh-syntax-highlighting zsh-nvm)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 
 # Source
 source $ZSH/oh-my-zsh.sh

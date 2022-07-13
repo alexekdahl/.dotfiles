@@ -78,6 +78,7 @@ alias war='cd ~/dev/misc && vim .'
 alias copy='pbcopy < '
 alias dotfiles='cd ~/.dotfiles'
 alias tree='exa --tree --git-ignore'
+alias nvm='fnm'
 
 # -Docker-
 alias dils='docker image ls'
