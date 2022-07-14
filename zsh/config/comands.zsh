@@ -134,6 +134,6 @@ function goodbye () {
 # nvm autouse
 function nvm_autouse() {
   if [[ -f ".nvmrc" ]]; then
-    fnm use --silent-if-unchanged
+    fnm use --silent-if-unchanged --log-level quiet
   fi
 }
