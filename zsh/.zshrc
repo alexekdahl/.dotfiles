@@ -1,18 +1,5 @@
-
-# Show cached promt on startup
- if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
- fi
-
-# bun completions
-[ -s "/Users/alex/.bun/_bun" ] && source "/Users/alex/.bun/_bun"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # ENV
-# fnm
+ 
 export PATH="/Users/alex/Library/Caches/fnm_multishells/46837_1657716775291/bin":$PATH
 export FNM_MULTISHELL_PATH="/Users/alex/Library/Caches/fnm_multishells/46837_1657716775291"
 export FNM_VERSION_FILE_STRATEGY="local"
@@ -44,6 +31,15 @@ export APIKEYFILE="$HOME/dev/august-runtime-creds/apicreds.json"
 plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 
 # Source
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+ source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+[ -s "/Users/alex/.bun/_bun" ] && source "/Users/alex/.bun/_bun"
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 source $ZSH/oh-my-zsh.sh
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 
