@@ -74,7 +74,7 @@ EOF
 
 augroup THE_ALEX
     autocmd!
-    " autocmd BufWritePre * :call TrimWhiteSpace()
+    autocmd BufWritePre * :call TrimWhiteSpace()
     autocmd FileChangedShell * bufdo e!
     autocmd VimEnter * lua open_telescope()
 augroup END
