@@ -42,7 +42,7 @@
     time                    # current time
     # =========================[ Line #2 ]=========================
     newline
-    ip                    # ip address and bandwidth usage for a specified network interface
+    temp                    # ip address and bandwidth usage for a specified network interface
   )
 
 
@@ -1420,6 +1420,11 @@
     fi
   }
 
+  function prompt_temp() {
+    local temp=$(vcgencmd measure_temp)
+    temp="${temp:5}"
+    p10k segment -b 'magenta' -f 'yellow' -i 'SERVER_ICON' -r -t "$temp"
+  }
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
   # is to generate the prompt segment for display in instant prompt. See
   # https://github.com/romkatv/powerlevel10k/blob/master/README.md#instant-prompt.
@@ -1439,6 +1444,12 @@
     prompt_example
   }
 
+  function instant_prompt_temp() {
+    # Since prompt_example always makes the same `p10k segment` calls, we can call it from
+    # instant_prompt_example. This will give us the same `example` prompt segment in the instant
+    # and regular prompts.
+    prompt_temp
+  }
   # User-defined prompt segments can be customized the same way as built-in segments.
   typeset -g POWERLEVEL9K_EXAMPLE_FOREGROUND=208
   # typeset -g POWERLEVEL9K_EXAMPLE_VISUAL_IDENTIFIER_EXPANSION='⭐'
