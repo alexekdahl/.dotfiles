@@ -42,6 +42,8 @@
     time                    # current time
     # =========================[ Line #2 ]=========================
     newline
+    ram
+    load
     temp                    # ip address and bandwidth usage for a specified network interface
   )
 
@@ -1423,7 +1425,12 @@
   function prompt_temp() {
     local temp=$(vcgencmd measure_temp)
     temp="${temp:5}"
-    p10k segment -b 'magenta' -f 'yellow' -i 'SERVER_ICON' -r -t "$temp"
+    p10k segment -f 'paleturquoise4' -i 'SERVER_ICON' -r -t "$temp"
+  }
+
+  function prompt_mem() {
+    local mem=$(free -t | awk 'FNR == 2 {printf("%.2f"), $3/$2*100}')
+    p10k segment -b "$_p9k_color1" -f 'orange' -i
   }
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
   # is to generate the prompt segment for display in instant prompt. See

@@ -91,3 +91,6 @@ alias dkill='docker rmi $(docker images -a -q)'
 alias -s md=code
 alias -s json=code
 alias -s txt=code
+
+# Linux server monitor
+alias freemem='free -t | awk "FNR == 2 {printf("Current Memory Utilization is : %.2f%"), $3/$2*100}"'
