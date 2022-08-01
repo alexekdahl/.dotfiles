@@ -54,7 +54,6 @@ alias c='clear'
 alias busy="cat /dev/urandom | hexdump -C | grep 'ca fe'"
 alias scs='open ~/Pictures/screenshots'
 alias pipe="grep --line-buffered -E 'info' | sed 's/^[^{]*//g'| jq ."
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # -Network-
 alias mip='ipconfig getifaddr en0'
@@ -87,7 +86,6 @@ alias dps='docker ps'
 alias dprune='docker volume prune --force'
 alias dstop='docker kill $(docker ps -q)'
 alias dkill='docker rmi $(docker images -a -q)'
-# alias Docker='open -a Docker'
 
 # Association
 alias -s md=code

@@ -25,7 +25,7 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # source $ZSH/oh-my-zsh.sh
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+source ~/.powerlevel10k/powerlevel10k.zsh-theme
 source $ZSH/oh-my-zsh.sh
 # Load seperated config files
  for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
