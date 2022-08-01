@@ -13,13 +13,11 @@ sudo apt-get install bat -y
 sudo apt-get install exa -y
 sudo apt-get install fzf -y
 sudo apt-get install ripgrep -y
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
 
 mkdir ~/.config
 mkdir ~/.config/nvim/
-if [[ -f ".zshrc" ]]; then
-  rm ".zshrc"
+if [[ -f "~/.zshrc" ]]; then
+  rm "~/.zshrc"
 fi
 ln -s ~/.dotfiles/p10k/p10k-ubuntu.zsh ~/.p10k.zsh
 ln -s ~/.dotfiles/zsh/.zshrc-ubuntu ~/.zshrc
@@ -39,5 +37,13 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
+sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+
+if [[ -f "~/.zshrc" ]]; then
+  rm "~/.zshrc"
+fi
+ln -s ~/.dotfiles/zsh/.zshrc-ubuntu ~/.zshrc
+source ~/.zshrc
