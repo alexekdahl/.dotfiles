@@ -54,3 +54,10 @@ sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 ```
 
 # Reboot
+
+### Hostsfiles
+
+```
+/etc/hosts
+/etc/hostname
+```

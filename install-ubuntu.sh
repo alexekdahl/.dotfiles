@@ -38,6 +38,9 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+sudo groupadd docker
+sudo gpasswd -a $USER docker
+sudo usermod -aG docker $USER
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
 sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
