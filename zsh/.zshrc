@@ -4,7 +4,7 @@ fi
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # ENV
- 
+
 export PATH="/Users/alex/Library/Caches/fnm_multishells/46837_1657716775291/bin":$PATH
 export FNM_MULTISHELL_PATH="/Users/alex/Library/Caches/fnm_multishells/46837_1657716775291"
 export FNM_VERSION_FILE_STRATEGY="local"
@@ -29,6 +29,9 @@ export PATH="/opt/homebrew/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 export BUN_INSTALL="/Users/alex/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$HOME/.go/bin:$PATH"
+export GOPATH="$HOME/.go"
+export PATH="/usr/local/go/bin:$PATH"
 export PATH="$PATH:./node_modules/.bin"
 export APIKEYFILE="$HOME/dev/august-runtime-creds/apicreds.json"
 

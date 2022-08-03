@@ -22,7 +22,6 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 call plug#end()
 
@@ -33,6 +32,9 @@ set hidden
 set noerrorbells
 set tabstop=1 softtabstop=1
 set shiftwidth=2
+filetype on
+filetype indent on
+filetype plugin on
 set expandtab
 set smartindent
 set nu
@@ -75,7 +77,7 @@ EOF
 augroup THE_ALEX
     autocmd!
     autocmd BufWritePre * :call TrimWhiteSpace()
-    autocmd FileChangedShell * bufdo e!
+    " autocmd FileChangedShell * bufdo e!
     autocmd VimEnter * lua open_telescope()
 augroup END
 
