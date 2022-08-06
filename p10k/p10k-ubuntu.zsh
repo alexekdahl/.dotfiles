@@ -42,6 +42,7 @@
     time                    # current time
     # =========================[ Line #2 ]=========================
     newline
+    disk_usage
     ram
     load
     temp                    # ip address and bandwidth usage for a specified network interface
