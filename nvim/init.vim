@@ -11,7 +11,7 @@ Plug 'gpanders/editorconfig.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'p00f/nvim-ts-rainbow'
-
+Plug 'f-person/git-blame.nvim'
 " lsp autocomplete
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -58,6 +58,19 @@ highlight Normal guibg=none
 let NERDTreeShowHidden= 1
 let g:NERDTreeChDirMode = 2
 
+lua << EOF
+vim.g.gitblame_display_virtual_text = 0 -- Disable virtual text
+vim.g.gitblame_message_template = '<author> • <date> • <sha>'
+local git_blame = require('gitblame')
+
+require('lualine').setup({
+    sections = {
+            lualine_c = {
+                { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available }
+            }
+    }
+})
+EOF
 fun! TrimWhiteSpace()
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e
@@ -77,7 +90,7 @@ EOF
 augroup THE_ALEX
     autocmd!
     autocmd BufWritePre * :call TrimWhiteSpace()
-    " autocmd FileChangedShell * bufdo e!
+    autocmd FileChangedShell * bufdo e!
     autocmd VimEnter * lua open_telescope()
 augroup END
 
@@ -101,3 +114,7 @@ nnoremap <leader>j <cmd>FloatermToggle<CR>
 nnoremap <leader>j <Esc><cmd>FloatermToggle<CR>
 tnoremap <leader>j <C-\><C-n><cmd>FloatermToggle<CR>
 tnoremap <Esc> <C-\><C-n>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>

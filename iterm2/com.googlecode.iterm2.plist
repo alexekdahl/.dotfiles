@@ -485,7 +485,7 @@
 			<key>Custom Command</key>
 			<string>No</string>
 			<key>Custom Directory</key>
-			<string>Advanced</string>
+			<string>No</string>
 			<key>Default Bookmark</key>
 			<string>No</string>
 			<key>Description</key>
@@ -838,7 +838,7 @@
 			<key>Send Code When Idle</key>
 			<false/>
 			<key>Shortcut</key>
-			<string>L</string>
+			<string></string>
 			<key>Show Status Bar</key>
 			<false/>
 			<key>Silence Bell</key>
@@ -1518,7 +1518,7 @@
 			<key>Custom Command</key>
 			<string>No</string>
 			<key>Custom Directory</key>
-			<string>Recycle</string>
+			<string>No</string>
 			<key>Custom Tab Title</key>
 			<string></string>
 			<key>Default Bookmark</key>

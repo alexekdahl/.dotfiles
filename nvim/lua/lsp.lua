@@ -11,6 +11,7 @@ local on_attach  = function(client, bufnr)
     vim.keymap.set("n","<leader>a", vim.lsp.buf.code_action, { buffer= 0})
     vim.keymap.set("n","<leader>d", "<cmd>Telescope diagnostics<cr>", { buffer= 0})
     vim.keymap.set("n", "<leader>f", vim.lsp.buf.formatting, { buffer = 0 })
+    vim.keymap.set("n", "<leader>de", vim.lsp.diagnostic.show_line_diagnostics, { buffer = 0 })
     vim.cmd[[
       augroup lsp_document_highlight
         autocmd! * <buffer>
@@ -57,6 +58,7 @@ lsp.tsserver.setup({
     vim.keymap.set("n","<leader>r", vim.lsp.buf.rename, { buffer= 0})
     vim.keymap.set("n","<leader>a", vim.lsp.buf.code_action, { buffer= 0})
     vim.keymap.set("n","<leader>d", "<cmd>Telescope diagnostics<cr>", { buffer= 0})
+    vim.keymap.set("n", "<leader>de", vim.lsp.diagnostic.show_line_diagnostics, { buffer = 0 })
     vim.cmd[[
       augroup lsp_document_highlight
         autocmd! * <buffer>
