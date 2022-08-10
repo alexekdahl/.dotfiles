@@ -51,6 +51,8 @@ set termguicolors
 set shortmess+=c
 set clipboard=unnamed
 set completeopt=menu,menuone,noselect
+set splitbelow
+set splitright
 syntax on
 colorscheme onedarkpro
 highlight Normal guibg=none

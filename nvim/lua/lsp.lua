@@ -53,6 +53,7 @@ lsp.tsserver.setup({
   on_attach = function(client, bufnr)
     client.resolved_capabilities.document_formatting = true
     vim.keymap.set("n","gd", vim.lsp.buf.definition, { buffer= 0})
+    vim.keymap.set("n","gD", "<cmd>vsp | lua vim.lsp.buf.definition()<CR>", { buffer= 0})
     vim.keymap.set("n","gt", vim.lsp.buf.type_definition, { buffer= 0})
     vim.keymap.set("n","K", vim.lsp.buf.hover, { buffer= 0})
     vim.keymap.set("n","<leader>r", vim.lsp.buf.rename, { buffer= 0})
