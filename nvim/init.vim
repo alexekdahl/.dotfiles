@@ -32,9 +32,6 @@ set hidden
 set noerrorbells
 set tabstop=1 softtabstop=1
 set shiftwidth=2
-filetype on
-filetype indent on
-filetype plugin on
 set expandtab
 set smartindent
 set nu
@@ -53,26 +50,31 @@ set clipboard=unnamed
 set completeopt=menu,menuone,noselect
 set splitbelow
 set splitright
+set cursorline
+set signcolumn=number
+filetype on
+filetype indent on
+filetype plugin on
 syntax on
-colorscheme onedarkpro
-highlight Normal guibg=none
 
 let NERDTreeShowHidden= 1
 let g:NERDTreeChDirMode = 2
+let g:gitblame_date_format = '%r'
 
 lua << EOF
 vim.g.gitblame_display_virtual_text = 0 -- Disable virtual text
 vim.g.gitblame_message_template = '<author> • <date> • <sha>'
 local git_blame = require('gitblame')
 
-require('lualine').setup({
+require('lualine').setup{
     sections = {
             lualine_c = {
                 { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available }
             }
     }
-})
+}
 EOF
+
 fun! TrimWhiteSpace()
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e
@@ -94,13 +96,15 @@ augroup THE_ALEX
     autocmd BufWritePre * :call TrimWhiteSpace()
     autocmd FileChangedShell * bufdo e!
     autocmd VimEnter * lua open_telescope()
+    autocmd InsertEnter * set nocursorline
+    autocmd InsertLeave * set cursorline
 augroup END
 
-lua require('lualine').setup { options = { theme = 'onedark'} }
 lua require('Comment').setup()
 lua require('complete')
 lua require('treesitter')
 lua require('lsp')
+lua require('onedark')
 
 " keybindings
 let mapleader = " "
@@ -116,6 +120,7 @@ nnoremap <leader>j <cmd>FloatermToggle<CR>
 nnoremap <leader>j <Esc><cmd>FloatermToggle<CR>
 tnoremap <leader>j <C-\><C-n><cmd>FloatermToggle<CR>
 tnoremap <Esc> <C-\><C-n>
+
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
