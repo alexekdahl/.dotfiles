@@ -7,7 +7,7 @@
 	<key>AlternateMouseScroll</key>
 	<true/>
 	<key>Default Bookmark Guid</key>
-	<string>97F0F9E0-5913-4DFF-8E3A-689D56D0AB7F</string>
+	<string>6AD86B52-539D-43E7-99AB-7C3723B4CCEC</string>
 	<key>DimBackgroundWindows</key>
 	<true/>
 	<key>DimInactiveSplitPanes</key>
@@ -1172,7 +1172,7 @@
 			<key>Title Components</key>
 			<integer>259</integer>
 			<key>Transparency</key>
-			<real>0.0</real>
+			<real>0.33485704787234044</real>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
