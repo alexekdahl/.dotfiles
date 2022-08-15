@@ -20,8 +20,6 @@
 	<true/>
 	<key>EnableDivisionView</key>
 	<false/>
-	<key>EnterCopyModeAutomatically</key>
-	<false/>
 	<key>GlobalKeyMap</key>
 	<dict>
 		<key>0x19-0x60000</key>
@@ -415,13 +413,13 @@
 				<real>0.87843137979507446</real>
 			</dict>
 			<key>Blend</key>
-			<real>0.2428965692934783</real>
+			<real>0.050000000000000003</real>
 			<key>Blinking Cursor</key>
 			<false/>
 			<key>Blur</key>
 			<true/>
 			<key>Blur Radius</key>
-			<real>13.591788563829788</real>
+			<real>0.10000000000000001</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -543,6 +541,8 @@
 			<false/>
 			<key>Idle Code</key>
 			<integer>0</integer>
+			<key>Initial Use Transparency</key>
+			<true/>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -1174,7 +1174,7 @@
 			<key>Title Components</key>
 			<integer>259</integer>
 			<key>Transparency</key>
-			<real>0.33485704787234044</real>
+			<real>0.041843417553191493</real>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
@@ -1452,9 +1452,9 @@
 			<key>Blinking Cursor</key>
 			<false/>
 			<key>Blur</key>
-			<true/>
+			<false/>
 			<key>Blur Radius</key>
-			<real>0.10000000000000001</real>
+			<real>5.6108793218085102</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -1579,7 +1579,7 @@
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Use Transparency</key>
-			<false/>
+			<true/>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -2266,7 +2266,7 @@
 			<key>Title Components</key>
 			<integer>259</integer>
 			<key>Transparency</key>
-			<real>0.0</real>
+			<real>0.0079271941489361727</real>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
@@ -2358,8 +2358,6 @@
 	<integer>10</integer>
 	<key>TerminalVMargin</key>
 	<integer>5</integer>
-	<key>TripleClickSelectsFullWrappedLines</key>
-	<false/>
 	<key>UIElementRequiresHotkeys</key>
 	<true/>
 	<key>UseBorder</key>
