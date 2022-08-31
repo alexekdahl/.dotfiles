@@ -1545,7 +1545,7 @@
       local fnm_current=$(fnm current)
       p10k segment -b 'magenta' -f 'black' -i 'NODE_ICON' -r -t "$fnm_current"
       local npm_current=$(npm -v)
-      p10k segment -b 'magenta' -f 'black' -i 'PACKAGE_ICON' -r -t "$npm_current"
+      p10k segment -b 'magenta' -f 'black' -i 'TOOLBOX_ICON' -r -t "$npm_current"
     fi
   }
 

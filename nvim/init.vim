@@ -120,7 +120,7 @@ nnoremap <leader>j <cmd>FloatermToggle<CR>
 nnoremap <leader>j <Esc><cmd>FloatermToggle<CR>
 tnoremap <leader>j <C-\><C-n><cmd>FloatermToggle<CR>
 tnoremap <Esc> <C-\><C-n>
-
+" move between splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
