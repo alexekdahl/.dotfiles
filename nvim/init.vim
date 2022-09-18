@@ -68,8 +68,16 @@ local git_blame = require('gitblame')
 
 require('lualine').setup{
     sections = {
+      lualine_a = {{
+              'filename',
+              file_status = true,
+              path = 1
+              }},
             lualine_c = {
-                { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available }
+                {
+                    git_blame.get_current_blame_text,
+                    cond = git_blame.is_blame_text_available
+                }
             }
     }
 }
