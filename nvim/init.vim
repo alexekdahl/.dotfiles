@@ -12,6 +12,7 @@ Plug 'numToStr/Comment.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'p00f/nvim-ts-rainbow'
 Plug 'f-person/git-blame.nvim'
+Plug 'ruanyl/vim-gh-line'
 " lsp autocomplete
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -40,7 +41,7 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set incsearch
-set scrolloff=8
+set scrolloff=16
 set isfname+=@-@
 set cmdheight=1
 set updatetime=50
@@ -56,10 +57,10 @@ filetype on
 filetype indent on
 filetype plugin on
 syntax on
-
 let NERDTreeShowHidden= 1
 let g:NERDTreeChDirMode = 2
 let g:gitblame_date_format = '%r'
+let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
 
 lua << EOF
 vim.g.gitblame_display_virtual_text = 0 -- Disable virtual text
@@ -116,6 +117,13 @@ lua require('onedark')
 
 " keybindings
 let mapleader = " "
+
+" 'quote' a word
+nnoremap qw :silent! normal mpea'<Esc>bi'<Esc>`pl
+" remove quotes from a word
+nnoremap wq :silent! normal mpeld bhd `ph<CR>
+
+nnoremap <leader>o o<Esc>
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').grep_string({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }, search = vim.fn.input("Grep For > ")})<CR>
 nnoremap <leader>p <cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
 nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references({ on_complete = { function() vim.cmd"stopinsert" end }, })<CR>
