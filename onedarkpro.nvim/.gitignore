@@ -1,0 +1,5 @@
+/examples
+*.code-workspace
+/.luarc.json
+plenary.nvim
+minimal.lua
