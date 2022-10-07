@@ -62,27 +62,6 @@ let g:NERDTreeChDirMode = 2
 let g:gitblame_date_format = '%r'
 let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
 
-lua << EOF
-vim.g.gitblame_display_virtual_text = 0 -- Disable virtual text
-vim.g.gitblame_message_template = '<author> • <date> • <sha>'
-local git_blame = require('gitblame')
-
-require('lualine').setup{
-    sections = {
-      lualine_a = {{
-              'filename',
-              file_status = true,
-              path = 1
-              }},
-            lualine_c = {
-                {
-                    git_blame.get_current_blame_text,
-                    cond = git_blame.is_blame_text_available
-                }
-            }
-    }
-}
-EOF
 
 fun! TrimWhiteSpace()
     let l:save = winsaveview()
@@ -112,8 +91,9 @@ augroup END
 lua require('Comment').setup()
 lua require('complete')
 lua require('treesitter')
-lua require('lsp')
 lua require('onedark')
+lua require('lsp')
+lua require('statusline')
 
 " keybindings
 let mapleader = " "

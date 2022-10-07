@@ -26,6 +26,7 @@ export ZSH_THEME="robbyrussell"
 
 export NVM_DIR="$HOME/.nvm"
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/Users/alex/Downloads/nvim-macos/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 export BUN_INSTALL="/Users/alex/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
@@ -33,7 +34,7 @@ export PATH="$HOME/.go/bin:$PATH"
 export GOPATH="$HOME/.go"
 export PATH="/usr/local/go/bin:$PATH"
 export PATH="$PATH:./node_modules/.bin"
-export APIKEYFILE="$HOME/dev/august-runtime-creds/apicreds.json"
+export APIKEYFILE="$HOME/dev/yale/august-runtime-creds/apicreds.json"
 
 # Plugins
 plugins=(zsh-autosuggestions zsh-syntax-highlighting)
