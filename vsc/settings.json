@@ -93,5 +93,6 @@
   "eslint.lintTask.enable": true,
   "eslint.format.enable": true,
   "editor.cursorSurroundingLines": 8,
-  "oneDarkPro.markdownStyle": false
+  "oneDarkPro.markdownStyle": false,
+  "window.zoomLevel": -1
 }

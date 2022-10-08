@@ -2365,7 +2365,7 @@
 	<key>TerminalMargin</key>
 	<integer>10</integer>
 	<key>TerminalVMargin</key>
-	<integer>5</integer>
+	<integer>4</integer>
 	<key>UIElementRequiresHotkeys</key>
 	<true/>
 	<key>UseBorder</key>

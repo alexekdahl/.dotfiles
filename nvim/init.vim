@@ -69,21 +69,10 @@ fun! TrimWhiteSpace()
     call winrestview(l:save)
 endfun
 
-lua << EOF
-_G.open_telescope = function()
-    local first_arg = vim.v.argv[2]
-    if first_arg and vim.fn.isdirectory(first_arg) == 1 then
-        vim.g.loaded_netrw = true
-        require("telescope.builtin").find_files({ on_complete = { function() vim.cmd"stopinsert" end }, find_command = {'rg', '--files', '--hidden', '-g', '!.git', '!node_modules' }, search_dirs = {first_arg}})
-   end
-end
-EOF
-
 augroup THE_ALEX
     autocmd!
     autocmd BufWritePre * :call TrimWhiteSpace()
     autocmd FileChangedShell * bufdo e!
-    autocmd VimEnter * lua open_telescope()
     autocmd InsertEnter * set nocursorline
     autocmd InsertLeave * set cursorline
 augroup END
@@ -110,7 +99,7 @@ nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references({ on_co
 " toggle neerdtree
 nnoremap <leader>e <cmd>NERDTreeToggle<CR>
 " save all
-nnoremap <leader>s <cmd>wa<CR>
+nnoremap <leader>s <cmd>w<CR>
 " FloatermToggle
 nnoremap <leader>j <cmd>FloatermToggle<CR>
 nnoremap <leader>j <Esc><cmd>FloatermToggle<CR>
