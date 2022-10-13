@@ -62,7 +62,6 @@ let g:NERDTreeChDirMode = 2
 let g:gitblame_date_format = '%r'
 let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
 
-
 fun! TrimWhiteSpace()
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e
