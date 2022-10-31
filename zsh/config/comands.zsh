@@ -21,8 +21,9 @@ function ff() {
 
 # Interactive git diff
 function gdiff {
+  local file
   preview="git diff $@ --color=always -- {-1}"
-  git diff $@ --name-only | fzf -m --ansi --preview $preview --bind ctrl-j:preview-page-up,ctrl-l:preview-page-down
+  file=$(git diff $@ --name-only | fzf -m --ansi --preview $preview --bind ctrl-j:preview-page-up,ctrl-l:preview-page-down) && vim $(echo "$file")
 }
 
 # Interactive git add
@@ -122,6 +123,7 @@ function nps() {
 
 function goodmorning () {
   today &&
+  simp &&
   colima start &&
   dstart;
 }
