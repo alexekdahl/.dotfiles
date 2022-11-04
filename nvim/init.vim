@@ -98,7 +98,7 @@ nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references({ on_co
 " toggle neerdtree
 nnoremap <leader>e <cmd>NERDTreeToggle<CR>
 " save all
-nnoremap <leader>s <cmd>w<CR>
+nnoremap <leader>s <cmd>wa!<CR>
 " FloatermToggle
 nnoremap <leader>j <cmd>FloatermToggle<CR>
 nnoremap <leader>j <Esc><cmd>FloatermToggle<CR>

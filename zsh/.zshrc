@@ -38,7 +38,6 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 
 # Source
 
-[ -s "/Users/alex/.bun/_bun" ] && source "/Users/alex/.bun/_bun"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source $ZSH/oh-my-zsh.sh
@@ -52,4 +51,3 @@ unset conf
 
 nvm_autouse &>/dev/null
 chpwd_functions=(${chpwd_functions[@]} "nvm_autouse")
-
