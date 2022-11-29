@@ -4,16 +4,18 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'olimorris/onedarkpro.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'neovim/nvim-lspconfig'
 Plug 'preservim/nerdtree'
 Plug 'voldikss/vim-floaterm'
-Plug 'gpanders/editorconfig.nvim'
 Plug 'numToStr/Comment.nvim'
+
 Plug 'windwp/nvim-autopairs'
 Plug 'p00f/nvim-ts-rainbow'
 Plug 'f-person/git-blame.nvim'
+
 Plug 'ruanyl/vim-gh-line'
+
 " lsp autocomplete
+Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-path'
@@ -41,7 +43,7 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set incsearch
-set scrolloff=16
+set scrolloff=18
 set isfname+=@-@
 set cmdheight=1
 set updatetime=50
@@ -68,8 +70,18 @@ fun! TrimWhiteSpace()
     call winrestview(l:save)
 endfun
 
+" fun! replaceQuotes()
+"     let search = vim.fn.input("replace > ")
+"     let hmm = split(search)
+"     let cmd =
+"     call :s/\'\(.*\)\'/\"\1\"
+"
+"
+" endfun
+
 augroup THE_ALEX
     autocmd!
+    :autocmd FileType qf nmap <buffer> <cr> <cr>:cclose<cr>
     autocmd BufWritePre * :call TrimWhiteSpace()
     autocmd FileChangedShell * bufdo e!
     autocmd InsertEnter * set nocursorline
@@ -90,9 +102,9 @@ let mapleader = " "
 nnoremap qw :silent! normal mpea'<Esc>bi'<Esc>`pl
 " remove quotes from a word
 nnoremap wq :silent! normal mpeld bhd `ph<CR>
-
+nnoremap <leader>l y<esc>oconsole.log(<c-r>");<esc>
 nnoremap <leader>o o<Esc>
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').grep_string({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }, search = vim.fn.input("Grep For > ")})<CR>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').grep_string({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }, search = vim.fn.input("Search for > ")})<CR>
 nnoremap <leader>p <cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
 nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references({ on_complete = { function() vim.cmd"stopinsert" end }, })<CR>
 " toggle neerdtree

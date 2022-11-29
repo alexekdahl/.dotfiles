@@ -1,6 +1,15 @@
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lsp = require('lspconfig')
 local util = require "lspconfig/util"
+local function on_list(options)
+  local items = options.items
+  if #items > 1 then
+    items = filter(items, filterReactDTS)
+  end
+
+  vim.fn.setqflist({}, ' ', { title = options.title, items = items, context = options.context })
+  vim.api.nvim_command('cfirst')
+end
 
 local on_attach = function(client, bufnr)
     client.server_capabilities.document_formatting = true
@@ -12,6 +21,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n","K", vim.lsp.buf.hover, bufopts)
     vim.keymap.set("n","<leader>r", vim.lsp.buf.rename, bufopts)
     vim.keymap.set("n","<leader>a", vim.lsp.buf.code_action, bufopts)
+    -- vim.keymap.set("n","<leader>cll y", "<esc>oconsole.log(<c-r>");<esc>", bufopts)
     vim.keymap.set("n","<leader>d", "<cmd>Telescope diagnostics<cr>", bufopts)
     -- vim.keymap.set("n", "<leader>de", vim.lsp.diagnostic.show_line_diagnostics, bufopts)
     vim.cmd[[
@@ -23,7 +33,6 @@ local on_attach = function(client, bufnr)
       augroup END
     ]]
   end
-
 lsp.gopls.setup({
   capabilities = capabilities,
   cmd = { 'gopls', 'serve' },
@@ -43,7 +52,7 @@ lsp.gopls.setup({
     -- client.server_capabilities.document_formatting = true
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
-    vim.keymap.set("n","gd", vim.lsp.buf.definition, bufopts)
+    vim.keymap.set("n","gd", vim.lsp.buf.definition{on_list=on_list}, bufopts)
     vim.keymap.set("n","gD", "<cmd>vsp | lua vim.lsp.buf.definition()<CR>", bufopts)
     vim.keymap.set("n","gt", vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set("n","K", vim.lsp.buf.hover, bufopts)

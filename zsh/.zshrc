@@ -24,7 +24,6 @@ export NODE_ENV=local
 # Theme
 export ZSH_THEME="robbyrussell"
 
-export NVM_DIR="$HOME/.nvm"
 export PATH="/opt/homebrew/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$HOME/.go/bin:$PATH"
