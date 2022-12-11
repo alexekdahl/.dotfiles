@@ -81,7 +81,7 @@ endfun
 
 augroup THE_ALEX
     autocmd!
-    :autocmd FileType qf nmap <buffer> <cr> <cr>:cclose<cr>
+    autocmd FileType qf nmap <buffer> <cr> <cr>:cclose<cr>
     autocmd BufWritePre * :call TrimWhiteSpace()
     autocmd FileChangedShell * bufdo e!
     autocmd InsertEnter * set nocursorline
@@ -102,8 +102,14 @@ let mapleader = " "
 nnoremap qw :silent! normal mpea'<Esc>bi'<Esc>`pl
 " remove quotes from a word
 nnoremap wq :silent! normal mpeld bhd `ph<CR>
-nnoremap <leader>l y<esc>oconsole.log(<c-r>");<esc>
+" js log
+nnoremap <leader>l y<esc>oconsole.log('\x1b[33m <c-r>" ->', <c-r>", '\x1b[0m');<esc>
+
+vnoremap <C-p> "_dP
+nnoremap <leader>y yiw<esc>
+nnoremap <leader>v viw
 nnoremap <leader>o o<Esc>
+
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').grep_string({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }, search = vim.fn.input("Search for > ")})<CR>
 nnoremap <leader>p <cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
 nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references({ on_complete = { function() vim.cmd"stopinsert" end }, })<CR>
