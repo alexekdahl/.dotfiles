@@ -70,15 +70,6 @@ fun! TrimWhiteSpace()
     call winrestview(l:save)
 endfun
 
-" fun! replaceQuotes()
-"     let search = vim.fn.input("replace > ")
-"     let hmm = split(search)
-"     let cmd =
-"     call :s/\'\(.*\)\'/\"\1\"
-"
-"
-" endfun
-
 augroup THE_ALEX
     autocmd!
     autocmd FileType qf nmap <buffer> <cr> <cr>:cclose<cr>
@@ -104,7 +95,7 @@ nnoremap qw :silent! normal mpea'<Esc>bi'<Esc>`pl
 nnoremap wq :silent! normal mpeld bhd `ph<CR>
 " js log
 nnoremap <leader>l y<esc>oconsole.log('\x1b[33m <c-r>" ->', <c-r>", '\x1b[0m');<esc>
-
+" paste without replaceing buffer
 vnoremap <C-p> "_dP
 nnoremap <leader>y yiw<esc>
 nnoremap <leader>v viw
