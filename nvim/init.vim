@@ -94,7 +94,7 @@ nnoremap qw :silent! normal mpea'<Esc>bi'<Esc>`pl
 " remove quotes from a word
 nnoremap wq :silent! normal mpeld bhd `ph<CR>
 " js log
-nnoremap <leader>l y<esc>oconsole.log('\x1b[33m <c-r>" ->', <c-r>", '\x1b[0m');<esc>
+" nnoremap <leader>l y<esc>oconsole.log('\x1b[33m <c-r>" ->', <c-r>", '\x1b[0m');<esc>
 " paste without replaceing buffer
 vnoremap <C-p> "_dP
 nnoremap <leader>y yiw<esc>
