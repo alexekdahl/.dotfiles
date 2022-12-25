@@ -1,6 +1,8 @@
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lsp = require('lspconfig')
+local configs = require 'lspconfig/configs'
 local util = require "lspconfig/util"
+
 
 lsp.gopls.setup({
   capabilities = capabilities,
@@ -41,6 +43,15 @@ lsp.gopls.setup({
 ,
 })
 
+lsp.golangci_lint_ls.setup {
+  cmd = { "golangci-lint-langserver" },
+  filetypes = {'go','gomod'},
+  init_options = {
+    command = { "golangci-lint", "run", "--enable-all", "--disable", "lll", "--disable", "goerr113", "--out-format", "json", "--issues-exit-code=1" }
+  },
+  root_dir = util.root_pattern('go.mod', '.golangci.yaml', '.git', 'go.work')
+}
+
 local function on_list(options)
   local items = options.items
   if #items > 1 then
@@ -78,4 +89,5 @@ lsp.tsserver.setup({
   capabilities = capabilites,
   on_attach = on_attach,
 })
+
 

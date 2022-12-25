@@ -55,10 +55,12 @@ set splitbelow
 set splitright
 set cursorline
 set signcolumn=number
+
 filetype on
 filetype indent on
 filetype plugin on
 syntax on
+
 let NERDTreeShowHidden= 1
 let g:NERDTreeChDirMode = 2
 let g:gitblame_date_format = '%r'
