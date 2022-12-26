@@ -30,6 +30,7 @@ export PATH="$HOME/.go/bin:$PATH"
 export GOPATH="$HOME/.go"
 # export PATH="/usr/local/go/bin:$PATH"
 export PATH="$PATH:./node_modules/.bin"
+export PATH="$PATH:$(go env GOPATH)/bin"
 export APIKEYFILE="$HOME/dev/yale/august-runtime-creds/apicreds.json"
 
 # Plugins
