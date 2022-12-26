@@ -47,7 +47,7 @@ lsp.golangci_lint_ls.setup {
   cmd = { "golangci-lint-langserver" },
   filetypes = {'go','gomod'},
   init_options = {
-    command = { "golangci-lint", "run", "--enable-all", "--disable", "lll", "--disable", "goerr113", "--out-format", "json", "--issues-exit-code=1" }
+    command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" }
   },
   root_dir = util.root_pattern('go.mod', '.golangci.yaml', '.git', 'go.work')
 }
