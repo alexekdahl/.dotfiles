@@ -1,6 +1,6 @@
 [user]
 	name = Alex
-	email = alexanderekdahl@me.com
+	email = 77007088+AlexEkdahl@users.noreply.github.com
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
