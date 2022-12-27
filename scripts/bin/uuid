@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+const uuid = process.argv[2];
+const transformed = uuid.toUpperCase().replace(/-/g, '').trim();
+
+console.log(transformed);
