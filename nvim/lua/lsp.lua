@@ -80,7 +80,7 @@ local on_attach = function(client, bufnr)
         autocmd! * <buffer>
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        autocmd BufWritePre *.js,ts lua vim.lsp.buf.formatting_seq_sync()
+        autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
       augroup END
     ]]
   end
