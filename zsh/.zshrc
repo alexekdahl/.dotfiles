@@ -49,6 +49,7 @@ for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
   source "${conf}"
 done
 unset conf
+hash -d repo=/Users/alex/dev/yale/repo
 
 nvm_autouse &>/dev/null
 chpwd_functions=(${chpwd_functions[@]} "nvm_autouse")

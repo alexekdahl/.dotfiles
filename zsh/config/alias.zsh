@@ -43,9 +43,9 @@ alias remotebranch="git for-each-ref --format='%(color:cyan)%(authordate:format:
 
 # -Misc-
 alias brewski="brew doctor && brew update && brew upgrade && brew cleanup"
-alias today='icalBuddy -f -sd -iep datetime,title  eventsToday'
-alias week='icalBuddy -f -sd -iep datetime,title  eventsToday+7'
-alias tomorrow='icalBuddy -f -sd -iep datetime,title eventsToday+1'
+alias today='icalBuddy -f -sd -iep datetime,title -df %A  eventsToday'
+alias week='icalBuddy -f -sd -iep datetime,title -df %A eventsToday+7'
+alias tomorrow='icalBuddy -f -sd -iep datetime,title -df %A eventsToday+1'
 alias editzsh='nvim ~/.dotfiles/zsh/'
 alias editvim='nvim ~/.dotfiles/nvim/'
 alias reload='source ~/.zshrc'
