@@ -30,7 +30,7 @@ lsp.gopls.setup({
     vim.keymap.set("n","<leader>r", vim.lsp.buf.rename, bufopts)
     vim.keymap.set("n","<leader>a", vim.lsp.buf.code_action, bufopts)
     vim.keymap.set("n","<leader>d", "<cmd>Telescope diagnostics<cr>", bufopts)
-    vim.keymap.set("n","<leader>l", "y<esc>ofmt.Println(<c-r>\")<esc>", bufopts)
+    vim.keymap.set("n","<leader>l", "y<esc>ofmt.Println(\"<c-r>\"\", <c-r>\")<esc>", bufopts)
     vim.cmd[[
       augroup lsp_document_highlight
         autocmd! * <buffer>
