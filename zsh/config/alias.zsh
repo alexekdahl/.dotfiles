@@ -54,6 +54,7 @@ alias c='clear'
 alias busy="cat /dev/urandom | hexdump -C | grep 'ca fe'"
 alias scs='open ~/Pictures/screenshots'
 alias pipe="grep --line-buffered -E 'info' | sed 's/^[^{]*//g'| jq ."
+alias topcmd='history | awk '\''{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}'\'' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n10'
 
 # -Network-
 alias mip='ipconfig getifaddr en0'
