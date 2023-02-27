@@ -34,6 +34,8 @@ alias gamend='git commit --amend --no-edit'
 alias gamendm='git commit --amend -m'
 alias gcm='git commit -m'
 alias gwip='git add . && git commit -m "wip"'
+alias gstash='git stash save --include-untracked'
+
 # fzf
 alias gcob='git branch | cut -c 3- | fzf --print0 -1 --border=rounded --height 10% | xargs git checkout'
 alias gdb='git branch | cut -c 3- | fzf --print0 -m -1 --border=rounded --height 10% | xargs  -0 -t -o git branch -D'
