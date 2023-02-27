@@ -52,5 +52,7 @@ for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
 done
 unset conf
 
+eval "$(fnm env)"
+
 nvm_autouse &>/dev/null
 chpwd_functions=(${chpwd_functions[@]} "nvm_autouse")

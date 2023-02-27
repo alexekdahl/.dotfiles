@@ -21,9 +21,10 @@ function ff() {
 
 # Interactive git diff
 function gdiff {
-  local file
+  local preview
   preview="git diff $@ --color=always -- {-1}"
-  file=$(git diff $@ --name-only | fzf -m --ansi --preview $preview --bind ctrl-j:preview-page-up,ctrl-l:preview-page-down) && vim $(echo "$file")
+  local file
+  file=$(git ls-files --others --exclude-standard --modified --full-name | fzf -m --ansi --preview $preview --bind ctrl-j:preview-page-up,ctrl-l:preview-page-down) && vim $(echo "$file")
 }
 
 # Interactive git add
@@ -119,6 +120,15 @@ function fkill() {
 function nps() {
   local script
   script=$(cat package.json | jq -r '.scripts | keys[] ' | sort | fzf --print0 -m -1 --border=rounded --height 10%) && npm run $(echo "$script")
+}
+
+function test() {
+  if [[  "$1"  ]]; then
+    ./scripts/test.sh -t $1 2>&1 >/dev/null | grep -viE 'faker|Depre|invalid access token'
+    return
+  fi
+  ./scripts/test.sh  2>&1 >/dev/null | grep -vi 'faker'
+  return
 }
 
 function goodmorning () {
