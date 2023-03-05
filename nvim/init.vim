@@ -89,6 +89,7 @@ lua require('treesitter')
 lua require('onedark')
 lua require('lsp')
 lua require('statusline')
+lua require('spellbee')
 
 " keybindings
 let mapleader = " "
