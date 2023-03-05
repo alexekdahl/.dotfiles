@@ -68,16 +68,6 @@ function grename() {
 
 # -Docker-
 
-# start containers for phoenix
-function dstart(){
-	docker run --name some-mongo -p 27017:27017 --rm -d mongo:4.0.26&&
-	docker run --name some-redis -p 6379:6379 --rm -d redis:6.2.5&&
-	docker run --name some-rabbit -p 5672:5672 --rm -d rabbitmq:3.6-management-alpine&&
-	docker run --name august-aws-dynamodb-local -p 8000:8000 --rm -d amazon/dynamodb-local&&
- docker run --name local-vault -p 8200:8200 -v $APIKEYFILE:/creds/apicreds.json --rm -d public.ecr.aws/g6h0p8d4/vault-local:latest-stable&&
-	docker ps --format ‘{{.Names}}’;
-}
-
 # Select a running docker container to stop
 function ds() {
   local cid

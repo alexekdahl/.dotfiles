@@ -19,7 +19,6 @@ export DISABLE_LS_COLORS="true"
 export COMPLETION_WAITING_DOTS="true"
 export HOMEBREW_NO_ANALYTICS=1
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob=!.git --glob=!node_modules"
-export NODE_ENV=local
 
 # Theme
 export ZSH_THEME="robbyrussell"
@@ -28,13 +27,8 @@ export PATH="/opt/homebrew/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$HOME/.go/bin:$PATH"
 export GOPATH="$HOME/.go"
-# export PATH="/usr/local/go/bin:$PATH"
-export PATH="$PATH:./node_modules/.bin"
 export PATH="$PATH:$(go env GOPATH)/bin"
-export PATH="$HOME/.dotfiles/scripts/bin:$PATH"
-export APIKEYFILE="$HOME/dev/yale/august-runtime-creds/apicreds.json"
 
-hash -d repo=/Users/alex/dev/yale/repo
 
 # Plugins
 plugins=(zsh-autosuggestions zsh-syntax-highlighting)
@@ -45,7 +39,9 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
-[ -f $HOME/.secrets/secrets/keys.zsh ] && source $HOME/.secrets/secrets/keys.zsh
+
+[ -f $HOME/.secrets/secrets/private.zsh ] && source $HOME/.secrets/secrets/private.zsh
+[ -f $HOME/.secrets/secrets/work.zsh ] && source $HOME/.secrets/secrets/work.zsh
 
 # Load seperated config files
 for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
