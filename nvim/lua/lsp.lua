@@ -73,7 +73,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n","<leader>r", vim.lsp.buf.rename, bufopts)
     vim.keymap.set("n","<leader>a", vim.lsp.buf.code_action, bufopts)
     vim.keymap.set("n","<leader>d", "<cmd>Telescope diagnostics<cr>", bufopts)
-    vim.keymap.set("n","<leader>l", "y<esc>oconsole.log('<c-r>\" ->', <c-r>\");<esc>", bufopts)
+    vim.keymap.set("n","<leader>l", "y<esc>oconsole.log('\\x1b[33m<c-r>\" ->', <c-r>\", '\\x1b[0m');<esc>", bufopts)
     -- vim.keymap.set("n", "<leader>de", vim.lsp.diagnostic.show_line_diagnostics, bufopts)
     vim.cmd[[
       augroup lsp_document_highlight
