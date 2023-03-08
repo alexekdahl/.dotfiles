@@ -25,15 +25,11 @@ alias v.="vim ."
 alias gco='git checkout'
 alias gst='git status -s -b'
 alias gstime='git status -s | while read mode file; do echo $mode $(stat -f "%Sm" $file) $file; done|sort'
-alias ggp='git push origin $(current_branch)'
+# alias ggp='git push origin $(current_branch)'
 alias ggl='git pull origin $(current_branch)'
 alias gsl="git stash list --pretty=format:'%Cblue%gd%Cred: %C(yellow)%s"
 alias greset='git reset --hard HEAD'
 alias uncommit='git reset --soft HEAD~'
-alias gamend='git commit --amend --no-edit'
-alias gamendm='git commit --amend -m'
-alias gcm='git commit -m'
-alias gwip='git add . && git commit -m "wip"'
 alias gstash='git stash save --include-untracked'
 
 # fzf

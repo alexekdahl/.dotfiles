@@ -46,11 +46,62 @@ function glog {
 FZF-EOF"
 }
 
+
 # grab current branch head
 function current_branch() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo ${ref#refs/heads/}
 }
+
+function check_protected_branch() {
+  local protected_branch_regex='^(master|main)$'
+  local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+
+  if [[ $branch =~ $protected_branch_regex ]]; then
+    echo -ne "\033[1;33mYou're about to push to a protected branch ($branch), is that what you intended? [y|n]: \033[0m"
+    read input
+
+    if [[ $input =~ ^[Yy]$ ]]; then
+      return 0 # protected branch
+    else
+      return 1 # not protected branch
+    fi
+  fi
+
+  return 1 # not protected branch
+}
+
+function ggp() {
+  if check_protected_branch; then
+    git push origin $(current_branch)
+  else
+    echo "Push canceled."
+  fi
+}
+
+function gamend() {
+  if check_protected_branch; then
+    git commit --amend --no-edit
+  else
+    echo "Commit canceled."
+  fi
+}
+
+function gamendm() {
+  if check_protected_branch; then
+    git commit --amend -m $1
+  else
+    echo "Commit canceled."
+  fi
+}
+
+function gcm() {
+  if check_protected_branch; then
+    git commit -m $1
+  else
+    echo "Commit canceled."
+  fi
+}
+
 
 function grename() {
   if [[ -z "$1" || -z "$2" ]]; then
