@@ -67,12 +67,12 @@ function check_protected_branch() {
     fi
   fi
 
-  return 1 # not protected branch
+  return 0 # not protected branch
 }
 
 function ggp() {
   if check_protected_branch; then
-    git push origin $(current_branch)
+    git push origin $(current_branch) $1
   else
     echo "Push canceled."
   fi
