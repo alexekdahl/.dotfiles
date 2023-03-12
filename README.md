@@ -7,26 +7,25 @@ This repository contains my personal dotfiles for setting up a new development e
 To install these dotfiles on a new machine, follow these steps:
 
 1. Install [Homebrew](https://brew.sh/) if you haven't already:
-
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 ```
 2. Install [Oh My Zsh](https://ohmyz.sh/) framework:
-
 ```bash
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 ```
-
 3. Install the dependencies listed in the `Brewfile`:
-
 ```bash
 brew bundle
 ```
-
-4. Create symbolic links for each file that you want to include in your dotfiles repository.
-
+4. Install [vim-plug](https://github.com/junegunn/vim-plug)
+```bash
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+```
+5. Create symbolic links for each file that you want to include in your dotfiles repository.
 ```bash
 ln -s ~/.dotfiles/yabai/yabairc ~/.config/yabai/yabairc
 ln -s ~/.dotfiles/skhd/skhdrc ~/.config/skhd/skhdrc
@@ -43,12 +42,15 @@ Or run the script [symlinks.sh](https://github.com/AlexEkdahl/.dotfiles/blob/mai
 
 ### Iterm
 
+0. Unzip the fonts in `/fonts` and install.
+
 1. Open iTerm2.
 2. Go to "iTerm2" in the menu bar > "Preferences".
 3. Click on the "General" tab.
 4. Check the box that says "Load preferences from a custom folder or URL".
 5. Click on the "Browse" button and navigate to the `iterm2` folder in this dotfiles repository.
 7. Close and reopen iTerm2 to apply the new settings.
+
 
 ## Features
 
