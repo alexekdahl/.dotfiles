@@ -36,6 +36,11 @@ ln -s ~/.dotfiles/nvim/lua ~/.config/nvim/lua
 ln -s ~/.dotfiles/nvim/init.vim ~/.config/nvim/init.vim
 ```
 
+Or run the script [symlinks.sh](https://github.com/AlexEkdahl/.dotfiles/blob/main/scripts/symlinks.sh)
+```bash
+./scripts/symlinks.sh
+```
+
 ### Iterm
 
 1. Open iTerm2.
