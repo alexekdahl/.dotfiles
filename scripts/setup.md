@@ -1,4 +1,4 @@
-### Change username
+## Change username
 1. Create a TEMP user.
 2. Add TEMP user to sudo group
 3. Use TEMP user to change first user (we will called first user ADMIN in this example) login name
@@ -26,7 +26,7 @@ sudo -s
 deluser temp
 ```
 -------------------------------------------------------------------------------------------------------------------
-### Free up port 53, used by systemd-resolved
+## Free up port 53, used by systemd-resolved
 
 ```
 sudo vim /etc/systemd/resolved.conf
@@ -55,7 +55,7 @@ sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
 # Reboot
 
-### Hostsfiles
+## Hostsfiles
 
 ```
 /etc/hosts
