@@ -23,16 +23,11 @@ alias v.="vim ."
 
 # -Git-
 alias gco='git checkout'
-alias gst='git status -s -b'
-alias gstime='git status -s | while read mode file; do echo $mode $(stat -f "%Sm" $file) $file; done|sort'
-# alias ggp='git push origin $(current_branch)'
 alias ggl='git pull origin $(current_branch)'
 alias gsl="git stash list --pretty=format:'%Cblue%gd%Cred: %C(yellow)%s"
 alias greset='git reset --hard HEAD'
 alias uncommit='git reset --soft HEAD~'
 alias gstash='git stash save --include-untracked'
-
-# fzf
 alias gcob='git branch | cut -c 3- | fzf --print0 -1 --border=rounded --height 10% | xargs git checkout'
 alias gdb='git branch | cut -c 3- | fzf --print0 -m -1 --border=rounded --height 10% | xargs  -0 -t -o git branch -D'
 alias gun='git --no-pager diff --name-only --cached | fzf --print0 -m -1 --border=rounded --height 10% | xargs -0 -t -o git reset'
@@ -90,7 +85,6 @@ alias dkill='docker rmi $(docker images -a -q)'
 # Association
 alias -s md=code
 alias -s json=code
-alias -s txt=code
 
 # Linux server monitor
 alias freemem='free -t | awk "FNR == 2 {printf("Current Memory Utilization is : %.2f%"), $3/$2*100}"'

@@ -46,6 +46,12 @@ function glog {
 FZF-EOF"
 }
 
+# Better git status
+function gst() {
+  git status -s | while read mode file; do
+      printf "\033[32m%-5s\033[0m %-40s %s\n" "$mode" "$file" "$(stat -f "%Sm" "$file")"
+  done | column -t
+}
 
 # grab current branch head
 function current_branch() {
