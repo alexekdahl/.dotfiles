@@ -31,7 +31,7 @@ ln -s ~/.dotfiles/yabai/yabairc ~/.config/yabai/yabairc
 ln -s ~/.dotfiles/skhd/skhdrc ~/.config/skhd/skhdrc
 ln -s ~/.dotfiles/p10k/p10k.zsh ~/.p10.zsh
 ln -s ~/.dotfiles/zsh/.zshrc ~/.zshrc
-ln -s ~/.dotfiles/nvim/lua ~/.config/nvim/lua
+ln -s ~/.dotfiles/nvim/lua/ ~/.config/nvim/lua/
 ln -s ~/.dotfiles/nvim/init.vim ~/.config/nvim/init.vim
 ```
 

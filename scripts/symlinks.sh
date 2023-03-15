@@ -6,7 +6,7 @@ dotfiles=(
   "skhd/skhdrc:~/.config/skhd/skhdrc"
   "p10k/p10k.zsh:~/.p10k.zsh"
   "zsh/.zshrc:~/.zshrc"
-  "nvim/lua:~/.config/nvim/lua"
+  "nvim/lua/:~/.config/nvim/lua/" # Updated path to point to the folder
   "nvim/init.vim:~/.config/nvim/init.vim"
 )
 
