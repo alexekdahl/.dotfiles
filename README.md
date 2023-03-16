@@ -65,6 +65,7 @@ Or run the script [symlinks.sh](https://github.com/AlexEkdahl/.dotfiles/blob/mai
 
 ## Features
 [![Neovim Startup Time](https://img.shields.io/badge/Neovim%20Startup%20Time-%3C80ms-brightgreen)](https://neovim.io/)
+[![Neovim LOC](https://img.shields.io/badge/Neovim%20LOC-%3C450-brightgreen)](https://neovim.io)
 
 <p align="center">
   <img src="images/nvim1.png" alt="Neovim Config 1" width="45%" />
