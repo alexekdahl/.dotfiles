@@ -169,15 +169,6 @@ function nps() {
   script=$(cat package.json | jq -r '.scripts | keys[] ' | sort | fzf --print0 -m -1 --border=rounded --height 10%) && npm run $(echo "$script")
 }
 
-function test() {
-  if [[  "$1"  ]]; then
-    ./scripts/test.sh -t $1 2>&1 >/dev/null | grep -viE 'faker|Depre|invalid access token'
-    return
-  fi
-  ./scripts/test.sh  2>&1 >/dev/null | grep -vi 'faker'
-  return
-}
-
 function goodmorning () {
   today &&
   simp &&
