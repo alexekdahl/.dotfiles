@@ -62,6 +62,7 @@ Or run the script [symlinks.sh](https://github.com/AlexEkdahl/.dotfiles/blob/mai
 
 
 ## Features
+[![Neovim Startup Time](https://img.shields.io/badge/Neovim%20Startup%20Time-%3C80ms-brightgreen)](https://neovim.io/)
 
 Here are some of the features that are included in this dotfiles repository:
 

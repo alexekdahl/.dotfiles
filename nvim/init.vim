@@ -4,7 +4,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'olimorris/onedarkpro.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'preservim/nerdtree'
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'voldikss/vim-floaterm'
 Plug 'numToStr/Comment.nvim'
 
