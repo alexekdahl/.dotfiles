@@ -66,6 +66,11 @@ Or run the script [symlinks.sh](https://github.com/AlexEkdahl/.dotfiles/blob/mai
 ## Features
 [![Neovim Startup Time](https://img.shields.io/badge/Neovim%20Startup%20Time-%3C80ms-brightgreen)](https://neovim.io/)
 
+<p align="center">
+  <img src="images/nvim1.png" alt="Neovim Config 1" width="45%" />
+  <img src="images/nvim2.png" alt="Neovim Config 2" width="45%" />
+</p>
+
 Here are some of the features that are included in this dotfiles repository:
 
 - Customized `zsh` shell configuration with plugins like `zsh-autosuggestions` and `zsh-syntax-highlighting`
