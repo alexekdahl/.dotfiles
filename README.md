@@ -1,3 +1,4 @@
+[![macOS](https://img.shields.io/badge/macOS-000000?logo=apple&logoColor=white&style=for-the-badge)](https://www.apple.com/macos)
 [![Neovim](https://img.shields.io/badge/Neovim-57A143?logo=neovim&logoColor=white&style=for-the-badge)](https://neovim.io)
 [![Oh My Zsh](https://img.shields.io/badge/Oh_My_Zsh-1A2C34?logo=gnu-bash&logoColor=white&style=for-the-badge)](https://ohmyz.sh)
 [![iTerm2](https://img.shields.io/badge/iTerm2-000000?logo=iterm2&logoColor=white&style=for-the-badge)](https://iterm2.com)
@@ -5,6 +6,7 @@
 [![Yabai](https://img.shields.io/badge/Yabai-2980b9?style=for-the-badge)](https://github.com/koekeishiya/yabai)
 [![skhd](https://img.shields.io/badge/skhd-16a085?style=for-the-badge)](https://github.com/koekeishiya/skhd)
 [![FZF](https://img.shields.io/badge/FZF-5D3FBB?style=for-the-badge)](https://github.com/junegunn/fzf)
+[![QMK Firmware](https://img.shields.io/badge/QMK-Firmware-5391FE?logo=qmk&logoColor=white&style=for-the-badge)](https://qmk.fm)
 [![Powerlevel10k](https://img.shields.io/badge/Powerlevel10k-1abc9c?style=for-the-badge)](https://github.com/romkatv/powerlevel10k)
 
 # My Dotfiles
