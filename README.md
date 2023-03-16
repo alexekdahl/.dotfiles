@@ -81,7 +81,6 @@ Here are some of the features that are included in this dotfiles repository:
 - Custom `neovim` configuration and plugins including `onedark` theme, `lsp` and `treesitter` for language support, `telescope` for fuzzy finding, `spellbee` for spell checking, and more.
 - Custom `yabai` and `skhd` configuration files for macOS window and shortcut management.
 - Custom `iterm2` configuration files for terminal preferences.
-- Custom `vscode` configuration files for keybindings and settings.
 - Custom `p10k` configuration files for `powerlevel10k` theme.
 
 - Additional files for keyboard firmware configuration and fonts.
