@@ -72,7 +72,7 @@ alias repo='cd ~/dev/yale/repo && echo "$(tput setaf 1)Phoenix Repo"$(tput sgr0)
 alias war='cd ~/dev/misc && vim .'
 alias copy='pbcopy < '
 alias dotfiles='cd ~/.dotfiles'
-alias tree='exa --tree --git-ignore'
+alias tree='exa --tree --git-ignore --sort=type'
 alias nvm='fnm'
 
 # -Docker-
