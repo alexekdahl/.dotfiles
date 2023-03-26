@@ -123,6 +123,16 @@ function grename() {
   fi
 }
 
+function git-check() {
+  author_name=$(git config --get user.name)
+  if [ -z "$author_name" ]; then
+    echo "Error: No user.name found in your .gitconfig"
+    return 1
+  fi
+
+  git log --author="$author_name" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "Added lines: %s, Removed lines: %s, Total lines: %s\n", add, subs, loc }'
+}
+
 # -Docker-
 
 # Select a running docker container to stop
