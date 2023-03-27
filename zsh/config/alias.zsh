@@ -83,7 +83,7 @@ alias dstop='docker kill $(docker ps -q)'
 alias dkill='docker rmi $(docker images -a -q)'
 
 # Association
-alias -s md=code
+alias -s md=nvim
 alias -s json=code
 
 # Linux server monitor
