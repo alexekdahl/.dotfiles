@@ -2,16 +2,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# ENV
-
-export PATH="/Users/alex/Library/Caches/fnm_multishells/46837_1657716775291/bin":$PATH
-export FNM_MULTISHELL_PATH="/Users/alex/Library/Caches/fnm_multishells/46837_1657716775291"
-export FNM_VERSION_FILE_STRATEGY="local"
-export FNM_DIR="/Users/alex/Library/Application Support/fnm"
-export FNM_LOGLEVEL="info"
-export FNM_NODE_DIST_MIRROR="https://nodejs.org/dist"
-export FNM_ARCH="arm64"
+# Multi session node environment
+eval "$(fnm env)"
 
 # Config
 export DISABLE_UPDATE_PROMPT="false"
@@ -23,18 +15,18 @@ export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob=!.git --glob=!no
 # Theme
 export ZSH_THEME="robbyrussell"
 
-export PATH="/opt/homebrew/bin:$PATH"
+# Path
 export ZSH="$HOME/.oh-my-zsh"
-export PATH="$HOME/.go/bin:$PATH"
 export GOPATH="$HOME/.go"
+export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$PATH:$(go env GOPATH)/bin"
-
+export PATH="$HOME/.go/bin:$PATH"
 
 # Plugins
 plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 
 # Source
-
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source $ZSH/oh-my-zsh.sh
@@ -49,7 +41,6 @@ for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
 done
 unset conf
 
-eval "$(fnm env)"
 
 nvm_autouse &>/dev/null
 chpwd_functions=(${chpwd_functions[@]} "nvm_autouse")
