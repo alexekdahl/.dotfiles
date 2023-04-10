@@ -36,7 +36,7 @@ lsp.gopls.setup({
         autocmd! * <buffer>
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync()
+        autocmd BufWritePre *.go lua vim.lsp.buf.format()
       augroup END
     ]]
   end
