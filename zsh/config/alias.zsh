@@ -6,34 +6,21 @@ alias hg="history | grep"
 alias vim="nvim"
 alias vi="nvim"
 alias v="vim"
-alias v.="vim ."
-
-# -Git-
-alias gco='git checkout'
-alias ggl='git pull origin $(current_branch)'
-alias gsl="git stash list --pretty=format:'%Cblue%gd%Cred: %C(yellow)%s"
-alias greset='git reset --hard HEAD'
-alias uncommit='git reset --soft HEAD~'
-alias gstash='git stash save --include-untracked'
-alias gcob='git branch | cut -c 3- | fzf --print0 -1 --border=rounded --height 10% | xargs git checkout'
-alias gdb='git branch | cut -c 3- | fzf --print0 -m -1 --border=rounded --height 10% | xargs  -0 -t -o git branch -D'
-alias gun='git --no-pager diff --name-only --cached | fzf --print0 -m -1 --border=rounded --height 10% | xargs -0 -t -o git reset'
-alias gad='git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --height 10% | xargs -0 -t -o git add'
-alias remotebranch="git for-each-ref --format='%(color:cyan)%(authordate:format:%m/%d/%Y %I:%M %p)    %(align:25,left)%(color:yellow)%(authorname)%(end) %(color:reset)%(refname:strip=3)' --sort=authordate refs/remotes"
 
 # -Misc-
 alias brewski="brew doctor && brew update && brew upgrade && brew cleanup"
 alias today='icalBuddy -f -sd -iep datetime,title -df %A  eventsToday'
 alias week='icalBuddy -f -sd -iep datetime,title -df %A eventsToday+7'
 alias tomorrow='icalBuddy -f -sd -iep datetime,title -df %A eventsToday+1'
+
 alias editzsh='nvim ~/.dotfiles/zsh/'
 alias editvim='nvim ~/.dotfiles/nvim/'
 alias reload='source ~/.zshrc'
-alias wttr='curl -s wttr.in/Lund'
 alias c='clear'
+
+alias wttr='curl -s wttr.in/Lund'
 alias busy="cat /dev/urandom | hexdump -C | grep 'ca fe'"
 alias scs='open ~/Pictures/screenshots'
-alias pipe="grep --line-buffered -E 'info' | sed 's/^[^{]*//g'| jq ."
 alias topcmd='history | awk '\''{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}'\'' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n10'
 
 # -Network-
@@ -62,16 +49,3 @@ alias dotfiles='cd ~/.dotfiles'
 alias tree='exa --tree --git-ignore --sort=type'
 alias nvm='fnm'
 
-# -Docker-
-alias dils='docker image ls'
-alias dps='docker ps'
-alias dprune='docker volume prune --force'
-alias dstop='docker kill $(docker ps -q)'
-alias dkill='docker rmi $(docker images -a -q)'
-
-# Association
-alias -s md=nvim
-alias -s json=code
-
-# Linux server monitor
-alias freemem='free -t | awk "FNR == 2 {printf("Current Memory Utilization is : %.2f%"), $3/$2*100}"'
