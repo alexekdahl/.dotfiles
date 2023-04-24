@@ -11,10 +11,7 @@ export DISABLE_LS_COLORS="true"
 export COMPLETION_WAITING_DOTS="true"
 export HOMEBREW_NO_ANALYTICS=1
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob=!.git --glob=!node_modules"
-
-# Theme
-export ZSH_THEME="robbyrussell"
-
+export EDITOR=nvim
 # Path
 export ZSH="$HOME/.oh-my-zsh"
 export GOPATH="$HOME/.go"
@@ -28,14 +25,9 @@ export PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
 plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 
 # Source
-# [[ ! -f ~/.p10k.zsh ]] ||
-
 source $ZSH/oh-my-zsh.sh
 source ~/.p10k.zsh
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
-
-[ -f $HOME/.secrets/secrets/private.zsh ] && source $HOME/.secrets/secrets/private.zsh
-[ -f $HOME/.secrets/secrets/work.zsh ] && source $HOME/.secrets/secrets/work.zsh
 
 # Load seperated config files
 for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
@@ -43,6 +35,7 @@ for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
 done
 unset conf
 
+source $HOME/.secrets/secrets/work.zsh
 
 nvm_autouse &>/dev/null
 chpwd_functions=(${chpwd_functions[@]} "nvm_autouse")

@@ -39,10 +39,20 @@ function glog {
 FZF-EOF"
 }
 
-# Better git status
+# Better git status with changed lines count in colors
 function gst() {
   git status -s | while read mode file; do
-      printf "\033[32m%-5s\033[0m %-40s %s\n" "$mode" "$file" "$(stat -f "%Sm" "$file")"
+    if [[ $mode == "??" ]]; then
+      added_lines="??"
+      deleted_lines="??"
+      mode_color="\033[33m" # Yellow
+    else
+      added_lines=$(git diff --numstat HEAD "$file" | awk '{print $1}')
+      deleted_lines=$(git diff --numstat HEAD "$file" | awk '{print $2}')
+      mode_color="\033[32m" # Green
+    fi
+
+    printf "${mode_color}%-5s\033[0m %-40s %s ${mode_color}%-8s\033[0m \033[31m%s\033[0m\n" "$mode" "$file" "$(stat -f "%Sm" "$file")" "+$added_lines" "-$deleted_lines"
   done | column -t
 }
 
