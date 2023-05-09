@@ -126,21 +126,27 @@ function grename() {
   fi
 }
 
-function git-check() {
-  author_name=$(git config --get user.name)
-  if [ -z "$author_name" ]; then
-    echo "Error: No user.name found in your .gitconfig"
-    return 1
-  fi
+function git-stats() {
+  # ANSI color codes
+  BOLD="\033[1m"
+  GREEN="\033[32m"
+  CYAN="\033[36m"
+  RESET="\033[0m"
 
-  results=$(git log --author="$author_name" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2; commits++ } END { printf "%s %s %s %s", add, subs, loc, commits }')
-  read -r add subs loc commits <<< "$results"
+  author_name=$(git config user.name)
+  total_lines=$(git ls-files | xargs wc -l | tail -n 1 | awk '{print $1}')
+  my_lines=$(git ls-files | parallel -j+0 "git blame --line-porcelain {} | grep -E '^author ${author_name}$' | wc -l" | awk '{sum += $1} END {print sum}')
+  total_commits=$(git rev-list --count HEAD)
+  my_commits=$(git rev-list --count HEAD --author="$author_name")
+  lines_percentage=$(echo "scale=2; $my_lines / $total_lines * 100" | bc)
+  commits_percentage=$(echo "scale=2; $my_commits / $total_commits * 100" | bc)
 
-  printf "Added lines: %s, Removed lines: %s, Total lines: %s, Commits: %s\n" "$add" "$subs" "$loc" "$commits"
-
-  total_lines=$(git ls-files | xargs wc -l | awk 'END{ print $1 }')
-
-  lines_percentage=$(awk "BEGIN {printf \"%.2f\", (${loc}/${total_lines})*100}")
-
-  echo "Percentage of lines: ${lines_percentage}%"
+  echo -e "${BOLD}${GREEN}Git Repository Statistics:${RESET}"
+  echo -e "${BOLD}${CYAN}Total lines in repo:${RESET} $total_lines"
+  echo -e "${BOLD}${CYAN}Lines added by you:${RESET} $my_lines"
+  echo -e "${BOLD}${CYAN}Total commits:${RESET} $total_commits"
+  echo -e "${BOLD}${CYAN}Your commits:${RESET} $my_commits"
+  echo -e "${BOLD}${CYAN}Your lines (percentage):${RESET} $lines_percentage%"
+  echo -e "${BOLD}${CYAN}Your commits (percentage):${RESET} $commits_percentage%"
 }
+
