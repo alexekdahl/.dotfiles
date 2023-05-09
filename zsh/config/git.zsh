@@ -133,5 +133,14 @@ function git-check() {
     return 1
   fi
 
-  git log --author="$author_name" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "Added lines: %s, Removed lines: %s, Total lines: %s\n", add, subs, loc }'
+  results=$(git log --author="$author_name" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2; commits++ } END { printf "%s %s %s %s", add, subs, loc, commits }')
+  read -r add subs loc commits <<< "$results"
+
+  printf "Added lines: %s, Removed lines: %s, Total lines: %s, Commits: %s\n" "$add" "$subs" "$loc" "$commits"
+
+  total_lines=$(git ls-files | xargs wc -l | awk 'END{ print $1 }')
+
+  lines_percentage=$(awk "BEGIN {printf \"%.2f\", (${loc}/${total_lines})*100}")
+
+  echo "Percentage of lines: ${lines_percentage}%"
 }
