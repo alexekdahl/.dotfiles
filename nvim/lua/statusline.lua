@@ -4,6 +4,7 @@ local git_blame = require('gitblame')
 
 require('lualine').setup{
     options = {
+             icons_enabled = false,
              theme = 'onedark'
          },
     sections = {

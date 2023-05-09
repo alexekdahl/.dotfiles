@@ -57,7 +57,7 @@
       { name = 'nvim_lua' },
       { name = 'path' },
     },
-    experimental = {
-      ghost_text = true
-    }
+    -- experimental = {
+    --   ghost_text = true
+    -- }
   }
