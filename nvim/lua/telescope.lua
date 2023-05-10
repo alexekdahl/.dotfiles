@@ -1,4 +1,3 @@
-
 _G.open_telescope = function()
     local first_arg = vim.v.argv[2]
     if first_arg and vim.fn.isdirectory(first_arg) == 1 then

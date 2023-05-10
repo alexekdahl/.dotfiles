@@ -1,5 +1,5 @@
 # -Docker-
-#
+
 alias dils='docker image ls'
 alias dps='docker ps'
 alias dprune='docker volume prune --force'
@@ -21,5 +21,4 @@ function dbash() {
 
   [ -n "$cid" ] && docker exec -it "$cid" env TERM=xterm-256color bash
 }
-
 
