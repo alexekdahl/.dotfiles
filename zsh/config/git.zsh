@@ -135,11 +135,12 @@ function git-stats() {
 
   author_name=$(git config user.name)
   total_lines=$(git ls-files | xargs wc -l | tail -n 1 | awk '{print $1}')
-  my_lines=$(git ls-files | parallel -j+0 "git blame --line-porcelain {} | grep -E '^author ${author_name}$' | wc -l" | awk '{sum += $1} END {print sum}')
+  my_lines=$(git ls-files | parallel -j+0 "git blame --line-porcelain {} | grep -F \"author ${author_name}\" | wc -l" | awk '{sum += $1} END {print sum}')
   total_commits=$(git rev-list --count HEAD)
   my_commits=$(git rev-list --count HEAD --author="$author_name")
   lines_percentage=$(echo "scale=2; $my_lines / $total_lines * 100" | bc)
   commits_percentage=$(echo "scale=2; $my_commits / $total_commits * 100" | bc)
+  top_3=$(git log --pretty=format:'%aN' | sort | uniq -c | sort -rn | head -3)
 
   echo -e "${BOLD}${GREEN}Git Repository Statistics:${RESET}"
   echo -e "${BOLD}${CYAN}Total lines in repo:${RESET} $total_lines"
@@ -147,6 +148,18 @@ function git-stats() {
   echo -e "${BOLD}${CYAN}Total commits:${RESET} $total_commits"
   echo -e "${BOLD}${CYAN}Your commits:${RESET} $my_commits"
   echo -e "${BOLD}${CYAN}Your lines (percentage):${RESET} $lines_percentage%"
-  echo -e "${BOLD}${CYAN}Your commits (percentage):${RESET} $commits_percentage%"
+
+  echo -e "\n${BOLD}${CYAN}Top 3 contributors by commit count:${RESET}\n$top_3"
+
+  echo -e "\n${BOLD}${CYAN}Line percentages for top 3 contributors:${RESET}"
+  echo "$top_3" | while read -r line; do
+    contributor="$(echo "$line" | awk '{for (i=2; i<=NF; i++) printf $i (i<NF?" ":"")}')"
+    contrib_lines=$(git ls-files | parallel -j+0 "git blame --line-porcelain {} | grep -F \"author ${contributor}\" | wc -l" | awk '{sum += $1} END {print sum}')
+    if [ -z "$contrib_lines" ]; then
+      contrib_lines=0
+    fi
+    contrib_lines_percentage=$(echo "scale=2; $contrib_lines / $total_lines * 100" | bc)
+    echo -e "${BOLD}${CYAN}Lines added by ${contributor}:${RESET} $contrib_lines (${contrib_lines_percentage}%)"
+  done
 }
 
