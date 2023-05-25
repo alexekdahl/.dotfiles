@@ -28,13 +28,13 @@ REVERSE="%{$(tput smso)%}"
 ARROW_COLOR="${GREEN}"
 
 function add_newline() {
-    # Get the last command without arguments
-    last_command=$(echo "$LAST_OUTPUT" | awk '{print $1}')
+  # Get the last command without arguments
+  last_command=$(echo "$LAST_OUTPUT" | awk '{print $1}')
 
-    # Add a new line only if the previous command produced output and wasn't 'clear' or your alias 'c'
-    if [ -n "$LAST_OUTPUT" ] && [ "$last_command" != "clear" ] && [ "$last_command" != "c" ]; then
-        echo ""
-    fi
+  # Add a new line only if the previous command produced output and wasn't 'clear' or your alias 'c'
+  if [ -n "$LAST_OUTPUT" ] && [ "$last_command" != "clear" ] && [ "$last_command" != "c" ]; then
+      echo ""
+  fi
 }
 
 function precmd() {
@@ -131,9 +131,9 @@ function git_status_prompt() {
 }
 
 function prompt_example() {
-    if [[ -f ".nvmrc" || -f "package.json" ]]; then
-      echo "${NODE_GREEN_256} $git_branch${RESET}"
-    fi
+  if [[ -f ".nvmrc" || -f "package.json" ]]; then
+    echo "${NODE_GREEN_256} $git_branch${RESET}"
+  fi
 }
 
 function start_arrow() {
