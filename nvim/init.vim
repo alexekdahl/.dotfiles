@@ -101,11 +101,15 @@ nnoremap wq :silent! normal mpeld bhd `ph<CR>
 " paste without replaceing buffer
 vnoremap <C-p> "_dP
 
+" yank word
 nnoremap <leader>y yiw<esc>
+" select word
 nnoremap <leader>v viw
+" insert new line
 nnoremap <leader>o o<Esc>
 nnoremap <leader>s <cmd>wa!<CR>
 
+" Telescope
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').grep_string({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }, search = vim.fn.input("Search for > ")})<CR>
 nnoremap <leader>p <cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
 nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references({ on_complete = { function() vim.cmd"stopinsert" end }, })<CR>
