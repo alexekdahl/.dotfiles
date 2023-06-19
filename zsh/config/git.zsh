@@ -63,7 +63,7 @@ function current_branch() {
 }
 
 function check_protected_branch() {
-  local protected_branch_regex='^(master|main)$'
+  local protected_branch_regex='^(master|main|AAECO|dev|develop)$'
   local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
 
   if [[ $branch =~ $protected_branch_regex ]]; then
