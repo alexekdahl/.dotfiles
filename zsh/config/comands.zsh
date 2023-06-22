@@ -4,6 +4,13 @@ function ff() {
   file=$(fzf --preview='bat --style=numbers --color=always {}' --bind ctrl-j:preview-page-up,ctrl-k:preview-page-down) && vim $(echo "$file")
 }
 
+# Find pattern inside a file and open it in Vim
+function fff() {
+  local file
+  local pattern=$1
+  file=$(rg -i --files-with-matches --no-messages "$pattern" | fzf --preview='bat --style=numbers --color=always {}' --bind ctrl-j:preview-page-up,ctrl-k:preview-page-down) && vim $(echo "$file")
+}
+
 # -Misc-
 
 # Measure the start-up time for the shell
