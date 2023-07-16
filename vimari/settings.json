@@ -1,9 +1,9 @@
 {
   "excludedUrls": "",
-  "linkHintCharacters": "asdfjklqwerzxc",
+  "linkHintCharacters": "asdfghjklertyui",
   "detectByCursorStyle": false,
   "scrollSize": 150,
-  "openTabUrl": "https://duckduckgo.com/",
+  "openTabUrl": "https://chat.openai.com/?model=gpt-4",
   "modifier": "",
   "smoothScroll": true,
   "scrollDuration": 25,
