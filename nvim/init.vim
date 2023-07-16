@@ -10,7 +10,9 @@ Plug 'numToStr/Comment.nvim'
 
 Plug 'windwp/nvim-autopairs'
 Plug 'p00f/nvim-ts-rainbow'
+
 Plug 'f-person/git-blame.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'ruanyl/vim-gh-line'
 
@@ -24,7 +26,6 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'rafamadriz/friendly-snippets'
 
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 call plug#end()
 
 set guicursor=
@@ -90,6 +91,7 @@ lua require('onedark')
 lua require('lsp')
 lua require('statusline')
 lua require('spellbee')
+lua require('gitsign')
 
 " keybindings
 let mapleader = " "
