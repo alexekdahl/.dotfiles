@@ -9,7 +9,6 @@ Plug 'voldikss/vim-floaterm'
 Plug 'numToStr/Comment.nvim'
 
 Plug 'windwp/nvim-autopairs'
-Plug 'p00f/nvim-ts-rainbow'
 
 Plug 'f-person/git-blame.nvim'
 Plug 'lewis6991/gitsigns.nvim'

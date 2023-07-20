@@ -27,8 +27,8 @@
     background_jobs         # presence of background jobs
     example
     goenv                   # go environment (https://github.com/syndbg/goenv)
-    go_version            # go version (https://golang.org)
-    package               # name@version from package.json (https://docs.npmjs.com/files/package.json)
+    go_version              # go version (https://golang.org)
+    package                 # name@version from package.json (https://docs.npmjs.com/files/package.json)
     time                    # current time
     newline
   )
