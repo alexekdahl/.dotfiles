@@ -30,7 +30,7 @@ alias spdt='speedtest -s 31538'
 
 # -Node-
 alias check='npx depcheck'
-alias yolo='rm -rf node_modules/ && npm ci'
+alias yolo='rm -rf node_modules/ && npm install'
 alias npd='npm run dev'
 alias fix='npx prettier --print-width 120 --single-quote --trailing-comma es5 --write "**/*.{js,ts}"'
 
