@@ -90,4 +90,6 @@ lsp.tsserver.setup({
   on_attach = on_attach,
 })
 
-
+lsp.pyright.setup{
+    on_attach = on_attach
+}
