@@ -9,6 +9,7 @@ Plug 'voldikss/vim-floaterm'
 Plug 'numToStr/Comment.nvim'
 
 Plug 'windwp/nvim-autopairs'
+Plug 'ThePrimeagen/harpoon'
 
 Plug 'f-person/git-blame.nvim'
 Plug 'lewis6991/gitsigns.nvim'
@@ -91,6 +92,7 @@ lua require('lsp')
 lua require('statusline')
 lua require('spellbee')
 lua require('gitsign')
+lua require('harp')
 
 " keybindings
 let mapleader = " "
