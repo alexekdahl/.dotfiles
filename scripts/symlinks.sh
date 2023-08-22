@@ -6,7 +6,7 @@ dotfiles=(
   "skhd/skhdrc:~/.config/skhd/skhdrc"
   "p10k/p10k.zsh:~/.p10k.zsh"
   "zsh/.zshrc:~/.zshrc"
-  "nvim/lua/:~/.config/nvim/lua/"
+  # "nvim/lua/:~/.config/nvim/lua/"
   "nvim/init.vim:~/.config/nvim/init.vim"
 )
 
@@ -21,6 +21,13 @@ for dotfile in "${dotfiles[@]}"; do
   if [ -f "$dest_path" ] && [ ! -L "$dest_path" ]; then
     echo "Backing up existing file at $dest_path..."
     mv "$dest_path" "$dest_path.bak"
+  fi
+
+  # Create the parent directory for the destination if it doesn't exist
+  dest_dir=$(dirname "$dest_path")
+  if [ ! -d "$dest_dir" ]; then
+    echo "Creating directory $dest_dir..."
+    mkdir -p "$dest_dir"
   fi
 
   # Create the symlink

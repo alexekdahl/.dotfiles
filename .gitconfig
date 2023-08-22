@@ -1,5 +1,5 @@
 [user]
-	name = Alex
+	name = AlexEkdahl
 	email = 77007088+AlexEkdahl@users.noreply.github.com
 [filter "lfs"]
 	clean = git-lfs clean -- %f
