@@ -55,7 +55,7 @@ set completeopt=menu,menuone,noselect
 set splitbelow
 set splitright
 set cursorline
-set signcolumn=number
+" set signcolumn=number
 
 filetype on
 filetype indent on

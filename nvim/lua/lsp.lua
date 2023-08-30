@@ -3,10 +3,18 @@ local lsp = require('lspconfig')
 local configs = require 'lspconfig/configs'
 local util = require "lspconfig/util"
 
+local common_on_publish_diagnostics = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    signs = false, -- disables signs
+  }
+)
 
 lsp.gopls.setup({
   capabilities = capabilities,
   cmd = { 'gopls', 'serve' },
+  handlers = {
+    ["textDocument/publishDiagnostics"] = common_on_publish_diagnostics,
+  },
   filetypes = {"go", "gomod"},
   root_dir = util.root_pattern("go.work", "go.mod", ".git"),
   settings = {
@@ -45,11 +53,14 @@ lsp.gopls.setup({
 
 lsp.golangci_lint_ls.setup {
   cmd = { "golangci-lint-langserver" },
+  handlers = {
+    ["textDocument/publishDiagnostics"] = common_on_publish_diagnostics,
+  },
   filetypes = {'go','gomod'},
   init_options = {
     command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" }
   },
-  root_dir = util.root_pattern('go.mod', '.golangci.yaml', '.git', 'go.work')
+  root_dir = util.root_pattern('.golintci.yml', '.golintci.yaml')
 }
 
 local function on_list(options)
@@ -85,6 +96,9 @@ local on_attach = function(client, bufnr)
     ]]
   end
 lsp.tsserver.setup({
+  handlers = {
+    ["textDocument/publishDiagnostics"] = common_on_publish_diagnostics,
+  },
   filetypes = { "typescript", "javascript" },
   capabilities = capabilites,
   on_attach = on_attach,
