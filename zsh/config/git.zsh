@@ -18,13 +18,13 @@ function gdiff {
   local preview
   preview="git diff $@ --color=always -- {-1}"
   local file
-  file=$(git ls-files --others --exclude-standard --modified --full-name | fzf -m --ansi --preview $preview --bind ctrl-j:preview-page-up,ctrl-l:preview-page-down) && vim $(echo "$file")
+  file=$(git ls-files --others --exclude-standard --modified --full-name | fzf -m --ansi --preview $preview --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down) && vim $(echo "$file")
 }
 
 # Interactive git add
 function gadd {
   preview="git diff $@ --color=always -- {-1}"
-  git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --reverse --ansi --preview $preview --bind ctrl-j:preview-page-up,ctrl-l:preview-page-down | xargs -0 -t -o git add
+  git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --reverse --ansi --preview $preview --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down | xargs -0 -t -o git add
 }
 
 # git commit browser
