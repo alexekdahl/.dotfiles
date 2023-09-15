@@ -27,7 +27,7 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 # Source
 source $ZSH/oh-my-zsh.sh
 source ~/.p10k.zsh
-source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+source $HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # Load seperated config files
 for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do

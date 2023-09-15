@@ -15,7 +15,7 @@ Plug 'f-person/git-blame.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'ruanyl/vim-gh-line'
-Plug 'github/copilot.vim'
+Plug 'zbirenbaum/copilot.lua'
 
 " lsp autocomplete
 Plug 'neovim/nvim-lspconfig'
@@ -69,7 +69,6 @@ let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
 
 let g:floaterm_width = 0.8
 let g:floaterm_height = 0.9
-let g:copilot_node_command = '/Users/alex/Library/Application Support/fnm/node-versions/v16.16.0/installation/bin/node'
 
 
 fun! TrimWhiteSpace()
@@ -96,6 +95,7 @@ lua require('statusline')
 lua require('spellbee')
 lua require('gitsign')
 lua require('harp')
+lua require('pilot')
 
 " keybindings
 let mapleader = " "
