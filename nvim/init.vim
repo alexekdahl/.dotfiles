@@ -7,6 +7,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'voldikss/vim-floaterm'
 Plug 'numToStr/Comment.nvim'
+Plug 'ThePrimeagen/refactoring.nvim'
 
 Plug 'windwp/nvim-autopairs'
 Plug 'ThePrimeagen/harpoon'
@@ -96,6 +97,7 @@ lua require('spellbee')
 lua require('gitsign')
 lua require('harp')
 lua require('pilot')
+lua require('refactor')
 
 " keybindings
 let mapleader = " "
@@ -106,6 +108,9 @@ nnoremap wq :silent! normal mpeld bhd `ph<CR>
 
 " paste without replaceing buffer
 vnoremap <C-p> "_dP
+
+vnoremap <leader>ef <cmd>Refactor extract <CR>
+vnoremap <leader>ev <cmd>Refactor extract_var <CR>
 
 " yank word
 nnoremap <leader>y yiw<esc>

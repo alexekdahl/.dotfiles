@@ -39,3 +39,4 @@ source $HOME/.secrets/secrets/work.zsh
 
 nvm_autouse &>/dev/null
 chpwd_functions=(${chpwd_functions[@]} "nvm_autouse")
+

@@ -43,6 +43,15 @@ function nps() {
   script=$(cat package.json | jq -r '.scripts | keys[] ' | sort | fzf --print0 -m -1 --border=rounded --height 10%) && npm run $(echo "$script")
 }
 
+function rebuild() {
+    local repo_name=$(basename "$(git rev-parse --show-toplevel)")
+    if yolo && npm run build; then
+        pong "$repo_name" "Yolo'd and rebuilt"
+    else
+        pong "$repo_name" "Failed"
+    fi
+}
+
 # Execute a series of commands to start the day
 function goodmorning() {
   today &&
