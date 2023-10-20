@@ -51,7 +51,7 @@ set cmdheight=1
 set updatetime=50
 set termguicolors
 set shortmess+=c
-set clipboard=unnamed
+set clipboard=unnamedplus
 set completeopt=menu,menuone,noselect
 set splitbelow
 set splitright
@@ -96,7 +96,7 @@ lua require('statusline')
 lua require('spellbee')
 lua require('gitsign')
 lua require('harp')
-lua require('pilot')
+" lua require('pilot')
 lua require('refactor')
 
 " keybindings
