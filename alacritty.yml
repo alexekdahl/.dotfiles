@@ -1,0 +1,84 @@
+env:
+  TERM: xterm-256color
+
+colors:
+  bright:
+    black: "#767676"
+    blue: "#61afef"
+    color: "#abb2bf"
+    cyan: "#56b6c2"
+    green: "#98c379"
+    magenta: "#c678dd"
+    red: "#e06c75"
+    white: "#808896"
+    yellow: "#e5c07b"
+  cursor:
+    cursor: "#61afef"
+    text: "#b1b8c5"
+    custom_colors: true
+  normal:
+    black: "#21252b"
+    blue: "#61afef"
+    color: "#abb2bf"
+    cyan: "#56b6c2"
+    green: "#98c379"
+    magenta: "#c678dd"
+    red: "#e06c75"
+    white: "#808896"
+    yellow: "#e5c07b"
+  bold:
+    black: "#21252b"
+    blue: "#61afef"
+    color: "#abb2bf"
+    cyan: "#56b6c2"
+    green: "#98c379"
+    magenta: "#c678dd"
+    red: "#e06c75"
+    white: "#808896"
+    yellow: "#e5c07b"
+  primary:
+    background: "#21252c"
+    foreground: "#b1b8c5"
+
+font:
+  bold:
+    family: MesloLGM Nerd Font
+    style: 'Regular'
+  italic:
+    family: MesloLGM Nerd Font
+    style: 'Italic'
+  normal:
+    # family: FiraCode Nerd Font Mono
+    family: MesloLGM Nerd Font
+    style: 'Regular'
+  non_ascii:
+    family: FiraCode Nerd Font Mono
+    style: 'Regular'
+    size: 12.0
+  offset:
+    x: 0
+    y: 1
+  glyph_offset:
+    x: 0
+    y: 0
+  size: 14.0
+
+scrolling:
+  history: 5000
+  multiplier: 3
+
+scale_with_dpi: false
+draw_bold_text_with_bright_colors: false
+
+selection:
+  save_to_clipboard: true
+
+window:
+  decorations: buttonless
+  dimensions:
+    columns: 80
+    lines: 24
+  padding:
+    x: 6
+    y: 6
+  transparency: 0.9
