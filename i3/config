@@ -1,25 +1,28 @@
-# This # Alt
 set $mod Mod1
-# Super
 set $sup Mod4
+set $ctrl Control
 
 font pango:monospace 8
 
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xset r rate 200 35
 exec --no-startup-id /usr/libexec/gsd-xsettings
-exec --no-startup-id setxkbmap -option caps:escape
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
-exec alacritty
+exec --no-startup-id setxkbmap -option caps:escape
 
-exec_always ~/.config/polybar/launch.sh &
-exec_always feh --bg-fill ~/Downloads/wallpaper_by_thaomaoh_dewko4o.png
+exec_always --no-startup-id ~/.config/polybar/launch.sh &
+exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpaper/wallpaper_by_thaomaoh_dewko4o.png
 exec_always --no-startup-id "picom --config /home/alex/.config/picom/picom.conf"
+
 #Hide window title bar
 default_border pixel 1
 default_floating_border pixel 1
 for_window [class="^.*"] border pixel 1
+
+# fib spacing
+default_orientation vertical
+for_window [class=".*"] split toggle
 
 # gaps
 gaps inner 10px
@@ -38,6 +41,8 @@ floating_modifier $mod
 bindsym $sup+space exec alacritty
 # kill focused window
 bindsym $sup+w kill
+# kill all focused window
+bindsym $sup+q [class=".*"] kill
 
 # start rofi (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons
@@ -55,12 +60,11 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# split in horizontal orientation
+# split in h-orizontal v-ertical f-ullscreen
 bindsym $mod+b split h
-# split in vertical orientation
 bindsym $mod+v split v
-# enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
+bindsym $mod+r split toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -69,15 +73,7 @@ bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+t floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+m split toggle
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -116,9 +112,20 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
+# cycle workspaces
+bindsym $ctrl+Right workspace next
+bindsym $ctrl+Left workspace prev
+
+# Move window and focus desktop
+bindsym Mod1+Shift+1 move container to workspace number 1; workspace number 1
+bindsym Mod1+Shift+2 move container to workspace number 2; workspace number 2
+
+# Send window to monitor and follow focus
+bindsym Mod1+Shift+m move container to output right; workspace next
+bindsym Mod1+Shift+p move container to output left; workspace prev
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "/home/alex/.config/rofi/powermenu.sh"
@@ -152,4 +159,15 @@ bindsym $mod+Shift+e exec "/home/alex/.config/rofi/powermenu.sh"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+
+# change focus between tiling / floating windows
+# bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+# bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+
 

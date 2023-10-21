@@ -138,11 +138,10 @@ pseudo-transparency = true
 
 [module/battery]
 type = internal/battery
-
 format-discharging-prefix-foreground = ${colors.primary}
-format-discharging-prefix = "  "
+format-discharging-prefix = " "
 format-charging-prefix-foreground = ${colors.primary}
-format-charging-prefix = "  "
+format-charging-prefix = " "
 label-charging = %percentage%%
 label-discharging = %percentage%%
 

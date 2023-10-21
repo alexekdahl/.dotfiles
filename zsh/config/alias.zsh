@@ -6,6 +6,7 @@ alias hg="history | grep"
 alias vim="nvim"
 alias vi="nvim"
 alias v="vim"
+alias code="codium"
 
 # -Misc-
 alias brewski="brew doctor && brew update && brew upgrade && brew cleanup"
@@ -26,9 +27,7 @@ alias mip='ipconfig getifaddr en0'
 alias ports='lsof -i -n -P'
 
 # -Node-
-alias check='npx depcheck'
 alias yolo='rm -rf node_modules/ && npm install'
-alias npd='npm run dev'
 
 # -Dir-
 alias ..='cd ..'

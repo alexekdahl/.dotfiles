@@ -10,7 +10,7 @@ colors:
     green: "#98c379"
     magenta: "#c678dd"
     red: "#e06c75"
-    white: "#808896"
+    white: "#abb2bf"
     yellow: "#e5c07b"
   cursor:
     cursor: "#61afef"
@@ -24,7 +24,7 @@ colors:
     green: "#98c379"
     magenta: "#c678dd"
     red: "#e06c75"
-    white: "#808896"
+    white: "#abb2bf"
     yellow: "#e5c07b"
   bold:
     black: "#21252b"
@@ -34,11 +34,11 @@ colors:
     green: "#98c379"
     magenta: "#c678dd"
     red: "#e06c75"
-    white: "#808896"
+    white: "#abb2bf"
     yellow: "#e5c07b"
   primary:
     background: "#21252c"
-    foreground: "#b1b8c5"
+    foreground: "#a2a8be"
 
 font:
   bold:
@@ -48,7 +48,6 @@ font:
     family: MesloLGM Nerd Font
     style: 'Italic'
   normal:
-    # family: FiraCode Nerd Font Mono
     family: MesloLGM Nerd Font
     style: 'Regular'
   non_ascii:
