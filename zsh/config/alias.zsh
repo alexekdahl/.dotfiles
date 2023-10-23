@@ -16,6 +16,7 @@ alias tomorrow='icalBuddy -f -sd -iep datetime,title -df %A eventsToday+1'
 alias editzsh='nvim ~/.dotfiles/zsh/'
 alias editvim='nvim ~/.dotfiles/nvim/'
 alias reload='source ~/.zshrc'
+alias lock='pmset displaysleepnow'
 alias c='clear'
 
 alias wttr='curl -s wttr.in/Lund'
