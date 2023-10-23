@@ -116,9 +116,9 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 bindsym $ctrl+Right workspace next
 bindsym $ctrl+Left workspace prev
 
-# Move window and focus desktop
-bindsym Mod1+Shift+1 move container to workspace number 1; workspace number 1
-bindsym Mod1+Shift+2 move container to workspace number 2; workspace number 2
+# # Move window and focus desktop
+# bindsym Mod1+Shift+1 move container to workspace number 1; workspace number 1
+# bindsym Mod1+Shift+2 move container to workspace number 2; workspace number 2
 
 # Send window to monitor and follow focus
 bindsym Mod1+Shift+m move container to output right; workspace next
