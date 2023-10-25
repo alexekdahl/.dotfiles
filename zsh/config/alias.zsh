@@ -8,7 +8,7 @@ alias vi="nvim"
 alias v="vim"
 
 # -Misc-
-alias brewski="brew doctor && brew update && brew upgrade && brew cleanup"
+alias brewski="brew doctor; brew update && brew upgrade && brew cleanup -s"
 alias today='icalBuddy -f -sd -iep datetime,title -df %A  eventsToday'
 alias week='icalBuddy -f -sd -iep datetime,title -df %A eventsToday+7'
 alias tomorrow='icalBuddy -f -sd -iep datetime,title -df %A eventsToday+1'
