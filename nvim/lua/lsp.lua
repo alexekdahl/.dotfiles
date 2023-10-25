@@ -99,6 +99,7 @@ lsp.tsserver.setup({
   handlers = {
     ["textDocument/publishDiagnostics"] = common_on_publish_diagnostics,
   },
+  cmd = { "/opt/homebrew/bin/typescript-language-server", "--stdio" },
   filetypes = { "typescript", "javascript" },
   capabilities = capabilites,
   on_attach = on_attach,

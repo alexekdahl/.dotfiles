@@ -31,6 +31,6 @@ require('copilot').setup({
     cvs = false,
     ["."] = false,
   },
-  copilot_node_command = '/Users/alex/.config/node', -- Node.js version must be > 16.x
+  copilot_node_command = '/opt/homebrew/bin/node', -- Node.js version must be > 16.x
   server_opts_overrides = {},
 })
