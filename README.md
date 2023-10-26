@@ -17,3 +17,6 @@ XKBOPTIONS=""
 BACKSPACE="guess"
 ```
 
+* thorium
+* bitwarden
+
