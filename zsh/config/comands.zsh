@@ -1,18 +1,52 @@
 # Find a file and open it in Vim
 function ff() {
-  local file
-  file=$(fzf --preview='bat --style=numbers --color=always {}' --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down) && vim $(echo "$file")
+  fzf --preview='bat --style=numbers --color=always {}' --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down | xargs -o nvim
 }
 
-# Find pattern inside a file and open it in Vim at the line where the pattern is found
+# Find pattern inside a file and open it in Neovim at the line where the pattern is found and sets Neovim root to git root.
 function fff() {
   local file
   local pattern=$1
   local result
+  local git_root
   result=$(rg -i -n --no-messages "$pattern" | fzf --preview="echo {} | awk -F: '{print \"bat --style=numbers --color=always \" \$1 \" --highlight-line=\" \$2}' | sh" --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down)
   file=$(echo "$result" | awk -F: '{print $1}')
   line=$(echo "$result" | awk -F: '{print $2}')
-  [ -n "$file" ] && [ -n "$line" ] && vim +$line $(echo "$file")
+
+  if [ -n "$file" ]; then
+    git_root=$(git -C $(dirname "$file") rev-parse --show-toplevel 2>/dev/null)
+  fi
+
+  [ -n "$file" ] && [ -n "$line" ] && {
+    if [ -n "$git_root" ]; then
+      # Change local directory to Git root
+      nvim +"lcd $git_root" +$line "$file"
+    else
+      nvim +$line "$file"
+    fi
+  }
+}
+
+function fzf-open-project() {
+  local work_root="$HOME/dev/yale/repo"
+  local work_root_color="\033[33m"
+
+  local personal_root="$HOME/dev/personal"
+  local personal_root_color="\033[32m"
+
+  local reset_color="\033[0m"
+  local fzf_height="20%"
+
+  local dir
+
+  dir=$(find $work_root $personal_root -type d -mindepth 1 -maxdepth 1 \
+      | awk -v work="$work_root" -v personal="$personal_root" -v workColor="$work_root_color" -v personalColor="$personal_root_color" -v reset="$reset_color" '
+          { if ($0 != work && $0 != personal)
+              { if (index($0, work) > 0) printf workColor "%s" reset "\n", $0; else printf personalColor "%s" reset "\n", $0 }
+          }' \
+      | fzf --ansi --print0 -m -1 --border=rounded --height $fzf_height)
+
+  [[ -n "$dir" ]] && cd "$dir"
 }
 
 # -Misc-
@@ -35,36 +69,6 @@ function fkill() {
   then
       echo $pid | xargs kill -${1:-9}
   fi
-}
-
-# Run an npm script
-function nps() {
-  local script
-  script=$(cat package.json | jq -r '.scripts | keys[] ' | sort | fzf --print0 -m -1 --border=rounded --height 10%) && npm run $(echo "$script")
-}
-
-function rebuild() {
-    local repo_name=$(basename "$(git rev-parse --show-toplevel)")
-    if yolo && npm run build; then
-        pong "$repo_name" "Yolo'd and rebuilt"
-    else
-        pong "$repo_name" "Failed"
-    fi
-}
-
-# Execute a series of commands to start the day
-function goodmorning() {
-  today &&
-  simp &&
-  colima start &&
-  dstart;
-}
-
-# Execute a series of commands to end the day
-function goodbye() {
-  tomorrow &&
-  dstop &&
-  colima stop;
 }
 
 # nvm autouse

@@ -37,6 +37,9 @@ unset conf
 
 source $HOME/.secrets/secrets/work.zsh
 
+bindkey -r '^a'
+bindkey -s '^a' 'fzf-open-project\n'
+
 nvm_autouse &>/dev/null
 chpwd_functions=(${chpwd_functions[@]} "nvm_autouse")
 
