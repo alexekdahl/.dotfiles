@@ -61,8 +61,8 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # split in h-orizontal v-ertical f-ullscreen
-bindsym $mod+b split h
-bindsym $mod+v split v
+bindsym $mod+b splith
+bindsym $mod+v splitv
 bindsym $mod+f fullscreen toggle
 bindsym $mod+r split toggle
 
