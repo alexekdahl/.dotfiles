@@ -9,7 +9,7 @@ alias v="vim"
 alias code="codium"
 
 # -Misc-
-alias brewski="brew doctor && brew update && brew upgrade && brew cleanup"
+alias brewski="brew doctor; brew update && brew upgrade && brew cleanup -s"
 
 alias editzsh='nvim ~/.dotfiles/zsh/'
 alias editvim='nvim ~/.dotfiles/nvim/'

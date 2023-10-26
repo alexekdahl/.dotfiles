@@ -4,7 +4,7 @@ fi
 
 # Multi session node environment
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(fnm env)"
+# eval "$(fnm env)"
 
 # Config
 export DISABLE_UPDATE_PROMPT="false"
@@ -34,3 +34,5 @@ for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
 done
 unset conf
 
+bindkey -r '^a'
+bindkey -s '^a' 'fzf-open-project\n'
