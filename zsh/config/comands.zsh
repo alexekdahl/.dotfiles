@@ -9,7 +9,7 @@ function fff() {
   local pattern=$1
   local result
   local git_root
-  result=$(rg -i -n --no-messages "$pattern" | fzf --preview="echo {} | awk -F: '{print \"bat --style=numbers --color=always \" \$1 \" --highlight-line=\" \$2}' | sh" --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down)
+  result=$(rg -i -n --no-messages "$pattern" | fzf --preview="echo {} | awk -F: '{start=\$2 - 10; if (start < 0) start=0; print \"bat --style=numbers --color=always --line-range=\" start \":\" \$2+40 \" \" \$1 \" --highlight-line=\" \$2}' | sh" --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down)
   file=$(echo "$result" | awk -F: '{print $1}')
   line=$(echo "$result" | awk -F: '{print $2}')
 
