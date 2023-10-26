@@ -1,13 +1,13 @@
 #!/bin/bash
 
-nvim_lua_path="$HOME/.config/nvim/lua"
-nvim_ftplugin_path="$HOME/.config/nvim/after/ftplugin"
+nvim_lua_path="$HOME/.config/nvim/lua/"
+nvim_ftplugin_path="$HOME/.config/nvim/after/ftplugin/"
 nvim_go_path="$HOME/.config/nvim/after/ftplugin/go.vim"
-alacritty_path="$HOME/.config/alacritty"
-i3_path="$HOME/.config/i3"
-picom_path="$HOME/.config/picom"
-polybar_path="$HOME/.config/polybar"
-rofi_path="$HOME/.config/rofi"
+alacritty_path="$HOME/.config/alacritty/"
+i3_path="$HOME/.config/i3/"
+picom_path="$HOME/.config/picom/"
+polybar_path="$HOME/.config/polybar/"
+rofi_path="$HOME/.config/rofi/"
 
 zshrc_link="$HOME/.dotfiles/zsh/.zshrc"
 p10k_link="$HOME/.dotfiles/p10k/p10k.zsh"

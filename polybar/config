@@ -33,7 +33,7 @@ separator-foreground = ${colors.disabled}
 font-0 = MesloLGM Nerd Font;1
 
 modules-left = xworkspaces
-modules-right =  battery pulseaudio memory wlan date
+modules-right =  ble battery pulseaudio memory wlan date
 
 enable-ipc = true
 
@@ -79,8 +79,6 @@ format-volume-prefix-foreground = ${colors.primary}
 format-volume = <label-volume>
 
 label-volume = %percentage%%
-
-label-muted = " "
 label-muted-foreground = ${colors.disabled}
 
 [module/xkeyboard]
@@ -102,6 +100,12 @@ interval = 5
 format-prefix = "  "
 format-prefix-foreground = ${colors.primary}
 label = %percentage_used:2%%
+
+[module/ble]
+type = custom/script
+exec = rofi-bluetooth --status
+interval = 10
+click-left = rofi-bluetooth &
 
 [network-base]
 type = internal/network
