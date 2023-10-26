@@ -3,7 +3,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Multi session node environment
-eval "$(fnm env)"
+eval "$(fnm env --use-on-cd)"
 
 # Config
 export DISABLE_UPDATE_PROMPT="false"
@@ -39,7 +39,4 @@ source $HOME/.secrets/secrets/work.zsh
 
 bindkey -r '^a'
 bindkey -s '^a' 'fzf-open-project\n'
-
-nvm_autouse &>/dev/null
-chpwd_functions=(${chpwd_functions[@]} "nvm_autouse")
 

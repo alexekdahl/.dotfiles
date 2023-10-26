@@ -71,9 +71,3 @@ function fkill() {
   fi
 }
 
-# nvm autouse
-function nvm_autouse() {
-  if [[ -f ".nvmrc" ]]; then
-    fnm use --silent-if-unchanged --log-level quiet
-  fi
-}
