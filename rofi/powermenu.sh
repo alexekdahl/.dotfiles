@@ -1,8 +1,7 @@
 #!/bin/env bash
 
 # Options for powermenu
-# lock="    Lock"
-logout="    Logout"
+logout="    Logout"
 shutdown="    Shutdown"
 reboot="    Reboot"
 sleep="   Sleep"
@@ -14,12 +13,12 @@ $reboot
 $shutdown" | rofi -dmenu\
                   -i\
                   -p "Power"\
-                  -config "~/.config/rofi/config.rasi"\
+                  -config "~/.config/rofi/power.rasi"\
                   -font "Cascadia Code 12"\
                   -width "15"\
-                  -lines 5\
-                  -line-margin 3\
-                  -line-padding 10\
+                  -lines 4\
+                  -line-margin 0\
+                  -line-padding 0\
                   -scrollbar-width "0" )
 
 # Do something based on selected option
