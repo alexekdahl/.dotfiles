@@ -1,7 +1,3 @@
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
- source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # Multi session node environment
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # eval "$(fnm env)"
@@ -13,20 +9,31 @@ export COMPLETION_WAITING_DOTS="true"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob=!.git --glob=!node_modules"
 export EDITOR=nvim
 # Path
-export ZSH="$HOME/.oh-my-zsh"
 export GOPATH="$HOME/.go"
-
 export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH="$HOME/.go/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
-# Plugins
-plugins=(zsh-autosuggestions zsh-syntax-highlighting)
+export HISTFILE="$HOME/.zsh_history"
+
+autoload -Uz compinit
+compinit
+
+# Customize completion behavior
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'l:|=* r:|=*'
+zstyle ':completion:*:cd:*' tag-order 'local-directories named-directories'
+zstyle ':completion:*:correct:*' insert-unambiguous true
+
+# Autosuggestions Configuration
+export ZSH_AUTOSUGGEST_USE_REGEX_MATCHING=true
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
+export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(up-line-or-history up-history forward-char expand-or-complete)
 
 # Source
-source $ZSH/oh-my-zsh.sh
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-source ~/.p10k.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.dotfiles/zsh/custom_promt.zsh
 
 # Load seperated config files
 for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
@@ -36,3 +43,4 @@ unset conf
 
 bindkey -r '^a'
 bindkey -s '^a' 'fzf-open-project\n'
+

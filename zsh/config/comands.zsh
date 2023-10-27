@@ -28,18 +28,17 @@ function fff() {
 }
 
 function fzf-open-project() {
-  local work_root="$HOME/dev/yale/repo"
-  local work_root_color="\033[33m"
-
+  local work_root="$HOME/dev/axis"
   local personal_root="$HOME/dev/personal"
+
   local personal_root_color="\033[32m"
-
+  local work_root_color="\033[33m"
   local reset_color="\033[0m"
-  local fzf_height="20%"
 
+  local fzf_height="30%"
   local dir
 
-  dir=$(find $work_root $personal_root -type d -mindepth 1 -maxdepth 1 \
+  dir=$(find $work_root $personal_root -mindepth 1 -maxdepth 1 -type d \
       | awk -v work="$work_root" -v personal="$personal_root" -v workColor="$work_root_color" -v personalColor="$personal_root_color" -v reset="$reset_color" '
           { if ($0 != work && $0 != personal)
               { if (index($0, work) > 0) printf workColor "%s" reset "\n", $0; else printf personalColor "%s" reset "\n", $0 }
