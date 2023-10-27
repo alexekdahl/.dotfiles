@@ -50,7 +50,7 @@ label-active = %name%
 label-active-background = ${colors.background-alt}
 label-active-underline= ${colors.primary}
 label-active-padding = 1
-pin-workspaces = true
+# pin-workspaces = true
 
 label-occupied = %name%
 label-occupied-padding = 1
@@ -146,8 +146,8 @@ format-discharging-prefix-foreground = ${colors.primary}
 format-discharging-prefix = " "
 format-charging-prefix-foreground = ${colors.primary}
 format-charging-prefix = " "
-label-charging = %percentage%%
-label-discharging = %percentage%%
+label-charging = %{A1: /home/alex/.config/rofi/applets/bin/battery.sh &:}%percentage%%{A}
+label-discharging = %{A1: /home/alex/.config/rofi/applets/bin/battery.sh &:}%percentage%%{A}
 
 full-at = 100
 low-at = 5

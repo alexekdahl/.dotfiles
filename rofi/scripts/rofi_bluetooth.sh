@@ -1,20 +1,3 @@
-#!/usr/bin/env bash
-#             __ _       _     _            _              _   _
-#  _ __ ___  / _(_)     | |__ | |_   _  ___| |_ ___   ___ | |_| |__
-# | '__/ _ \| |_| |_____| '_ \| | | | |/ _ \ __/ _ \ / _ \| __| '_ \
-# | | | (_) |  _| |_____| |_) | | |_| |  __/ || (_) | (_) | |_| | | |
-# |_|  \___/|_| |_|     |_.__/|_|\__,_|\___|\__\___/ \___/ \__|_| |_|
-#
-# Author: Nick Clyde (clydedroid)
-#
-# A script that generates a rofi menu that uses bluetoothctl to
-# connect to bluetooth devices and display status info.
-#
-# Inspired by networkmanager-dmenu (https://github.com/firecat53/networkmanager-dmenu)
-# Thanks to x70b1 (https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/system-bluetooth-bluetoothctl)
-#
-# Depends on:
-#   Arch repositories: rofi, bluez-utils (contains bluetoothctl)
 
 # Constants
 divider="---------"
