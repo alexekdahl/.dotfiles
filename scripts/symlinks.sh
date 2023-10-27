@@ -10,7 +10,6 @@ polybar_path="$HOME/.config/polybar/"
 rofi_path="$HOME/.config/rofi/"
 
 zshrc_link="$HOME/.dotfiles/zsh/.zshrc"
-p10k_link="$HOME/.dotfiles/p10k/p10k.zsh"
 nvim_link="$HOME/.dotfiles/nvim/init.vim"
 
 nvim_lua_link="$HOME/.dotfiles/nvim/lua/"
@@ -22,22 +21,9 @@ rofi_link="$HOME/.dotfiles/rofi/"
 # Create necessary directories
 mkdir -p "$nvim_lua_path" "$nvim_ftplugin_path" "$alacritty_path" "$i3_path" "$picom_path" "$polybar_path" "$rofi_path"
 
-# Backup function
-backup_if_exists() {
-    local target_file=$1
-    if [ -f "$target_file" ]; then
-        cp "$target_file" "$target_file.old"
-    fi
-}
-
 # Backup and symlink
-backup_if_exists "$HOME/.zshrc"
 ln -s "$zshrc_link" "$HOME/.zshrc"
 
-backup_if_exists "$HOME/.p10k.zsh"
-ln -s "$p10k_link" "$HOME/.p10k.zsh"
-
-backup_if_exists "$HOME/.config/nvim/init.vim"
 ln -s "$nvim_link" "$HOME/.config/nvim/init.vim"
 
 # Symlink entire folders
