@@ -29,14 +29,13 @@ function fff() {
 
 function fzf-open-project() {
   local work_root="$HOME/dev/yale/repo"
-  local work_root_color="\033[33m"
-
   local personal_root="$HOME/dev/personal"
+
   local personal_root_color="\033[32m"
-
+  local work_root_color="\033[33m"
   local reset_color="\033[0m"
-  local fzf_height="20%"
 
+  local fzf_height="30%"
   local dir
 
   dir=$(find $work_root $personal_root -type d -mindepth 1 -maxdepth 1 \
@@ -71,3 +70,9 @@ function fkill() {
   fi
 }
 
+# nvm autouse
+function nvm_autouse() {
+  if [[ -f ".nvmrc" ]]; then
+    fnm use --silent-if-unchanged --log-level quiet
+  fi
+}

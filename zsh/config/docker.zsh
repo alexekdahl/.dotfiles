@@ -14,6 +14,13 @@ function ds() {
   [ -n "$cid" ] && docker stop "$cid"
 }
 
+function dsi() {
+  local img
+  img=$(docker images | sed 1d | fzf --print0 -m -1 --border=rounded --height 10% -q "$1" | awk '{print $1":"$2}')
+
+  [ -n "$img" ] && docker run -d "$img"
+}
+
 # Select a running docker container to enter shell
 function dbash() {
   local cid
