@@ -180,7 +180,7 @@ function time_prompt() {
 }
 
 # Build prompt
-PROMPT='$(start_arrow) ${BOLD}${BLACK}[${RESET}$(user_host)${BOLD}${BLACK}]${RESET} $(path_prompt)$(git_status_prompt)
+PROMPT='$(start_arrow) ${BOLD}${GREY}[${RESET}$(user_host)${BOLD}${GREY}]${RESET} $(path_prompt)$(git_status_prompt)
 $(end_arrow)'
 
 # Enable prompt expansion
