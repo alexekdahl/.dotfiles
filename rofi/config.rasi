@@ -1,6 +1,6 @@
 configuration {
 	/*---------- General setting ----------*/
-	modi: "drun,run,filebrowser,window";
+	modi: "window,drun,run,filebrowser";
 	case-sensitive: false;
 	cycle: true;
 	filter: "";
@@ -47,7 +47,7 @@ configuration {
 	window-match-fields: "title,class,role,name,desktop";
 	window-command: "wmctrl -i -R {window}";
 	window-format: "{w} - {c} - {t:0}";
-	window-thumbnail: false;
+	window-thumbnail: true;
 
 	/*---------- Combi settings ----------*/
 /*	combi-modi: "window,run";*/

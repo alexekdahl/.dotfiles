@@ -12,7 +12,7 @@ urgent=""
 amixer get Master | grep '\[on\]' &>/dev/null
 if [[ "$?" == 0 ]]; then
 	active="-a 1"
-	stext='Unmute'
+	stext='ON'
 	sicon=''
 else
 	urgent="-u 1"
@@ -24,7 +24,7 @@ fi
 amixer get Capture | grep '\[on\]' &>/dev/null
 if [[ "$?" == 0 ]]; then
     [ -n "$active" ] && active+=",3" || active="-a 3"
-	mtext='Unmute'
+	mtext='ON'
 	micon=''
 else
     [ -n "$urgent" ] && urgent+=",3" || urgent="-u 3"
@@ -33,19 +33,41 @@ else
 fi
 
 # Theme Elements
-prompt="S:$stext, M:$mtext"
-mesg="$mixer - Speaker: $speaker, Mic: $mic"
+prompt="Sound:$stext, Mic:$mtext"
+# mesg="$mixer - Speaker: $speaker, Mic: $mic"
 
-list_col='5'
-list_row='1'
+	# list_col='1'
+	# list_row='5'
+	# win_width='400px'
+
+	list_col='1'
+	list_row='5'
+	win_width='120px'
+	#
+	list_col='1'
+	list_row='5'
+	win_width='520px'
+	#
+	list_col='5'
+	list_row='1'
 win_width='670px'
 
+
 # Options
-option_1=""
-option_2="$sicon"
-option_3=""
-option_4="$micon"
-option_5=""
+layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
+if [[ "$layout" == 'NO' ]]; then
+	option_1=" Increase"
+	option_2="$sicon $stext"
+	option_3=" Decrese"
+	option_4="$micon $mtext"
+	option_5=" Settings"
+else
+	option_1=""
+	option_2="$sicon"
+	option_3=""
+	option_4="$micon"
+	option_5=""
+fi
 
 # Rofi CMD
 rofi_cmd() {
@@ -54,7 +76,6 @@ rofi_cmd() {
 		-theme-str 'textbox-prompt-colon {str: "";}' \
 		-dmenu \
 		-p "$prompt" \
-		-mesg "$mesg" \
 		${active} ${urgent} \
 		-markup-rows \
 		-theme ${theme}

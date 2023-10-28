@@ -28,7 +28,7 @@ zstyle ':completion:*:correct:*' insert-unambiguous true
 export ZSH_AUTOSUGGEST_USE_REGEX_MATCHING=true
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
-export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(up-line-or-history up-history forward-char expand-or-complete)
+export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(up-line-or-history up-history forward-char complete-or-expand)
 
 # Source
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
