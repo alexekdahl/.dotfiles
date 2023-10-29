@@ -52,6 +52,9 @@ keys = [
             lazy.layout.add()
             ),
 
+        # Switch focus
+        Key(["control"], "Right", lazy.screen.next_group()),
+        Key(["control"], "Left", lazy.screen.prev_group()),
         # Switch focus to specific monitor (out of three)
         # Key([mod], "i", lazy.to_screen(0)),
         # Key([mod], "o", lazy.to_screen(1)),
@@ -125,7 +128,6 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.Sep(),
                 widget.GroupBox(
                     font="MesloLGM Nerd Font",
                     fontsize = 16,
@@ -133,14 +135,14 @@ screens = [
                     margin_x = 4,
                     padding_y = 6,
                     padding_x = 6,
-                    borderwidth = 2,
+                    borderwidth = 1,
                 ),
                 widget.WindowName(),
                 # widget.Systray(),
                 widget.Battery(),
-                widget.Memory(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.QuickExit(),
+                # widget.Memory(),
+                widget.Clock(format="%a %I:%M %p"),
+                # widget.QuickExit(),
             ],
             24,
         ),

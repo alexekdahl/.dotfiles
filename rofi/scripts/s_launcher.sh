@@ -79,6 +79,6 @@ case ${chosen} in
 		run_cmd --opt6
         ;;
     $option_7)
-		run_cmd --opt6
+		run_cmd --opt7
         ;;
 esac
