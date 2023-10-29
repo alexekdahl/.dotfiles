@@ -1,4 +1,5 @@
-
+theme="$HOME/.config/rofi/styles/wifi.rasi"
+rofi_command="rofi -dmenu -theme $theme $* -p"
 # Constants
 divider="---------"
 goback="Back"
@@ -288,7 +289,6 @@ show_menu() {
 }
 
 # Rofi command to pipe into, can add any options here
-rofi_command="rofi -dmenu $* -p"
 
 case "$1" in
     --status)

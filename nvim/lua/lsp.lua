@@ -105,5 +105,9 @@ lsp.tsserver.setup({
 })
 
 lsp.pyright.setup{
-    on_attach = on_attach
+  on_attach = on_attach,
+  capabilities = capabilites,
+  handlers = {
+    ["textDocument/publishDiagnostics"] = common_on_publish_diagnostics,
+  },
 }

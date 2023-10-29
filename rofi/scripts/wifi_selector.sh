@@ -2,9 +2,10 @@
 #This script provides a rofi menu interface for wifi control
 #It uses and requires nmcli
 
+theme="$HOME/.config/rofi/styles/wifi.rasi"
 get_match()
 {
-  selection=$(echo -e "$1" | rofi -dmenu -p "$2" -config ~/.config/rofi/config.rasi)
+  selection=$(echo -e "$1" | rofi -dmenu -p "$2" -theme ${theme})
   [[ -z "$selection" ]] && exit 1
   does_match_=$(echo -e "$1" | grep "$selection")
   [[ -n "$1" ]] && [[ -z "$does_match_" ]] && exit 1
@@ -44,7 +45,8 @@ selected_ssid=$(echo $selection|sed 's/\s\{2,\}/|/g'|awk -F "|" "{print \$$ssid_
 
 #Create new connection
 if [ "$selected_ssid" = "$create_option" ]; then
-  manual_ssid=$(echo "Enter the SSID of the network." | rofi -dmenu -p "SSID" -config ~/.config/rofi/config.rasi)
+  manual_ssid=$(echo "Enter the SSID of the network." | rofi -dmenu -p "SSID" -theme ${theme}
+)
   if [ -z "$manual_ssid" ];then
     exit 1
   fi
@@ -60,7 +62,7 @@ if [ "$selected_ssid" = "$create_option" ]; then
     fi
   else
     #if no matches
-    manual_password=$(echo "Enter the Password of the network (or leave blank)." | rofi -dmenu -p "Password" -config ~/.config/rofi/config.rasi)
+    manual_password=$(echo "Enter the Password of the network (or leave blank)." | rofi -dmenu -p "Password" -theme ${theme})
     if [ "$manual_password" = "" ];then
       nmcli dev wifi con "$manual_ssid"
     else
@@ -92,11 +94,11 @@ elif [[ -n "$selection" ]];then
 
     #if security is 802.1x
     if [[ -n "$sec0" ]];then
-      user_name=$(echo "Enter identity." | rofi -dmenu -p "Identity" -config ~/.config/rofi/config.rasi)
+      user_name=$(echo "Enter identity." | rofi -dmenu -p "Identity" -theme ${theme})
       if [[ -z "$user_name" ]];then
         exit 1
       fi
-      password0=$(echo "Enter password of your identity (or leave empty)." | rofi -dmenu -p "Password" -config ~/.config/rofi/config.rasi)
+      password0=$(echo "Enter password of your identity (or leave empty)." | rofi -dmenu -p "Password" -theme ${theme})
       n_matches_=$(echo -e "$wlan_"|wc -l)
       #if more than one wlan device let user pick
       if [[ "$n_matches_" -gt "1" ]];then
@@ -112,7 +114,7 @@ elif [[ -n "$selection" ]];then
     else
       sec=$(echo -e "$lines_full"|grep "$selected_ssid"| awk '/(WPA|WEP)/')
       if [[ -n "$sec" ]];then #if network is secured, prompt for password
-        password_=$(echo "Enter password of the newtork (or leave blank)." | rofi -dmenu -p "Password" -config ~/.config/rofi/config.rasi)
+        password_=$(echo "Enter password of the newtork (or leave blank)." | rofi -dmenu -p "Password" -theme ${theme})
       fi
       nmcli dev wifi con "$selected_ssid" password "$password_"
     fi
