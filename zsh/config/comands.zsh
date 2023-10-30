@@ -1,6 +1,7 @@
 # Find a file and open it in Vim
 function ff() {
-  fzf --preview='bat --style=numbers --color=always {}' --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down | xargs -o nvim
+  local file
+  file=$(fzf --preview='bat --style=numbers --color=always {}' --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down) && vim $(echo "$file")
 }
 
 # Find pattern inside a file and open it in Neovim at the line where the pattern is found and sets Neovim root to git root.

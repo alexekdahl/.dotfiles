@@ -96,8 +96,8 @@ lua require('statusline')
 lua require('spellbee')
 lua require('gitsign')
 lua require('harp')
-lua require('pilot')
-lua require('refactor')
+" lua require('pilot')
+" lua require('refactor')
 
 " keybindings
 let mapleader = " "
