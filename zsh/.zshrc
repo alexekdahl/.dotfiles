@@ -35,8 +35,14 @@ for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
 done
 unset conf
 
+fzf-open-project-widget() {
+  fzf-open-project
+  zle reset-prompt
+}
+
+zle -N fzf-open-project-widget
 bindkey -r '^a'
-bindkey -s '^a' 'fzf-open-project\n'
+bindkey '^a' fzf-open-project-widget
 
 nvm_autouse &>/dev/null
 chpwd_functions=(${chpwd_functions[@]} "nvm_autouse")
