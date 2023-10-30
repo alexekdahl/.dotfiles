@@ -82,12 +82,6 @@ function path_prompt() {
   fi
 }
 
-function path_icon() {
-  if [[ "${(%):-%~}" == "~" ]]; then
-    echo "${RED}${RESET}"
-  fi
-}
-
 function time_prompt() {
   echo "${FADED_GREY} %T${RESET}"
 }
@@ -112,6 +106,7 @@ function language_folder() {
   fi
 
 }
+
 function node_version_prompt() {
   if [[ -f ".nvmrc" || -f "package.json" ]]; then
     echo "${NODE_GREEN_256} $(node -v)${RESET}"
@@ -124,21 +119,11 @@ function go_version_prompt() {
   fi
 }
 
-function commits_not_pushed() {
-  local branch_name=$(git symbolic-ref --short HEAD 2>/dev/null)
-
-  if [[ -n $branch_name ]]; then
-    local commits_diff=$(git rev-list --count $branch_name ^$remote_name 2>/dev/null)
-
-    if [[ $commits_diff -gt 0 ]]; then
-      echo -n " ${MAGENTA}⇡$commits_diff${RESET}"
-    fi
-  fi
-}
-
 function git_status_prompt() {
   local branch_name=$(git symbolic-ref --short HEAD 2>/dev/null)
-  if [[ -n $branch_name ]]; then
+  if [[ ! -d .git ]]; then
+    return
+  fi
   # Capture various git statuses
     local commits_ahead=$(git rev-list --count @{u}..HEAD 2>/dev/null)
     local commits_behind=$(git rev-list --count HEAD..@{u} 2>/dev/null)
@@ -190,7 +175,6 @@ function git_status_prompt() {
     if [[ -f $merge ]]; then
       echo -n " ${MAGENTA}MERGING${RESET}"
     fi
-  fi
 }
 
 function start_arrow() {
