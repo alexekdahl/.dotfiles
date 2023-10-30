@@ -1,6 +1,7 @@
 # Load colors
 autoload -U colors && colors
 export TERM=xterm-256color
+typeset -g FIRST_PROMPT=true
 
 # Reset
 RESET="%{$reset_color%}"
@@ -46,13 +47,16 @@ function update_rprompt() {
 }
 
 function add_newline() {
- # Get the last command without arguments
- local last_command=$(echo "$LAST_OUTPUT" | awk '{print $1}')
+  local last_command=$(echo "$LAST_OUTPUT" | awk '{print $1}')
 
- # Add a new line only if the previous command produced output and wasn't 'clear' or your alias 'c'
- if [ -n "$LAST_OUTPUT" ] && [ "$last_command" != "clear" ] && [ "$last_command" != "c" ]; then
-     echo ""
- fi
+  if [[ "$FIRST_PROMPT" == "true" ]]; then
+    FIRST_PROMPT=false
+    return
+  fi
+
+  if [ -n "$LAST_OUTPUT" ] && [ "$last_command" != "clear" ] && [ "$last_command" != "c" ]; then
+    echo ""
+  fi
 }
 
 function precmd() {
@@ -86,6 +90,13 @@ function path_icon() {
 
 function time_prompt() {
   echo "${FADED_GREY} %T${RESET}"
+}
+function display_cog() {
+  local num_bg_jobs=$(jobs -p | wc -l)
+
+  if [ "$num_bg_jobs" -gt 0 ]; then
+    echo -e "${GREEN}${RESET}"
+  fi
 }
 
 function user_host() {
@@ -126,43 +137,58 @@ function commits_not_pushed() {
 }
 
 function git_status_prompt() {
-  # 
   local branch_name=$(git symbolic-ref --short HEAD 2>/dev/null)
-
   if [[ -n $branch_name ]]; then
+  # Capture various git statuses
+    local commits_ahead=$(git rev-list --count @{u}..HEAD 2>/dev/null)
+    local commits_behind=$(git rev-list --count HEAD..@{u} 2>/dev/null)
     local untracked_files=$(git ls-files --others --exclude-standard 2>/dev/null | wc -l | tr -d '[:space:]')
     local unstaged_files=$(git diff --name-status 2>/dev/null | wc -l | tr -d '[:space:]')
     local staged_files=$(git diff --cached --name-status 2>/dev/null | wc -l | tr -d '[:space:]')
-    local combined_changes=$((untracked_files + unstaged_files))
     local stashed_changes=$(git stash list 2>/dev/null | wc -l | tr -d '[:space:]')
-    local commits_ahead=$(git rev-list --count @{u}..HEAD 2>/dev/null)
+    local has_conflicts=$(git ls-files -u 2>/dev/null | wc -l | tr -d '[:space:]')
+    local rebase=$(git rev-parse --git-path "rebase-merge" 2> /dev/null)
+    local merge=$(git rev-parse --git-path "MERGE_HEAD" 2> /dev/null)
+
     local branch_color="${GIT_GREEN} "
 
     if [[ $branch_name == "main" || $branch_name == "master" ]]; then
       branch_color="${BOLD}${MAGENTA} "
     fi
-
     if [[ $stashed_changes -gt 0 ]]; then
       echo -n "${GIT_GREEN}$branch_color$branch_name *$stashed_changes${RESET}"
-      # echo -n " ${BLUE}⚑ $stashed_changes${RESET}"
     else
       echo -n "$branch_color$branch_name${RESET}"
     fi
 
+    # Commits ahead or behind
     if [[ $commits_ahead -gt 0 ]]; then
       echo -n "${GREEN}⇡$commits_ahead${RESET}"
     fi
+    if [[ $commits_behind -gt 0 ]]; then
+      echo -n "${GREEN}⇣$commits_behind${RESET}"
+    fi
 
+    # File statuses
     if [[ $staged_files -gt 0 ]]; then
       echo -n " ${YELLOW}+$staged_files${RESET}"
     fi
-
     if [[ $unstaged_files -gt 0 ]]; then
       echo -n " ${YELLOW}!$unstaged_files${RESET}"
     fi
-
     if [[ $untracked_files -gt 0 ]]; then
-      echo -n " ${BLUE}!$untracked_files${RESET}"
+      echo -n " ${BLUE}?$untracked_files${RESET}"
+    fi
+
+    # Conflicts, rebasing, and merging
+    if [[ $has_conflicts -gt 0 ]]; then
+      echo -n " ${RED}x$has_conflicts${RESET}"
+    fi
+    if [[ -d $rebase ]]; then
+      echo -n " ${MAGENTA}REBASING${RESET}"
+    fi
+    if [[ -f $merge ]]; then
+      echo -n " ${MAGENTA}MERGING${RESET}"
     fi
   fi
 }
@@ -172,7 +198,7 @@ function start_arrow() {
 }
 
 function end_arrow() {
-  echo "${FADED_GREY}╰─${ARROW_COLOR}❯ ${RESET}"
+  echo "${FADED_GREY}╰─$(display_cog) ${ARROW_COLOR}❯ ${RESET}"
 }
 
 function time_prompt() {
