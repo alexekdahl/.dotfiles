@@ -21,35 +21,19 @@ export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH="$HOME/.go/bin:$PATH"
 export PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
 
+
 # Source
+source ~/.dotfiles/zsh/config.zsh
 source $HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.p10k.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
+
 # Load separated config files
 for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
   source "${conf}"
 done
 unset conf
-
-autoload -Uz compinit
-compinit
-
-# Customize completion behavior
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'l:|=* r:|=*'
-zstyle ':completion:*:cd:*' tag-order 'local-directories named-directories'
-zstyle ':completion:*:correct:*' insert-unambiguous true
-
-# Autosuggestions Configuration
-export ZSH_AUTOSUGGEST_USE_REGEX_MATCHING=true
-export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-export ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(up-line-or-history up-history forward-char expand-or-complete)
-
-# source $HOME/.secrets/secrets/work.zsh
-
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
 
 bindkey -r '^a'
 bindkey -s '^a' 'fzf-open-project\n'
