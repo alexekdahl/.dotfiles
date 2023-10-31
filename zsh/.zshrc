@@ -29,20 +29,16 @@ source ~/.p10k.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+source ~/.secrets/secrets/work.zsh
+
 # Load separated config files
 for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
   source "${conf}"
 done
 unset conf
 
-fzf-open-project-widget() {
-  fzf-open-project
-  zle reset-prompt
-}
-
-zle -N fzf-open-project-widget
 bindkey -r '^a'
-bindkey '^a' fzf-open-project-widget
+bindkey -s '^a' 'fzf-open-project\n'
 
 nvm_autouse &>/dev/null
 chpwd_functions=(${chpwd_functions[@]} "nvm_autouse")
