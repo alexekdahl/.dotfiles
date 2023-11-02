@@ -99,14 +99,25 @@ lsp.tsserver.setup({
   handlers = {
     ["textDocument/publishDiagnostics"] = common_on_publish_diagnostics,
   },
+  cmd = { "typescript-language-server", "--stdio" },
   filetypes = { "typescript", "javascript" },
   capabilities = capabilites,
   on_attach = on_attach,
 })
 
-lsp.pyright.setup{
-  on_attach = on_attach,
-  capabilities = capabilites,
+lsp.pylsp.setup {
+on_attach = on_attach,
+settings = {
+    pylsp = {
+    plugins = {
+        black = { enabled = true },
+    },
+    },
+},
+flags = {
+    debounce_text_changes = 200,
+},
+capabilities = capabilities,
   handlers = {
     ["textDocument/publishDiagnostics"] = common_on_publish_diagnostics,
   },
