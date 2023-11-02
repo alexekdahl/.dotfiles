@@ -2,12 +2,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Multi session node environment
-# eval "$(fnm env)"
-
 setopt histignorealldups sharehistory
 export HISTFILE="$HOME/.zsh_history"
-# setopt append_history
+
 # Config
 export DISABLE_UPDATE_PROMPT="false"
 export DISABLE_LS_COLORS="true"
