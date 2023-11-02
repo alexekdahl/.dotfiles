@@ -105,6 +105,27 @@ lsp.tsserver.setup({
   on_attach = on_attach,
 })
 
-lsp.pyright.setup{
-    on_attach = on_attach
+lsp.pylsp.setup {
+  on_attach = on_attach,
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          enabled = true,
+          maxLineLength = 120  -- Setting maximum line length to 120 characters
+        },
+        black = {
+          enabled = true,
+          line_length = 120  -- Ensure this matches the pycodestyle setting
+        },
+      },
+    },
+  },
+  flags = {
+    debounce_text_changes = 200,
+  },
+  capabilities = capabilities,
+  handlers = {
+    ["textDocument/publishDiagnostics"] = common_on_publish_diagnostics,
+  },
 }
