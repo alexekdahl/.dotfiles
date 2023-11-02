@@ -3,7 +3,7 @@ from libqtile.layout.bsp import Bsp
 from libqtile.layout.floating import Floating
 from libqtile.layout.xmonad import MonadTall
 
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
 from os.path import expanduser
@@ -11,78 +11,63 @@ import subprocess
 
 ALT = "mod1"
 SUPER = "mod4"
-TERMINAL = 'alacritty'
+TERMINAL = "alacritty"
 HOME = expanduser("~")
 
 # Use lazy.spawn to execute a shell command
 keys = [
-        # Switch between windows
-        Key([ALT], "h", lazy.layout.left()),
-        Key([ALT], "j", lazy.layout.down()),
-        Key([ALT], "k", lazy.layout.up()),
-        Key([ALT], "l", lazy.layout.right()),
-
-        # Move windows
-        Key([ALT, "shift"], "h", lazy.layout.swap_left()),
-        Key([ALT, "shift"], "j", lazy.layout.shuffle_down()),
-        Key([ALT, "shift"], "k", lazy.layout.shuffle_up()),
-        Key([ALT, "shift"], "l", lazy.layout.swap_right()),
-
-        # Resize windows
-        Key([ALT, "control"], "h",
-            lazy.layout.grow_right(),
-            lazy.layout.grow(),
-            lazy.layout.increase_ratio(),
-            lazy.layout.delete()
-            ),
-        Key([ALT, "control"], "j",
-            lazy.layout.grow_down(),
-            lazy.layout.shrink(),
-            lazy.layout.increase_nmaster()
-            ),
-        Key([ALT, "control"], "k",
-            lazy.layout.grow_up(),
-            lazy.layout.grow(),
-            lazy.layout.decrease_nmaster()
-            ),
-        Key([ALT, "control"], "l",
-            lazy.layout.grow_left(),
-            lazy.layout.shrink(),
-            lazy.layout.decrease_ratio(),
-            lazy.layout.add()
-            ),
-
-        # Switch focus
-        Key(["control"], "Right", lazy.screen.next_group()),
-        Key(["control"], "Left", lazy.screen.prev_group()),
-        # Switch focus to specific monitor (out of three)
-        # Key([mod], "i", lazy.to_screen(0)),
-        # Key([mod], "o", lazy.to_screen(1)),
-
-        # Switch focus of monitors
-        # Key([mod], "period", lazy.next_screen()),
-        # Key([mod], "comma", lazy.prev_screen()),
-
-        # Layouts
-        Key([ALT], "e", lazy.layout.toggle_split()),
-        Key(["control"], "Tab", lazy.next_layout()),
-        Key([ALT], "t", lazy.window.toggle_floating()),
-        Key([ALT], "f", lazy.window.toggle_fullscreen()),
-
-        # kill
-        Key([SUPER], "w", lazy.window.kill()),
-
-
-        # Application Launch
-        Key([SUPER], "space", lazy.spawn(TERMINAL)),
-        Key([ALT], "d", lazy.spawn(f"{HOME}/.config/rofi/scripts/launcher.sh")),
-        Key([ALT, "shift"], "d", lazy.spawn(f"{HOME}/.config/rofi/scripts/s_launcher.sh")),
-        Key([ALT, SUPER], "r", lazy.spawncmd()),
-
-        # System Control
-        Key([SUPER, "control"], "r", lazy.restart()),
-        Key([SUPER, "control"], "q", lazy.shutdown()),
-    ]
+    # Switch between windows
+    Key([ALT], "h", lazy.layout.left()),
+    Key([ALT], "j", lazy.layout.down()),
+    Key([ALT], "k", lazy.layout.up()),
+    Key([ALT], "l", lazy.layout.right()),
+    # Move windows
+    Key([ALT, "shift"], "h", lazy.layout.swap_left()),
+    Key([ALT, "shift"], "j", lazy.layout.shuffle_down()),
+    Key([ALT, "shift"], "k", lazy.layout.shuffle_up()),
+    Key([ALT, "shift"], "l", lazy.layout.swap_right()),
+    # Resize windows
+    Key(
+        [ALT, "control"],
+        "h",
+        lazy.layout.grow_right(),
+        lazy.layout.grow(),
+        lazy.layout.increase_ratio(),
+        lazy.layout.delete(),
+    ),
+    Key([ALT, "control"], "j", lazy.layout.grow_down(), lazy.layout.shrink(), lazy.layout.increase_nmaster()),
+    Key([ALT, "control"], "k", lazy.layout.grow_up(), lazy.layout.grow(), lazy.layout.decrease_nmaster()),
+    Key(
+        [ALT, "control"],
+        "l",
+        lazy.layout.grow_left(),
+        lazy.layout.shrink(),
+        lazy.layout.decrease_ratio(),
+        lazy.layout.add(),
+    ),
+    # Switch focus
+    Key(["control"], "Right", lazy.screen.next_group()),
+    Key(["control"], "Left", lazy.screen.prev_group()),
+    # Switch focus to specific monitor (out of three)
+    Key([ALT], "o", lazy.next_screen()),
+    Key([ALT], "i", lazy.next_screen()),
+    # Switch focus of monitors
+    # Layouts
+    Key([ALT], "e", lazy.layout.toggle_split()),
+    Key(["control"], "Tab", lazy.next_layout()),
+    Key([ALT], "t", lazy.window.toggle_floating()),
+    Key([ALT], "f", lazy.window.toggle_fullscreen()),
+    # kill
+    Key([SUPER], "w", lazy.window.kill()),
+    # Application Launch
+    Key([SUPER], "space", lazy.spawn(TERMINAL)),
+    Key([ALT], "d", lazy.spawn(f"{HOME}/.config/rofi/scripts/launcher.sh")),
+    Key([ALT, "shift"], "d", lazy.spawn(f"{HOME}/.config/rofi/scripts/s_launcher.sh")),
+    Key([ALT, SUPER], "r", lazy.spawncmd()),
+    # System Control
+    Key([SUPER, "control"], "r", lazy.restart()),
+    Key([SUPER, "control"], "q", lazy.shutdown()),
+]
 
 groups = [Group(i) for i in "123456789"]
 
@@ -94,11 +79,7 @@ for i in groups:
         ]
     )
 
-layout_theme = {"border_width": 1,
-                "margin": 10,
-                "border_focus": "#d75f5f",
-                "border_normal": "#8f3d3d"
-                }
+layout_theme = {"border_width": 1, "margin": 10, "border_focus": "#d75f5f", "border_normal": "#8f3d3d"}
 
 layouts = [
     MonadTall(**layout_theme),
@@ -130,12 +111,12 @@ screens = [
             [
                 widget.GroupBox(
                     font="MesloLGM Nerd Font",
-                    fontsize = 16,
-                    margin_y = 2,
-                    margin_x = 4,
-                    padding_y = 6,
-                    padding_x = 6,
-                    borderwidth = 1,
+                    fontsize=16,
+                    margin_y=2,
+                    margin_x=4,
+                    padding_y=6,
+                    padding_x=6,
+                    borderwidth=1,
                 ),
                 widget.WindowName(),
                 # widget.Systray(),
@@ -152,8 +133,6 @@ screens = [
 # Drag floating layouts.
 mouse = [
     Drag([ALT], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag([ALT], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
-    Click([ALT], "Button2", lazy.window.bring_to_front()),
 ]
 
 dgroups_key_binder = None
@@ -177,12 +156,10 @@ floating_layout = Floating(
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
-
-# If things like steam games want to auto-minimize themselves when losing
-# focus, should we respect this or not?
 auto_minimize = True
+
 
 @hook.subscribe.startup_once
 def autostart():
-    home = expanduser('~/.config/qtile/autostart.sh')
+    home = expanduser("~/.config/qtile/autostart.sh")
     subprocess.call([home])
