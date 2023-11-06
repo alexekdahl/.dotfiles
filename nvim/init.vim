@@ -16,7 +16,7 @@ Plug 'f-person/git-blame.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'ruanyl/vim-gh-line'
-Plug 'zbirenbaum/copilot.lua'
+Plug 'codota/tabnine-nvim', { 'do': './dl_binaries.sh' }
 
 " lsp autocomplete
 Plug 'neovim/nvim-lspconfig'
