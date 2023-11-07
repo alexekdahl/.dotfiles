@@ -84,6 +84,7 @@ require("mason-lspconfig").setup_handlers({
       handlers = {
         ["textDocument/publishDiagnostics"] = common_on_publish_diagnostics,
       },
+      -- cmd = { "typescript-language-server", "--stdio" },
       filetypes = { "typescript", "javascript" },
       capabilities = capabilities,
       on_attach = on_attach,
