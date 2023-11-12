@@ -28,7 +28,7 @@ function fff() {
 }
 
 function fzf-open-project() {
-  local work_root="$HOME/dev/axis"
+  local work_root="$HOME/dev/axis/repo"
   local personal_root="$HOME/dev/personal"
 
   local personal_root_color="\033[32m"

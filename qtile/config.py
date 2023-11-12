@@ -67,6 +67,15 @@ keys = [
     # System Control
     Key([SUPER, "control"], "r", lazy.restart()),
     Key([SUPER, "control"], "q", lazy.shutdown()),
+
+    # Increase volume
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -q set Master 5%+ unmute")),
+    # Decrease volume
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -q set Master 5%- unmute")),
+    # Toggle mute
+    Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
+    # Microphone mute/unmute
+    Key([], "XF86AudioMicMute", lazy.spawn("amixer set Capture toggle")),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -119,11 +128,12 @@ screens = [
                     borderwidth=1,
                 ),
                 widget.WindowName(),
-                # widget.Systray(),
+                widget.Systray(),
                 widget.Battery(),
+                widget.Volume(),
                 # widget.Memory(),
                 widget.Clock(format="%a %I:%M %p"),
-                # widget.QuickExit(),
+                widget.QuickExit(),
             ],
             24,
         ),

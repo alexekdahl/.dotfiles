@@ -16,9 +16,11 @@ Plug 'f-person/git-blame.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'ruanyl/vim-gh-line'
-Plug 'zbirenbaum/copilot.lua'
+Plug 'codota/tabnine-nvim', { 'do': './dl_binaries.sh' }
 
 " lsp autocomplete
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -96,7 +98,7 @@ lua require('statusline')
 lua require('spellbee')
 lua require('gitsign')
 lua require('harp')
-" lua require('pilot')
+lua require('pilot')
 lua require('refactor')
 
 " keybindings

@@ -73,7 +73,6 @@ selection:
   save_to_clipboard: true
 
 window:
-  decorations: none
   dimensions:
     columns: 80
     lines: 24

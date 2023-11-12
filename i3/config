@@ -9,11 +9,11 @@ exec --no-startup-id xset r rate 210 50
 exec --no-startup-id /usr/libexec/gsd-xsettings
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
-exec --no-startup-id setxkbmap -option caps:escape
+exec --no-startup-id setxkbmap -option "caps:escape"
 exec --no-startup-id ~/.config/i3/monitor_switch.sh &
 
 exec_always --no-startup-id ~/.config/polybar/launch.sh &
-exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpaper/wallpaper_by_thaomaoh_dewko4o.png
+exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpapers/wallpaper_by_thaomaoh_dewko4o.png
 exec_always --no-startup-id "picom --config /home/alex/.config/picom/picom.conf"
 
 #Hide window title bar

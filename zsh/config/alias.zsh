@@ -25,6 +25,7 @@ alias topcmd='history | awk '\''{CMD[$2]++;count++;}END { for (a in CMD)print CM
 # -Network-
 alias mip='ipconfig getifaddr en0'
 alias ports='lsof -i -n -P'
+alias spdt='speedtest --simple'
 
 # -Node-
 alias yolo='rm -rf node_modules/ && npm install'

@@ -38,12 +38,12 @@ zle -N expand-or-complete-with-dots
 # Start typing + [Up-Arrow] - fuzzy find history forward
 autoload -U up-line-or-beginning-search
 zle -N up-line-or-beginning-search
-bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
 
 # Start typing + [Down-Arrow] - fuzzy find history backward
 autoload -U down-line-or-beginning-search
 zle -N down-line-or-beginning-search
-bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
 
 # automatically load bash completion functions
 autoload -U +X bashcompinit && bashcompinit
