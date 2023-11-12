@@ -14,6 +14,7 @@ SUPER = "mod4"
 TERMINAL = "alacritty"
 HOME = expanduser("~")
 
+
 # Use lazy.spawn to execute a shell command
 keys = [
     # Switch between windows
