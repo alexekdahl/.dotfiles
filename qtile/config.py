@@ -11,9 +11,7 @@ import subprocess
 
 ALT = "mod1"
 SUPER = "mod4"
-TERMINAL = "alacritty"
 HOME = expanduser("~")
-
 
 # Use lazy.spawn to execute a shell command
 keys = [
@@ -61,7 +59,7 @@ keys = [
     # kill
     Key([SUPER], "w", lazy.window.kill()),
     # Application Launch
-    Key([SUPER], "space", lazy.spawn(TERMINAL)),
+    Key([SUPER], "space", lazy.spawn(f"{HOME}/.config/qtile/start_alacritty.sh")),
     Key([ALT], "d", lazy.spawn(f"{HOME}/.config/rofi/scripts/launcher.sh")),
     Key([ALT, "shift"], "d", lazy.spawn(f"{HOME}/.config/rofi/scripts/s_launcher.sh")),
     Key([ALT, SUPER], "r", lazy.spawncmd()),
