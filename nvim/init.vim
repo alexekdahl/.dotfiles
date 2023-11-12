@@ -73,7 +73,6 @@ let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
 let g:floaterm_width = 0.8
 let g:floaterm_height = 0.9
 
-
 fun! TrimWhiteSpace()
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e

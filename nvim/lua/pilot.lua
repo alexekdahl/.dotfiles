@@ -1,4 +1,5 @@
 require('tabnine').setup({
+  auto_start = false,
   disable_auto_comment = true,
   accept_keymap = "<Tab>",
   dismiss_keymap = "<C-e>",
