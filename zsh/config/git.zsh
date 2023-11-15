@@ -6,7 +6,7 @@ alias gsl="git stash list --pretty=format:'%Cblue%gd%Cred: %C(yellow)%s"
 alias greset='git reset --hard HEAD'
 alias uncommit='git reset --soft HEAD~'
 alias gstash='git stash save --include-untracked'
-alias gcob='git branch | cut -c 3- | fzf --print0 -1 --border=rounded --height 10% | xargs git checkout'
+alias gcob='git branch | cut -c 3- | fzf --print0 -1 --border=rounded --height 10% | xargs --null git checkout'
 alias gdb='git branch | cut -c 3- | fzf --print0 -m -1 --border=rounded --height 10% | xargs  -0 -t -o git branch -D'
 alias gun='git --no-pager diff --name-only --cached | fzf --print0 -m -1 --border=rounded --height 10% | xargs -0 -t -o git reset'
 alias gad='git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --height 10% | xargs -0 -t -o git add'
@@ -41,20 +41,43 @@ function glog {
 FZF-EOF"
 }
 
-# Better git status with changed lines count in colors
 function gst() {
   git status -s | while read mode file; do
     if [[ $mode == "??" ]]; then
+      # Untracked files
       added_lines="??"
       deleted_lines="??"
       mode_color="\033[33m" # Yellow
+      if [[ "$OSTYPE" == "darwin"* ]]; then
+        mod_time=$(stat -f "%Sm" "$file")
+      else
+        mod_time=$(stat -c "%y" "$file" | cut -d '.' -f 1)
+      fi
+    elif [[ $mode == "D" ]]; then
+      # Deleted files
+      added_lines=""
+      deleted_lines=""
+      mode_color="\033[31m" # Red
+      mod_time=""
     else
-      added_lines=$(git diff --numstat HEAD "$file" | awk '{print $1}')
-      deleted_lines=$(git diff --numstat HEAD "$file" | awk '{print $2}')
+      # Modified or other states
+      if git ls-files --error-unmatch "$file" > /dev/null 2>&1; then
+        added_lines=$(git diff --numstat HEAD "$file" | awk '{print $1}')
+        deleted_lines=$(git diff --numstat HEAD "$file" | awk '{print $2}')
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+          mod_time=$(stat -f "%Sm" "$file")
+        else
+          mod_time=$(stat -c "%y" "$file" | cut -d '.' -f 1)
+        fi
+      else
+        added_lines=""
+        deleted_lines=""
+        mod_time=""
+      fi
       mode_color="\033[32m" # Green
     fi
 
-    printf "${mode_color}%-5s\033[0m %-40s %s ${mode_color}%-8s\033[0m \033[31m%s\033[0m\n" "$mode" "$file" "$(stat -f "%Sm" "$file")" "+$added_lines" "-$deleted_lines"
+    printf "${mode_color}%-5s\033[0m %-40s %s ${mode_color}%-8s\033[0m \033[31m%s\033[0m\n" "$mode" "$file" "$mod_time" "+$added_lines" "-$deleted_lines"
   done | column -t
 }
 

@@ -1,6 +1,21 @@
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lsp = require('lspconfig')
 local util = require "lspconfig/util"
+local plenary_job = require("plenary.job")
+
+local function watch_go_files()
+    local watcher = require("plenary.filewatcher").new()
+    watcher:add_dir(vim.fn.getcwd(), {search_pattern = "%.go$"})
+    watcher:on_event(function(event)
+        if event.type == "file_changed" then
+            plenary_job:new({
+                command = "gci",
+                args = {"write", event.file, "-s", "standard", "-s", "default", "-s", "prefix(controllers/)"},
+            }):start()
+        end
+    end)
+    watcher:start()
+end
 
 local common_on_publish_diagnostics = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -15,6 +30,7 @@ local function go_on_attach(client, bufnr)
   vim.keymap.set("n","gD", "<cmd>vsp | lua vim.lsp.buf.definition()<CR>", bufopts)
   vim.keymap.set("n","gt", vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set("n","K", vim.lsp.buf.hover, bufopts)
+  vim.keymap.set("n","<leader>k", vim.diagnostic.open_float, bufopts)
   vim.keymap.set("n","<leader>r", vim.lsp.buf.rename, bufopts)
   vim.keymap.set("n","<leader>a", vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n","<leader>d", "<cmd>Telescope diagnostics<cr>", bufopts)
@@ -27,6 +43,7 @@ local function go_on_attach(client, bufnr)
       autocmd BufWritePre *.go lua vim.lsp.buf.format()
     augroup END
   ]]
+  watch_go_files()
 end
 
 local js_on_attach = function(client, bufnr)
@@ -38,6 +55,7 @@ local js_on_attach = function(client, bufnr)
     vim.keymap.set("n","gt", vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set("n","K", vim.lsp.buf.hover, bufopts)
     vim.keymap.set("n","<leader>r", vim.lsp.buf.rename, bufopts)
+    vim.keymap.set("n","<leader>k", vim.diagnostic.open_float, bufopts)
     vim.keymap.set("n","<leader>a", vim.lsp.buf.code_action, bufopts)
     vim.keymap.set("n","<leader>d", "<cmd>Telescope diagnostics<cr>", bufopts)
     vim.keymap.set("n","<leader>l", "y<esc>oconsole.log('\\x1b[33m<c-r>\" ->', <c-r>\", '\\x1b[0m');<esc>", bufopts)
@@ -60,6 +78,7 @@ local py_on_attach = function(client, bufnr)
     vim.keymap.set("n","gt", vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set("n","K", vim.lsp.buf.hover, bufopts)
     vim.keymap.set("n","<leader>r", vim.lsp.buf.rename, bufopts)
+    vim.keymap.set("n","<leader>k", vim.diagnostic.open_float, bufopts)
     vim.keymap.set("n","<leader>a", vim.lsp.buf.code_action, bufopts)
     vim.keymap.set("n","<leader>d", "<cmd>Telescope diagnostics<cr>", bufopts)
     vim.keymap.set("n", "<leader>l", "y<esc>oprint(f'{<c-r>\"}:', <c-r>\")<esc>", bufopts)
@@ -104,7 +123,7 @@ require("mason-lspconfig").setup_handlers({
             nilness = true,
             staticcheck = true,
           },
-          gofumpt = true,
+          gofumpt = false,
         },
       },
       on_attach = go_on_attach,
@@ -120,7 +139,7 @@ require("mason-lspconfig").setup_handlers({
       init_options = {
         command = { "golangci-lint", "run", "--out-format", "json" }
       },
-      root_dir = util.root_pattern('.golintci.yml', '.golintci.yaml'),
+      root_dir = util.root_pattern("go.work", "go.mod", ".git"),
       on_attach = go_on_attach,
     })
   end,

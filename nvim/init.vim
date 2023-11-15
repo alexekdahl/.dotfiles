@@ -73,21 +73,6 @@ let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
 let g:floaterm_width = 0.8
 let g:floaterm_height = 0.9
 
-fun! TrimWhiteSpace()
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
-endfun
-
-augroup THE_ALEX
-    autocmd!
-    autocmd FileType qf nmap <buffer> <cr> <cr>:cclose<cr>
-    autocmd BufWritePre * :call TrimWhiteSpace()
-    autocmd FileChangedShell * bufdo e!
-    autocmd InsertEnter * set nocursorline
-    autocmd InsertLeave * set cursorline
-augroup END
-
 lua require('Comment').setup()
 lua require('complete')
 lua require('treesitter')
@@ -97,9 +82,8 @@ lua require('statusline')
 lua require('spellbee')
 lua require('gitsign')
 lua require('harp')
-lua require('pilot')
+" lua require('pilot')
 lua require('refactor')
-
 " keybindings
 let mapleader = " "
 
@@ -121,7 +105,7 @@ nnoremap <leader>v viw
 nnoremap <leader>o o<Esc>
 nnoremap <leader>s <cmd>wa!<CR>
 
-" Telescope
+" Telescope key mappings
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').grep_string({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }, search = vim.fn.input("Search for > ")})<CR>
 nnoremap <leader>p <cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>
 nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references({ on_complete = { function() vim.cmd"stopinsert" end }, })<CR>

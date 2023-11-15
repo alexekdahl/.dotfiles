@@ -43,7 +43,7 @@ colors:
 font:
   bold:
     family: MesloLGM Nerd Font
-    style: 'Regular'
+    style: 'Bold'
   italic:
     family: MesloLGM Nerd Font
     style: 'Italic'
@@ -60,7 +60,7 @@ font:
   glyph_offset:
     x: 0
     y: 0
-  size: 8.0
+  size: 9.0
 
 scrolling:
   history: 5000

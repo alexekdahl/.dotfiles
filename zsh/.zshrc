@@ -2,6 +2,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+unsetopt correct_all
 setopt histignorealldups sharehistory
 export HISTFILE="$HOME/.zsh_history"
 
@@ -38,6 +39,8 @@ for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
   source "${conf}"
 done
 unset conf
+
+source ~/.secret/work.zsh
 
 bindkey -r '^a'
 bindkey -s '^a' 'fzf-open-project\n'

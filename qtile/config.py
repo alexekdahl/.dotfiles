@@ -62,7 +62,7 @@ keys = [
     Key([SUPER], "space", lazy.spawn(f"{HOME}/.config/qtile/start_alacritty.sh")),
     Key([ALT], "d", lazy.spawn(f"{HOME}/.config/rofi/scripts/launcher.sh")),
     Key([ALT, "shift"], "d", lazy.spawn(f"{HOME}/.config/rofi/scripts/s_launcher.sh")),
-    Key([ALT, SUPER], "r", lazy.spawncmd()),
+    Key([ALT, SUPER], "m", lazy.spawn(f"{HOME}/.config/qtile/switch_to_monitor.sh")),
     # System Control
     Key([SUPER, "control"], "r", lazy.restart()),
     Key([SUPER, "control"], "q", lazy.shutdown()),
@@ -87,7 +87,7 @@ for i in groups:
         ]
     )
 
-layout_theme = {"border_width": 1, "margin": 10, "border_focus": "#d75f5f", "border_normal": "#8f3d3d"}
+layout_theme = {"border_width": 1, "margin": 10, "border_focus": "#d75f5f", "border_normal": "#000000"}
 
 layouts = [
     MonadTall(**layout_theme),
