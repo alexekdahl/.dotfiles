@@ -26,6 +26,8 @@ export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PAT
 export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH="$HOME/.go/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+
 
 # Source
 source ~/.dotfiles/zsh/config.zsh

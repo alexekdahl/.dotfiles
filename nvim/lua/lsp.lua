@@ -81,7 +81,7 @@ local py_on_attach = function(client, bufnr)
     vim.keymap.set("n","<leader>k", vim.diagnostic.open_float, bufopts)
     vim.keymap.set("n","<leader>a", vim.lsp.buf.code_action, bufopts)
     vim.keymap.set("n","<leader>d", "<cmd>Telescope diagnostics<cr>", bufopts)
-    vim.keymap.set("n", "<leader>l", "y<esc>oprint(f'{<c-r>\"}:', <c-r>\")<esc>", bufopts)
+    vim.keymap.set("n", "<leader>l", "y<esc>oprint('\\x1b[33m<c-r>\" ->', f'{<c-r>\"}', '\\x1b[0m')<esc>", bufopts)
     vim.cmd[[
       augroup lsp_document_highlight
         autocmd! * <buffer>
@@ -155,18 +155,28 @@ require("mason-lspconfig").setup_handlers({
   end,
   ["pylsp"] = function()
     lsp.pylsp.setup({
+      root_dir = util.root_pattern("setup.py", "pyproject.toml", "setup.cfg"),
       on_attach = py_on_attach,
       settings = {
         pylsp = {
+          configurationSources = {"flake8", "black", "mypy", "pycodestyle"},
           plugins = {
-            pycodestyle = {
-              enabled = true,
-              maxLineLength = 120
-            },
             black = {
               enabled = true,
-              line_length = 120
+              maxLineLength = 120,
             },
+            flake8 = {
+              enabled = true,
+              maxLineLength = 120,
+            },
+            -- pylint = {
+            --   enabled = true,
+            --   maxLineLength = 120,
+            --   args = {
+            --     "--disable=wrong-import-position,missing-function-docstring,line-too-long,missing-class-docstring",
+            --     "--enable=unused-variable"
+            --   },
+            -- },
           },
         },
       },

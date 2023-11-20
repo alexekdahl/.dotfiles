@@ -3,7 +3,7 @@ from libqtile.layout.bsp import Bsp
 from libqtile.layout.floating import Floating
 from libqtile.layout.xmonad import MonadTall
 
-from libqtile.config import Drag, Group, Key, Match, Screen
+from libqtile.config import Drag, Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 
 from os.path import expanduser
@@ -34,8 +34,16 @@ keys = [
         lazy.layout.increase_ratio(),
         lazy.layout.delete(),
     ),
-    Key([ALT, "control"], "j", lazy.layout.grow_down(), lazy.layout.shrink(), lazy.layout.increase_nmaster()),
-    Key([ALT, "control"], "k", lazy.layout.grow_up(), lazy.layout.grow(), lazy.layout.decrease_nmaster()),
+    Key([ALT, "control"], "j",
+        lazy.layout.grow_down(),
+        lazy.layout.shrink(),
+        lazy.layout.increase_nmaster()
+        ),
+    Key([ALT, "control"], "k",
+        lazy.layout.grow_up(),
+        lazy.layout.grow(),
+        lazy.layout.decrease_nmaster()
+        ),
     Key(
         [ALT, "control"],
         "l",
@@ -59,18 +67,30 @@ keys = [
     # kill
     Key([SUPER], "w", lazy.window.kill()),
     # Application Launch
-    Key([SUPER], "space", lazy.spawn(f"{HOME}/.config/qtile/start_alacritty.sh")),
-    Key([ALT], "d", lazy.spawn(f"{HOME}/.config/rofi/scripts/launcher.sh")),
-    Key([ALT, "shift"], "d", lazy.spawn(f"{HOME}/.config/rofi/scripts/s_launcher.sh")),
-    Key([ALT, SUPER], "m", lazy.spawn(f"{HOME}/.config/qtile/switch_to_monitor.sh")),
+    Key([SUPER], "space",
+        lazy.spawn(f"{HOME}/.config/qtile/start_alacritty.sh")
+        ),
+    Key([ALT], "d",
+        lazy.spawn(f"{HOME}/.config/rofi/scripts/launcher.sh")
+        ),
+    Key([ALT, "shift"], "d",
+        lazy.spawn(f"{HOME}/.config/rofi/scripts/s_launcher.sh")
+        ),
+    Key([ALT, SUPER], "m",
+        lazy.spawn(f"{HOME}/.config/qtile/switch_to_monitor.sh")
+        ),
     # System Control
     Key([SUPER, "control"], "r", lazy.restart()),
     Key([SUPER, "control"], "q", lazy.shutdown()),
 
     # Increase volume
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -q set Master 5%+ unmute")),
+    Key([], "XF86AudioRaiseVolume",
+        lazy.spawn("amixer -q set Master 5%+ unmute")
+        ),
     # Decrease volume
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -q set Master 5%- unmute")),
+    Key([], "XF86AudioLowerVolume",
+        lazy.spawn("amixer -q set Master 5%- unmute")
+        ),
     # Toggle mute
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
     # Microphone mute/unmute
@@ -83,11 +103,23 @@ for i in groups:
     keys.extend(
         [
             Key(["control"], i.name, lazy.group[i.name].toscreen()),
-            Key([ALT, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True)),
+            Key([ALT, "shift"], i.name, lazy.window.togroup(
+                i.name, switch_group=True)),
         ]
     )
 
-layout_theme = {"border_width": 1, "margin": 10, "border_focus": "#d75f5f", "border_normal": "#000000"}
+groups.append(ScratchPad("scratchpad", [
+    DropDown("teams",
+             '/home/alexanek/.local/share/applications/webapp-Teams3693.desktop',
+             width=0.8, height=0.8, x=0.1, y=0.1, opacity=1)
+]))
+
+keys.extend([
+    Key([SUPER], "a", lazy.group['scratchpad'].dropdown_toggle('teams')),
+])
+
+layout_theme = {"border_width": 1, "margin": 15,
+                "border_focus": "#808000", "border_normal": "#000000"}
 
 layouts = [
     MonadTall(**layout_theme),
@@ -141,7 +173,8 @@ screens = [
 
 # Drag floating layouts.
 mouse = [
-    Drag([ALT], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag([ALT], "Button1", lazy.window.set_position_floating(),
+         start=lazy.window.get_position()),
 ]
 
 dgroups_key_binder = None
@@ -168,7 +201,7 @@ reconfigure_screens = True
 auto_minimize = True
 
 
-@hook.subscribe.startup_once
+@ hook.subscribe.startup_once
 def autostart():
     home = expanduser("~/.config/qtile/autostart.sh")
     subprocess.call([home])

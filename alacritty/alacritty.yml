@@ -73,10 +73,7 @@ selection:
   save_to_clipboard: true
 
 window:
-  dimensions:
-    columns: 80
-    lines: 24
   padding:
     x: 6
     y: 6
-  opacity: 0.99
+  opacity: 0.85
