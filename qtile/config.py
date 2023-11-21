@@ -109,13 +109,12 @@ for i in groups:
     )
 
 groups.append(ScratchPad("scratchpad", [
-    DropDown("teams",
-             '/home/alexanek/.local/share/applications/webapp-Teams3693.desktop',
-             width=0.8, height=0.8, x=0.1, y=0.1, opacity=1)
+    DropDown("term", "alacritty", width=0.6,
+             height=0.6, x=0.2, y=0.2)
 ]))
 
 keys.extend([
-    Key([SUPER], "a", lazy.group['scratchpad'].dropdown_toggle('teams')),
+    Key([SUPER], "a", lazy.group['scratchpad'].dropdown_toggle('term')),
 ])
 
 layout_theme = {"border_width": 1, "margin": 15,
