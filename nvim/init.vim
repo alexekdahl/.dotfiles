@@ -68,7 +68,7 @@ syntax on
 let NERDTreeShowHidden= 1
 let g:NERDTreeChDirMode = 2
 let g:gitblame_date_format = '%r'
-let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
+let g:gh_open_command = 'fn() { echo "$@" | xclip -selection clipboard; }; fn '
 
 let g:floaterm_width = 0.8
 let g:floaterm_height = 0.9

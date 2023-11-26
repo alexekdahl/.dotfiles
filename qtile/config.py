@@ -97,7 +97,7 @@ keys = [
     Key([], "XF86AudioMicMute", lazy.spawn("amixer set Capture toggle")),
 ]
 
-groups = [Group(i) for i in "123456789"]
+groups = [Group(i) for i in "12345"]
 
 for i in groups:
     keys.extend(
@@ -183,8 +183,8 @@ bring_front_click = False
 floats_kept_above = True
 cursor_warp = False
 floating_layout = Floating(
+    # Run the utility of `xprop` to see the wm class and name of an X client
     float_rules=[
-        # Run the utility of `xprop` to see the wm class and name of an X client.
         *Floating.default_float_rules,
         Match(wm_class="confirmreset"),  # gitk
         Match(wm_class="makebranch"),  # gitk

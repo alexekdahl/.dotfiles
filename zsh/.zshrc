@@ -1,7 +1,6 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
 unsetopt correct_all
 setopt histignorealldups sharehistory
 export HISTFILE="$HOME/.zsh_history"
@@ -29,6 +28,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 
+eval "$(fnm env)"
 # Source
 source ~/.dotfiles/zsh/config.zsh
 source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme
