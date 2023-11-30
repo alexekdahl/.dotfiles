@@ -19,12 +19,36 @@ local config = function()
 					gopls = {
 						analyses = {
 							unsusedparams = true,
+							unreachable = true,
 							nilness = true,
+							fieldalignment = true,
+							unusedwrite = true,
+							unusedvariable = true,
 						},
 						staticcheck = true,
 						gofumpt = false,
 					},
 				},
+			})
+		end,
+		["golangci_lint_ls"] = function()
+			lspconfig.golangci_lint_ls.setup({
+				cmd = { "golangci-lint-langserver" },
+				handlers = handlers,
+				on_attach = on_attach,
+				filetypes = { "go", "gomod" },
+				init_options = {
+					command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
+				},
+				root_dir = lspconfig.util.root_pattern(
+					".golangci.yml",
+					".golangci.yaml",
+					".golangci.toml",
+					".golangci.json",
+					"go.work",
+					"go.mod",
+					".git"
+				),
 			})
 		end,
 		["lua_ls"] = function()
@@ -97,8 +121,8 @@ local config = function()
 			lspconfig.yamlls.setup({
 				settings = {
 					yaml = {
-                        completion = true,
-                        schemaStore = { enable = true }
+						completion = true,
+						schemaStore = { enable = true },
 						-- schemas = {
 						-- 	["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
 						-- 	["https://raw.githubusercontent.com/aws/serverless-application-model/main/samtranslator/schema/schema.json"] = "*cloudformation*.yaml",
@@ -107,74 +131,70 @@ local config = function()
 				},
 			})
 		end,
+		["efm"] = function()
+			lspconfig.efm.setup({
+				filetypes = {
+					"lua",
+					"python",
+					"json",
+					"jsonc",
+					"sh",
+					"javascript",
+					"javascriptreact",
+					"typescript",
+					"typescriptreact",
+					"markdown",
+					"docker",
+					"dockerfile",
+					"html",
+					"css",
+					"c",
+					"cpp",
+				},
+				init_options = {
+					documentFormatting = true,
+					documentRangeFormatting = true,
+					hover = true,
+					documentSymbol = true,
+					codeAction = true,
+					completion = true,
+				},
+				settings = {
+					languages = {
+						lua = { require("efmls-configs.linters.luacheck"), require("efmls-configs.formatters.stylua") },
+						python = { require("efmls-configs.linters.flake8"), require("efmls-configs.formatters.black") },
+						-- go = { require("efmls-configs.formatters.gofmt"), require("efmls-configs.linters.golangci_lint") },
+						typescript = {
+							require("efmls-configs.linters.eslint_d"),
+							require("efmls-configs.formatters.prettier_d"),
+						},
+						json = { require("efmls-configs.formatters.fixjson") },
+						jsonc = { require("efmls-configs.formatters.fixjson") },
+						sh = { require("efmls-configs.linters.shellcheck"), require("efmls-configs.formatters.shfmt") },
+						javascript = {
+							require("efmls-configs.linters.eslint_d"),
+							require("efmls-configs.formatters.prettier_d"),
+						},
+						javascriptreact = {
+							require("efmls-configs.linters.eslint_d"),
+							require("efmls-configs.formatters.prettier_d"),
+						},
+						typescriptreact = {
+							require("efmls-configs.linters.eslint_d"),
+							require("efmls-configs.formatters.prettier_d"),
+						},
+						markdown = {
+							require("efmls-configs.linters.markdownlint"),
+							require("efmls-configs.formatters.mdformat"),
+						},
+						docker = { require("efmls-configs.linters.hadolint") },
+						dockerfile = { require("efmls-configs.linters.hadolint") },
+					},
+				},
+			})
+		end,
 	})
-
-	local luacheck = require("efmls-configs.linters.luacheck")
-	local stylua = require("efmls-configs.formatters.stylua")
-	local flake8 = require("efmls-configs.linters.flake8")
-	local black = require("efmls-configs.formatters.black")
-	local eslint_d = require("efmls-configs.linters.eslint_d")
-	local prettier_d = require("efmls-configs.formatters.prettier_d")
-	local fixjson = require("efmls-configs.formatters.fixjson")
-	local shellcheck = require("efmls-configs.linters.shellcheck")
-	local shfmt = require("efmls-configs.formatters.shfmt")
-	local hadolint = require("efmls-configs.linters.hadolint")
-	local cpplint = require("efmls-configs.linters.cpplint")
-	local clangformat = require("efmls-configs.formatters.clang_format")
-	local golangci_lint = require("efmls-configs.linters.golangci_lint")
-	local gofmt = require("efmls-configs.formatters.gofmt")
-	local markdown_lint = require("efmls-configs.linters.markdownlint")
-	local mdformat = require("efmls-configs.formatters.mdformat")
-
-	-- configure efm server
-	lspconfig.efm.setup({
-		filetypes = {
-			"lua",
-			"python",
-			"go",
-			"json",
-			"jsonc",
-			"sh",
-			"javascript",
-			"javascriptreact",
-			"typescript",
-			"typescriptreact",
-			"markdown",
-			"docker",
-			"html",
-			"css",
-			"c",
-			"cpp",
-		},
-		init_options = {
-			documentFormatting = true,
-			documentRangeFormatting = true,
-			hover = true,
-			documentSymbol = true,
-			codeAction = true,
-			completion = true,
-		},
-		settings = {
-			languages = {
-				lua = { luacheck, stylua },
-				python = { flake8, black },
-				go = { gofmt, golangci_lint },
-				typescript = { eslint_d, prettier_d },
-				json = { eslint_d, fixjson },
-				jsonc = { eslint_d, fixjson },
-				sh = { shellcheck, shfmt },
-				javascript = { eslint_d, prettier_d },
-				javascriptreact = { eslint_d, prettier_d },
-				typescriptreact = { eslint_d, prettier_d },
-				markdown = { markdown_lint, mdformat },
-				docker = { hadolint, prettier_d },
-				html = { prettier_d },
-				css = { prettier_d },
-				c = { clangformat, cpplint },
-				cpp = { clangformat, cpplint },
-			},
-		},
-	})
+	--
 end
 
 return {

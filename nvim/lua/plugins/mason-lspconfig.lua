@@ -7,7 +7,8 @@ local opts = {
 		"lua_ls",
 		"jsonls",
 		"gopls",
-        "yamlls"
+		"golangci_lint_ls",
+		"yamlls",
 	},
 	automatic_installation = true,
 }

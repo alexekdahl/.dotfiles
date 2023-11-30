@@ -12,10 +12,19 @@ return {
 		end
 	end,
 	opts = function()
-		-- PERF: we don't need this lualine require madness 🤷
-		local lualine_require = require("lualine_require")
-		lualine_require.require = require
-
+		local icons = require("config.icons").icons
+		local diagnostics = {
+			"diagnostics",
+			sections = { "error", "warn", "info", "hint" },
+			symbols = {
+				error = icons.diagnostics.error,
+				warn = icons.diagnostics.warn,
+				info = icons.diagnostics.info,
+				hint = icons.diagnostics.hint
+			},
+			update_in_insert = false,
+			always_visible = false,
+		}
 		vim.o.laststatus = vim.g.lualine_laststatus
 
 		return {
@@ -29,17 +38,7 @@ return {
 					{ "filename", file_status = true, path = 1, separator = "", padding = { left = 1, right = 0 } },
 				},
 				lualine_b = { "branch" },
-
-				lualine_c = {
-					{
-						"diagnostics",
-					},
-				},
-				lualine_x = {
-					-- stylua: ignore
-					-- stylua: ignore
-					-- stylua: ignore
-				},
+				lualine_x = { diagnostics },
 				lualine_y = {
 					{ "progress", separator = " ", padding = { left = 1, right = 0 } },
 					{ "location", padding = { left = 0, right = 1 } },

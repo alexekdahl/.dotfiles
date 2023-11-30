@@ -10,8 +10,8 @@ return {
 			"stylua",
 			"markdownlint",
 			"mdformat",
-			"gofmt",
 			"goimports",
+            "hadolint"
 		},
 	},
 	dependencies = {

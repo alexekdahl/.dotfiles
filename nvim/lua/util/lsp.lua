@@ -21,16 +21,19 @@ local M = {}
 
 -- set keymaps on the active lsp server
 M.on_attach = function(client, bufnr)
-	vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
+	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+	client.server_capabilities.document_formatting = true
+
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-	vim.keymap.set("n", "gD", "<cmd>vsp | lua vim.lsp.buf.definition()<CR>", bufopts)
+	vim.keymap.set("n", "gD", "<cmd>vsp | vim.lsp.buf.definition<CR>", bufopts)
 	vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, bufopts)
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+	vim.keymap.set("n", "K", "<cmd> Lspsaga hover_doc<CR>", bufopts)
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
 	vim.keymap.set("n", "<leader>k", vim.diagnostic.open_float, bufopts)
-	vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, bufopts)
+	vim.keymap.set("n", "<leader>a", "<cmd> Lspsaga code_action<CR>", bufopts)
+	vim.keymap.set("n", "<leader>lf", "<cmd> Lspsaga finder tyd+ref+imp+def<CR>", bufopts)
 
 	-- Set autocommands conditional on server_capabilities
 	if client.server_capabilities.documentHighlightProvider then
