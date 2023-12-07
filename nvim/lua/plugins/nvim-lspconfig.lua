@@ -21,7 +21,6 @@ local config = function()
 							unsusedparams = true,
 							unreachable = true,
 							nilness = true,
-							fieldalignment = true,
 							unusedwrite = true,
 							unusedvariable = true,
 						},
@@ -122,11 +121,11 @@ local config = function()
 				settings = {
 					yaml = {
 						completion = true,
-						schemaStore = { enable = true },
-						-- schemas = {
-						-- 	["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-						-- 	["https://raw.githubusercontent.com/aws/serverless-application-model/main/samtranslator/schema/schema.json"] = "*cloudformation*.yaml",
-						-- },
+						-- schemaStore = { enable = true },
+						schemas = {
+							["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+							["https://raw.githubusercontent.com/aws/serverless-application-model/main/samtranslator/schema/schema.json"] = "*cloudformation*.yaml",
+						},
 					},
 				},
 			})
@@ -143,7 +142,7 @@ local config = function()
 					"javascriptreact",
 					"typescript",
 					"typescriptreact",
-					"markdown",
+					-- "markdown",
 					"docker",
 					"dockerfile",
 					"html",
@@ -183,10 +182,10 @@ local config = function()
 							require("efmls-configs.linters.eslint_d"),
 							require("efmls-configs.formatters.prettier_d"),
 						},
-						markdown = {
-							require("efmls-configs.linters.markdownlint"),
-							require("efmls-configs.formatters.mdformat"),
-						},
+						-- markdown = {
+						-- 	require("efmls-configs.linters.markdownlint"),
+						-- 	require("efmls-configs.formatters.mdformat"),
+						-- },
 						docker = { require("efmls-configs.linters.hadolint") },
 						dockerfile = { require("efmls-configs.linters.hadolint") },
 					},
