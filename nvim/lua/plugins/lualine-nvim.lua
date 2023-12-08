@@ -1,5 +1,6 @@
 return {
 	"nvim-lualine/lualine.nvim",
+	dependencies = { "f-person/git-blame.nvim" },
 	event = "VeryLazy",
 	init = function()
 		vim.g.lualine_laststatus = vim.o.laststatus
@@ -13,6 +14,7 @@ return {
 	end,
 	opts = function()
 		local icons = require("config.icons").icons
+		local git_blame = require("gitblame")
 		local diagnostics = {
 			"diagnostics",
 			sections = { "error", "warn", "info", "hint" },
@@ -20,7 +22,7 @@ return {
 				error = icons.diagnostics.error,
 				warn = icons.diagnostics.warn,
 				info = icons.diagnostics.info,
-				hint = icons.diagnostics.hint
+				hint = icons.diagnostics.hint,
 			},
 			update_in_insert = false,
 			always_visible = false,
@@ -38,6 +40,12 @@ return {
 					{ "filename", file_status = true, path = 1, separator = "", padding = { left = 1, right = 0 } },
 				},
 				lualine_b = { "branch" },
+				lualine_c = {
+					{
+						git_blame.get_current_blame_text,
+						cond = git_blame.is_blame_text_available,
+					},
+				},
 				lualine_x = { diagnostics },
 				lualine_y = {
 					{ "progress", separator = " ", padding = { left = 1, right = 0 } },

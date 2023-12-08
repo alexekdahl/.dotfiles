@@ -113,7 +113,7 @@ local config = function()
 			lspconfig.bashls.setup({
 				capabilities = capabilities,
 				on_attach = on_attach,
-				filetypes = { "sh" },
+				filetypes = { "sh", "bash", "zsh" },
 			})
 		end,
 		["yamlls"] = function()
@@ -121,7 +121,6 @@ local config = function()
 				settings = {
 					yaml = {
 						completion = true,
-						-- schemaStore = { enable = true },
 						schemas = {
 							["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
 							["https://raw.githubusercontent.com/aws/serverless-application-model/main/samtranslator/schema/schema.json"] = "*cloudformation*.yaml",
@@ -142,7 +141,6 @@ local config = function()
 					"javascriptreact",
 					"typescript",
 					"typescriptreact",
-					-- "markdown",
 					"docker",
 					"dockerfile",
 					"html",
@@ -162,13 +160,11 @@ local config = function()
 					languages = {
 						lua = { require("efmls-configs.linters.luacheck"), require("efmls-configs.formatters.stylua") },
 						python = { require("efmls-configs.linters.flake8"), require("efmls-configs.formatters.black") },
-						-- go = { require("efmls-configs.formatters.gofmt"), require("efmls-configs.linters.golangci_lint") },
 						typescript = {
 							require("efmls-configs.linters.eslint_d"),
 							require("efmls-configs.formatters.prettier_d"),
 						},
 						json = { require("efmls-configs.formatters.fixjson") },
-						jsonc = { require("efmls-configs.formatters.fixjson") },
 						sh = { require("efmls-configs.linters.shellcheck"), require("efmls-configs.formatters.shfmt") },
 						javascript = {
 							require("efmls-configs.linters.eslint_d"),
@@ -182,10 +178,6 @@ local config = function()
 							require("efmls-configs.linters.eslint_d"),
 							require("efmls-configs.formatters.prettier_d"),
 						},
-						-- markdown = {
-						-- 	require("efmls-configs.linters.markdownlint"),
-						-- 	require("efmls-configs.formatters.mdformat"),
-						-- },
 						docker = { require("efmls-configs.linters.hadolint") },
 						dockerfile = { require("efmls-configs.linters.hadolint") },
 					},

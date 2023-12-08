@@ -8,10 +8,9 @@ return {
 			"flake8",
 			"luacheck",
 			"stylua",
-			"markdownlint",
-			"mdformat",
 			"goimports",
-            "hadolint"
+			"hadolint",
+			"fixjson",
 		},
 	},
 	dependencies = {

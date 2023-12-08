@@ -13,7 +13,8 @@
 
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     os_icon                 # os identifier
-    context
+    # context
+    user
     dir                     # current directory
     vcs                     # git status
     newline                 # \n
