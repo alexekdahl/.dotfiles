@@ -158,7 +158,7 @@ function git-stats() {
   CYAN="\033[36m"
   RESET="\033[0m"
 
-  author_name=$(git config user.name)
+  author_name=alexekdahl
   total_lines=$(git ls-files | xargs wc -l | tail -n 1 | awk '{print $1}')
   my_lines=$(git ls-files | parallel -j+0 "git blame --line-porcelain {} | grep -F \"author ${author_name}\" | wc -l" | awk '{sum += $1} END {print sum}')
   total_commits=$(git rev-list --count HEAD)
@@ -188,3 +188,19 @@ function git-stats() {
   done
 }
 
+
+function prs() {
+    REPO=$(git remote get-url origin | sed 's/.*:\/\/github.com\/\([^ ]*\)\(.git\)\?/\1/')
+
+    PR_BRANCH=$(gh pr list --repo $REPO --limit 100 --json number,title,author,createdAt,state,headRefName --jq '.[] | "\(.number)\t\(.title)\t\(.author.login)\t\(.createdAt)\t\(.state)\t\(.headRefName)"' |
+        column -t -s $'\t' | 
+        fzf --height 40% --layout=reverse --border | awk '{print $NF}')
+
+    if [ -n "$PR_BRANCH" ]; then
+        git checkout "$PR_BRANCH"
+        nvim -c "DiffviewOpen origin/main... --imply-local" 
+        
+    else
+        echo "No branch selected."
+    fi
+}

@@ -26,6 +26,11 @@ mapkey("<leader>sh", "split", "n") -- Split Horizontally
 mapkey("<leader>e", "NvimTreeToggle", "n")
 mapkey("<leader>j", "FloatermToggle", "n")
 vim.keymap.set("t", "<leader>j", "<cmd>FloatermToggle<CR>")
+vim.keymap.set(
+	"n",
+	"<leader>fc",
+	"<cmd>lua require('telescope.builtin').find_files({ find_command = {'git', '--no-pager', 'diff', '--name-only' }})<CR>"
+)
 
 mapkey("<leader>ff", "Telescope find_files", "n")
 mapkey("<leader>fl", "Telescope live_grep", "n")

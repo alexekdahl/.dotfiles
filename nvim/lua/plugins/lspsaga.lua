@@ -15,15 +15,15 @@ return {
 		definition_action_keys = {
 			edit = "<CR>",
 		},
-        -- diagnostic = {
-        --     show_code_action = true
-        -- },
-        lightbulb = {
-            enable = false,
-        },
+		diagnostic = {
+			show_code_action = true,
+		},
+		lightbulb = {
+			enable = false,
+		},
 		code_action = {
 			show_server_name = true,
-			extend_gitsigns = true,
+			-- extend_gitsigns = true,
 			keys = {
 				quit = "<ESC>",
 				exec = "<CR>",

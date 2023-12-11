@@ -13,7 +13,7 @@ local config = function()
 				on_attach = on_attach,
 				cmd = { "gopls", "serve" },
 				handlers = handlers,
-				filetypes = { "go", "gomod" },
+				filetypes = { "go", "go.mod" },
 				root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
 				settings = {
 					gopls = {
@@ -23,6 +23,9 @@ local config = function()
 							nilness = true,
 							unusedwrite = true,
 							unusedvariable = true,
+						},
+						annotations = {
+							inline = false,
 						},
 						staticcheck = true,
 						gofumpt = false,
@@ -138,15 +141,10 @@ local config = function()
 					"jsonc",
 					"sh",
 					"javascript",
-					"javascriptreact",
 					"typescript",
-					"typescriptreact",
 					"docker",
 					"dockerfile",
 					"html",
-					"css",
-					"c",
-					"cpp",
 				},
 				init_options = {
 					documentFormatting = true,
@@ -167,14 +165,6 @@ local config = function()
 						json = { require("efmls-configs.formatters.fixjson") },
 						sh = { require("efmls-configs.linters.shellcheck"), require("efmls-configs.formatters.shfmt") },
 						javascript = {
-							require("efmls-configs.linters.eslint_d"),
-							require("efmls-configs.formatters.prettier_d"),
-						},
-						javascriptreact = {
-							require("efmls-configs.linters.eslint_d"),
-							require("efmls-configs.formatters.prettier_d"),
-						},
-						typescriptreact = {
 							require("efmls-configs.linters.eslint_d"),
 							require("efmls-configs.formatters.prettier_d"),
 						},
