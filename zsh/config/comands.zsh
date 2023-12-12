@@ -30,18 +30,29 @@ function fff() {
 function fzf-open-project() {
   local work_root="$HOME/dev/axis/repo"
   local personal_root="$HOME/dev/personal"
+  local dotfiles_root="$HOME/.dotfiles"
+  local config_root="$HOME/.config"
 
   local personal_root_color="\033[32m"
   local work_root_color="\033[33m"
+  local dotfiles_root_color="\033[35m"
+  local config_root_color="\033[36m"
   local reset_color="\033[0m"
 
-  local fzf_height="30%"
+  local fzf_height="50%"
   local dir
 
-  dir=$(find $work_root $personal_root -mindepth 1 -maxdepth 1 -type d \
-      | awk -v work="$work_root" -v personal="$personal_root" -v workColor="$work_root_color" -v personalColor="$personal_root_color" -v reset="$reset_color" '
-          { if ($0 != work && $0 != personal)
-              { if (index($0, work) > 0) printf workColor "%s" reset "\n", $0; else printf personalColor "%s" reset "\n", $0 }
+  # Include dotfiles_root and config_root separately to avoid listing their subdirectories
+  dir=$( (find $work_root $personal_root -mindepth 1 -maxdepth 1 -type d; echo $dotfiles_root; echo $config_root) \
+      | awk -v work="$work_root" -v personal="$personal_root" -v dotfiles="$dotfiles_root" -v config="$config_root" -v workColor="$work_root_color" -v personalColor="$personal_root_color" -v dotfilesColor="$dotfiles_root_color" -v reset="$reset_color" '
+          { if ($0 == dotfiles)
+              printf dotfilesColor "%s" reset "\n", $0
+            else if ($0 == config)
+              printf dotfilesColor "%s" reset "\n", $0
+            else if (index($0, work) > 0)
+              printf workColor "%s" reset "\n", $0
+            else if (index($0, personal) > 0)
+              printf personalColor "%s" reset "\n", $0
           }' \
       | fzf --ansi --print0 -m -1 --border=rounded --height $fzf_height)
 
