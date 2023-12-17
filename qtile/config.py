@@ -79,13 +79,25 @@ keys = [
     Key([SUPER, "control"], "r", lazy.restart()),
     Key([SUPER, "control"], "q", lazy.shutdown()),
     # Increase volume
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -q set Master 5%+ unmute")),
+    Key(
+        [],
+        "XF86AudioRaiseVolume",
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+    ),
     # Decrease volume
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -q set Master 5%- unmute")),
+    Key(
+        [],
+        "XF86AudioLowerVolume",
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+    ),
     # Toggle mute
-    Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
+    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
     # Microphone mute/unmute
-    Key([], "XF86AudioMicMute", lazy.spawn("amixer set Capture toggle")),
+    Key(
+        [],
+        "XF86AudioMicMute",
+        lazy.spawn("pactl set-source-mute @DEFAULT_SOURCE@ toggle"),
+    ),
 ]
 
 groups = [Group(i) for i in "12345"]
@@ -167,10 +179,8 @@ screens = [
                 widget.WindowName(),
                 widget.Systray(),
                 widget.Battery(),
-                widget.Volume(),
-                # widget.Memory(),
+                widget.PulseVolume(),
                 widget.Clock(format="%a %I:%M %p"),
-                widget.QuickExit(),
             ],
             24,
         ),
