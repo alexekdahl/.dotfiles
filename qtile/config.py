@@ -1,8 +1,8 @@
-from libqtile import bar, widget, hook
-from libqtile.layout.bsp import Bsp
 from libqtile.layout.floating import Floating
 from libqtile.layout.xmonad import MonadTall
+from libqtile.layout.bsp import Bsp
 
+from libqtile import bar, widget, hook
 from libqtile.config import Drag, Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 
@@ -107,6 +107,13 @@ for i in groups:
         [
             Key(["control"], i.name, lazy.group[i.name].toscreen()),
             Key([ALT, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True)),
+            Key([ALT], "Tab", lazy.screen.next_group(), desc="Move to next group."),
+            Key(
+                [ALT, "shift"],
+                "Tab",
+                lazy.screen.prev_group(),
+                desc="Move to previous group.",
+            ),
         ]
     )
 
@@ -139,22 +146,7 @@ layout_theme = {
     "border_normal": "#000000",
 }
 
-layouts = [
-    MonadTall(**layout_theme),
-    Bsp(**layout_theme)
-    # layout.Max(),
-    # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
-]
+layouts = [MonadTall(**layout_theme), Bsp(**layout_theme)]
 
 widget_defaults = dict(
     font="sans",
@@ -167,6 +159,16 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                widget.TextBox(
+                    text=" 󰘧 ",
+                    fontsize=16,
+                    font="MesloLGM Nerd Font",
+                    margin_y=2,
+                    margin_x=4,
+                    padding_y=6,
+                    padding_x=6,
+                    borderwidth=0,
+                ),
                 widget.GroupBox(
                     font="MesloLGM Nerd Font",
                     fontsize=16,
@@ -174,12 +176,33 @@ screens = [
                     margin_x=4,
                     padding_y=6,
                     padding_x=6,
-                    borderwidth=1,
+                    borderwidth=0,
+                    highlight_method="line",
+                    urgent_alert_method="line",
+                    rounded=False,
                 ),
+                widget.CurrentLayoutIcon(scale=0.6),
                 widget.WindowName(),
-                widget.Systray(),
-                widget.Battery(),
-                widget.PulseVolume(),
+                widget.Systray(icon_size=20, padding=4),
+                widget.Sep(linewidth=1, padding=10),
+                widget.BatteryIcon(),
+                widget.Battery(
+                    show_short_text=True,
+                    format="{percent:2.0%}",
+                ),
+                widget.Sep(linewidth=1, padding=10),
+                widget.TextBox(
+                    text="󰕾",
+                    fontsize=14,
+                    font="JetBrainsMono Nerd Font",
+                ),
+                widget.PulseVolume(padding=10),
+                widget.Sep(linewidth=1, padding=10),
+                widget.TextBox(
+                    text=" ",
+                    fontsize=14,
+                    font="MesloLGM Nerd Font",
+                ),
                 widget.Clock(format="%a %I:%M %p"),
             ],
             24,
