@@ -48,3 +48,6 @@ source ~/.secret/work.zsh
 bindkey -r '^a'
 bindkey -s '^a' 'fzf-open-project\n'
 
+bindkey -r '^b'
+bindkey -s '^b' 'change_wallpaper\n'
+
