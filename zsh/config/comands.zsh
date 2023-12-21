@@ -64,7 +64,7 @@ function fzf-open-project() {
 # Measure the start-up time for the shell
 function timezsh() {
   shell=${1-$SHELL}
-  for i in $(seq 1 30); do /usr/bin/time $shell -i -c exit; done
+  for i in $(seq 1 30); do time $shell -i -c exit; done
 }
 
 # fkill - kill processes - list only the ones you can kill.

@@ -141,7 +141,7 @@ keys.extend(
 
 layout_theme = {
     "border_width": 1,
-    "margin": 15,
+    "margin": 20,
     "border_focus": "#808000",
     "border_normal": "#000000",
 }
