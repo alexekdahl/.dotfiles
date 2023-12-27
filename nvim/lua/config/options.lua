@@ -30,6 +30,7 @@ opt.cursorline = true -- Highlights the current line
 opt.signcolumn = "number" -- Highlights the current line
 opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 opt.wrap = false
+opt.colorcolumn = "100"
 
 -- Cursorline highlighting control
 --  Only have it on in the active buffer
