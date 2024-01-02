@@ -23,9 +23,7 @@ mapkey("<leader>pa", "echo expand('%:p')", "n") -- Show Full File Path
 mapkey("<leader>sv", "vsplit", "n") -- Split Vertically
 mapkey("<leader>sh", "split", "n") -- Split Horizontally
 
-mapkey("<leader>e", "NvimTreeToggle", "n")
-mapkey("<leader>j", "FloatermToggle", "n")
-vim.keymap.set("t", "<leader>j", "<cmd>FloatermToggle<CR>")
+-- mapkey("<leader>e", "NvimTreeToggle", "n")
 vim.keymap.set(
 	"n",
 	"<leader>fc",

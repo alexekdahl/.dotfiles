@@ -31,6 +31,7 @@ function fzf-open-project() {
   local work_root="$HOME/dev/axis/repo"
   local personal_root="$HOME/dev/personal"
   local dotfiles_root="$HOME/.dotfiles"
+  local downloads_root="$HOME/Downloads"
   local config_root="$HOME/.config"
 
   local personal_root_color="\033[32m"
@@ -43,10 +44,12 @@ function fzf-open-project() {
   local dir
 
   # Include dotfiles_root and config_root separately to avoid listing their subdirectories
-  dir=$( (find $work_root $personal_root -mindepth 1 -maxdepth 1 -type d; echo $dotfiles_root; echo $config_root) \
-      | awk -v work="$work_root" -v personal="$personal_root" -v dotfiles="$dotfiles_root" -v config="$config_root" -v workColor="$work_root_color" -v personalColor="$personal_root_color" -v dotfilesColor="$dotfiles_root_color" -v reset="$reset_color" '
+  dir=$( (find $work_root $personal_root -mindepth 1 -maxdepth 1 -type d; echo $dotfiles_root; echo $downloads_root; echo $config_root) \
+      | awk -v work="$work_root" -v personal="$personal_root" -v dotfiles="$dotfiles_root" -v downloads="$downloads_root" -v config="$config_root" -v workColor="$work_root_color" -v personalColor="$personal_root_color" -v dotfilesColor="$dotfiles_root_color" -v downloadsColor="$dotfiles_root_color" -vreset="$reset_color" '
           { if ($0 == dotfiles)
               printf dotfilesColor "%s" reset "\n", $0
+            else if ($0 == downloads)
+              printf downloadsColor "%s" reset "\n", $0
             else if ($0 == config)
               printf dotfilesColor "%s" reset "\n", $0
             else if (index($0, work) > 0)

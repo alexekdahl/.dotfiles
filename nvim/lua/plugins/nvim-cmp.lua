@@ -4,7 +4,6 @@ return {
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 		local lspkind = require("lspkind")
-		require("snippets.go")
 
 		vim.opt.completeopt = "menu,menuone,noselect"
 
