@@ -13,8 +13,8 @@ BEGIN {
     BRGREEN="\033[92m"
     BRCYAN="\033[96m"
     NORMAL="\033[0m"
-    GREEN_EMOJI="🐍" # Green Circle Emoji
-    RED_EMOJI="🤢"   # Red Circle Emoji
+    GREEN_EMOJI="🐍"
+    RED_EMOJI="🤢"
 }
          { color=NORMAL }
 /^ok /   { color=BRGREEN; print color GREEN_EMOJI " " $0 NORMAL; next }

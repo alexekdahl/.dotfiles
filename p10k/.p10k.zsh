@@ -25,7 +25,6 @@
     status                  # exit code of the last command
     command_execution_time  # duration of the last command
     background_jobs         # presence of background jobs
-    example
     goenv                   # go environment (https://github.com/syndbg/goenv)
     go_version              # go version (https://golang.org)
     package                 # name@version from package.json (https://docs.npmjs.com/files/package.json)
@@ -40,19 +39,6 @@
     typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_FIRST_SEGMENT_END_SYMBOL='%{%}'
     typeset -g POWERLEVEL9K_EMPTY_LINE_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='%{%}'
   fi
-
-  function prompt_example() {
-    if [[ -f ".nvmrc" || -f "package.json" ]]; then
-      local fnm_current=$(fnm current)
-      p10k segment -b 'magenta' -f 'black' -i 'NODE_ICON' -r -t "$fnm_current"
-      local npm_current=$(npm -v)
-      p10k segment -b 'magenta' -f 'black' -i 'TOOLBOX_ICON' -r -t "$npm_current"
-    fi
-  }
-
-  function instant_prompt_example() {
-    prompt_example
-  }
 
   function my_git_formatter() {
     emulate -L zsh
