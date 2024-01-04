@@ -1,6 +1,5 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	priority = 100,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter",

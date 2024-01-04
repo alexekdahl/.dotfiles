@@ -18,12 +18,22 @@ vim.keymap.set("n", "<leader>s", "<cmd>wa!<CR>")
 vim.keymap.set("n", "<leader>o", "o<Esc>")
 
 -- Show Full File-Path
-mapkey("<leader>pa", "echo expand('%:p')", "n") -- Show Full File Path
+---@diagnostic disable: need-check-nil
+local function copy_relative_path()
+	local handle = io.popen("git rev-parse --show-toplevel 2> /dev/null")
+	local root = handle:read("*a")
+	handle:close()
+	root = string.gsub(root, "[\r\n]+$", "")
+	local filepath = vim.fn.expand("%:p")
+	local relativepath = string.gsub(filepath, "^" .. root .. "/", "")
+	vim.fn.setreg("+", relativepath)
+	print(relativepath)
+end
+vim.keymap.set("n", "<leader>pa", copy_relative_path)
 
 mapkey("<leader>sv", "vsplit", "n") -- Split Vertically
 mapkey("<leader>sh", "split", "n") -- Split Horizontally
 
--- mapkey("<leader>e", "NvimTreeToggle", "n")
 vim.keymap.set(
 	"n",
 	"<leader>fc",
@@ -34,8 +44,3 @@ mapkey("<leader>ff", "Telescope find_files", "n")
 mapkey("<leader>fl", "Telescope live_grep", "n")
 mapkey("<leader>fr", "Telescope lsp_references", "n")
 vim.keymap.set("n", "<leader>d", "<cmd>Telescope diagnostics<CR>")
-
--- mapkey("<leader>v", "viw", "n") -- Split Horizontally
--- mapkey("<leader>y", "yiw", "n") -- Split Horizontally
--- mapkey("<leader>s", "wa!", "n") -- Save
--- vim.keymap.set("t", "<ESC>", '<C-"><C-n>')

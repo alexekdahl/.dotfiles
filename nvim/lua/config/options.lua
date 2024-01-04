@@ -31,14 +31,14 @@ opt.signcolumn = "number" -- Highlights the current line
 opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 opt.wrap = false
 opt.colorcolumn = "100"
-
+cmd.colorscheme("onedark")
 -- Add an autocommand group for FileType settings
 local filetype_group = vim.api.nvim_create_augroup("FileTypeSettings", { clear = true })
 -- Disable colorcolumn for Markdown and text files
 vim.api.nvim_create_autocmd("FileType", {
-    group = filetype_group,
-    pattern = {"markdown", "text"},
-    command = "setlocal colorcolumn="
+	group = filetype_group,
+	pattern = { "markdown", "text" },
+	command = "setlocal colorcolumn=",
 })
 
 -- Cursorline highlighting control

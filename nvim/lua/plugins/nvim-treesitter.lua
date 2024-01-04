@@ -24,29 +24,29 @@ local config = function()
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		indent = {
-            enable = true,
-        },
+			enable = true,
+		},
 		autotag = {
-            enable = true,
-        },
+			enable = true,
+		},
 		highlight = {
-            enable = true,
-            additional_vim_regex_highlighting = true,
-        },
+			enable = true,
+			additional_vim_regex_highlighting = true,
+		},
 		autopairs = {
-            enable = true,
-        },
+			enable = true,
+		},
 		rainbow = {
-            enable = true,
-        },
+			enable = true,
+		},
 		refactor = {
-            highlight_definitions = {
-                enable = true,
-            },
-            highlight_current_scope = {
-                enable = false,
-            },
-        },
+			highlight_definitions = {
+				enable = true,
+			},
+			highlight_current_scope = {
+				enable = false,
+			},
+		},
 		incremental_selection = {
 			enable = true,
 			keymaps = {
@@ -97,6 +97,7 @@ local config = function()
 				},
 			},
 		},
+		playground = { enable = true },
 	})
 end
 
@@ -105,7 +106,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter-textobjects",
-		"nvim-treesitter/nvim-treesitter-context",
+		"nvim-treesitter/playground",
 	},
 	config = config,
 }

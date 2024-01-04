@@ -5,5 +5,6 @@ return {
 	end,
 	keys = {
 		{ "gcc", "<cmd>CommentToggle<cr>" },
+		{ "gc", "<cmd>CommentToggle<cr>", mode = "v" },
 	},
 }

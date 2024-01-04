@@ -23,6 +23,9 @@ local opts = {
 	defaults = {
 		lazy = false,
 	},
+	dev = {
+		path = "~/",
+	},
 	rtp = {
 		disabled_plugins = {
 			"gzip",
