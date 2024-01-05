@@ -30,7 +30,6 @@ source $HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.p10k.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.secrets/secrets/work.zsh
 
 bindkey -r '^a'
 bindkey -s '^a' 'fzf-open-project\n'
