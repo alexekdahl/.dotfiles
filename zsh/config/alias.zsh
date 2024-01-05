@@ -2,6 +2,8 @@
 alias h="history -10"
 alias hg="history | grep"
 
+# -Tmux-
+alias th="tmux new-session -A -s HOME"
 # -Vim-
 alias vim="nvim"
 alias vi="nvim"

@@ -117,28 +117,6 @@ for i in groups:
         ]
     )
 
-groups.append(
-    ScratchPad(
-        "scratchpad",
-        [
-            DropDown(
-                "term",
-                "alacritty --class=scratch",
-                width=0.6,
-                height=0.6,
-                x=0.2,
-                y=0.2,
-            )
-        ],
-    )
-)
-
-keys.extend(
-    [
-        Key([SUPER], "a", lazy.group["scratchpad"].dropdown_toggle("term")),
-    ]
-)
-
 layout_theme = {
     "border_width": 1,
     "margin": 20,

@@ -37,7 +37,7 @@ return {
 			},
 			sections = {
 				lualine_a = {
-					{ "filename", file_status = true, path = 1, separator = "", padding = { left = 1, right = 0 } },
+					{ "filename", file_status = true, path = 0, separator = "", padding = { left = 1, right = 0 } },
 				},
 				lualine_b = { "branch" },
 				lualine_c = {
@@ -48,13 +48,10 @@ return {
 				},
 				lualine_x = { diagnostics },
 				lualine_y = {
-					{ "progress", separator = " ", padding = { left = 1, right = 0 } },
-					{ "location", padding = { left = 0, right = 1 } },
+					{ "progress", separator = " ", padding = { left = 1, right = 1 } },
 				},
 				lualine_z = {
-					function()
-						return " " .. os.date("%R")
-					end,
+					{ "location", padding = { left = 0, right = 1 } },
 				},
 			},
 		}

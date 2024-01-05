@@ -19,17 +19,16 @@ vim.keymap.set("n", "<leader>o", "o<Esc>")
 
 -- Show Full File-Path
 ---@diagnostic disable: need-check-nil
-local function copy_relative_path()
+local function relative_path()
 	local handle = io.popen("git rev-parse --show-toplevel 2> /dev/null")
 	local root = handle:read("*a")
 	handle:close()
 	root = string.gsub(root, "[\r\n]+$", "")
 	local filepath = vim.fn.expand("%:p")
 	local relativepath = string.gsub(filepath, "^" .. root .. "/", "")
-	vim.fn.setreg("+", relativepath)
 	print(relativepath)
 end
-vim.keymap.set("n", "<leader>pa", copy_relative_path)
+vim.keymap.set("n", "<leader>pa", relative_path)
 
 mapkey("<leader>sv", "vsplit", "n") -- Split Vertically
 mapkey("<leader>sh", "split", "n") -- Split Horizontally
