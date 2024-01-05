@@ -425,7 +425,7 @@
 			<key>Blur</key>
 			<true/>
 			<key>Blur Radius</key>
-			<real>0.10000000000000001</real>
+			<real>20.486535904255319</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -800,7 +800,7 @@
 			<key>Non-ASCII Ligatures</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>MesloLGMNerdFontComplete-Regular 14</string>
+			<string>MesloLGMNerdFontComplete-Regular 17</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<true/>
 			<key>Option Key Sends</key>
@@ -1180,7 +1180,7 @@
 			<key>Title Components</key>
 			<integer>259</integer>
 			<key>Transparency</key>
-			<real>0.01</real>
+			<real>0.10175531914893617</real>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
@@ -1196,7 +1196,7 @@
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Use Non-ASCII Font</key>
-			<true/>
+			<false/>
 			<key>Use Tab Color</key>
 			<false/>
 			<key>Vertical Spacing</key>
