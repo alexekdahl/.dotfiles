@@ -2,7 +2,6 @@ on_force_close "quit"
 
 mouse_mode true
 pane_frames false
-default_layout "compact"
 simplified_ui false
 copy_command "xclip -selection clipboard" 
 copy_on_select true
@@ -13,12 +12,12 @@ ui {
     }
 }
 
-
 plugins {
     tab-bar { path "tab-bar"; }
     status-bar { path "status-bar"; }
     strider { path "strider"; }
     compact-bar { path "compact-bar"; }
+    zjstatus { path "file:/home/alexanek/.dotfiles/zellij/plugins/zjstatus.wasm"; }
 }
 
 keybinds clear-defaults=true {
@@ -29,17 +28,17 @@ keybinds clear-defaults=true {
         bind "Alt 4" { GoToTab 4; SwitchToMode "Normal"; }
         bind "Alt 5" { GoToTab 5; SwitchToMode "Normal"; }
 
-		bind "Ctrl h" { MoveFocus "Left"; SwitchToMode "Normal"; }
-		bind "Ctrl l" { MoveFocus "Right"; SwitchToMode "Normal"; }
-		bind "Ctrl j" { MoveFocus "Down"; SwitchToMode "Normal"; }
-		bind "Ctrl k" { MoveFocus "Up"; SwitchToMode "Normal"; }
         bind "Ctrl f" { SwitchToMode "Tmux"; }
     }
 
+    renametab {
+        bind "Enter" { SwitchToMode "Normal"; }
+        bind "Esc" { UndoRenameTab; SwitchToMode "Normal"; }
+    }
+
     tmux {
-        bind "Ctrl f" { SwitchToMode "Normal"; }
         bind "Esc" { SwitchToMode "Normal"; }
-        bind "Ctrl s" {
+        bind "w" {
             LaunchOrFocusPlugin "zellij:session-manager" {
                 floating true
                 move_to_focused_tab true
@@ -50,17 +49,16 @@ keybinds clear-defaults=true {
         bind "q" { Quit; }
         bind "s" { NewPane "Right"; SwitchToMode "Normal"; }
         bind "v" { NewPane "Down"; SwitchToMode "Normal"; }
-        bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+        bind "f" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
         bind "n" { NewTab; SwitchToMode "Normal"; SwitchToMode "RenameTab"; TabNameInput 0; }
-        //bind "," { SwitchToMode "RenameTab"; }
-        bind "p" { GoToPreviousTab; SwitchToMode "Normal"; }
-        // bind "n" { GoToNextTab; SwitchToMode "Normal"; }
+        bind "r" { SwitchToMode "RenameTab"; }
         bind "h" { MoveFocus "Left"; SwitchToMode "Normal"; }
         bind "l" { MoveFocus "Right"; SwitchToMode "Normal"; }
         bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
         bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
-        bind "o" { FocusNextPane; }
-        bind "r" { SwitchToMode "Resize"; }
+        bind "'" { FocusNextPane; }
+        bind "." { SwitchToMode "Resize"; }
+        bind "x" { CloseTab; SwitchToMode "Normal"; }
     }
 
     shared_except "tmux" "locked" {
@@ -70,7 +68,6 @@ keybinds clear-defaults=true {
     shared_except "locked" {
         bind "Ctrl q" { Quit; }
         bind "Alt -" { Resize "Decrease"; }
-        bind "Esc" { SwitchToMode "Normal"; }
     }
 
     resize {
@@ -112,8 +109,3 @@ themes {
         cursor-border "#ABB2BF" // white
     }
 } 
-//     renametab {
-//         bind "Enter" { SwitchToMode "Normal"; }
-//         bind "Esc" { UndoRenameTab; SwitchToMode "Normal"; }
-//     }
-

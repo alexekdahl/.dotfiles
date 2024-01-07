@@ -5,6 +5,9 @@ alias hg="history | grep"
 # -Tmux-
 alias th="tmux new-session -A -s HOME"
 alias tf="tmux new-session -A -s WORK"
+# -Zellij-
+alias zz="zellij kill-all-sessions -y; zellij delete-all-sessions -y"
+alias zh="zellij --layout default"
 # -Vim-
 alias vim="nvim"
 alias vi="nvim"
