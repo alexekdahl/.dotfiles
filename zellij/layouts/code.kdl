@@ -5,10 +5,7 @@ layout {
         }
         children
     }
-    tab name="code"  focus=true
-    tab name="console" split_direction="vertical" {
-        pane 
-        pane
-    }
+    tab name="code"  focus=true;
+    tab name="console"
 }
 attach_to_session true

@@ -28,10 +28,22 @@ function fff() {
 }
 
 function fzf-open-project() {
-$HOME/.dotfiles/scripts/sessionizer.sh
-
+    source $HOME/.dotfiles/scripts/sessionizer.sh
 }
 
+function zh() {
+    local session_name="HOME"
+    local existing_session=$(zellij list-sessions | grep "$session_name")
+
+    # Check if the "HOME" session exists
+    if [[ -n $existing_session ]]; then
+        echo "Attaching to existing 'HOME' session."
+        zellij a "$session_name"
+    else
+        echo "Creating a new 'HOME' session."
+        zellij -s "$session_name" --layout default
+    fi
+}
 # -Misc-
 
 # Measure the start-up time for the shell

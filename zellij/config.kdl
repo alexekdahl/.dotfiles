@@ -13,11 +13,7 @@ ui {
 }
 
 plugins {
-    tab-bar { path "tab-bar"; }
-    status-bar { path "status-bar"; }
-    strider { path "strider"; }
     compact-bar { path "compact-bar"; }
-    zjstatus { path "file:/home/alexanek/.dotfiles/zellij/plugins/zjstatus.wasm"; }
 }
 
 keybinds clear-defaults=true {

@@ -7,7 +7,6 @@ alias th="tmux new-session -A -s HOME"
 alias tf="tmux new-session -A -s WORK"
 # -Zellij-
 alias zz="zellij kill-all-sessions -y; zellij delete-all-sessions -y"
-alias zh="zellij --layout default"
 # -Vim-
 alias vim="nvim"
 alias vi="nvim"
@@ -33,6 +32,9 @@ alias aliaz='alias | awk -F"=" '\''{printf "\033[1;34m%s\033[0m=\033[0;32m%s\033
 alias mip='ipconfig getifaddr en0'
 alias ports='lsof -i -n -P'
 alias spdt='speedtest --simple'
+
+# -Go-
+alias test='go test ./...  -count=1 --short | gocolorize'
 
 # -Node-
 alias yolo='rm -rf node_modules/ && npm install'
