@@ -55,6 +55,7 @@ keybinds clear-defaults=true {
         bind "'" { FocusNextPane; }
         bind "." { SwitchToMode "Resize"; }
         bind "x" { CloseTab; SwitchToMode "Normal"; }
+        bind "a" { SwitchToMode "Scroll"; }
     }
 
     shared_except "tmux" "locked" {
@@ -75,6 +76,14 @@ keybinds clear-defaults=true {
         bind "l" "Right" { Resize "Right"; }
         bind "=" "+" { Resize "Increase"; }
         bind "-" { Resize "Decrease"; }
+    }
+
+    scroll {
+        bind "Esc" { ScrollToBottom; SwitchToMode "Normal"; }
+        bind "e" { EditScrollback; SwitchToMode "Normal"; }
+        bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
     }
 }
 theme "onedark"

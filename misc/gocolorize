@@ -13,15 +13,16 @@ BEGIN {
     BRGREEN="\033[92m"
     BRCYAN="\033[96m"
     NORMAL="\033[0m"
-    GREEN_EMOJI="🐍"
-    RED_EMOJI="🤢"
+    GREEN_EMOJI="🐍" # Green Circle Emoji
+    RED_EMOJI="🔴"   # Red Circle Emoji
 }
          { color=NORMAL }
+/^\?/    { next } # Skip lines starting with "?"
 /^ok /   { color=BRGREEN; print color GREEN_EMOJI " " $0 NORMAL; next }
 /^FAIL/  { color=BRRED; print color RED_EMOJI " " $0 NORMAL; next }
 /^SKIP/  { color=BRCYAN }
 /^RUN/   { color=BRCYAN }
-/RUN/   { color=CYAN }
+/RUN/    { color=CYAN }
 /PASS:/  { color=GREEN; print color GREEN_EMOJI " " $0 NORMAL; next }
 /FAIL:/  { color=RED; print color RED_EMOJI " " $0 NORMAL; next }
 /SKIP:/  { color=CYAN }

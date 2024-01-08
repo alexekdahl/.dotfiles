@@ -5,7 +5,7 @@ layout {
         }
         children
     }
-    tab name="misc"
+    tab
 }
 
 attach_to_session true
