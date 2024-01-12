@@ -46,7 +46,7 @@ M.on_attach = function(client, bufnr)
 		mapkey("<Leader>oi", "PyrightOrganizeImports", "n", bufopts)
 	end
 	if client.name == "gopls" then
-		vim.keymap.set("n", "<leader>l", 'y<esc>ofmt.Println("<c-r>"", <c-r>")<esc>', bufopts)
+		vim.keymap.set("n", "<leader>l", 'y<esc>ofmt.Println("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>', bufopts)
 	end
 end
 
