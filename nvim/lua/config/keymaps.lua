@@ -17,19 +17,6 @@ vim.keymap.set("n", "<leader>y", "yiw")
 vim.keymap.set("n", "<leader>s", "<cmd>wa!<CR>")
 vim.keymap.set("n", "<leader>o", "o<Esc>")
 
--- Show Full File-Path
----@diagnostic disable: need-check-nil
-local function relative_path()
-	local handle = io.popen("git rev-parse --show-toplevel 2> /dev/null")
-	local root = handle:read("*a")
-	handle:close()
-	root = string.gsub(root, "[\r\n]+$", "")
-	local filepath = vim.fn.expand("%:p")
-	local relativepath = string.gsub(filepath, "^" .. root .. "/", "")
-	print(relativepath)
-end
-vim.keymap.set("n", "<leader>pa", relative_path)
-
 mapkey("<leader>sv", "vsplit", "n") -- Split Vertically
 mapkey("<leader>sh", "split", "n") -- Split Horizontally
 
@@ -38,6 +25,9 @@ vim.keymap.set(
 	"<leader>fc",
 	"<cmd>lua require('telescope.builtin').find_files({ find_command = {'git', '--no-pager', 'diff', '--name-only' }})<CR>"
 )
+
+vim.keymap.set("n", "<leader>gf", "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>")
+vim.keymap.set("n", "<leader>gco", "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>")
 
 mapkey("<leader>ff", "Telescope find_files", "n")
 mapkey("<leader>fl", "Telescope live_grep", "n")
