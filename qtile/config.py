@@ -3,7 +3,7 @@ from libqtile.layout.xmonad import MonadTall
 from libqtile.layout.bsp import Bsp
 
 from libqtile import bar, widget, hook
-from libqtile.config import Drag, Group, Key, Match, Screen, ScratchPad, DropDown
+from libqtile.config import Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
 from os.path import expanduser

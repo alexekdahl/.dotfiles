@@ -1,6 +1,19 @@
 # Find a file and open it in Vim
 function ff() {
-  file=$(fzf --preview='bat --style=numbers --color=always {}' --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down) && vim $(echo "$file")
+    local choice
+    local file
+
+    # Check if in a bare repository
+    if [ "$(git rev-parse --is-bare-repository)" = "true" ]; then
+        choice=$(find . -maxdepth 1 -type d | grep -v './.bare' | sed 's|^\./||' | fzf)
+        if [ -z "$choice" ]; then
+            return 0
+        fi
+
+        cd "$choice"
+    fi
+
+    file=$(fzf --preview='bat --style=numbers --color=always {}' --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down) && vim "$file"
 }
 
 # Find pattern inside a file and open it in Neovim at the line where the pattern is found and sets Neovim root to git root.
