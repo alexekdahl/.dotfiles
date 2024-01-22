@@ -20,6 +20,7 @@ alias econf='nvim ~/.config/'
 
 alias reload='source ~/.zshrc'
 alias c='clear'
+alias :q='exit'
 
 alias wttr='curl -s wttr.in/Lund'
 alias busy="cat /dev/urandom | hexdump -C | grep 'ca fe'"

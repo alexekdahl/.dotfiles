@@ -43,10 +43,11 @@ M.on_attach = function(client, bufnr)
 	end
 
 	if client.name == "pyright" then
-		mapkey("<Leader>oi", "PyrightOrganizeImports", "n", bufopts)
-	end
-	if client.name == "gopls" then
+		vim.keymap.set("n", "<leader>l", 'y<esc>oprint("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>', bufopts)
+	elseif client.name == "gopls" then
 		vim.keymap.set("n", "<leader>l", 'y<esc>ofmt.Println("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>', bufopts)
+	elseif client.name == "tsserver" then
+		vim.keymap.set("n", "<leader>l", 'y<esc>oconsole.log("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>', bufopts)
 	end
 end
 
