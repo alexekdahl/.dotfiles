@@ -26,9 +26,6 @@ vim.keymap.set(
 	"<cmd>lua require('telescope.builtin').find_files({ find_command = {'git', '--no-pager', 'diff', '--name-only' }})<CR>"
 )
 
--- vim.keymap.set("n", "<leader>gf", "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>")
--- vim.keymap.set("n", "<leader>gco", "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>")
-
 mapkey("<leader>ff", "Telescope find_files", "n")
 mapkey("<leader>fl", "Telescope live_grep", "n")
 mapkey("<leader>fr", "Telescope lsp_references", "n")
