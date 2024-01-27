@@ -20,6 +20,7 @@ export GOPATH="$HOME/.go"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH="$HOME/.go/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
 
 # Source
