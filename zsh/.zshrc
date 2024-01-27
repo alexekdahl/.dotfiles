@@ -1,5 +1,8 @@
 source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 
+unsetopt correct_all
+setopt histignorealldups sharehistory
+
 # Multi session node environment
 eval "$(fnm env)"
 
@@ -28,11 +31,13 @@ unset conf
 source ~/.dotfiles/zsh/config.zsh
 source $HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.p10k.zsh
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 bindkey -r '^a'
+bindkey -r '^r'
 bindkey -s '^a' 'fzf-open-project\n'
 
-nvm_autouse &>/dev/null
-chpwd_functions=(${chpwd_functions[@]} "nvm_autouse")
+bindkey -r '^b'
+bindkey -s '^b' 'change_wallpaper\n'
+

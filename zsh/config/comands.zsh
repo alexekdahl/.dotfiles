@@ -1,7 +1,19 @@
 # Find a file and open it in Vim
 function ff() {
-  local file
-  file=$(fzf --preview='bat --style=numbers --color=always {}' --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down) && vim $(echo "$file")
+    local choice
+    local file
+
+    # Check if in a bare repository
+    if [ "$(git rev-parse --is-bare-repository)" = "true" ]; then
+        choice=$(find . -maxdepth 1 -type d | grep -v './.bare' | sed 's|^\./||' | fzf)
+        if [ -z "$choice" ]; then
+            return 0
+        fi
+
+        cd "$choice"
+    fi
+
+    file=$(fzf --preview='bat --style=numbers --color=always {}' --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down) && vim "$file"
 }
 
 # Find pattern inside a file and open it in Neovim at the line where the pattern is found and sets Neovim root to git root.
@@ -29,32 +41,28 @@ function fff() {
 }
 
 function fzf-open-project() {
-  local work_root="$HOME/dev/yale/repo"
-  local personal_root="$HOME/dev/personal"
-
-  local personal_root_color="\033[32m"
-  local work_root_color="\033[33m"
-  local reset_color="\033[0m"
-
-  local fzf_height="30%"
-  local dir
-
-  dir=$(find $work_root $personal_root -type d -mindepth 1 -maxdepth 1 \
-      | awk -v work="$work_root" -v personal="$personal_root" -v workColor="$work_root_color" -v personalColor="$personal_root_color" -v reset="$reset_color" '
-          { if ($0 != work && $0 != personal)
-              { if (index($0, work) > 0) printf workColor "%s" reset "\n", $0; else printf personalColor "%s" reset "\n", $0 }
-          }' \
-      | fzf --ansi --print0 -m -1 --border=rounded --height $fzf_height)
-
-  [[ -n "$dir" ]] && cd "$dir"
+    source $HOME/.dotfiles/scripts/sessionizer.sh
 }
 
+function zh() {
+    local session_name="HOME"
+    local existing_session=$(zellij list-sessions | grep "$session_name")
+
+    # Check if the "HOME" session exists
+    if [[ -n $existing_session ]]; then
+        echo "Attaching to existing 'HOME' session."
+        zellij a "$session_name"
+    else
+        echo "Creating a new 'HOME' session."
+        zellij -s "$session_name" --layout default
+    fi
+}
 # -Misc-
 
 # Measure the start-up time for the shell
 function timezsh() {
   shell=${1-$SHELL}
-  for i in $(seq 1 30); do /usr/bin/time $shell -i -c exit; done
+  for i in $(seq 1 30); do time $shell -i -c exit; done
 }
 
 # fkill - kill processes - list only the ones you can kill.
@@ -71,9 +79,13 @@ function fkill() {
   fi
 }
 
-# nvm autouse
-function nvm_autouse() {
-  if [[ -f ".nvmrc" ]]; then
-    fnm use --silent-if-unchanged --log-level quiet
-  fi
+function change_wallpaper() {
+    local selected_wallpaper
+    selected_wallpaper=$(find ~/Pictures/wallpapers -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" \) | fzf --border=rounded --height 40%)
+
+    if [[ -n $selected_wallpaper ]]; then
+        feh --bg-fill "$selected_wallpaper"
+    else
+        echo "No wallpaper selected."
+    fi
 }

@@ -2,50 +2,51 @@
 alias h="history -10"
 alias hg="history | grep"
 
+# -Tmux-
+alias th="tmux new-session -A -s HOME"
+alias tf="tmux new-session -A -s WORK"
+# -Zellij-
+alias zz="zellij kill-all-sessions -y; zellij delete-all-sessions -y"
 # -Vim-
 alias vim="nvim"
-alias vi="nvim"
-alias v="vim"
+alias code="codium"
 
 # -Misc-
 alias brewski="brew doctor; brew update && brew upgrade && brew cleanup -s"
-alias today='icalBuddy -f -sd -iep datetime,title -df %A  eventsToday'
-alias week='icalBuddy -f -sd -iep datetime,title -df %A eventsToday+7'
-alias tomorrow='icalBuddy -f -sd -iep datetime,title -df %A eventsToday+1'
 
 alias editzsh='nvim ~/.dotfiles/zsh/'
 alias editvim='nvim ~/.dotfiles/nvim/'
+alias econf='nvim ~/.config/'
+
 alias reload='source ~/.zshrc'
-alias lock='pmset displaysleepnow'
 alias c='clear'
+alias :q='exit'
 
 alias wttr='curl -s wttr.in/Lund'
 alias busy="cat /dev/urandom | hexdump -C | grep 'ca fe'"
-alias scs='open ~/Pictures/screenshots'
 alias topcmd='history | awk '\''{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}'\'' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n20'
+alias aliaz='alias | awk -F"=" '\''{printf "\033[1;34m%s\033[0m=\033[0;32m%s\033[0m\n", $1, $2}'\'' | fzf --border=rounded --height 50% --ansi'
 
 # -Network-
 alias mip='ipconfig getifaddr en0'
 alias ports='lsof -i -n -P'
-alias spdt='speedtest -s 31538'
+alias spdt='speedtest --simple'
+
+# -Go-
+alias test='go test ./...  -count=1 --short | gocolorize'
 
 # -Node-
-alias check='npx depcheck'
 alias yolo='rm -rf node_modules/ && npm install'
-alias npd='npm run dev'
-alias fix='npx prettier --print-width 120 --single-quote --trailing-comma es5 --write "**/*.{js,ts}"'
 
 # -Dir-
 alias ..='cd ..'
 alias mv='mv -iv'
 alias cp='cp -iv'
-alias ls='exa --icons --colour=never -1 --sort=type'
+alias ls='eza --icons --colour=never -1 --sort=type'
 alias lsa='ls -a'
 alias ll='ls -l'
-alias dev='cd ~/dev && echo "$(tput setaf 1)Projects"$(tput sgr0) && ls'
-alias war='cd ~/dev/misc && vim .'
-alias copy='pbcopy < '
+alias dev='cd ~/dev && echo "$(tput setaf 1)Dev"$(tput sgr0) && ls'
 alias dotfiles='cd ~/.dotfiles'
-alias tree='exa --tree --git-ignore --sort=type'
+alias tree='eza --tree  --sort=type'
 alias nvm='fnm'
 
