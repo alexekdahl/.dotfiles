@@ -27,12 +27,13 @@ M.on_attach = function(client, bufnr)
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-	vim.keymap.set("n", "gD", "<cmd>vsp | vim.lsp.buf.definition<CR>", bufopts)
-	vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, bufopts)
+	vim.keymap.set("n", "gD", "<cmd>Lspsaga peek_definition<CR>", bufopts)
+	vim.keymap.set("n", "gt", "<cmd>Lspsaga goto_type_definition<CR>", bufopts)
 	vim.keymap.set("n", "K", "<cmd> Lspsaga hover_doc<CR>", bufopts)
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
 	vim.keymap.set("n", "<leader>k", vim.diagnostic.open_float, bufopts)
 	vim.keymap.set("n", "<leader>a", "<cmd> Lspsaga code_action<CR>", bufopts)
+	vim.keymap.set("n", "<leader>p", "<cmd> Lspsaga outline<CR>", bufopts)
 	vim.keymap.set("n", "<leader>lf", "<cmd> Lspsaga finder tyd+ref+imp+def<CR>", bufopts)
 
 	-- Set autocommands conditional on server_capabilities

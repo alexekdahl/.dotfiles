@@ -9,7 +9,6 @@ alias tf="tmux new-session -A -s WORK"
 alias zz="zellij kill-all-sessions -y; zellij delete-all-sessions -y"
 # -Vim-
 alias vim="nvim"
-alias code="codium"
 
 # -Misc-
 alias brewski="brew doctor; brew update && brew upgrade && brew cleanup -s"

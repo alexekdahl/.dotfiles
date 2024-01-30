@@ -1,4 +1,6 @@
 return {
 	"ruanyl/vim-gh-line",
-	cmd = "GH",
+	keys = {
+		{ "<leader>gh", "<cmd>GH<cr>" },
+	},
 }
