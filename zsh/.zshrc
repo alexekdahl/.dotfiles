@@ -3,7 +3,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 unsetopt correct_all
 setopt histignorealldups sharehistory
-export HISTFILE="$HOME/.zsh_history"
+# export HISTFILE="$HOME/.zsh_history"
 
 # Config
 export DISABLE_UPDATE_PROMPT="false"

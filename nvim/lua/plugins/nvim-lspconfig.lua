@@ -2,7 +2,6 @@ local on_attach = require("util.lsp").on_attach
 local handlers = require("util.lsp").handlers
 
 local config = function()
-	require("neoconf").setup({})
 	local lspconfig = require("lspconfig")
 	local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -72,13 +71,6 @@ local config = function()
 				},
 			})
 		end,
-		["jsonls"] = function()
-			lspconfig.jsonls.setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-				filetypes = { "json", "jsonc" },
-			})
-		end,
 		["pyright"] = function()
 			lspconfig.pyright.setup({
 				capabilities = capabilities,
@@ -120,32 +112,16 @@ local config = function()
 				filetypes = { "sh", "bash", "zsh" },
 			})
 		end,
-		["yamlls"] = function()
-			lspconfig.yamlls.setup({
-				settings = {
-					yaml = {
-						completion = true,
-						schemas = {
-							["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-							["https://raw.githubusercontent.com/aws/serverless-application-model/main/samtranslator/schema/schema.json"] = "*cloudformation*.yaml",
-						},
-					},
-				},
-			})
-		end,
 		["efm"] = function()
 			lspconfig.efm.setup({
 				filetypes = {
 					"lua",
 					"python",
 					"json",
-					"jsonc",
-					"sh",
 					"javascript",
 					"typescript",
 					"docker",
 					"dockerfile",
-					"html",
 				},
 				init_options = {
 					documentFormatting = true,
@@ -164,7 +140,6 @@ local config = function()
 							require("efmls-configs.formatters.prettier_d"),
 						},
 						json = { require("efmls-configs.formatters.fixjson") },
-						sh = { require("efmls-configs.linters.shellcheck"), require("efmls-configs.formatters.shfmt") },
 						javascript = {
 							require("efmls-configs.linters.eslint_d"),
 							require("efmls-configs.formatters.prettier_d"),
