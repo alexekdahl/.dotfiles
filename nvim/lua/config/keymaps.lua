@@ -26,6 +26,11 @@ vim.keymap.set(
 	"<cmd>lua require('telescope.builtin').find_files({ find_command = {'git', '--no-pager', 'diff', '--name-only' }})<CR>"
 )
 
+vim.keymap.set(
+    "n",
+    "<leader>if",
+    "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
+)
 mapkey("<leader>ff", "Telescope find_files", "n")
 mapkey("<leader>fl", "Telescope live_grep", "n")
 mapkey("<leader>fr", "Telescope lsp_references", "n")
