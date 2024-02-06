@@ -1,38 +1,38 @@
 local opt = vim.opt
 local cmd = vim.cmd
 
-opt.relativenumber = true -- Displays relative line numbers
-opt.hlsearch = false -- Disables search highlighting
-opt.hidden = true -- Allows unsaved buffers to be hidden
-opt.errorbells = false -- Disables error bells
+opt.relativenumber = true
+opt.hlsearch = false
+opt.hidden = true
+opt.errorbells = false
 opt.tabstop = 4
 opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
 opt.smartindent = true
-opt.number = true -- Enables line numbers
-opt.swapfile = false -- Disables swap file creation
-opt.backup = false -- Disables backup file creation
-opt.undofile = true -- Sets undo directory
+opt.number = true
+opt.swapfile = false
+opt.backup = false
+opt.undofile = true
 cmd.backupdir = os.getenv("HOME") .. "/.vim/undodir"
-opt.incsearch = true -- Enables incremental search
-opt.scrolloff = 18 -- Keeps 18 lines visible above/below cursor
-opt.isfname:append("@-@") -- Adds '@-@' to 'isfname' option
-opt.cmdheight = 1 -- Sets command line height to 1
-opt.updatetime = 50 -- Sets buffer update time to 50 ms
-opt.termguicolors = true -- Enables terminal GUI colors
-opt.shortmess:append("c") -- Shortens certain messages
-opt.clipboard = "unnamedplus" -- Uses the unnamed clipboard
-opt.completeopt = "menu,menuone,noselect" -- Configures completion options
-opt.splitbelow = true -- Opens horizontal splits below
-opt.splitright = true -- Opens vertical splits to the right
-opt.cursorline = true -- Highlights the current line
-opt.signcolumn = "number" -- Highlights the current line
+opt.incsearch = true
+opt.scrolloff = 18
+opt.isfname:append("@-@")
+opt.cmdheight = 1
+opt.updatetime = 50
+opt.termguicolors = true
+opt.shortmess:append("c")
+opt.clipboard = "unnamedplus"
+opt.completeopt = "menu,menuone,noselect"
+opt.splitbelow = true
+opt.splitright = true
+opt.cursorline = true
+opt.signcolumn = "number"
 opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 opt.wrap = false
 opt.colorcolumn = "100"
 cmd.colorscheme("onedark")
--- Add an autocommand group for FileType settings
+
 local filetype_group = vim.api.nvim_create_augroup("FileTypeSettings", { clear = true })
 -- Disable colorcolumn for Markdown and text files
 vim.api.nvim_create_autocmd("FileType", {

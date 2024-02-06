@@ -97,7 +97,7 @@ local config = function()
 				},
 			},
 		},
-		playground = { enable = true },
+		playground = { enable = false },
 	})
 end
 

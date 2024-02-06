@@ -11,6 +11,8 @@ return {
 			"goimports",
 			"hadolint",
 			"fixjson",
+			"eslint_d",
+			"prettierd",
 		},
 	},
 	dependencies = {
