@@ -31,7 +31,7 @@ local config = function()
 		},
 		highlight = {
 			enable = true,
-			additional_vim_regex_highlighting = true,
+			additional_vim_regex_highlighting = false,
 		},
 		autopairs = {
 			enable = true,
@@ -106,7 +106,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter-textobjects",
-		"nvim-treesitter/playground",
+		-- "nvim-treesitter/playground",
 	},
 	config = config,
 }
