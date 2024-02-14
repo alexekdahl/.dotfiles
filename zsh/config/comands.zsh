@@ -68,7 +68,7 @@ function fkill() {
 
 function change_wallpaper() {
     local selected_wallpaper
-    selected_wallpaper=$(find ~/Pictures/wallpapers -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" \) | fzf --border=rounded --height 40%)
+    selected_wallpaper=$(find ~/Pictures/wallpapers -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" \) | fzf --border=rounded --height 50%)
 
     if [[ -n $selected_wallpaper ]]; then
         feh --bg-fill "$selected_wallpaper"

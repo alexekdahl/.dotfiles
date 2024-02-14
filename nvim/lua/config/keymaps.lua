@@ -1,11 +1,5 @@
 local mapkey = require("util.keymapper").mapkey
 
-vim.keymap.set("n", "qw", function()
-	vim.cmd("silent! normal mpea'<Esc>bi'<Esc>`pl")
-end)
-vim.keymap.set("n", "wq", function()
-	vim.cmd("silent! normal mpeld bhd `ph")
-end)
 vim.keymap.set("v", "<C-p>", '"_dP')
 vim.keymap.set("n", "<C-J>", "<C-W><C-J>")
 vim.keymap.set("n", "<C-H>", "<C-W><C-H>")

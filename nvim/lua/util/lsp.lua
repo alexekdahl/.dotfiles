@@ -1,4 +1,3 @@
-local mapkey = require("util.keymapper").mapkey
 local autocmd_clear = vim.api.nvim_clear_autocmds
 local augroup_highlight = vim.api.nvim_create_augroup("custom-lsp-references", { clear = true })
 

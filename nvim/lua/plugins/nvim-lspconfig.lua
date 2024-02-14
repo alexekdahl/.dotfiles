@@ -151,7 +151,6 @@ local config = function()
 			})
 		end,
 	})
-	--
 end
 
 return {
