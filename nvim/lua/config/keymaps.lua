@@ -8,24 +8,19 @@ vim.keymap.set("n", "<C-L>", "<C-W><C-L>")
 
 vim.keymap.set("n", "<leader>v", "viw")
 vim.keymap.set("n", "<leader>y", "yiw")
-vim.keymap.set("n", "<leader>s", "<cmd>wa!<CR>")
 vim.keymap.set("n", "<leader>o", "o<Esc>")
+vim.keymap.set("n", "<leader>if", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 
 mapkey("<leader>sv", "vsplit", "n") -- Split Vertically
 mapkey("<leader>sh", "split", "n") -- Split Horizontally
+mapkey("<leader>s", "wa!", "n")
 
-vim.keymap.set(
-	"n",
+mapkey(
 	"<leader>fc",
-	"<cmd>lua require('telescope.builtin').find_files({ find_command = {'git', '--no-pager', 'diff', '--name-only' }})<CR>"
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>if",
-    "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
+	"lua require('telescope.builtin').find_files({ find_command = {'git', '--no-pager', 'diff', '--name-only' }})",
+	"n"
 )
 mapkey("<leader>ff", "Telescope find_files", "n")
 mapkey("<leader>fl", "Telescope live_grep", "n")
 mapkey("<leader>fr", "Telescope lsp_references", "n")
-vim.keymap.set("n", "<leader>d", "<cmd>Telescope diagnostics<CR>")
+mapkey("<leader>d", "Telescope diagnostics", "n")

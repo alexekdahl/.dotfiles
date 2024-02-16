@@ -188,19 +188,3 @@ function git-stats() {
   done
 }
 
-
-function prs() {
-    REPO=$(git remote get-url origin | sed 's/.*:\/\/github.com\/\([^ ]*\)\(.git\)\?/\1/')
-
-    PR_BRANCH=$(gh pr list --repo $REPO --limit 100 --json number,title,author,createdAt,state,headRefName --jq '.[] | "\(.number)\t\(.title)\t\(.author.login)\t\(.createdAt)\t\(.state)\t\(.headRefName)"' |
-        column -t -s $'\t' | 
-        fzf --height 40% --layout=reverse --border | awk '{print $NF}')
-
-    if [ -n "$PR_BRANCH" ]; then
-        git checkout "$PR_BRANCH"
-        nvim -c "DiffviewOpen origin/main... --imply-local" 
-        
-    else
-        echo "No branch selected."
-    fi
-}
