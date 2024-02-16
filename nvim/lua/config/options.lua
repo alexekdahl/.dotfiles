@@ -33,26 +33,3 @@ opt.wrap = false
 opt.colorcolumn = "100"
 cmd.colorscheme("onedark")
 
-local filetype_group = vim.api.nvim_create_augroup("FileTypeSettings", { clear = true })
--- Disable colorcolumn for Markdown and text files
-vim.api.nvim_create_autocmd("FileType", {
-	group = filetype_group,
-	pattern = { "markdown", "text" },
-	command = "setlocal colorcolumn=",
-})
-
--- Cursorline highlighting control
---  Only have it on in the active buffer
-local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
-local set_cursorline = function(event, value, pattern)
-	vim.api.nvim_create_autocmd(event, {
-		group = group,
-		pattern = pattern,
-		callback = function()
-			vim.opt_local.cursorline = value
-		end,
-	})
-end
-set_cursorline("WinLeave", false)
-set_cursorline("WinEnter", true)
-set_cursorline("FileType", false, "TelescopePrompt")
