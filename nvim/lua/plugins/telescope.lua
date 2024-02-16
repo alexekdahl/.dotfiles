@@ -1,3 +1,4 @@
+local icons = require("config.icons").icons
 return {
 	"nvim-telescope/telescope.nvim",
 	dependencies = {
@@ -6,8 +7,8 @@ return {
 	},
 	opts = {
 		defaults = {
-			prompt_prefix = "> ",
-			selection_caret = "> ",
+			prompt_prefix = icons.symbols.chevron_right .. " ",
+			selection_caret = icons.symbols.chevron_right .. " ",
 			entry_prefix = "  ",
 			multi_icon = "<>",
 			layout_strategy = "horizontal",

@@ -55,11 +55,4 @@ M.handlers = {
 	["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { signs = false }),
 }
 
-M.diagnostic_signs = {
-	Error = " ",
-	Warn = " ",
-	Hint = "ﴞ ",
-	Info = "",
-}
-
 return M
