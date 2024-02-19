@@ -36,11 +36,9 @@ return {
 			root_folder_label = true,
 			highlight_git = true,
 			highlight_opened_files = "none",
-
 			indent_markers = {
 				enable = false,
 			},
-
 			icons = {
 				show = {
 					file = true,

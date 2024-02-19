@@ -11,8 +11,8 @@ vim.keymap.set("n", "<leader>y", "yiw")
 vim.keymap.set("n", "<leader>o", "o<Esc>")
 vim.keymap.set("n", "<leader>if", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 
-mapkey("<leader>sv", "vsplit", "n") -- Split Vertically
-mapkey("<leader>sh", "split", "n") -- Split Horizontally
+mapkey("<leader>sv", "vsplit", "n")
+mapkey("<leader>sh", "split", "n")
 mapkey("<leader>s", "wa!", "n")
 
 mapkey(

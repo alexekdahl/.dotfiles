@@ -32,4 +32,3 @@ opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minima
 opt.wrap = false
 opt.colorcolumn = "100"
 cmd.colorscheme("onedark")
-

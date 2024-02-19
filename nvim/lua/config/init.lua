@@ -26,6 +26,12 @@ local opts = {
 	dev = {
 		path = "~/",
 	},
+	performance = {
+		cache = {
+			enabled = true,
+		},
+		reset_packpath = true,
+	},
 	rtp = {
 		disabled_plugins = {
 			"gzip",
