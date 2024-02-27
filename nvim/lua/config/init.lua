@@ -23,9 +23,6 @@ local opts = {
 	defaults = {
 		lazy = false,
 	},
-	dev = {
-		path = "~/",
-	},
 	performance = {
 		cache = {
 			enabled = true,

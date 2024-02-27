@@ -29,7 +29,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"
 
 
-# eval "$(fnm env)"
+eval "$(fnm env)"
 # Source
 source ~/.dotfiles/zsh/config.zsh
 source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme

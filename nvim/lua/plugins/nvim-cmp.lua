@@ -1,5 +1,10 @@
 return {
 	"hrsh7th/nvim-cmp",
+	dependencies = {
+		"onsails/lspkind.nvim",
+		{ "saadparwaiz1/cmp_luasnip", dependencies = { "L3MON4D3/LuaSnip" } },
+		"L3MON4D3/LuaSnip",
+	},
 	config = function()
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
@@ -56,7 +61,6 @@ return {
 				{ name = "buffer" },
 				{ name = "path" },
 			}),
-			-- configure lspkind for vs-code like icons
 			formatting = {
 				format = lspkind.cmp_format({
 					with_text = true,
@@ -70,9 +74,4 @@ return {
 			},
 		})
 	end,
-	dependencies = {
-		"onsails/lspkind.nvim",
-		{ "saadparwaiz1/cmp_luasnip", dependencies = { "L3MON4D3/LuaSnip" } },
-		"L3MON4D3/LuaSnip",
-	},
 }

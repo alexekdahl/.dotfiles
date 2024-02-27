@@ -31,4 +31,5 @@ opt.signcolumn = "number"
 opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 opt.wrap = false
 opt.colorcolumn = "100"
+
 cmd.colorscheme("onedark")
