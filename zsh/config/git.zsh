@@ -13,6 +13,7 @@ alias gad='git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=r
 alias grd='git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --height 10% | xargs -0 -t -o git restore'
 alias remotebranch="git for-each-ref --format='%(color:cyan)%(authordate:format:%m/%d/%Y %I:%M %p)    %(align:25,left)%(color:yellow)%(authorname)%(end) %(color:reset)%(refname:strip=3)' --sort=authordate refs/remotes"
 alias grebase="git fetch origin master:master && git rebase -i master"
+alias gw="git worktree"
 
 # Interactive git diff
 function gdiff {
