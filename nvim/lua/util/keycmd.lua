@@ -3,7 +3,7 @@ local feedkeys = vim.api.nvim_feedkeys
 local M = {}
 
 M.save_all = function()
-	feedkeys("wa!", "n", true)
+	vim.api.nvim_exec(":wa!", true)
 end
 
 M.delete_and_paste_no_registry = function()
@@ -19,28 +19,25 @@ M.yank_inner_word = function()
 end
 
 M.add_line_below = function()
-	feedkeys("o<Esc>", "n", true)
+	vim.api.nvim_input("o<Esc>")
 end
 
-M.insert_if_error = function()
-	feedkeys("oif err != nil {<CR>}<Esc>Oreturn err<Esc>", "n", true)
-end
-
-M.move_window_down = function()
+M.focus_split_down = function()
 	vim.api.nvim_exec("<C-W><C-J>", true)
 end
 
-M.move_window_left = function()
+M.focus_split_left = function()
 	vim.api.nvim_exec("<C-W><C-H>", true)
 end
 
-M.move_window_up = function()
+M.focus_split_up = function()
 	vim.api.nvim_exec("<C-W><C-K>", true)
 end
 
-M.move_window_right = function()
+M.focus_split_right = function()
 	vim.api.nvim_exec("<C-W><C-L>", true)
 end
+
 M.split_vertical = function()
 	vim.api.nvim_exec("vsplit", true)
 end
@@ -74,15 +71,15 @@ M.lsp_goto_definition = function()
 end
 
 M.lsp_peek_definition = function()
-	vim.api.nvim_exec(":Lspsaga peek_definition<CR>", true)
+	vim.api.nvim_exec(":Lspsaga peek_definition", true)
 end
 
 M.lsp_goto_type_definition = function()
-	vim.api.nvim_exec(":Lspsaga goto_type_definition<CR>", true)
+	vim.api.nvim_exec(":Lspsaga goto_type_definition", true)
 end
 
 M.lsp_show_hover_doc = function()
-	vim.api.nvim_exec(":Lspsaga hover_doc<CR>", true)
+	vim.api.nvim_exec(":Lspsaga hover_doc", true)
 end
 
 M.lsp_rename_symbol = function()
@@ -94,15 +91,15 @@ M.lsp_open_diagnostic_float = function()
 end
 
 M.lsp_code_action = function()
-	vim.api.nvim_exec(":Lspsaga code_action<CR>", true)
+	vim.api.nvim_exec("Lspsaga code_action", true)
 end
 
 M.lsp_show_outline = function()
-	vim.api.nvim_exec(":Lspsaga outline<CR>", true)
+	vim.api.nvim_exec("Lspsaga outline", true)
 end
 
 M.lsp_show_finder = function()
-	vim.api.nvim_exec(":Lspsaga finder tyd+ref+imp+def<CR>", true)
+	vim.api.nvim_exec("Lspsaga finder tyd+ref+imp+def", true)
 end
 
 M.color_print = function()

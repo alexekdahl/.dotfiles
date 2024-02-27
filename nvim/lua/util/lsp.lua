@@ -1,7 +1,7 @@
 local autocmd_clear = vim.api.nvim_clear_autocmds
 local augroup_highlight = vim.api.nvim_create_augroup("custom-lsp-references", { clear = true })
 local mapkey = require("util.keymapper").mapkey
-local cmd = require("util.key_cmd")
+local cmd = require("util.keycmd")
 
 local autocmd = function(args)
 	local event = args[1]

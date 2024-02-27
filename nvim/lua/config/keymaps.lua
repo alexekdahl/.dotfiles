@@ -1,18 +1,17 @@
 local mapkey = require("util.keymapper").mapkey
-local cmd = require("util.key_cmd")
+local cmd = require("util.keycmd")
+
+mapkey("<C-J>", cmd.focus_split_down, "n")
+mapkey("<C-H>", cmd.focus_split_left, "n")
+mapkey("<C-K>", cmd.focus_split_up, "n")
+mapkey("<C-L>", cmd.focus_split_right, "n")
+mapkey("<leader>sv", cmd.split_vertical, "n")
+mapkey("<leader>sh", cmd.split_horizontal, "n")
 
 mapkey("<C-p>", cmd.delete_and_paste_no_registry, "v")
-mapkey("<C-J>", cmd.move_window_down, "n")
-mapkey("<C-H>", cmd.move_window_left, "n")
-mapkey("<C-K>", cmd.move_window_up, "n")
-mapkey("<C-L>", cmd.move_window_right, "n")
-
 mapkey("<leader>v", cmd.visual_inner_word, "n")
 mapkey("<leader>y", cmd.yank_inner_word, "n")
 mapkey("<leader>o", cmd.add_line_below, "n")
-mapkey("<leader>if", cmd.insert_if_error, "n")
-mapkey("<leader>sv", cmd.split_vertical, "n")
-mapkey("<leader>sh", cmd.split_horizontal, "n")
 mapkey("<leader>s", cmd.save_all, "n")
 
 mapkey("<leader>fc", cmd.telescope_find_changed_files, "n")
