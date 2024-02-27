@@ -1,5 +1,7 @@
 local autocmd_clear = vim.api.nvim_clear_autocmds
 local augroup_highlight = vim.api.nvim_create_augroup("custom-lsp-references", { clear = true })
+local mapkey = require("util.keymapper").mapkey
+local cmd = require("util.key_cmd")
 
 local autocmd = function(args)
 	local event = args[1]
@@ -25,29 +27,21 @@ M.on_attach = function(client, bufnr)
 
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-	vim.keymap.set("n", "gD", "<cmd>Lspsaga peek_definition<CR>", bufopts)
-	vim.keymap.set("n", "gt", "<cmd>Lspsaga goto_type_definition<CR>", bufopts)
-	vim.keymap.set("n", "K", "<cmd> Lspsaga hover_doc<CR>", bufopts)
-	vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
-	vim.keymap.set("n", "<leader>k", vim.diagnostic.open_float, bufopts)
-	vim.keymap.set("n", "<leader>a", "<cmd> Lspsaga code_action<CR>", bufopts)
-	vim.keymap.set("n", "<leader>p", "<cmd> Lspsaga outline<CR>", bufopts)
-	vim.keymap.set("n", "<leader>lf", "<cmd> Lspsaga finder tyd+ref+imp+def<CR>", bufopts)
+	mapkey("gd", cmd.lsp_goto_definition, "n", bufopts)
+	mapkey("gD", cmd.lsp_peek_definition, "n", bufopts)
+	mapkey("gt", cmd.lsp_goto_type_definition, "n", bufopts)
+	mapkey("K", cmd.lsp_show_hover_doc, "n", bufopts)
+	mapkey("<leader>r", cmd.lsp_rename_symbol, "n", bufopts)
+	mapkey("<leader>k", cmd.lsp_open_diagnostic_float, "n", bufopts)
+	mapkey("<leader>a", cmd.lsp_code_action, "n", bufopts)
+	mapkey("<leader>p", cmd.lsp_show_outline, "n", bufopts)
+	mapkey("<leader>lf", cmd.lsp_show_finder, "n", bufopts)
 
 	-- Set autocommands conditional on server_capabilities
 	if client.server_capabilities.documentHighlightProvider then
 		autocmd_clear({ group = augroup_highlight, buffer = bufnr })
 		autocmd({ "CursorHold", augroup_highlight, vim.lsp.buf.document_highlight, bufnr })
 		autocmd({ "CursorMoved", augroup_highlight, vim.lsp.buf.clear_references, bufnr })
-	end
-
-	if client.name == "pyright" then
-		vim.keymap.set("n", "<leader>l", 'y<esc>oprint("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>', bufopts)
-	elseif client.name == "gopls" then
-		vim.keymap.set("n", "<leader>l", 'y<esc>ofmt.Println("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>', bufopts)
-	elseif client.name == "tsserver" then
-		vim.keymap.set("n", "<leader>l", 'y<esc>oconsole.log("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>', bufopts)
 	end
 end
 

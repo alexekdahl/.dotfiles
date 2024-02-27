@@ -69,4 +69,55 @@ M.telescope_diagnostics = function()
 	require("telescope.builtin").diagnostics()
 end
 
+M.lsp_goto_definition = function()
+	vim.lsp.buf.definition()
+end
+
+M.lsp_peek_definition = function()
+	vim.api.nvim_exec(":Lspsaga peek_definition<CR>", true)
+end
+
+M.lsp_goto_type_definition = function()
+	vim.api.nvim_exec(":Lspsaga goto_type_definition<CR>", true)
+end
+
+M.lsp_show_hover_doc = function()
+	vim.api.nvim_exec(":Lspsaga hover_doc<CR>", true)
+end
+
+M.lsp_rename_symbol = function()
+	vim.lsp.buf.rename()
+end
+
+M.lsp_open_diagnostic_float = function()
+	vim.diagnostic.open_float()
+end
+
+M.lsp_code_action = function()
+	vim.api.nvim_exec(":Lspsaga code_action<CR>", true)
+end
+
+M.lsp_show_outline = function()
+	vim.api.nvim_exec(":Lspsaga outline<CR>", true)
+end
+
+M.lsp_show_finder = function()
+	vim.api.nvim_exec(":Lspsaga finder tyd+ref+imp+def<CR>", true)
+end
+
+M.color_print = function()
+	local filetype = vim.bo.filetype
+	local default = '<esc>oprint("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>xxxxx'
+
+	if filetype == "go" then
+		vim.api.nvim_input('<esc>ofmt.Println("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>xxxxx')
+	elseif filetype == "typescript" then
+		vim.api.nvim_input('<esc>oconsole.log("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>xxxxx')
+	elseif filetype == "javascript" then
+		vim.api.nvim_input('<esc>oconsole.log("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>xxxxx')
+	else
+		vim.api.nvim_input(default)
+	end
+end
+
 return M
