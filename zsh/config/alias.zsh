@@ -33,7 +33,7 @@ alias ports='lsof -i -n -P'
 alias spdt='speedtest --simple'
 
 # -Go-
-alias test='go test ./...  -count=1 --short | gocolorize'
+alias test='go test ./... -count=1 --short | gocolorize'
 
 # -Node-
 alias yolo='rm -rf node_modules/ && npm install'
@@ -46,7 +46,6 @@ alias ls='exa --icons --colour=never -1 --sort=type'
 alias lsa='ls -a'
 alias ll='ls -l'
 alias dev='cd ~/dev && echo "$(tput setaf 1)Dev"$(tput sgr0) && ls'
-alias repo='cd ~/dev/axis/repo && echo "$(tput setaf 1)Repo"$(tput sgr0) && ls'
 alias dotfiles='cd ~/.dotfiles'
 alias tree='exa --tree  --sort=type'
 alias nvm='fnm'

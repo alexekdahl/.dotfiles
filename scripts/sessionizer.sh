@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 select_project() {
-    local work_root="$HOME/dev/axis/repo"
+    local work_root="$REPO"
     local personal_root="$HOME/dev/personal"
     local dotfiles_root="$HOME/.dotfiles"
 
