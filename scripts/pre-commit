@@ -1,0 +1,16 @@
+#!/bin/bash
+ 
+exit_code=0
+ 
+# Get the staged files.
+s_files=$(git diff --name-only --cached --diff-filter=d)
+ 
+# If a staged file contains the keyword, cancel this commit.
+for s_file in ${s_files};do
+    if git grep -q -E -iF temp_xxxx :$s_file;then
+        echo "ERROR: ${s_file} contains the keyword temp_xxxx"
+        exit_code=1
+    fi
+done
+ 
+exit $exit_code

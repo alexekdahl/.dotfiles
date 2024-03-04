@@ -8,5 +8,7 @@
 	required = true
 [init]
 	defaultBranch = main
+[diff]
+    algorithm = histogram
 [core]
 	editor = nvim
