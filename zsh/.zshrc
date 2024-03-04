@@ -27,6 +27,8 @@ export PATH="$HOME/.go/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"
+export PERSONAL="$HOME/dev/personal"
+export DOTFILES="$HOME/.dotfiles"
 
 
 eval "$(fnm env)"

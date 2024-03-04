@@ -2,8 +2,8 @@
 
 select_project() {
     local work_root="$REPO"
-    local personal_root="$HOME/dev/personal"
-    local dotfiles_root="$HOME/.dotfiles"
+    local personal_root="$PERSONAL"
+    local dotfiles_root="$DOTFILES"
 
     declare -A colors=(
         [personal]="\033[32m"
