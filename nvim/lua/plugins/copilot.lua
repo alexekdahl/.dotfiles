@@ -1,6 +1,6 @@
 return {
 	"github/copilot.vim",
-	enabled = true,
+	enabled = false,
 	-- -- cmd = "Copilot",
 	-- -- event = "InsertEnter",
 	-- config = function()
