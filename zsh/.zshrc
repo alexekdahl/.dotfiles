@@ -10,6 +10,7 @@ export DISABLE_UPDATE_PROMPT="false"
 export DISABLE_LS_COLORS="true"
 export COMPLETION_WAITING_DOTS="true"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob=!.git --glob=!node_modules"
+export BAT_THEME="TwoDark"
 export EDITOR=nvim
 
 # Path

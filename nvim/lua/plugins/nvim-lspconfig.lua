@@ -22,6 +22,8 @@ local config = function()
 							nilness = true,
 							unusedwrite = true,
 							unusedvariable = true,
+							assign = false,
+							shadow = true,
 						},
 						annotations = {
 							inline = false,
@@ -32,26 +34,26 @@ local config = function()
 				},
 			})
 		end,
-		["golangci_lint_ls"] = function()
-			lspconfig.golangci_lint_ls.setup({
-				cmd = { "golangci-lint-langserver" },
-				handlers = handlers,
-				on_attach = on_attach,
-				filetypes = { "go", "gomod" },
-				init_options = {
-					command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
-				},
-				root_dir = lspconfig.util.root_pattern(
-					".golangci.yml",
-					".golangci.yaml",
-					".golangci.toml",
-					".golangci.json",
-					"go.work",
-					"go.mod",
-					".git"
-				),
-			})
-		end,
+		-- ["golangci_lint_ls"] = function()
+		-- 	lspconfig.golangci_lint_ls.setup({
+		-- 		cmd = { "golangci-lint-langserver" },
+		-- 		handlers = handlers,
+		-- 		on_attach = on_attach,
+		-- 		filetypes = { "go", "gomod" },
+		-- 		init_options = {
+		-- 			command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
+		-- 		},
+		-- 		root_dir = lspconfig.util.root_pattern(
+		-- 			".golangci.yml",
+		-- 			".golangci.yaml",
+		-- 			".golangci.toml",
+		-- 			".golangci.json",
+		-- 			"go.work",
+		-- 			"go.mod",
+		-- 			".git"
+		-- 		),
+		-- 	})
+		-- end,
 		["lua_ls"] = function()
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
@@ -133,8 +135,14 @@ local config = function()
 				},
 				settings = {
 					languages = {
-						lua = { require("efmls-configs.linters.luacheck"), require("efmls-configs.formatters.stylua") },
-						python = { require("efmls-configs.linters.flake8"), require("efmls-configs.formatters.black") },
+						lua = {
+							require("efmls-configs.linters.luacheck"),
+							require("efmls-configs.formatters.stylua"),
+						},
+						python = {
+							require("efmls-configs.linters.flake8"),
+							require("efmls-configs.formatters.black"),
+						},
 						typescript = {
 							require("efmls-configs.linters.eslint_d"),
 							require("efmls-configs.formatters.prettier_d"),
@@ -144,8 +152,12 @@ local config = function()
 							require("efmls-configs.linters.eslint_d"),
 							require("efmls-configs.formatters.prettier_d"),
 						},
-						docker = { require("efmls-configs.linters.hadolint") },
-						dockerfile = { require("efmls-configs.linters.hadolint") },
+						docker = {
+							require("efmls-configs.linters.hadolint"),
+						},
+						dockerfile = {
+							require("efmls-configs.linters.hadolint"),
+						},
 					},
 				},
 			})
