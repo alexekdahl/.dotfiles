@@ -1,7 +1,8 @@
-local shouldDisable = require("util/copilot").shouldDisable
 return {
 	"zbirenbaum/copilot.lua",
-	enabled = shouldDisable(vim.fn.getcwd()),
+	enabled = true,
+	cmd = "Copilot",
+	event = "InsertEnter",
 	opts = {
 		panel = {
 			enabled = true,

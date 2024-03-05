@@ -117,4 +117,8 @@ M.color_print = function()
 	end
 end
 
+M.toggle_copilot = function()
+	vim.api.nvim_exec(":CopilotToggle", true)
+end
+
 return M

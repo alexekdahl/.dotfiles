@@ -1,3 +1,5 @@
+local should_disable = require("util.disable").should_disable
+
 -- Auto-format on save
 local lsp_fmt_group = vim.api.nvim_create_augroup("LspFormattingGroup", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -44,6 +46,31 @@ local set_cursorline = function(event, value, pattern)
 		end,
 	})
 end
+
+-- Disables copilot if in a disabled folder
+local copilot_group = vim.api.nvim_create_augroup("CopilotDisable", { clear = true })
+vim.api.nvim_create_autocmd("VimEnter", {
+	group = copilot_group,
+	callback = function()
+		local current_dir = vim.fn.getcwd()
+		local disabled_folders = vim.env.DISABLED_COPILOT
+		if should_disable(current_dir, disabled_folders) then
+			vim.cmd("Copilot disable")
+		end
+	end,
+})
+
+local copilot_on = true
+vim.api.nvim_create_user_command("CopilotToggle", function()
+	if copilot_on then
+		vim.cmd("Copilot disable")
+		print("Copilot OFF")
+	else
+		vim.cmd("Copilot enable")
+		print("Copilot ON")
+	end
+	copilot_on = not copilot_on
+end, { nargs = 0 })
 
 set_cursorline("WinLeave", false)
 set_cursorline("WinEnter", true)
