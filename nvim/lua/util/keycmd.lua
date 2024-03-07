@@ -6,7 +6,7 @@ M.save_all = function()
 	vim.api.nvim_exec(":wa!", true)
 end
 
-M.delete_and_paste_no_registry = function()
+M.paste_no_registry = function()
 	feedkeys('"_dP', "n", true)
 end
 

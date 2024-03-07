@@ -5,10 +5,10 @@ return {
 	event = "InsertEnter",
 	opts = {
 		panel = {
-			enabled = true,
+			enabled = false,
 			auto_refresh = false,
 			layout = {
-				position = "right", -- | top | left | right
+				position = "right",
 				ratio = 0.5,
 			},
 		},
@@ -17,19 +17,24 @@ return {
 			auto_trigger = true,
 			debounce = 75,
 			keymap = {
-				accept = "<Tab>",
+				accept = false,
 				accept_word = false,
 				accept_line = false,
 				next = "<M-]>",
 				prev = "<M-[>",
-				dismiss = "<C-]>",
+				dismiss = "<C-e>",
 			},
 		},
 		filetypes = {
-			help = false,
-			svn = false,
-			cvs = false,
-			["."] = false,
+			["*"] = false,
+			go = true,
+			python = true,
+			yaml = true,
+			make = true,
+			lua = true,
+			bash = true,
+			rust = true,
+			c = true,
 			sh = function()
 				if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
 					return false
@@ -38,4 +43,16 @@ return {
 			end,
 		},
 	},
+	config = function(_, opts)
+		require("copilot").setup(opts)
+		vim.keymap.set("i", "<Tab>", function()
+			if require("copilot.suggestion").is_visible() then
+				require("copilot.suggestion").accept()
+			else
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+			end
+		end, {
+			silent = true,
+		})
+	end,
 }

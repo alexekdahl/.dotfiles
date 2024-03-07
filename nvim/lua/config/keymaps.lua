@@ -8,7 +8,7 @@ mapkey("<C-L>", cmd.focus_split_right, "n")
 mapkey("<leader>sv", cmd.split_vertical, "n")
 mapkey("<leader>sh", cmd.split_horizontal, "n")
 
-mapkey("<C-p>", cmd.delete_and_paste_no_registry, "v")
+mapkey("<C-p>", cmd.paste_no_registry, "v")
 mapkey("<leader>v", cmd.visual_inner_word, "n")
 mapkey("<leader>y", cmd.yank_inner_word, "n")
 mapkey("<leader>o", cmd.add_line_below, "n")
