@@ -2,107 +2,107 @@ local feedkeys = vim.api.nvim_feedkeys
 
 local M = {}
 
-M.save_all = function()
+function M.save_all()
 	vim.api.nvim_exec(":wa!", true)
 end
 
-M.paste_no_registry = function()
+function M.paste_no_registry()
 	feedkeys('"_dP', "n", true)
 end
 
-M.visual_inner_word = function()
+function M.visual_inner_word()
 	feedkeys("viw", "n", true)
 end
 
-M.yank_inner_word = function()
+function M.yank_inner_word()
 	feedkeys("yiw", "n", true)
 end
 
-M.add_line_below = function()
+function M.add_line_below()
 	vim.api.nvim_input("o<Esc>")
 end
 
-M.focus_split_down = function()
+function M.focus_split_down()
 	vim.api.nvim_exec("<C-W><C-J>", true)
 end
 
-M.focus_split_left = function()
+function M.focus_split_left()
 	vim.api.nvim_exec("<C-W><C-H>", true)
 end
 
-M.focus_split_up = function()
+function M.focus_split_up()
 	vim.api.nvim_exec("<C-W><C-K>", true)
 end
 
-M.focus_split_right = function()
+function M.focus_split_right()
 	vim.api.nvim_exec("<C-W><C-L>", true)
 end
 
-M.split_vertical = function()
+function M.split_vertical()
 	vim.api.nvim_exec("vsplit", true)
 end
 
-M.split_horizontal = function()
+function M.split_horizontal()
 	vim.api.nvim_exec("split", true)
 end
 
-M.telescope_find_changed_files = function()
+function M.telescope_find_changed_files()
 	require("telescope.builtin").find_files({ find_command = { "git", "--no-pager", "diff", "--name-only" } })
 end
 
-M.telescope_find_files = function()
+function M.telescope_find_files()
 	require("telescope.builtin").find_files()
 end
 
-M.telescope_live_grep = function()
+function M.telescope_live_grep()
 	require("telescope.builtin").live_grep()
 end
 
-M.telescope_lsp_references = function()
+function M.telescope_lsp_references()
 	require("telescope.builtin").lsp_references()
 end
 
-M.telescope_diagnostics = function()
+function M.telescope_diagnostics()
 	require("telescope.builtin").diagnostics()
 end
 
-M.lsp_goto_definition = function()
+function M.lsp_goto_definition()
 	vim.lsp.buf.definition()
 end
 
-M.lsp_peek_definition = function()
+function M.lsp_peek_definition()
 	vim.api.nvim_exec(":Lspsaga peek_definition", true)
 end
 
-M.lsp_goto_type_definition = function()
+function M.lsp_goto_type_definition()
 	vim.api.nvim_exec(":Lspsaga goto_type_definition", true)
 end
 
-M.lsp_show_hover_doc = function()
+function M.lsp_show_hover_doc()
 	vim.api.nvim_exec(":Lspsaga hover_doc", true)
 end
 
-M.lsp_rename_symbol = function()
+function M.lsp_rename_symbol()
 	vim.lsp.buf.rename()
 end
 
-M.lsp_open_diagnostic_float = function()
+function M.lsp_open_diagnostic_float()
 	vim.diagnostic.open_float()
 end
 
-M.lsp_code_action = function()
+function M.lsp_code_action()
 	vim.api.nvim_exec("Lspsaga code_action", true)
 end
 
-M.lsp_show_outline = function()
+function M.lsp_show_outline()
 	vim.api.nvim_exec("Lspsaga outline", true)
 end
 
-M.lsp_show_finder = function()
+function M.lsp_show_finder()
 	vim.api.nvim_exec("Lspsaga finder tyd+ref+imp+def", true)
 end
 
-M.color_print = function()
+function M.color_print()
 	local filetype = vim.bo.filetype
 	local default = '<esc>oprint("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>xxxxx'
 
@@ -117,7 +117,7 @@ M.color_print = function()
 	end
 end
 
-M.toggle_copilot = function()
+function M.toggle_copilot()
 	vim.api.nvim_exec(":CopilotToggle", true)
 end
 
