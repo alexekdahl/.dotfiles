@@ -42,6 +42,7 @@ return {
 				return true
 			end,
 		},
+		copilot_node_command = vim.fn.expand("$HOME") .. "/.config/node",
 	},
 	config = function(_, opts)
 		require("copilot").setup(opts)

@@ -3,7 +3,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 unsetopt correct_all
 setopt histignorealldups sharehistory
-# export HISTFILE="$HOME/.zsh_history"
 
 # Config
 export DISABLE_UPDATE_PROMPT="false"
@@ -23,16 +22,15 @@ export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}";
 export GOPATH="$HOME/.go"
 
 export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}";
-export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH="$HOME/.go/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"
 export PERSONAL="$HOME/dev/personal"
 export DOTFILES="$HOME/.dotfiles"
+# eval "$(fnm env)"
 
 
-eval "$(fnm env)"
 # Source
 source ~/.dotfiles/zsh/config.zsh
 source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme

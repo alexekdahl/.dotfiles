@@ -34,26 +34,26 @@ local config = function()
 				},
 			})
 		end,
-		-- ["golangci_lint_ls"] = function()
-		-- 	lspconfig.golangci_lint_ls.setup({
-		-- 		cmd = { "golangci-lint-langserver" },
-		-- 		handlers = handlers,
-		-- 		on_attach = on_attach,
-		-- 		filetypes = { "go", "gomod" },
-		-- 		init_options = {
-		-- 			command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
-		-- 		},
-		-- 		root_dir = lspconfig.util.root_pattern(
-		-- 			".golangci.yml",
-		-- 			".golangci.yaml",
-		-- 			".golangci.toml",
-		-- 			".golangci.json",
-		-- 			"go.work",
-		-- 			"go.mod",
-		-- 			".git"
-		-- 		),
-		-- 	})
-		-- end,
+		["golangci_lint_ls"] = function()
+			lspconfig.golangci_lint_ls.setup({
+				cmd = { "golangci-lint-langserver" },
+				handlers = handlers,
+				on_attach = on_attach,
+				filetypes = { "go", "gomod" },
+				init_options = {
+					command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
+				},
+				root_dir = lspconfig.util.root_pattern(
+					".golangci.yml",
+					".golangci.yaml",
+					".golangci.toml",
+					".golangci.json",
+					"go.work",
+					"go.mod",
+					".git"
+				),
+			})
+		end,
 		["lua_ls"] = function()
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
