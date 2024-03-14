@@ -29,7 +29,7 @@ local config = function()
 							inline = false,
 						},
 						staticcheck = true,
-						gofumpt = false,
+						gofumpt = true,
 					},
 				},
 			})
