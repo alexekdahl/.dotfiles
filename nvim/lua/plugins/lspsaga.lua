@@ -10,10 +10,12 @@ return {
 		-- use enter to open file with finder
 		finder_action_keys = {
 			open = "<CR>",
+			quit = "<ESC>",
 		},
 		-- use enter to open file with definition preview
 		definition_action_keys = {
 			edit = "<CR>",
+			quit = "<ESC>",
 		},
 		diagnostic = {
 			show_code_action = true,

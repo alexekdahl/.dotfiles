@@ -14,14 +14,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 			return
 		end
 
-		-- Format with efm if available
-		if not vim.tbl_isempty(efm) then
-			vim.lsp.buf.format({ name = "efm", async = true })
-		end
-
 		-- Format with gopls if available
 		if not vim.tbl_isempty(gopls) then
 			vim.lsp.buf.format({ name = "gopls", async = true })
+		end
+
+		-- Format with efm if available
+		if not vim.tbl_isempty(efm) then
+			vim.lsp.buf.format({ name = "efm", async = true })
 		end
 	end,
 })
