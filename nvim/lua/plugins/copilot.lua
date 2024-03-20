@@ -6,6 +6,7 @@ return {
 	opts = {
 		panel = {
 			enabled = false,
+			enabled = true,
 			auto_refresh = false,
 			layout = {
 				position = "right",
@@ -20,8 +21,8 @@ return {
 				accept = false,
 				accept_word = false,
 				accept_line = false,
-				next = "<M-]>",
-				prev = "<M-[>",
+				next = "<M-v>",
+				prev = "<M-c>",
 				dismiss = "<C-e>",
 			},
 		},
