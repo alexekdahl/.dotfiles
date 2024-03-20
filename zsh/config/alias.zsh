@@ -5,11 +5,13 @@ alias hg="history | grep"
 # -Tmux-
 alias th="tmux new-session -A -s HOME"
 alias tf="tmux new-session -A -s WORK"
+
 # -Zellij-
 alias zz="zellij kill-all-sessions -y; zellij delete-all-sessions -y"
+
 # -Vim-
 alias vim="nvim"
-alias vi="/usr/bin/vi"
+alias vi="/usr/bin/vim"
 
 # -Misc-
 alias brewski="brew doctor; brew update && brew upgrade && brew cleanup -s"
@@ -32,14 +34,18 @@ alias test='go test ./... -count=1 --short | gocolorize'
 # -Node-
 alias yolo='rm -rf node_modules/ && npm install'
 
-# -Dir-
+# -Hmm-
 alias ..='cd ..'
 alias mv='mv -iv'
 alias cp='cp -iv'
 alias ls='exa --icons --colour=never -1 --sort=type'
 alias lsa='ls -a'
 alias ll='ls -l'
+alias diff='nvim -d'
+alias nvm='fnm'
+alias tree='exa --tree  --sort=type'
+
+# -goto-
 alias dev='cd ~/dev && echo "$(tput setaf 1)Dev"$(tput sgr0) && ls'
 alias dotfiles='cd ~/.dotfiles'
-alias tree='exa --tree  --sort=type'
-alias nvm='fnm'
+
