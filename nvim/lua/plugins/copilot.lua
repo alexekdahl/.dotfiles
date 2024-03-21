@@ -5,7 +5,6 @@ return {
 	event = "InsertEnter",
 	opts = {
 		panel = {
-			enabled = false,
 			enabled = true,
 			auto_refresh = false,
 			layout = {

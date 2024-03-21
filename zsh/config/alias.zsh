@@ -43,7 +43,7 @@ alias lsa='ls -a'
 alias ll='ls -l'
 alias diff='nvim -d'
 alias nvm='fnm'
-alias tree='exa --tree  --sort=type'
+alias tree='exa --tree --sort=type'
 
 # -goto-
 alias dev='cd ~/dev && echo "$(tput setaf 1)Dev"$(tput sgr0) && ls'
