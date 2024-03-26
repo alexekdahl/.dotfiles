@@ -1,0 +1,6 @@
+#! /bin/bash
+
+xrandr --output HDMI-1 --off &
+feh --bg-fill ~/Pictures/wallpapers/town.jpg &
+
+# vi: ft=bash

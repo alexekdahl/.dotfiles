@@ -1,0 +1,6 @@
+#! /bin/bash
+
+xrandr --output HDMI-1 --auto &&
+feh --bg-fill ~/Pictures/wallpapers/green.jpg &
+
+# vi: ft=bash
