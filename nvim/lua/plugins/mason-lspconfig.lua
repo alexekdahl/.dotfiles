@@ -8,6 +8,7 @@ local opts = {
 		"jsonls",
 		"gopls",
 		"golangci_lint_ls",
+		"zls",
 	},
 	automatic_installation = true,
 }

@@ -114,6 +114,13 @@ local config = function()
 				filetypes = { "sh", "bash", "zsh" },
 			})
 		end,
+		["zls"] = function()
+			lspconfig.zls.setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
+				filetypes = { "zig" },
+			})
+		end,
 		["efm"] = function()
 			lspconfig.efm.setup({
 				filetypes = {
@@ -122,8 +129,6 @@ local config = function()
 					"json",
 					"javascript",
 					"typescript",
-					"docker",
-					"dockerfile",
 				},
 				init_options = {
 					documentFormatting = true,
@@ -151,12 +156,6 @@ local config = function()
 						javascript = {
 							require("efmls-configs.linters.eslint_d"),
 							require("efmls-configs.formatters.prettier_d"),
-						},
-						docker = {
-							require("efmls-configs.linters.hadolint"),
-						},
-						dockerfile = {
-							require("efmls-configs.linters.hadolint"),
 						},
 					},
 				},

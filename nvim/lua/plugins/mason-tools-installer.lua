@@ -9,7 +9,6 @@ return {
 			"luacheck",
 			"stylua",
 			"goimports",
-			"hadolint",
 			"fixjson",
 			"eslint_d",
 			"prettierd",
