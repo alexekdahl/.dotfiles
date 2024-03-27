@@ -26,6 +26,5 @@ BEGIN {
 /PASS:/  { color=GREEN; print color GREEN_EMOJI " " $0 NORMAL; next }
 /FAIL:/  { color=RED; print color RED_EMOJI " " $0 NORMAL; next }
 /SKIP:/  { color=CYAN }
-         { print color $0 NORMAL }
 
 # vi: ft=awk
