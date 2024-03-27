@@ -23,6 +23,9 @@ local opts = {
 	defaults = {
 		lazy = false,
 	},
+	ui = {
+		backdrop = 100,
+	},
 	performance = {
 		cache = {
 			enabled = true,
@@ -40,7 +43,7 @@ local opts = {
 				"tutor",
 				"zipPlugin",
 				"spellfile",
-                "man",
+				"man",
 			},
 		},
 	},
