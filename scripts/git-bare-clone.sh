@@ -80,8 +80,8 @@ setup_colors
 msg "${YELLOW}Cloning bare repository to $location...${NOFORMAT}"
 git clone --bare "$repo_url" "$location"
 pushd "$location" > /dev/null
-# msg "${YELLOW}Adjusting origin fetch locations...${NOFORMAT}"
-# git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+msg "${YELLOW}Adjusting origin fetch locations...${NOFORMAT}"
+git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 popd > /dev/null
 msg "${YELLOW}Setting .git file contents...${NOFORMAT}"
 echo "gitdir: ./$location" > .git
