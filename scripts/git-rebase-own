@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+# Check for worktree and get root repo path
+if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    repo_root=$(git rev-parse --show-toplevel)
+else
+    echo "Not inside a Git repository. Please run this script from within a Git repo or worktree."
+    exit 1
+fi
+
+if [ -z "$1" ]; then   
+    echo "No commit message provided."
+    echo "Usage: squash \"<commit message>\""
+    exit 1
+fi
+
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+
+# Ensure all operations are done in the context of the repo root
+cd "$repo_root"
+
+# 1. Check out a new branch based on origin/main
+git fetch
+git checkout -b temp_squash_branch origin/main
+
+# 2. Bring in the changes from the messy pull request branch using git merge --squash
+git merge --squash $branch_name
+
+# 3. Commit the changes with an appropriate commit message
+git commit -m "$1"
+
+# 4. Return to the feature branch and reset it to the squashed version:
+git checkout $branch_name
+git reset --hard temp_squash_branch
+
+# 5. Delete the squash branch
+git branch -D temp_squash_branch
+
+echo "---------------------------------------------------"
+echo "Branch is now squashed into a single commit:"
+git log -1
