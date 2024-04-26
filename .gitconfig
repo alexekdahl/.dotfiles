@@ -8,7 +8,12 @@
 	required = true
 [init]
 	defaultBranch = main
-[diff]
-    algorithm = histogram
 [core]
 	editor = nvim
+    hooksPath = ~/.githooks
+[commit]
+	gpgsign = true
+[diff]
+    algorithm = histogram
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
