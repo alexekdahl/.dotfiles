@@ -1,6 +1,9 @@
 local icons = require("config.icons").icons
 return {
-	"nvim-telescope/telescope.nvim",
+
+	"nvim-telescope/telescope-fzf-native.nvim",
+	build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter",
@@ -58,7 +61,7 @@ return {
 			live_grep = {
 				path_display = { "shorten" },
 				find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
-				layout_strategy = "vertical",
+				layout_config = { preview_width = 0.6 },
 			},
 			grep_string = {
 				path_display = { "shorten" },
@@ -67,4 +70,8 @@ return {
 			},
 		},
 	},
+	config = function(opts)
+		require("telescope").setup(opts)
+		require("telescope").load_extension("fzf")
+	end,
 }

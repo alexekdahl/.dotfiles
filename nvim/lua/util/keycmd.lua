@@ -47,7 +47,7 @@ function M.split_horizontal()
 end
 
 function M.telescope_find_changed_files()
-	require("telescope.builtin").find_files({ find_command = { "git", "--no-pager", "diff", "--name-only" } })
+	require("telescope.builtin").find_files({ find_command = { "git", "ls-files", "--modified", "--others" } })
 end
 
 function M.telescope_find_files()

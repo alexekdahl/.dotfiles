@@ -25,3 +25,4 @@ mapkey("<leader>h", cmd.toggle_copilot, "n")
 mapkey("<C-b>", cmd.toggle_quickfix, "n")
 
 mapkey("<leader>l", cmd.color_print, "n")
+vim.keymap.set("n", "<leader>fq", "<cmd>Telescope quickfix<cr>", { desc = "Show QuickFix List" })
