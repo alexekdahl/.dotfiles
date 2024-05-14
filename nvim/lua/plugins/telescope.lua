@@ -1,12 +1,13 @@
 local icons = require("config.icons").icons
 return {
-
-	"nvim-telescope/telescope-fzf-native.nvim",
-	build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-
+	"nvim-telescope/telescope.nvim",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter",
+		{
+			"nvim-telescope/telescope-fzf-native.nvim",
+			build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+		},
 	},
 	opts = {
 		defaults = {
@@ -44,22 +45,18 @@ return {
 			scroll_strategy = "cycle",
 			color_devicons = true,
 		},
-
 		pickers = {
 			find_files = {
 				find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
+				layout_config = { preview_width = 0.6 },
 			},
-			lsp_implementations = {
+			lsp_references = {
 				find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
 				layout_strategy = "vertical",
-				layout_config = {
-					prompt_position = "top",
-				},
 				sorting_strategy = "ascending",
 				ignore_filename = false,
 			},
 			live_grep = {
-				path_display = { "shorten" },
 				find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
 				layout_config = { preview_width = 0.6 },
 			},
@@ -70,7 +67,7 @@ return {
 			},
 		},
 	},
-	config = function(opts)
+	config = function(_, opts)
 		require("telescope").setup(opts)
 		require("telescope").load_extension("fzf")
 	end,

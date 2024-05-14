@@ -694,9 +694,23 @@ hi link gitcommitDiscardedArrow gitcommitDiscardedFile
 hi link gitcommitSelectedArrow gitcommitSelectedFile
 hi link gitcommitUnmergedArrow gitcommitUnmergedFile
 
+" Telescope support
+execute "hi TelescopeResultsTitle"
+		\ "guifg=" . s:purple.gui "guibg=NONE gui=NONE"
+execute "hi TelescopePromptTitle"
+		\ "guifg=" . s:purple.gui "guibg=NONE gui=NONE"
+execute "hi TelescopePreviewTitle"
+		\ "guifg=" . s:purple.gui "guibg=NONE gui=NONE"
+hi link TelescopeBorder LineNr
+hi link TelescopeMatching Constant
+hi link TelescopePromptNormal Normal
+hi link TelescopePromptPrefix Type
+hi link TelescopeResultsDiffAdd GitGutterAdd
+hi link TelescopeResultsDiffChange GitGutterChange
+hi link TelescopeResultsDiffDelete GitGutterDelete
+hi link TelescopeResultsDiffUntracked Title
 
 " Neovim terminal colors
-
 if has("nvim")
 	let g:terminal_color_0 =  s:black.gui
 	let g:terminal_color_1 =  s:red.gui

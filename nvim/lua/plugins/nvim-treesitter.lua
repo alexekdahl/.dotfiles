@@ -22,6 +22,7 @@ return {
 				"python",
 				"go",
 				"gomod",
+                "markdown_inline",
 			},
 			event = { "BufReadPre", "BufNewFile" },
 			indent = {

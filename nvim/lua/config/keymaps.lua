@@ -26,3 +26,4 @@ mapkey("<C-b>", cmd.toggle_quickfix, "n")
 
 mapkey("<leader>l", cmd.color_print, "n")
 vim.keymap.set("n", "<leader>fq", "<cmd>Telescope quickfix<cr>", { desc = "Show QuickFix List" })
+vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
