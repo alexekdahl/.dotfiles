@@ -15,6 +15,7 @@ let s:red = { "gui": "#E06C75", "cterm": "204"}
 let s:error_red = { "gui": "#F44747", "cterm": "203"}
 let s:dark_red = { "gui": "#BE5046", "cterm": "196"}
 let s:green = { "gui": "#98C379", "cterm": "114"}
+let s:olive_green = { "gui": "#808000", "cterm": "114"}
 let s:yellow = { "gui": "#E5C07B", "cterm": "180"}
 let s:dark_yellow = { "gui": "#D19A66", "cterm": "173"}
 let s:blue = { "gui": "#61AFEF", "cterm": "39"}
@@ -693,15 +694,19 @@ hi link gitcommitSelected gitcommitComment
 hi link gitcommitDiscardedArrow gitcommitDiscardedFile
 hi link gitcommitSelectedArrow gitcommitSelectedFile
 hi link gitcommitUnmergedArrow gitcommitUnmergedFile
-
 " Telescope support
 execute "hi TelescopeResultsTitle"
-		\ "guifg=" . s:purple.gui "guibg=NONE gui=NONE"
+		\ "guifg=" . s:green.gui "guibg=NONE gui=NONE"
 execute "hi TelescopePromptTitle"
-		\ "guifg=" . s:purple.gui "guibg=NONE gui=NONE"
+		\ "guifg=" . s:green.gui "guibg=NONE gui=NONE"
 execute "hi TelescopePreviewTitle"
-		\ "guifg=" . s:purple.gui "guibg=NONE gui=NONE"
-hi link TelescopeBorder LineNr
+		\ "guifg=" . s:green.gui "guibg=NONE gui=NONE"
+execute "hi TelescopeBorder"
+		\ "guifg=" . s:olive_green.gui "guibg=NONE gui=NONE"
+execute "hi NoiceCmdlinePopupBorder"
+		\ "guifg=" . s:olive_green.gui "guibg=NONE gui=NONE"
+execute "hi NoiceCmdlinePopupTitle"
+		\ "guifg=" . s:green.gui "guibg=NONE gui=NONE"
 hi link TelescopeMatching Constant
 hi link TelescopePromptNormal Normal
 hi link TelescopePromptPrefix Type

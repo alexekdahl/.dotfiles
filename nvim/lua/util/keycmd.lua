@@ -58,10 +58,6 @@ function M.telescope_live_grep()
 	require("telescope.builtin").live_grep()
 end
 
-function M.telescope_lsp_references()
-	require("telescope.builtin").lsp_references()
-end
-
 function M.telescope_diagnostics()
 	require("telescope.builtin").diagnostics()
 end
@@ -82,8 +78,12 @@ function M.toggle_quickfix()
 	end
 end
 
+function M.lsp_find_references()
+	require("telescope.builtin").lsp_references()
+end
+
 function M.lsp_goto_definition()
-	vim.lsp.buf.definition()
+	require("telescope.builtin").lsp_definitions()
 end
 
 function M.lsp_peek_definition()

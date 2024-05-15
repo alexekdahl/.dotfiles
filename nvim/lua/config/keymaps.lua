@@ -14,10 +14,10 @@ mapkey("<leader>y", cmd.yank_inner_word, "n")
 mapkey("<leader>o", cmd.add_line_below, "n")
 mapkey("<leader>s", cmd.save_all, "n")
 
+mapkey("<leader>fr", cmd.lsp_find_references, "n")
 mapkey("<leader>fc", cmd.telescope_find_changed_files, "n")
 mapkey("<leader>ff", cmd.telescope_find_files, "n")
 mapkey("<leader>fl", cmd.telescope_live_grep, "n")
-mapkey("<leader>fr", cmd.telescope_lsp_references, "n")
 mapkey("<leader>d", cmd.telescope_diagnostics, "n")
 
 mapkey("<leader>h", cmd.toggle_copilot, "n")
