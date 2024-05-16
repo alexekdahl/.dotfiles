@@ -16,6 +16,9 @@ alias grebase="git fetch origin master:master && git rebase -i master"
 alias gw="git worktree"
 alias gws="git worktree list"
 alias gwd="git worktree prune"
+alias ggp='git push origin $(current_branch) $1'
+alias gamend='git commit --amend --no-edit'
+alias gcm='git commit -m $1'
 
 # Interactive git diff
 function gdiff {
@@ -87,23 +90,6 @@ function gst() {
 function current_branch() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
 }
-
-function ggp() {
-    git push origin $(current_branch) $1
-}
-
-function gamend() {
-    git commit --amend --no-edit
-}
-
-function gamendm() {
-    git commit --amend -m $1
-}
-
-function gcm() {
-    git commit -m $1
-}
-
 
 function grename() {
   if [[ -z "$1" || -z "$2" ]]; then
