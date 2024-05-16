@@ -30,7 +30,7 @@ select_project() {
                 else if (index($0, personal) == 1)
                     printf "%s%s%s\n", personalColor, $0, reset
             }' \
-        | fzf --ansi -m -1 --border=none
+        | fzf --ansi -m -1 --border=none --border-label="Repo" --color="border:#808000"
     )
 
     echo "$fzf_output"
