@@ -1,0 +1,33 @@
+#!/bin/bash
+
+function current_branch() {
+  git symbolic-ref --short HEAD 2>/dev/null
+}
+
+function check_protected_branch() {
+  local protected_branch_regex='^(master|main|dev|develop)$'
+  local branch=$(current_branch)
+
+  if [[ $branch =~ $protected_branch_regex ]]; then
+    echo -ne "\033[1;33mYou're about to commit to a protected branch ($branch). Is that what you intended? [y|n]: \033[0m"
+
+    # read user input
+    exec < /dev/tty
+    read input
+
+    if [[ $input =~ ^[Yy]$ ]]; then
+      return 0
+    else
+      return 1
+    fi
+  fi
+
+  return 0
+}
+
+if check_protected_branch; then
+  exit 0
+else
+  echo "Push canceled."
+  exit 1
+fi
