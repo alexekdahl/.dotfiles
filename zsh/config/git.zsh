@@ -25,13 +25,13 @@ function gdiff {
   local preview
   preview="git diff $@ --color=always -- {-1}"
   local file
-  file=$(git ls-files --others --exclude-standard --modified --full-name | fzf -m --ansi --preview $preview --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down) && vim $(echo "$file")
+  file=$(git ls-files --others --exclude-standard --modified --full-name | fzf -m --ansi --preview $preview) && vim $(echo "$file")
 }
 
 # Interactive git add
 function gadd {
   preview="git diff $@ --color=always -- {-1}"
-  git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --reverse --ansi --preview $preview --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down | xargs -0 -t -o git add
+  git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --reverse --ansi --preview $preview | xargs -0 -t -o git add
 }
 
 # git commit browser
@@ -48,41 +48,42 @@ FZF-EOF"
 }
 
 function gst() {
-  git status -s | while read mode file; do
-    if [[ $mode == "??" ]]; then
-      # Untracked files
-      added_lines="??"
-      deleted_lines="??"
-      mode_color="\033[33m" # Yellow
-      if [[ "$OSTYPE" == "darwin"* ]]; then
-        mod_time=$(stat -f "%Sm" "$file")
-      else
-        mod_time=$(stat -c "%y" "$file" | cut -d '.' -f 1)
-      fi
-    elif [[ $mode == "D" ]]; then
-      # Deleted files
-      added_lines=""
-      deleted_lines=""
-      mode_color="\033[31m" # Red
-      mod_time=""
-    else
-      # Modified or other states
-      if git ls-files --error-unmatch "$file" > /dev/null 2>&1; then
-        added_lines=$(git diff --numstat HEAD "$file" | awk '{print $1}')
-        deleted_lines=$(git diff --numstat HEAD "$file" | awk '{print $2}')
+  # Get the list of files and their modes
+  git status --porcelain=v1 | while read -r mode file; do
+    added_lines=""
+    deleted_lines=""
+    mod_time=""
+    mode_color=""
+    
+    case "$mode" in
+      \?\?)
+        # Untracked files
+        added_lines="??"
+        deleted_lines="??"
+        mode_color="\033[33m" # Yellow
         if [[ "$OSTYPE" == "darwin"* ]]; then
           mod_time=$(stat -f "%Sm" "$file")
         else
           mod_time=$(stat -c "%y" "$file" | cut -d '.' -f 1)
         fi
-      else
-        added_lines=""
-        deleted_lines=""
-        mod_time=""
-      fi
-      mode_color="\033[32m" # Green
-    fi
-
+        ;;
+      D)
+        # Deleted files
+        mode_color="\033[31m" # Red
+        ;;
+      *)
+        # Modified or other states
+        added_lines=$(git diff --numstat HEAD "$file" 2>/dev/null | awk '{print $1}')
+        deleted_lines=$(git diff --numstat HEAD "$file" 2>/dev/null | awk '{print $2}')
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+          mod_time=$(stat -f "%Sm" "$file")
+        else
+          mod_time=$(stat -c "%y" "$file" | cut -d '.' -f 1)
+        fi
+        mode_color="\033[32m" # Green
+        ;;
+    esac
+    
     printf "${mode_color}%-5s\033[0m %-40s %s ${mode_color}%-8s\033[0m \033[31m%s\033[0m\n" "$mode" "$file" "$mod_time" "+$added_lines" "-$deleted_lines"
   done | column -t
 }

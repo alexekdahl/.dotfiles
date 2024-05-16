@@ -13,7 +13,7 @@ function ff() {
         cd "$choice"
     fi
 
-    file=$(fzf --preview='bat --style=numbers --color=always {}' --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down) && vim "$file"
+    file=$(fzf --preview='bat --style=numbers --color=always {}') && vim "$file"
 }
 
 # Find pattern inside a file and open it in Neovim at the line where the pattern is found and sets Neovim root to git root.
@@ -22,7 +22,7 @@ function fff() {
   local pattern=$1
   local result
   local git_root
-  result=$(rg -i -n --no-messages "$pattern" | fzf --preview="echo {} | awk -F: '{start=\$2 - 10; if (start < 0) start=0; print \"bat --style=numbers --color=always --line-range=\" start \":\" \$2+40 \" \" \$1 \" --highlight-line=\" \$2}' | sh" --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down)
+  result=$(rg -i -n --no-messages "$pattern" | fzf --preview="echo {} | awk -F: '{start=\$2 - 10; if (start < 0) start=0; print \"bat --style=numbers --color=always --line-range=\" start \":\" \$2+40 \" \" \$1 \" --highlight-line=\" \$2}' | sh")
   file=$(echo "$result" | awk -F: '{print $1}')
   line=$(echo "$result" | awk -F: '{print $2}')
 
