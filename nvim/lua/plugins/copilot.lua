@@ -28,6 +28,7 @@ return {
 		filetypes = {
 			["*"] = false,
 			python = true,
+			go = true,
 			yaml = true,
 			yal = true,
 			lua = true,
