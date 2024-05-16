@@ -1,16 +1,61 @@
 #!/bin/bash
- 
+
 exit_code=0
- 
+
+# Function to run the local pre-commit hook if it exists
+function run_pre_commit_hook() {
+  if [ -x .git/hooks/pre-commit ]; then
+    echo "Running local pre-commit hook..."
+    .git/hooks/pre-commit
+    if [ $? -ne 0 ]; then
+      echo "Local pre-commit hook failed."
+      exit 1
+    fi
+  fi
+}
+
+# Run the local pre-commit hook
+run_pre_commit_hook
+
 # Get the staged files.
 s_files=$(git diff --name-only --cached --diff-filter=d)
- 
-# If a staged file contains the keyword, cancel this commit.
-for s_file in ${s_files};do
-    if git grep -q -E -iF temp_xxxx :$s_file;then
-        echo "ERROR: ${s_file} contains the keyword temp_xxxx"
-        exit_code=1
+
+# If a staged file contains the keyword, cancel the commit.
+for s_file in ${s_files}; do
+    if git grep -q -E -iF XXXXXXXX :$s_file; then
+        echo "ERROR: ${s_file} contains the keyword XXXXXXXX"
+        exit 1
     fi
 done
- 
-exit $exit_code
+
+function current_branch() {
+  git symbolic-ref --short HEAD 2>/dev/null
+}
+
+function check_protected_branch() {
+  local protected_branch_regex='^(master|main|dev|develop)$'
+  local branch=$(current_branch)
+
+  if [[ $branch =~ $protected_branch_regex ]]; then
+    echo -ne "\033[1;33mYou're about to commit to a protected branch ($branch). Is that what you intended? [y|n]: \033[0m"
+
+    # read user input
+    exec < /dev/tty
+    read input
+
+    if [[ $input =~ ^[Yy]$ ]]; then
+      return 0
+    else
+      return 1
+    fi
+  fi
+
+  return 0
+}
+
+if check_protected_branch; then
+  exit 0
+else
+  echo "Push canceled."
+  exit 1
+fi

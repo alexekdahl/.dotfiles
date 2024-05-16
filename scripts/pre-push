@@ -9,7 +9,7 @@ function check_protected_branch() {
   local branch=$(current_branch)
 
   if [[ $branch =~ $protected_branch_regex ]]; then
-    echo -ne "\033[1;33mYou're about to commit to a protected branch ($branch). Is that what you intended? [y|n]: \033[0m"
+    echo -ne "\033[1;33mYou're about to push to a protected branch ($branch). Is that what you intended? [y|n]: \033[0m"
 
     # read user input
     exec < /dev/tty
