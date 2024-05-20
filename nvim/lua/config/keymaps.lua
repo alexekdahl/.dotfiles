@@ -19,6 +19,8 @@ mapkey("<leader>fc", cmd.telescope_find_changed_files, "n")
 mapkey("<leader>ff", cmd.telescope_find_files, "n")
 mapkey("<leader>fl", cmd.telescope_live_grep, "n")
 mapkey("<leader>d", cmd.telescope_diagnostics, "n")
+mapkey("<leader>hf", cmd.telescope_git_history, "n")
+mapkey("<leader>t", cmd.go_test, "n")
 
 mapkey("<leader>h", cmd.toggle_copilot, "n")
 

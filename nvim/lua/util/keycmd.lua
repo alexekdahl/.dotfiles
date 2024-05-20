@@ -46,6 +46,10 @@ function M.split_horizontal()
 	vim.api.nvim_exec("split", true)
 end
 
+function M.go_test()
+	vim.api.nvim_exec("GoTestFunc", true)
+end
+
 function M.telescope_find_changed_files()
 	require("telescope.builtin").find_files({ find_command = { "git", "ls-files", "--modified", "--others" } })
 end
@@ -60,6 +64,10 @@ end
 
 function M.telescope_diagnostics()
 	require("telescope.builtin").diagnostics()
+end
+
+function M.telescope_git_history()
+	require("telescope.builtin").git_bcommits()
 end
 
 function M.toggle_quickfix()
