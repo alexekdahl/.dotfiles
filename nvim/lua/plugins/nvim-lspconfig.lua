@@ -37,21 +37,11 @@ local config = function()
 		["golangci_lint_ls"] = function()
 			lspconfig.golangci_lint_ls.setup({
 				cmd = { "golangci-lint-langserver" },
-				handlers = handlers,
-				on_attach = on_attach,
 				filetypes = { "go", "gomod" },
 				init_options = {
 					command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
 				},
-				root_dir = lspconfig.util.root_pattern(
-					".golangci.yml",
-					".golangci.yaml",
-					".golangci.toml",
-					".golangci.json",
-					"go.work",
-					"go.mod",
-					".git"
-				),
+				root_dir = lspconfig.util.root_pattern("go.mod", ".golangci.yaml", ".git", "go.work"),
 			})
 		end,
 		["lua_ls"] = function()

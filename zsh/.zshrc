@@ -30,6 +30,7 @@ export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"
 export PERSONAL="$HOME/dev/personal"
 export DOTFILES="$HOME/.dotfiles"
+export GOBIN="$GOPATH/bin"
 eval "$(fnm env)"
 
 
