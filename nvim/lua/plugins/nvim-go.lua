@@ -1,7 +1,7 @@
 return {
 	"crispgm/nvim-go",
+	ft = "go",
 	opts = {
-		-- notify: use nvim-notify
 		notify = false,
 		auto_format = false,
 		auto_lint = false,
