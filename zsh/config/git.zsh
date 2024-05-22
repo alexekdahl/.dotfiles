@@ -113,7 +113,7 @@ function git-stats() {
   CYAN="\033[36m"
   RESET="\033[0m"
 
-  author_name=alexekdahl
+  author_name=$1
   total_lines=$(git ls-files | xargs wc -l | tail -n 1 | awk '{print $1}')
   my_lines=$(git ls-files | parallel -j+0 "git blame --line-porcelain {} | grep -F \"author ${author_name}\" | wc -l" | awk '{sum += $1} END {print sum}')
   total_commits=$(git rev-list --count HEAD)

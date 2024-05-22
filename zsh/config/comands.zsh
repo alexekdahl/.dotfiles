@@ -76,9 +76,3 @@ function change_wallpaper() {
         echo "No wallpaper selected."
     fi
 }
-
-function gtest(){
-    local test_name="$1"
-    local dir_path="$2"
-    go test -run "$test_name" "${dir_path}..." -v --count=1
-}
