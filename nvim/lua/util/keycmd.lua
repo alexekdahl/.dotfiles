@@ -51,7 +51,9 @@ function M.go_test()
 end
 
 function M.telescope_find_changed_files()
-	require("telescope.builtin").find_files({ find_command = { "git", "ls-files", "--modified", "--others" } })
+	require("telescope.builtin").find_files({
+		find_command = { "git", "ls-files", "--modified", "--others", "--exclude-standard" },
+	})
 end
 
 function M.telescope_find_files()
