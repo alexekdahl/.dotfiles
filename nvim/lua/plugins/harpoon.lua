@@ -9,19 +9,11 @@ return {
 				save_on_toggle = true,
 			},
 		})
-
-		vim.keymap.set("n", "<C-a>", function()
-			harpoon:list():add()
-		end)
-		vim.keymap.set("n", "<C-e>", function()
-			harpoon.ui:toggle_quick_menu(harpoon:list())
-		end)
-
-		vim.keymap.set("n", "<C-y>", function()
-			harpoon:list():select(1)
-		end)
-		vim.keymap.set("n", "<C-u>", function()
-			harpoon:list():select(2)
-		end)
 	end,
+	keys = {
+		{ "<C-a>", function() require("harpoon"):list():add() end },
+		{ "<C-e>", function() local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list()) end },
+		{ "<C-y>", function() require("harpoon"):list():select(1) end },
+		{ "<C-u>", function() require("harpoon"):list():select(1) end },
+	},
 }

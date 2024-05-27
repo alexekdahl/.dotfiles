@@ -14,7 +14,7 @@ return {
 			prompt_prefix = icons.symbols.chevron_right .. " ",
 			selection_caret = icons.symbols.chevron_right .. " ",
 			entry_prefix = "  ",
-			multi_icon = "<>",
+			multi_icon = icons.symbols.star .. " ",
 			layout_strategy = "horizontal",
 			layout_config = {
 				width = 0.95,
