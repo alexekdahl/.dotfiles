@@ -8,6 +8,7 @@ return {
 			"flake8",
 			"luacheck",
 			"stylua",
+            "luacheck",
 			"goimports",
 			"fixjson",
 			"eslint_d",

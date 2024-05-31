@@ -91,26 +91,6 @@ local config = function()
 				root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
 			})
 		end,
-		["dockerls"] = function()
-			lspconfig.dockerls.setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-			})
-		end,
-		["bashls"] = function()
-			lspconfig.bashls.setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-				filetypes = { "sh", "bash", "zsh" },
-			})
-		end,
-		["zls"] = function()
-			lspconfig.zls.setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-				filetypes = { "zig" },
-			})
-		end,
 		["efm"] = function()
 			lspconfig.efm.setup({
 				filetypes = {
@@ -142,7 +122,9 @@ local config = function()
 							require("efmls-configs.linters.eslint_d"),
 							require("efmls-configs.formatters.prettier_d"),
 						},
-						json = { require("efmls-configs.formatters.fixjson") },
+						json = {
+							require("efmls-configs.formatters.fixjson"),
+						},
 						javascript = {
 							require("efmls-configs.linters.eslint_d"),
 							require("efmls-configs.formatters.prettier_d"),

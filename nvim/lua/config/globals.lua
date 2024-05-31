@@ -5,3 +5,4 @@ vim.g.gitblame_display_virtual_text = 0
 vim.g.gitblame_message_template = "<author> • <date> • <sha>"
 vim.g.gitblame_date_format = "%r"
 vim.g.gh_open_command = 'fn() { echo "$@" | xclip -selection clipboard; }; fn '
+vim.o.background = "dark"
