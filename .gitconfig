@@ -11,9 +11,13 @@
 [core]
 	editor = nvim
     hooksPath = ~/.githooks
+[branch]
+	sort = -committerdate
 [commit]
 	gpgsign = true
 [diff]
     algorithm = histogram
+[rerere]
+	enable = true
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/

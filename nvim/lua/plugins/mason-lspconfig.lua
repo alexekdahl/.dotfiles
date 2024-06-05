@@ -8,7 +8,6 @@ return {
 			"tsserver",
 			"pyright",
 			"lua_ls",
-			"jsonls",
 			"gopls",
 			"golangci_lint_ls",
 		},

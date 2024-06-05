@@ -24,6 +24,7 @@ local config = function()
 							unusedvariable = true,
 							assign = false,
 							shadow = true,
+							fieldalignment = true,
 						},
 						annotations = {
 							inline = false,
@@ -96,7 +97,6 @@ local config = function()
 				filetypes = {
 					"lua",
 					"python",
-					"json",
 					"javascript",
 					"typescript",
 				},
@@ -121,9 +121,6 @@ local config = function()
 						typescript = {
 							require("efmls-configs.linters.eslint_d"),
 							require("efmls-configs.formatters.prettier_d"),
-						},
-						json = {
-							require("efmls-configs.formatters.fixjson"),
 						},
 						javascript = {
 							require("efmls-configs.linters.eslint_d"),

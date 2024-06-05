@@ -13,34 +13,36 @@ export FZF_DEFAULT_OPTS="--bind alt-up:preview-half-page-up,alt-down:preview-hal
 export BAT_THEME="TwoDark"
 export EDITOR=nvim
 
-# Path
 export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew";
-export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar";
-export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew";
-export MANPATH="/home/linuxbrew/.linuxbrew/share/man${MANPATH+:$MANPATH}:";
-export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}";
+export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar";
+export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew";
+export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH+:$MANPATH}:";
+export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}";
 export GOPATH="$HOME/.go"
+export GOBIN="$GOPATH/bin"
 
-export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}";
+# Path
+export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH+:$PATH}";
 export PATH="$HOME/.go/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+# export PATH="$HOME/.nimble/bin:$PATH"
+
 export PERSONAL="$HOME/dev/personal"
 export DOTFILES="$HOME/.dotfiles"
-export GOBIN="$GOPATH/bin"
 eval "$(fnm env)"
 
 
 # Source
-source $HOME/.dotfiles/zsh/config.zsh
-source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme
+source $DOTFILES/zsh/config.zsh
+source $HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme
 source $HOME/.p10k.zsh
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Load seperated config files
-for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
+for conf in "$DOTFILES/zsh/config/"*.zsh; do
   source "${conf}"
 done
 unset conf

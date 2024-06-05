@@ -41,7 +41,7 @@ function fff() {
 }
 
 function fzf-open-project() {
-    source $HOME/.dotfiles/scripts/sessionizer.sh
+    source $DOTFILES/scripts/sessionizer.sh
 }
 
 # -Misc-

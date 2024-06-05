@@ -30,11 +30,12 @@ return {
 		},
 		config = function(_, opts)
 			require("onedarkpro").setup(opts)
-			-- vim.cmd.colorscheme("onedark")
+			vim.cmd.colorscheme("onedark")
 		end,
 	},
 	{
 		"asilvam133/rose-pine.nvim",
+		priority = 1000,
 		name = "rose-pine",
 		opts = {
 			variant = "moon",
@@ -64,7 +65,36 @@ return {
 			vim.g.gruvbox_material_better_performance = 1
 			vim.g.gruvbox_material_foreground = "original"
 			vim.g.gruvbox_material_current_word = "grey background"
-			vim.cmd("colorscheme gruvbox-material")
+			-- vim.cmd("colorscheme gruvbox-material")
+		end,
+	},
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {
+			style = "moon",
+			transparent = true,
+			comments = { italic = false },
+			keywords = { italic = false },
+		},
+		config = function(_, opts)
+			require("tokyonight").setup(opts)
+			-- vim.cmd("colorscheme tokyonight")
+		end,
+	},
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		opts = {
+			flavour = "mocha",
+			transparent_background = true,
+			no_italic = true,
+		},
+		config = function(_, opts)
+			require("catppuccin").setup(opts)
+			-- vim.cmd("colorscheme catppuccin")
 		end,
 	},
 }
