@@ -20,6 +20,8 @@ export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH+:$MANPATH}:";
 export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}";
 export GOPATH="$HOME/.go"
 export GOBIN="$GOPATH/bin"
+export PERSONAL="$HOME/dev/personal"
+export DOTFILES="$HOME/.dotfiles"
 
 # Path
 export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH+:$PATH}";
@@ -27,12 +29,6 @@ export PATH="$HOME/.go/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
-# export PATH="$HOME/.nimble/bin:$PATH"
-
-export PERSONAL="$HOME/dev/personal"
-export DOTFILES="$HOME/.dotfiles"
-eval "$(fnm env)"
-
 
 # Source
 source $DOTFILES/zsh/config.zsh
@@ -47,7 +43,8 @@ for conf in "$DOTFILES/zsh/config/"*.zsh; do
 done
 unset conf
 
-source ~/.secret/work.zsh
+eval "$(fnm env)"
+source $HOME/.secret/work.zsh
 
 bindkey -r '^a'
 bindkey -r '^r'

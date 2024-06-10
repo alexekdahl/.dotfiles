@@ -51,5 +51,5 @@ alias tree='exa --tree --sort=type'
 # -goto-
 alias dev='cd ~/dev && echo "$(tput setaf 1)Dev"$(tput sgr0) && ls'
 alias misc='cd ~/dev/misc && echo "$(tput setaf 1)Misc"$(tput sgr0) && ls'
-alias dotfiles='cd ~/.dotfiles'
+alias dotfiles='cd $DOTFILES'
 
