@@ -17,6 +17,10 @@ export HISTFILE="$HOME/.zsh_history"
 
 # Path
 export GOPATH="$HOME/.go"
+export GOBIN="$GOPATH/bin"
+export PERSONAL="$HOME/dev/personal"
+export DOTFILES="$HOME/.dotfiles"
+
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH="$HOME/.go/bin:$PATH"
@@ -29,16 +33,13 @@ for conf in "$HOME/.dotfiles/zsh/config/"*.zsh; do
 done
 unset conf
 
-source ~/.dotfiles/zsh/config.zsh
+source $DOTFILES/zsh/config.zsh
 source $HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme
-source ~/.p10k.zsh
-source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.p10k.zsh
+source $HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 bindkey -r '^a'
 bindkey -r '^r'
 bindkey -s '^a' 'fzf-open-project\n'
-
-bindkey -r '^b'
-bindkey -s '^b' 'change_wallpaper\n'
 

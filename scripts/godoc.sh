@@ -1,6 +1,6 @@
 #!/bin/bash
 # Path to navigate to
-TARGET_DIR="/home/linuxbrew/.linuxbrew/Cellar/go/"
+TARGET_DIR="$HOMEBREW_CELLAR/go/"
 
 # Check if in a tmux session by looking for the TMUX environment variable
 if [ -n "$TMUX" ]; then

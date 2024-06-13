@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Define function to list subfolders (worktrees) per repo
+list_subfolders() {
+    repo="$1"
+    echo -e "\e[1;36mRepository: $(basename "$repo")\e[0m"
+    cd "$repo" || { echo -e "\e[1;31mError: Unable to change directory to $repo\e[0m"; return 1; }
+    git worktree list | while read -r line; do
+        worktree=$(echo "$line" | awk '{print $1}')
+        branch=$(git -C "$worktree" rev-parse --abbrev-ref HEAD)
+        if [[ "$(basename "$worktree")" != ".bare" ]]; then
+            status=$(git -C "$worktree" status --porcelain)
+            changes=""
+            if [[ -n "$status" ]]; then
+                changes="Changes detected"
+            fi
+            echo -e "  - \e[1;32m$(basename "$worktree")\e[0m (Branch: \e[1;33m$branch\e[0m) - \e[1;31m$changes\e[0m"
+        fi
+    done
+}
+
+# Export function to make it available to parallel
+export -f list_subfolders
+
+# Iterate through each repository and list subfolders (worktrees) in parallel
+find ~/dev/axis/repo/* -maxdepth 0 -type d | parallel list_subfolders

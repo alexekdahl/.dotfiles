@@ -10,22 +10,28 @@ alias gcob='git branch | cut -c 3- | fzf --print0 -1 --border=rounded --height 1
 alias gdb='git branch | cut -c 3- | fzf --print0 -m -1 --border=rounded --height 10% | xargs  -0 -t -o git branch -D'
 alias gun='git --no-pager diff --name-only --cached | fzf --print0 -m -1 --border=rounded --height 10% | xargs -0 -t -o git reset'
 alias gad='git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --height 10% | xargs -0 -t -o git add'
-alias grd='git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --height 10% | xargs -0 -t -o git restore'
+alias grd='git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --height 40% | xargs -0 -t -o git restore'
 alias remotebranch="git for-each-ref --format='%(color:cyan)%(authordate:format:%m/%d/%Y %I:%M %p)    %(align:25,left)%(color:yellow)%(authorname)%(end) %(color:reset)%(refname:strip=3)' --sort=authordate refs/remotes"
 alias grebase="git fetch origin master:master && git rebase -i master"
+alias gw="git worktree"
+alias gws="git worktree list"
+alias gwd="git worktree prune"
+alias ggp='git push origin $(current_branch) $1'
+alias gamend='git commit --amend --no-edit'
+alias gcm='git commit -m $1'
 
 # Interactive git diff
 function gdiff {
   local preview
   preview="git diff $@ --color=always -- {-1}"
   local file
-  file=$(git ls-files --others --exclude-standard --modified --full-name | fzf -m --ansi --preview $preview --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down) && vim $(echo "$file")
+  file=$(git ls-files --others --exclude-standard --modified --full-name | fzf -m --ansi --preview $preview) && vim $(echo "$file")
 }
 
 # Interactive git add
 function gadd {
   preview="git diff $@ --color=always -- {-1}"
-  git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --reverse --ansi --preview $preview --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down | xargs -0 -t -o git add
+  git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --reverse --ansi --preview $preview | xargs -0 -t -o git add
 }
 
 # git commit browser
@@ -42,100 +48,49 @@ FZF-EOF"
 }
 
 function gst() {
-  git status -s | while read mode file; do
-    if [[ $mode == "??" ]]; then
-      # Untracked files
-      added_lines="??"
-      deleted_lines="??"
-      mode_color="\033[33m" # Yellow
-      if [[ "$OSTYPE" == "darwin"* ]]; then
-        mod_time=$(stat -f "%Sm" "$file")
-      else
-        mod_time=$(stat -c "%y" "$file" | cut -d '.' -f 1)
-      fi
-    elif [[ $mode == "D" ]]; then
-      # Deleted files
-      added_lines=""
-      deleted_lines=""
-      mode_color="\033[31m" # Red
-      mod_time=""
-    else
-      # Modified or other states
-      if git ls-files --error-unmatch "$file" > /dev/null 2>&1; then
-        added_lines=$(git diff --numstat HEAD "$file" | awk '{print $1}')
-        deleted_lines=$(git diff --numstat HEAD "$file" | awk '{print $2}')
+  # Get the list of files and their modes
+  git status --porcelain=v1 | while read -r mode file; do
+    added_lines=""
+    deleted_lines=""
+    mod_time=""
+    mode_color=""
+    
+    case "$mode" in
+      \?\?)
+        # Untracked files
+        added_lines="??"
+        deleted_lines="??"
+        mode_color="\033[33m" # Yellow
         if [[ "$OSTYPE" == "darwin"* ]]; then
           mod_time=$(stat -f "%Sm" "$file")
         else
           mod_time=$(stat -c "%y" "$file" | cut -d '.' -f 1)
         fi
-      else
-        added_lines=""
-        deleted_lines=""
-        mod_time=""
-      fi
-      mode_color="\033[32m" # Green
-    fi
-
+        ;;
+      D)
+        # Deleted files
+        mode_color="\033[31m" # Red
+        ;;
+      *)
+        # Modified or other states
+        added_lines=$(git diff --numstat HEAD "$file" 2>/dev/null | awk '{print $1}')
+        deleted_lines=$(git diff --numstat HEAD "$file" 2>/dev/null | awk '{print $2}')
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+          mod_time=$(stat -f "%Sm" "$file")
+        else
+          mod_time=$(stat -c "%y" "$file" | cut -d '.' -f 1)
+        fi
+        mode_color="\033[32m" # Green
+        ;;
+    esac
+    
     printf "${mode_color}%-5s\033[0m %-40s %s ${mode_color}%-8s\033[0m \033[31m%s\033[0m\n" "$mode" "$file" "$mod_time" "+$added_lines" "-$deleted_lines"
   done | column -t
 }
 
-# grab current branch head
 function current_branch() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
 }
-
-function check_protected_branch() {
-  local protected_branch_regex='^(master|main|AAECO|dev|develop)$'
-  local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
-
-  if [[ $branch =~ $protected_branch_regex ]]; then
-    echo -ne "\033[1;33mYou're about to push to a protected branch ($branch), is that what you intended? [y|n]: \033[0m"
-    read input
-
-    if [[ $input =~ ^[Yy]$ ]]; then
-      return 0 # protected branch
-    else
-      return 1 # not protected branch
-    fi
-  fi
-
-  return 0 # not protected branch
-}
-
-function ggp() {
-  if check_protected_branch; then
-    git push origin $(current_branch) $1
-  else
-    echo "Push canceled."
-  fi
-}
-
-function gamend() {
-  if check_protected_branch; then
-    git commit --amend --no-edit
-  else
-    echo "Commit canceled."
-  fi
-}
-
-function gamendm() {
-  if check_protected_branch; then
-    git commit --amend -m $1
-  else
-    echo "Commit canceled."
-  fi
-}
-
-function gcm() {
-  if check_protected_branch; then
-    git commit -m $1
-  else
-    echo "Commit canceled."
-  fi
-}
-
 
 function grename() {
   if [[ -z "$1" || -z "$2" ]]; then
@@ -158,7 +113,7 @@ function git-stats() {
   CYAN="\033[36m"
   RESET="\033[0m"
 
-  author_name=alexekdahl
+  author_name=$1
   total_lines=$(git ls-files | xargs wc -l | tail -n 1 | awk '{print $1}')
   my_lines=$(git ls-files | parallel -j+0 "git blame --line-porcelain {} | grep -F \"author ${author_name}\" | wc -l" | awk '{sum += $1} END {print sum}')
   total_commits=$(git rev-list --count HEAD)
@@ -188,19 +143,3 @@ function git-stats() {
   done
 }
 
-
-function prs() {
-    REPO=$(git remote get-url origin | sed 's/.*:\/\/github.com\/\([^ ]*\)\(.git\)\?/\1/')
-
-    PR_BRANCH=$(gh pr list --repo $REPO --limit 100 --json number,title,author,createdAt,state,headRefName --jq '.[] | "\(.number)\t\(.title)\t\(.author.login)\t\(.createdAt)\t\(.state)\t\(.headRefName)"' |
-        column -t -s $'\t' | 
-        fzf --height 40% --layout=reverse --border | awk '{print $NF}')
-
-    if [ -n "$PR_BRANCH" ]; then
-        git checkout "$PR_BRANCH"
-        nvim -c "DiffviewOpen origin/main... --imply-local" 
-        
-    else
-        echo "No branch selected."
-    fi
-}

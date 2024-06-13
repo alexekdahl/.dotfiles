@@ -13,7 +13,7 @@ function ff() {
         cd "$choice"
     fi
 
-    file=$(fzf --preview='bat --style=numbers --color=always {}' --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down) && vim "$file"
+    file=$(fzf --preview='bat --style=numbers --color=always {}') && vim "$file"
 }
 
 # Find pattern inside a file and open it in Neovim at the line where the pattern is found and sets Neovim root to git root.
@@ -22,7 +22,7 @@ function fff() {
   local pattern=$1
   local result
   local git_root
-  result=$(rg -i -n --no-messages "$pattern" | fzf --preview="echo {} | awk -F: '{start=\$2 - 10; if (start < 0) start=0; print \"bat --style=numbers --color=always --line-range=\" start \":\" \$2+40 \" \" \$1 \" --highlight-line=\" \$2}' | sh" --bind ctrl-k:preview-half-page-up,ctrl-j:preview-half-page-down)
+  result=$(rg -i -n --no-messages "$pattern" | fzf --preview="echo {} | awk -F: '{start=\$2 - 10; if (start < 0) start=0; print \"bat --style=numbers --color=always --line-range=\" start \":\" \$2+40 \" \" \$1 \" --highlight-line=\" \$2}' | sh")
   file=$(echo "$result" | awk -F: '{print $1}')
   line=$(echo "$result" | awk -F: '{print $2}')
 
@@ -41,22 +41,9 @@ function fff() {
 }
 
 function fzf-open-project() {
-    source $HOME/.dotfiles/scripts/sessionizer.sh
+    source $DOTFILES/scripts/sessionizer.sh
 }
 
-function zh() {
-    local session_name="HOME"
-    local existing_session=$(zellij list-sessions | grep "$session_name")
-
-    # Check if the "HOME" session exists
-    if [[ -n $existing_session ]]; then
-        echo "Attaching to existing 'HOME' session."
-        zellij a "$session_name"
-    else
-        echo "Creating a new 'HOME' session."
-        zellij -s "$session_name" --layout default
-    fi
-}
 # -Misc-
 
 # Measure the start-up time for the shell
@@ -77,15 +64,4 @@ function fkill() {
   then
       echo $pid | xargs kill -${1:-9}
   fi
-}
-
-function change_wallpaper() {
-    local selected_wallpaper
-    selected_wallpaper=$(find ~/Pictures/wallpapers -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" \) | fzf --border=rounded --height 40%)
-
-    if [[ -n $selected_wallpaper ]]; then
-        feh --bg-fill "$selected_wallpaper"
-    else
-        echo "No wallpaper selected."
-    fi
 }
