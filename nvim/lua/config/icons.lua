@@ -7,16 +7,26 @@ M.icons = {
 		hint = "󰞋 ",
 		info = " ",
 	},
-	git = {
-		added = " ",
-		modified = " ",
-		removed = " ",
+	symbols = {
+		check = "✓",
+		arrow_right = "➜",
+		cross = "✗",
+		git_branch = "",
+		star = "★",
+		hollow = "◌",
+		chevron_down = "",
+		chevron_right = "",
 	},
-	lualine = {
-		lsp = "󰘸",
-		git = "",
-		session = "",
-		navic_separator = "  ",
+	folder = {
+		file = "󰈚",
+		deleted = "",
+		file_symlink = "",
+		folder = "",
+		empty_folder = "",
+		empty_folder_open = "",
+		open_folder = "",
+		folder_symlink = "",
+		folder_symlink_open = "",
 	},
 }
 

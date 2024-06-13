@@ -8,9 +8,11 @@ return {
 			"flake8",
 			"luacheck",
 			"stylua",
+            "luacheck",
 			"goimports",
-			"hadolint",
 			"fixjson",
+			"eslint_d",
+			"prettierd",
 		},
 	},
 	dependencies = {

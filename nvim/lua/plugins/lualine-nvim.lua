@@ -31,9 +31,8 @@ return {
 
 		return {
 			options = {
-				theme = "auto",
+				theme = "onedark",
 				globalstatus = true,
-				disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
 			},
 			sections = {
 				lualine_a = {

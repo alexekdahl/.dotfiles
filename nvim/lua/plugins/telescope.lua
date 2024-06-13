@@ -1,3 +1,4 @@
+local icons = require("config.icons").icons
 return {
 	"nvim-telescope/telescope.nvim",
 	dependencies = {
@@ -6,10 +7,10 @@ return {
 	},
 	opts = {
 		defaults = {
-			prompt_prefix = "> ",
-			selection_caret = "> ",
+			prompt_prefix = icons.symbols.chevron_right .. " ",
+			selection_caret = icons.symbols.chevron_right .. " ",
 			entry_prefix = "  ",
-			multi_icon = "<>",
+			multi_icon = icons.symbols.star .. " ",
 			layout_strategy = "horizontal",
 			layout_config = {
 				width = 0.95,
@@ -40,24 +41,20 @@ return {
 			scroll_strategy = "cycle",
 			color_devicons = true,
 		},
-
 		pickers = {
 			find_files = {
 				find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
+				layout_config = { preview_width = 0.6 },
 			},
-			lsp_implementations = {
+			lsp_references = {
 				find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
 				layout_strategy = "vertical",
-				layout_config = {
-					prompt_position = "top",
-				},
 				sorting_strategy = "ascending",
 				ignore_filename = false,
 			},
 			live_grep = {
-				path_display = { "shorten" },
 				find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
-				layout_strategy = "vertical",
+				layout_config = { preview_width = 0.6 },
 			},
 			grep_string = {
 				path_display = { "shorten" },
@@ -66,4 +63,7 @@ return {
 			},
 		},
 	},
+	config = function(_, opts)
+		require("telescope").setup(opts)
+	end,
 }

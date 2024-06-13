@@ -23,20 +23,28 @@ local opts = {
 	defaults = {
 		lazy = false,
 	},
-	dev = {
-		path = "~/",
+	ui = {
+		backdrop = 100,
 	},
-	rtp = {
-		disabled_plugins = {
-			"gzip",
-			"matchit",
-			"matchparen",
-			"netrw",
-			"netrwPlugin",
-			"tarPlugin",
-			"tohtml",
-			"tutor",
-			"zipPlugin",
+	performance = {
+		cache = {
+			enabled = true,
+		},
+		reset_packpath = true,
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"matchit",
+				"matchparen",
+				"netrw",
+				"netrwPlugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+				"spellfile",
+				"man",
+			},
 		},
 	},
 	change_detection = {

@@ -2,7 +2,6 @@ local on_attach = require("util.lsp").on_attach
 local handlers = require("util.lsp").handlers
 
 local config = function()
-	require("neoconf").setup({})
 	local lspconfig = require("lspconfig")
 	local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -23,12 +22,15 @@ local config = function()
 							nilness = true,
 							unusedwrite = true,
 							unusedvariable = true,
+							assign = false,
+							shadow = true,
+							fieldalignment = true,
 						},
 						annotations = {
 							inline = false,
 						},
 						staticcheck = true,
-						gofumpt = false,
+						gofumpt = true,
 					},
 				},
 			})
@@ -36,21 +38,11 @@ local config = function()
 		["golangci_lint_ls"] = function()
 			lspconfig.golangci_lint_ls.setup({
 				cmd = { "golangci-lint-langserver" },
-				handlers = handlers,
-				on_attach = on_attach,
 				filetypes = { "go", "gomod" },
 				init_options = {
 					command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
 				},
-				root_dir = lspconfig.util.root_pattern(
-					".golangci.yml",
-					".golangci.yaml",
-					".golangci.toml",
-					".golangci.json",
-					"go.work",
-					"go.mod",
-					".git"
-				),
+				root_dir = lspconfig.util.root_pattern("go.mod", ".golangci.yaml", ".git", "go.work"),
 			})
 		end,
 		["lua_ls"] = function()
@@ -70,13 +62,6 @@ local config = function()
 						},
 					},
 				},
-			})
-		end,
-		["jsonls"] = function()
-			lspconfig.jsonls.setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-				filetypes = { "json", "jsonc" },
 			})
 		end,
 		["pyright"] = function()
@@ -102,34 +87,9 @@ local config = function()
 				capabilities = capabilities,
 				filetypes = {
 					"typescript",
+					"javascript",
 				},
 				root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
-			})
-		end,
-		["dockerls"] = function()
-			lspconfig.dockerls.setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-			})
-		end,
-		["bashls"] = function()
-			lspconfig.bashls.setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-				filetypes = { "sh", "bash", "zsh" },
-			})
-		end,
-		["yamlls"] = function()
-			lspconfig.yamlls.setup({
-				settings = {
-					yaml = {
-						completion = true,
-						schemas = {
-							["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-							["https://raw.githubusercontent.com/aws/serverless-application-model/main/samtranslator/schema/schema.json"] = "*cloudformation*.yaml",
-						},
-					},
-				},
 			})
 		end,
 		["efm"] = function()
@@ -137,14 +97,8 @@ local config = function()
 				filetypes = {
 					"lua",
 					"python",
-					"json",
-					"jsonc",
-					"sh",
 					"javascript",
 					"typescript",
-					"docker",
-					"dockerfile",
-					"html",
 				},
 				init_options = {
 					documentFormatting = true,
@@ -156,26 +110,27 @@ local config = function()
 				},
 				settings = {
 					languages = {
-						lua = { require("efmls-configs.linters.luacheck"), require("efmls-configs.formatters.stylua") },
-						python = { require("efmls-configs.linters.flake8"), require("efmls-configs.formatters.black") },
+						lua = {
+							require("efmls-configs.linters.luacheck"),
+							require("efmls-configs.formatters.stylua"),
+						},
+						python = {
+							require("efmls-configs.linters.flake8"),
+							require("efmls-configs.formatters.black"),
+						},
 						typescript = {
 							require("efmls-configs.linters.eslint_d"),
 							require("efmls-configs.formatters.prettier_d"),
 						},
-						json = { require("efmls-configs.formatters.fixjson") },
-						sh = { require("efmls-configs.linters.shellcheck"), require("efmls-configs.formatters.shfmt") },
 						javascript = {
 							require("efmls-configs.linters.eslint_d"),
 							require("efmls-configs.formatters.prettier_d"),
 						},
-						docker = { require("efmls-configs.linters.hadolint") },
-						dockerfile = { require("efmls-configs.linters.hadolint") },
 					},
 				},
 			})
 		end,
 	})
-	--
 end
 
 return {

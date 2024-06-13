@@ -1,6 +1,7 @@
-local mapkey = require("util.keymapper").mapkey
 local autocmd_clear = vim.api.nvim_clear_autocmds
 local augroup_highlight = vim.api.nvim_create_augroup("custom-lsp-references", { clear = true })
+local mapkey = require("util.keymapper").mapkey
+local cmd = require("util.keycmd")
 
 local autocmd = function(args)
 	local event = args[1]
@@ -26,14 +27,15 @@ M.on_attach = function(client, bufnr)
 
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-	vim.keymap.set("n", "gD", "<cmd>vsp | vim.lsp.buf.definition<CR>", bufopts)
-	vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, bufopts)
-	vim.keymap.set("n", "K", "<cmd> Lspsaga hover_doc<CR>", bufopts)
-	vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
-	vim.keymap.set("n", "<leader>k", vim.diagnostic.open_float, bufopts)
-	vim.keymap.set("n", "<leader>a", "<cmd> Lspsaga code_action<CR>", bufopts)
-	vim.keymap.set("n", "<leader>lf", "<cmd> Lspsaga finder tyd+ref+imp+def<CR>", bufopts)
+	mapkey("gd", cmd.lsp_goto_definition, "n", bufopts)
+	mapkey("gD", cmd.lsp_peek_definition, "n", bufopts)
+	mapkey("gt", cmd.lsp_goto_type_definition, "n", bufopts)
+	mapkey("K", cmd.lsp_show_hover_doc, "n", bufopts)
+	mapkey("<leader>r", cmd.lsp_rename_symbol, "n", bufopts)
+	mapkey("<leader>k", cmd.lsp_open_diagnostic_float, "n", bufopts)
+	mapkey("<leader>a", cmd.lsp_code_action, "n", bufopts)
+	mapkey("<leader>p", cmd.lsp_show_outline, "n", bufopts)
+	mapkey("<leader>lf", cmd.lsp_show_finder, "n", bufopts)
 
 	-- Set autocommands conditional on server_capabilities
 	if client.server_capabilities.documentHighlightProvider then
@@ -41,19 +43,10 @@ M.on_attach = function(client, bufnr)
 		autocmd({ "CursorHold", augroup_highlight, vim.lsp.buf.document_highlight, bufnr })
 		autocmd({ "CursorMoved", augroup_highlight, vim.lsp.buf.clear_references, bufnr })
 	end
-
-	if client.name == "pyright" then
-		mapkey("<Leader>oi", "PyrightOrganizeImports", "n", bufopts)
-	end
-	if client.name == "gopls" then
-		vim.keymap.set("n", "<leader>l", 'y<esc>ofmt.Println("<c-r>"", <c-r>")<esc>', bufopts)
-	end
 end
 
 M.handlers = {
 	["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { signs = false }),
 }
-
-M.diagnostic_signs = { Error = " ", Warn = " ", Hint = "ﴞ ", Info = "" }
 
 return M
