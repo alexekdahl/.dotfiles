@@ -6,13 +6,6 @@ return {
 			dependencies = { "nvim-lua/plenary.nvim" },
 		},
 	},
-	keys = {
-		{
-			"<leader>tu",
-			"<cmd>Telescope undo<cr>",
-			desc = "undo history",
-		},
-	},
 	opts = {
 		extensions = {
 			undo = {
@@ -28,4 +21,11 @@ return {
 		require("telescope").setup(opts)
 		require("telescope").load_extension("undo")
 	end,
+	keys = {
+		{
+			"<leader>tu",
+			"<cmd>Telescope undo<cr>",
+			desc = "undo history",
+		},
+	},
 }

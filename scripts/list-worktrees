@@ -23,4 +23,4 @@ list_subfolders() {
 export -f list_subfolders
 
 # Iterate through each repository and list subfolders (worktrees) in parallel
-find ~/dev/axis/repo/* -maxdepth 0 -type d | parallel list_subfolders
+find $REPO/* -maxdepth 0 -type d | parallel list_subfolders
