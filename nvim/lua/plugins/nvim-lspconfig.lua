@@ -16,6 +16,7 @@ local config = function()
 				root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
 				settings = {
 					gopls = {
+						buildFlags = { "-tags=acap" },
 						analyses = {
 							unsusedparams = true,
 							unreachable = true,
