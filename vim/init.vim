@@ -22,6 +22,7 @@ set splitright
 set cursorline
 set signcolumn=number
 
+colorscheme desert
 filetype on
 filetype indent on
 filetype plugin on
