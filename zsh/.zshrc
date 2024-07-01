@@ -25,10 +25,8 @@ export DOTFILES="$HOME/.dotfiles"
 
 # Path
 export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH+:$PATH}";
-export PATH="$HOME/.go/bin:$PATH"
+export PATH="$GOBIN:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 
 # Source
 source $DOTFILES/zsh/config.zsh

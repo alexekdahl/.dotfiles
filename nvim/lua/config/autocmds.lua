@@ -47,19 +47,6 @@ local set_cursorline = function(event, value, pattern)
 	})
 end
 
--- Disables copilot if in a disabled folder
-local copilot_group = vim.api.nvim_create_augroup("CopilotDisable", { clear = true })
-vim.api.nvim_create_autocmd("VimEnter", {
-	group = copilot_group,
-	callback = function()
-		local current_dir = vim.fn.getcwd()
-		local disabled_folders = vim.env.DISABLED_COPILOT
-		if should_disable(current_dir, disabled_folders) then
-			vim.cmd("Copilot disable")
-		end
-	end,
-})
-
 set_cursorline("WinLeave", false)
 set_cursorline("WinEnter", true)
 set_cursorline("FileType", false, "TelescopePrompt")

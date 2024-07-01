@@ -10,7 +10,6 @@ local config = function()
 			lspconfig.gopls.setup({
 				capabilities = capabilities,
 				on_attach = on_attach,
-				cmd = { "gopls", "serve" },
 				handlers = handlers,
 				filetypes = { "go", "go.mod" },
 				root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
@@ -25,7 +24,7 @@ local config = function()
 							unusedvariable = true,
 							assign = false,
 							shadow = true,
-							fieldalignment = true,
+							fieldalignment = false,
 						},
 						annotations = {
 							inline = false,
@@ -38,7 +37,6 @@ local config = function()
 		end,
 		["golangci_lint_ls"] = function()
 			lspconfig.golangci_lint_ls.setup({
-				cmd = { "golangci-lint-langserver" },
 				filetypes = { "go", "gomod" },
 				init_options = {
 					command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
@@ -58,7 +56,6 @@ local config = function()
 						workspace = {
 							library = {
 								[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-								[vim.fn.stdpath("config") .. "/lua"] = true,
 							},
 						},
 					},
@@ -142,7 +139,6 @@ return {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"creativenull/efmls-configs-nvim",
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		"hrsh7th/nvim-cmp",
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-nvim-lsp",

@@ -1,5 +1,8 @@
 return {
 	"WhoIsSethDaniel/mason-tool-installer.nvim",
+	dependencies = {
+		"williamboman/mason.nvim",
+	},
 	opts = {
 		auto_update = true,
 		debounce_hours = 24,
@@ -8,14 +11,19 @@ return {
 			"flake8",
 			"luacheck",
 			"stylua",
-            "luacheck",
+			"luacheck",
 			"goimports",
 			"fixjson",
 			"eslint_d",
 			"prettierd",
+			"golangci-lint",
 		},
 	},
-	dependencies = {
-		"williamboman/mason.nvim",
+	cmd = {
+		"MasonToolsInstall",
+		"MasonToolsInstallSync",
+		"MasonToolsUpdate",
+		"MasonToolsUpdateSync",
+		"MasonToolsClean",
 	},
 }

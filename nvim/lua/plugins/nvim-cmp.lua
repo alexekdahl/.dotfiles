@@ -10,6 +10,9 @@ return {
 		vim.opt.completeopt = "menu,menuone,noselect"
 
 		cmp.setup({
+			completion = {
+				winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:None",
+			},
 			mapping = cmp.mapping.preset.insert({
 				["<C-k>"] = cmp.mapping.select_prev_item(),
 				["<C-j>"] = cmp.mapping.select_next_item(),
