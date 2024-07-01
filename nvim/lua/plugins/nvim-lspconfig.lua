@@ -135,7 +135,6 @@ return {
 	"neovim/nvim-lspconfig",
 	config = config,
 	dependencies = {
-		"windwp/nvim-autopairs",
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"creativenull/efmls-configs-nvim",
