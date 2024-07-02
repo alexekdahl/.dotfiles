@@ -3,13 +3,17 @@ return {
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
 	},
+	event = "LspAttach",
 	opts = {
+		beacon = {
+			enable = false,
+		},
 		-- keybinds for navigation in lspsaga window
 		move_in_saga = { prev = "<C-k>", next = "<C-j>" },
 		finder = {
 			keys = {
 				toggle_or_open = "<CR>",
-				quit = "<ESC>",
+				quit = { "q", "<ESC>" },
 			},
 		},
 		-- use enter to open file with definition preview
@@ -18,7 +22,10 @@ return {
 			quit = "<ESC>",
 		},
 		diagnostic = {
-			show_code_action = true,
+			show_code_action = false,
+			keys = {
+				quit = { "q", "<ESC>" },
+			},
 		},
 		lightbulb = {
 			enable = false,

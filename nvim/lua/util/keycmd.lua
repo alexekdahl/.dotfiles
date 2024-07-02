@@ -113,7 +113,15 @@ function M.lsp_rename_symbol()
 end
 
 function M.lsp_open_diagnostic_float()
-	vim.diagnostic.open_float()
+	vim.api.nvim_exec("Lspsaga show_cursor_diagnostics", true)
+end
+
+function M.lsp_next_diagnostic()
+	vim.api.nvim_exec("Lspsaga diagnostic_jump_next", true)
+end
+
+function M.lsp_previus_diagnostic()
+	vim.api.nvim_exec("Lspsaga diagnostic_jump_prev", true)
 end
 
 function M.lsp_code_action()

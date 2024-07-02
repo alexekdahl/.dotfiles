@@ -24,6 +24,5 @@ mapkey("<leader>t", cmd.go_test, "n")
 
 mapkey("<C-b>", cmd.toggle_quickfix, "n")
 mapkey("<leader>l", cmd.color_print, "n")
-
-vim.keymap.set("n", "]m", vim.diagnostic.get_next)
-vim.keymap.set("n", "[n", vim.diagnostic.goto_prev)
+mapkey("]", vim.diagnostic.goto_next, "n")
+mapkey("[", vim.diagnostic.goto_prev, "n")
