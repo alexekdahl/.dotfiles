@@ -45,6 +45,9 @@ function fzf-open-project() {
 }
 
 # -Misc-
+function wttr() {
+    curl -s wttr.in/$1
+}
 
 # Measure the start-up time for the shell
 function timezsh() {

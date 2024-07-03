@@ -20,7 +20,6 @@ alias c='clear'
 alias :q='exit'
 alias lock='i3lock -c 191900'
 
-alias wttr='curl -s wttr.in/Lund'
 alias busy="cat /dev/urandom | hexdump -C | grep 'ca fe'"
 alias aliaz='alias | awk -F"=" '\''{printf "\033[1;34m%s\033[0m=\033[0;32m%s\033[0m\n", $1, $2}'\'' | fzf --border=rounded --height 50% --ansi'
 
