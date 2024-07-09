@@ -17,11 +17,11 @@ return {
 				black = "#15171F",
 			},
 			highlights = {
-				["TelescopeBorder"] = { fg = "#808000" },
+				["TelescopeBorder"] = { fg = "${olive_green}" },
 				["TelescopeResultsTitle"] = { fg = "${green}" },
 				["TelescopePromptTitle"] = { fg = "${green}" },
 				["TelescopePreviewTitle"] = { fg = "${green}" },
-				["NoiceCmdlinePopupBorder"] = { fg = "#808000" },
+				["NoiceCmdlinePopupBorder"] = { fg = "${olive_green}" },
 				["NoiceCmdlinePopupTitle"] = { fg = "${green}" },
 			},
 			options = {
