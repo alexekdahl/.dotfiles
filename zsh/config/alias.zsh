@@ -31,6 +31,9 @@ alias spdt='speedtest --simple'
 # -Go-
 alias test='go test ./... -count=1 --short | gocolorize'
 
+# -Python-
+alias py='python3'
+
 # -Node-
 alias yolo='rm -rf node_modules/ && npm install'
 
