@@ -1,14 +1,13 @@
-local should_disable = require("util.disable").should_disable
-
 return {
 	"zbirenbaum/copilot.lua",
 	enabled = true,
 	cmd = "Copilot",
 	event = "InsertEnter",
 	cond = function()
+		local should_disable = require("util.folder").should_disable
 		local current_dir = vim.fn.getcwd()
-		local disabled_folders = vim.env.DISABLED_COPILOT
-		return not should_disable(current_dir, disabled_folders)
+		local ONPREM_REPO = vim.env.ONPREM_REPO or ""
+		return should_disable(current_dir, ONPREM_REPO)
 	end,
 	opts = {
 		panel = {
@@ -33,7 +32,7 @@ return {
 			},
 		},
 		filetypes = {
-			["*"] = true,
+			["*"] = false,
 			python = true,
 			go = true,
 			yaml = true,
