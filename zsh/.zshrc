@@ -23,6 +23,7 @@ export GOPATH="$HOME/.go"
 export GOBIN="$GOPATH/bin"
 export PERSONAL="$HOME/dev/personal"
 export DOTFILES="$HOME/.dotfiles"
+export XDG_DATA_DIRS="$HOMEBREW_PREFIX/share:$XDG_DATA_DIRS"
 
 # Path
 export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH+:$PATH}";
