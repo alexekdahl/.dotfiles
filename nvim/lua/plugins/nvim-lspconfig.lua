@@ -35,16 +35,20 @@ local config = function()
 				},
 			})
 		end,
-		["nimls"] = function()
-			lspconfig.nimls.setup({
+		["nim_langserver"] = function()
+			lspconfig.nim_langserver.setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
 				handlers = handlers,
 				filetypes = { "nim" },
 				root_dir = lspconfig.util.root_pattern("nim.cfg", ".git"),
 				nim = {
-					enableNimsuggest = true,
-					lintOnSave = true,
+					nimsuggestPath = "~/.nimble/bin/nimsuggest",
+					autoCheckFile = true,
+					projectMapping = {
+						projectFile = "main.nim",
+						fileRegex = ".*\\.nim",
+					},
 				},
 			})
 		end,
