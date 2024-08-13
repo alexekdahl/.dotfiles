@@ -33,7 +33,7 @@ foreground = "#a2a8be"
 TERM = "xterm-256color"
 
 [font]
-size = 14.0
+size = 13.0
 
 [font.bold]
 family = "MesloLGM Nerd Font"
@@ -53,7 +53,7 @@ style = "Regular"
 
 [font.offset]
 x = 0
-y = 1
+y = 0
 
 # [scrolling]
 # history = 2000

@@ -72,6 +72,7 @@ return {
 			},
 		},
 	},
+	cmd = "NvimTreeToggle",
 	keys = {
 		{ "<leader>e", "<cmd>NvimTreeToggle<cr>" },
 	},

@@ -35,6 +35,19 @@ local config = function()
 				},
 			})
 		end,
+		["nimls"] = function()
+			lspconfig.nimls.setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				handlers = handlers,
+				filetypes = { "nim" },
+				root_dir = lspconfig.util.root_pattern("nim.cfg", ".git"),
+				nim = {
+					enableNimsuggest = true,
+					lintOnSave = true,
+				},
+			})
+		end,
 		["golangci_lint_ls"] = function()
 			lspconfig.golangci_lint_ls.setup({
 				filetypes = { "go", "gomod" },
