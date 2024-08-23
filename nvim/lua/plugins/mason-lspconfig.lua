@@ -10,7 +10,7 @@ return {
 			"lua_ls",
 			"gopls",
 			"golangci_lint_ls",
-			"nimlangserver",
+			"nim_langserver",
 		},
 		automatic_installation = true,
 	},

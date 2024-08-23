@@ -11,30 +11,9 @@ return {
 		})
 	end,
 	keys = {
-		{
-			"<C-a>",
-			function()
-				require("harpoon"):list():add()
-			end,
-		},
-		{
-			"<C-e>",
-			function()
-				local harpoon = require("harpoon")
-				harpoon.ui:toggle_quick_menu(harpoon:list())
-			end,
-		},
-		{
-			"<C-y>",
-			function()
-				require("harpoon"):list():select(1)
-			end,
-		},
-		{
-			"<C-u>",
-			function()
-				require("harpoon"):list():select(1)
-			end,
-		},
+		{ "<C-a>", function() require("harpoon"):list():add() end },
+		{ "<C-e>", function() local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list()) end },
+		{ "<C-y>", function() require("harpoon"):list():select(1) end },
+		{ "<C-u>", function() require("harpoon"):list():select(1) end },
 	},
 }
