@@ -3,8 +3,7 @@ alias h="history -10"
 alias hg="history | grep"
 
 # -Tmux-
-alias th="tmux new-session -A -s HOME"
-alias tf="tmux new-session -A -s WORK"
+alias th="tmux new-session -A -s MISC"
 
 # -Zellij-
 alias zz="zellij kill-all-sessions -y; zellij delete-all-sessions -y"
