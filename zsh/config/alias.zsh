@@ -49,6 +49,7 @@ alias ll='exa --icons -1 --sort=type -alF'
 alias diff='nvim -d'
 alias nvm='fnm'
 alias tree='exa --tree --sort=type'
+alias blue='bluetoothctl connect "30:91:BD:18:14:81"'
 
 # -goto-
 alias dev='cd ~/dev && echo "$(tput setaf 1)Dev"$(tput sgr0) && ls'
