@@ -2,7 +2,7 @@
 
 alias dils='docker image ls'
 alias dps='docker ps'
-alias dprune='docker volume prune --force'
+alias dprune='docker system prune -a -f --volumes'
 alias dstop='docker kill $(docker ps -q)'
 alias dkill='docker rmi $(docker images -a -q)'
 

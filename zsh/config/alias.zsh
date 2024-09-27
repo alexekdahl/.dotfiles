@@ -28,7 +28,7 @@ alias ports='lsof -i -n -P'
 alias spdt='speedtest --simple'
 
 # -Go-
-alias test='go test ./... -count=1 --short | gocolorize'
+alias test='go test ./... -count=1 --short --race | gocolorize'
 
 # -Python-
 alias py='python3'
