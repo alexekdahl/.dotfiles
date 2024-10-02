@@ -53,6 +53,47 @@ function symlink_tmux() {
     ln -sf "$DOTFILES/tmux" "$XDG_CONFIG_HOME/tmux"
 }
 
+function symlink_vim() {
+    if [ -f "$HOME/.vimrc" ]; then
+        rm "$HOME/.vimrc"
+    fi
+
+    ln -sf "$DOTFILES/vim/.vimrc" "$HOME/.vimrc"
+}
+
+function setup_git() {
+    if [ -f "$HOME/.gitconfig" ]; then
+        rm "$HOME/.gitconfig"
+    fi
+
+    cp "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
+
+    if [ -f "$HOME/.githooks" ]; then
+        rm -rf "$HOME/.githooks"
+    fi
+
+    mkdir -p "$HOME/.githooks"
+    
+    ln -sf "$DOTFILES/git/pre-commit" "$HOME/.githooks/"
+    ln -sf "$DOTFILES/git/pre-push" "$HOME/.githooks/"
+
+
+    mkdir -p "$HOME/local/bin"
+    if [ -f "$HOME/local/bin/git-bare-clone" ]; then
+        rm "$HOME/local/bin/git-bare-clone"
+    fi
+
+    ln -sf "$DOTFILES/git/git-bare-clone.sh" "$HOME/local/bin/git-bare-clone"
+    chomod +x "$HOME/local/bin/git-bare-clone"
+
+    if [ -f "$HOME/local/bin/git-rebase-own" ]; then
+        rm "$HOME/local/bin/git-rebase-own"
+    fi
+
+    ln -sf "$DOTFILES/git/git-rebase-own" "$HOME/local/bin/git-rebase-own"
+    chomod +x "$HOME/local/bin/git-rebase-own"
+}
+
 function download_tmux_plugins() {
     # Clone tpm
     if [ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ]; then
@@ -84,9 +125,11 @@ function main() {
     symlink_zsh
     symlink_p10k
     symlink_nvim
+    symlink_vim
     symlink_tmux
     download_tmux_plugins
     download_zsh_plugins
+    setup_git
 }
 
 main()
