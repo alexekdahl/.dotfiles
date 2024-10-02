@@ -38,6 +38,7 @@ return {
 			yaml = true,
 			lua = true,
 			nim = true,
+			gitcommit = true,
 			sh = function()
 				if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
 					return false
@@ -45,7 +46,6 @@ return {
 				return true
 			end,
 		},
-		copilot_node_command = vim.fn.expand("$HOME") .. "/.config/node",
 	},
 	config = function(_, opts)
 		require("copilot").setup(opts)

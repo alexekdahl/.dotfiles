@@ -46,7 +46,6 @@ for conf in "$DOTFILES/zsh/config/"*.zsh; do
 done
 unset conf
 
-eval "$(fnm env)"
 source $HOME/.secret/work.zsh
 
 bindkey -r '^a'
