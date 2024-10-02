@@ -74,8 +74,8 @@ function setup_git() {
 
     mkdir -p "$HOME/.githooks"
     
-    ln -sf "$DOTFILES/git/pre-commit" "$HOME/.githooks/"
-    ln -sf "$DOTFILES/git/pre-push" "$HOME/.githooks/"
+    cp "$DOTFILES/git/pre-commit" "$HOME/.githooks/"
+    cp "$DOTFILES/git/pre-push" "$HOME/.githooks/"
 
 
     mkdir -p "$HOME/local/bin"
