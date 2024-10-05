@@ -48,15 +48,20 @@ main() {
 
     if [ -z $TMUX ]; then
         if ! tmux has-session -t "$session_name" 2>/dev/null; then
-            tmux new-session -s "$session_name" -c "$project_dir"
+            tmux new-session -d -s "$session_name" -n "CODE" -c "$project_dir"
+            tmux new-window -t "$session_name" -n "TEST" -c "$project_dir"
+            tmux select-window -t "$session_name:1" 
+            tmux attach-session -t "$session_name"
         fi
         return 0
     fi
 
     if ! tmux has-session -t "$session_name" 2>/dev/null; then
-        tmux new-session -ds "$session_name" -c "$project_dir"
+        tmux new-session -d -s "$session_name" -n "CODE" -c "$project_dir"
+        tmux new-window -t "$session_name" -n "TEST" -c "$project_dir"
     fi
 
+    tmux select-window -t "$session_name:1" 
     tmux switch-client -t $session_name
 }
 
