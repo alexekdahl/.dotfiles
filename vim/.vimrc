@@ -22,6 +22,13 @@ set splitright
 set cursorline
 set signcolumn=number
 
+set laststatus=2
+set statusline=%f
+set statusline+=%=
+set statusline+=%l
+set statusline+=/
+set statusline+=%L
+
 colorscheme desert
 filetype on
 filetype indent on
@@ -31,6 +38,27 @@ syntax on
 " keybindings
 let mapleader = " "
 
+function ToggleNetrw()
+    if &ft == "netrw"
+        if exists("w:netrw_rexfile")
+            if w:netrw_rexfile == "" || w:netrw_rexfile == "NetrwTreeListing"
+                quit
+            else
+                exec 'e ' . w:netrw_rexfile
+            endif
+        else
+            if exists("w:netrw_rexlocal")
+                Rexplore
+            else
+                quit
+            endif
+        endif
+    else
+        Explore
+    endif
+endfun
+
+nnoremap <leader>e :call ToggleNetrw()<CR>
 vnoremap <C-p> "_dP
 nnoremap <leader>y yiw<esc>
 nnoremap <leader>v viw

@@ -86,6 +86,7 @@ main() {
     if [ "$pressed_key" = "ctrl-a" ]; then
         local directory=$(basename "$project_dir")
         local session_name=${directory//[: .]/_}
+        session_name=${session_name^^}
         manage_tmux_session "$project_dir" "$session_name"
     else
         cd "$project_dir"
