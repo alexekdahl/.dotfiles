@@ -33,7 +33,7 @@ foreground = "#a2a8be"
 TERM = "xterm-256color"
 
 [font]
-size = 13.0
+size = 11.5
 
 [font.bold]
 family = "MesloLGM Nerd Font"
