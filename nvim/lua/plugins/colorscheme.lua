@@ -1,5 +1,6 @@
 return {
 	{
+		enabled = true,
 		"olimorris/onedarkpro.nvim",
 		priority = 1000,
 		opts = {
@@ -31,6 +32,58 @@ return {
 		config = function(_, opts)
 			require("onedarkpro").setup(opts)
 			vim.cmd.colorscheme("onedark")
+		end,
+	},
+	{
+		"rose-pine/neovim",
+		enabled = false,
+		priority = 1000,
+		opts = {
+			styles = {
+				bold = false,
+				italic = false,
+				transparency = true,
+			},
+		},
+		config = function(_, opts)
+			require("rose-pine").setup(opts)
+			vim.cmd("colorscheme rose-pine-moon")
+		end,
+	},
+	{
+		"EdenEast/nightfox.nvim",
+		enabled = false,
+		priority = 1000,
+		opts = {
+			options = {
+				colorblind = {
+					enable = false,
+				},
+			},
+		},
+		config = function(_, opts)
+			require("nightfox").setup(opts)
+			vim.cmd("colorscheme nightfox")
+		end,
+	},
+	{
+		"rebelot/kanagawa.nvim",
+		enabled = false,
+		priority = 1000,
+		opts = {
+			compile = true,
+			undercurl = false,
+			commentStyle = {
+				italic = false,
+			},
+			keywordStyle = {
+				italic = false,
+			},
+			transparent = true,
+		},
+		config = function(_, opts)
+			require("kanagawa").setup(opts)
+			vim.cmd("colorscheme kanagawa")
 		end,
 	},
 }

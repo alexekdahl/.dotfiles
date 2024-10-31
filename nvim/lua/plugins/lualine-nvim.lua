@@ -31,7 +31,7 @@ return {
 
 		return {
 			options = {
-				theme = "onedark",
+				theme = "auto",
 				globalstatus = true,
 			},
 			sections = {
