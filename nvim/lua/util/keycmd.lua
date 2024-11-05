@@ -50,6 +50,10 @@ function M.go_test()
 	vim.api.nvim_exec("GoTestFunc", true)
 end
 
+function M.goto_commit()
+	vim.api.nvim_exec("GitBlameOpenCommitURL", true)
+end
+
 function M.telescope_find_changed_files()
 	require("telescope.builtin").find_files({
 		find_command = { "git", "ls-files", "--modified", "--others", "--exclude-standard" },

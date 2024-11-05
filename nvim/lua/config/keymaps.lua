@@ -21,6 +21,7 @@ mapkey("<leader>fl", cmd.telescope_live_grep, "n")
 mapkey("<leader>d", cmd.telescope_diagnostics, "n")
 mapkey("<leader>hf", cmd.telescope_git_history, "n")
 mapkey("<leader>t", cmd.go_test, "n")
+mapkey("<leader>ghc", cmd.goto_commit, "n")
 
 mapkey("<C-b>", cmd.toggle_quickfix, "n")
 mapkey("<leader>l", cmd.color_print, "n")
