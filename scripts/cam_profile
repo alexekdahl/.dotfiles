@@ -1,0 +1,6 @@
+alias ls='ls --color=auto'
+alias lsa='ls -a'
+alias ll='ls -l'
+alias ..='cd ..'
+alias packages='cd /usr/local/packages'
+alias log="tail -f /var/log/info.log"

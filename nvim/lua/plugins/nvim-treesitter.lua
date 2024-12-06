@@ -22,7 +22,7 @@ return {
 				"python",
 				"go",
 				"gomod",
-                "markdown_inline",
+				"markdown_inline",
 			},
 			event = { "BufReadPre", "BufNewFile" },
 			indent = {
@@ -61,9 +61,8 @@ return {
 			textobjects = {
 				select = {
 					enable = true,
-					lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+					lookahead = true,
 					keymaps = {
-						-- You can use the capture groups defined in textobjects.scm
 						["aa"] = "@parameter.outer",
 						["ia"] = "@parameter.inner",
 						["af"] = "@function.outer",
@@ -74,13 +73,7 @@ return {
 				},
 				move = {
 					enable = true,
-					set_jumps = true, -- whether to set jumps in the jumplist
-				},
-				swap = {
-					enable = true,
-					swap_next = {
-						["<leader>ss"] = "@parameter.inner",
-					},
+					set_jumps = true,
 				},
 			},
 			playground = { enable = false },

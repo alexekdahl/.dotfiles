@@ -69,6 +69,10 @@ function fkill() {
   fi
 }
 
+function sshprofile() {
+   sshpass -p pass scp $DOTFILES/scripts/cam_profile root@$1:/root/.profile
+}
+
 function change_wallpaper() {
     local selected_wallpaper
     selected_wallpaper=$(find ~/Pictures/wallpapers -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" \) | fzf --border=rounded --height 50%)

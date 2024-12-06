@@ -32,13 +32,14 @@ return {
 			},
 		},
 		filetypes = {
-			["*"] = false,
+			["*"] = true,
 			python = true,
 			go = true,
 			yaml = true,
 			lua = true,
 			nim = true,
 			gitcommit = true,
+            puml = true,
 			sh = function()
 				if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
 					return false
