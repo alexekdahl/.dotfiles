@@ -66,6 +66,9 @@ return {
 				layout_strategy = "vertical",
 			},
 		},
+		extension = {
+			fzf = {},
+		},
 	},
 	config = function(_, opts)
 		require("telescope").setup(opts)
