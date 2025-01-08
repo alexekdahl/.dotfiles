@@ -73,9 +73,8 @@ keys = [
     # Application Launch
     Key([SUPER], "space", lazy.spawn(f"{HOME}/.dotfiles/scripts/start_alacritty")),
     Key([ALT], "d", lazy.spawn(f"{HOME}/.config/rofi/scripts/launcher.sh")),
-    Key(
-        [ALT, SUPER], "m", lazy.spawn(f"{HOME}/.dotfiles/scripts/switch_to_monitor.sh")
-    ),
+    Key([ALT, SUPER], "m", lazy.spawn(f"{HOME}/.dotfiles/scripts/switch_to_monitor.sh")),
+    Key([SUPER], "p", lazy.spawn("xfce4-screenshooter")),
     # System Control
     Key([SUPER, "control"], "r", lazy.restart()),
     Key([SUPER, "control"], "q", lazy.shutdown()),
