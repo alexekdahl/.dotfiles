@@ -26,6 +26,7 @@ alias aliaz='alias | awk -F"=" '\''{printf "\033[1;34m%s\033[0m=\033[0;32m%s\033
 # -Network-
 alias ports='lsof -i -n -P'
 alias spdt='speedtest --simple'
+alias myip='ip -br a'
 
 # -Go-
 alias test='go test ./... -count=1 --short --race | gocolorize'
@@ -43,12 +44,12 @@ alias cp='cp -iv'
 alias mkdir='mkdir -p'
 alias du='du --max-depth=1 --si'
 alias df='df --all --si --print-type'
-alias ls='exa --icons --colour=never -1 --sort=type'
+alias ls='eza --icons --colour=never -1 --sort=type'
 alias lsa='ls -a'
-alias ll='exa --icons --header --long --grid --no-user --sort=type'
+alias ll='eza --icons --header --long --grid --no-user --sort=type'
 alias diff='nvim -d'
 alias nvm='fnm'
-alias tree='exa --tree --sort=type'
+alias tree='eza --tree --sort=type'
 alias blue='bluetoothctl connect "30:91:BD:18:14:81"'
 
 # -goto-

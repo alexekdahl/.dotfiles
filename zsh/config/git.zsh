@@ -23,9 +23,12 @@ alias gcm='git commit -m $1'
 # Interactive git diff
 function gdiff {
   local preview
-  preview="git diff $@ --color=always -- {-1}"
+  # Avoid spawning a subshell unnecessarily
+  preview='[[ $(git ls-files --error-unmatch -- {} 2>/dev/null) ]] && git diff --color=always -- {} || bat --color=always {}'
+
   local file
-  file=$(git ls-files --others --exclude-standard --modified --full-name | fzf -m --ansi --preview $preview) && vim $(echo "$file")
+  file=$(git ls-files --others --exclude-standard --modified --full-name | 
+    fzf --ansi --preview="$preview" --preview-window=right:70%) && vim $file
 }
 
 # Interactive git add

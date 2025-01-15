@@ -1,6 +1,6 @@
 return {
 	"zbirenbaum/copilot.lua",
-	enabled = true,
+	enabled = false,
 	cmd = "Copilot",
 	event = "InsertEnter",
 	cond = function()
@@ -39,7 +39,7 @@ return {
 			lua = true,
 			nim = true,
 			gitcommit = true,
-            puml = true,
+			puml = true,
 			sh = function()
 				if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
 					return false

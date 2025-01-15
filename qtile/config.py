@@ -120,7 +120,7 @@ for i in groups:
 layout_theme = {
     "border_width": 1,
     "margin": 20,
-    "border_focus": "#808000",
+    "border_focus": "#5A5F8C",
     "border_normal": "#000000",
 }
 
