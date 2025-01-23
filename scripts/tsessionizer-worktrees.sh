@@ -29,7 +29,7 @@ select_worktree() {
 
     # Select from the list using fzf
     echo "$worktree_list" | \
-    fzf --ansi -m -1 --border=rounded --border-label="Worktrees" --color="border:#808000"
+    fzf --ansi -m -1 --border=rounded --border-label="Worktrees" --color="border:#5A5F8C"
 }
 
 # Create a new tmux window or switch to an existing one

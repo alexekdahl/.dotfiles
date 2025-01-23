@@ -23,7 +23,7 @@ return {
 	end,
 	keys = {
 		{
-			"<leader>tu",
+			"<leader>u",
 			"<cmd>Telescope undo<cr>",
 			desc = "undo history",
 		},

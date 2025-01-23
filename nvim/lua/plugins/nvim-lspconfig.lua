@@ -156,7 +156,6 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		"creativenull/efmls-configs-nvim",
 		"hrsh7th/nvim-cmp",
-		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-nvim-lsp",
 	},
 }

@@ -1,6 +1,5 @@
 return {
 	{
-		enabled = true,
 		"olimorris/onedarkpro.nvim",
 		priority = 1000,
 		opts = {
