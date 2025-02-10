@@ -27,9 +27,7 @@ M.on_attach = function(client, bufnr)
 
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-	mapkey("gd", cmd.lsp_goto_definition, "n", bufopts)
 	mapkey("gD", cmd.lsp_peek_definition, "n", bufopts)
-	mapkey("gt", cmd.lsp_goto_type_definition, "n", bufopts)
 	mapkey("K", cmd.lsp_show_hover_doc, "n", bufopts)
 	mapkey("<leader>r", cmd.lsp_rename_symbol, "n", bufopts)
 	mapkey("<leader>k", cmd.lsp_open_diagnostic_float, "n", bufopts)

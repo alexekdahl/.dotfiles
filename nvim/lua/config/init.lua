@@ -20,7 +20,6 @@ local opts = {
 				"tutor",
 				"zipPlugin",
 				"spellfile",
-				"man",
 			},
 		},
 	},

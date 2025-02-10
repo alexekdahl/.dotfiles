@@ -17,14 +17,6 @@ return {
 				white = "#ABB2BF",
 				black = "#15171F",
 			},
-			highlights = {
-				["TelescopeBorder"] = { fg = "${purple_border}" },
-				["TelescopeResultsTitle"] = { fg = "${green}" },
-				["TelescopePromptTitle"] = { fg = "${green}" },
-				["TelescopePreviewTitle"] = { fg = "${green}" },
-				["NoiceCmdlinePopupBorder"] = { fg = "${purple_border}" },
-				["NoiceCmdlinePopupTitle"] = { fg = "${green}" },
-			},
 			options = {
 				transparency = true,
 			},
