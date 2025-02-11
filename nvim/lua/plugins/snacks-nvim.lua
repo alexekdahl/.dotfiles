@@ -149,15 +149,17 @@ local keys = {
 
 return {
 	"folke/snacks.nvim",
+	priority = 1000,
+	lazy = false,
 	opts = {
-		picker = {
-			enabled = true,
-			layout = {
-				cycle = false,
-			},
-		},
+		picker = { enabled = true, layout = { cycle = false } },
 		explorer = { enabled = true },
 		gitbrowse = { enabled = true },
+		indent = {
+            enabled = true,
+            animate = { enabled = false },
+            scope = { enabled = false },
+        },
 	},
 	keys = keys,
 }

@@ -14,7 +14,6 @@ mapkey("<leader>y", cmd.yank_inner_word, "n")
 mapkey("<leader>o", cmd.add_line_below, "n")
 mapkey("<leader>s", cmd.save_all, "n")
 
--- mapkey("<leader>hf", cmd.telescope_git_history, "n")
 mapkey("<leader>t", cmd.go_test, "n")
 
 mapkey("<C-b>", cmd.toggle_quickfix, "n")

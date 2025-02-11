@@ -39,4 +39,28 @@ return {
 			},
 		},
 	},
+	keys = {
+		{ "gD", "<cmd>Lspsaga peek_definition<CR>", desc = "Peek definition" },
+		{ "K", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover doc" },
+		{
+			"<leader>k",
+			"<cmd>Lspsaga show_cursor_diagnostics<CR>",
+			desc = "Show cursor diagnostic",
+		},
+		{
+			"<leader>a",
+			"<cmd>Lspsaga code_action<CR>",
+			desc = "Code action",
+		},
+		{
+			"<leader>p",
+			"<cmd>Lspsaga outline<CR>",
+			desc = "Show outline",
+		},
+		{
+			"<leader>lf",
+			"<cmd>Lspsaga finder tyd+ref+imp+def<CR>",
+			desc = "Show finder",
+		},
+	},
 }

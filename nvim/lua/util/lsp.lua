@@ -1,7 +1,6 @@
 local autocmd_clear = vim.api.nvim_clear_autocmds
 local augroup_highlight = vim.api.nvim_create_augroup("custom-lsp-references", { clear = true })
 local mapkey = require("util.keymapper").mapkey
-local cmd = require("util.keycmd")
 
 local autocmd = function(args)
 	local event = args[1]
@@ -27,13 +26,7 @@ M.on_attach = function(client, bufnr)
 
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-	mapkey("gD", cmd.lsp_peek_definition, "n", bufopts)
-	mapkey("K", cmd.lsp_show_hover_doc, "n", bufopts)
-	mapkey("<leader>r", cmd.lsp_rename_symbol, "n", bufopts)
-	mapkey("<leader>k", cmd.lsp_open_diagnostic_float, "n", bufopts)
-	mapkey("<leader>a", cmd.lsp_code_action, "n", bufopts)
-	mapkey("<leader>p", cmd.lsp_show_outline, "n", bufopts)
-	mapkey("<leader>lf", cmd.lsp_show_finder, "n", bufopts)
+	mapkey("<leader>r", vim.lsp.buf.rename, "n", bufopts)
 
 	-- Set autocommands conditional on server_capabilities
 	if client.server_capabilities.documentHighlightProvider then

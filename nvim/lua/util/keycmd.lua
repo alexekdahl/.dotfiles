@@ -50,32 +50,6 @@ function M.go_test()
 	vim.api.nvim_exec("GoTestFunc", true)
 end
 
-function M.goto_commit()
-	vim.api.nvim_exec("GitBlameOpenCommitURL", true)
-end
-
-function M.telescope_find_changed_files()
-	require("telescope.builtin").find_files({
-		find_command = { "git", "ls-files", "--modified", "--others", "--exclude-standard" },
-	})
-end
-
-function M.telescope_find_files()
-	require("telescope.builtin").find_files()
-end
-
-function M.telescope_live_grep()
-	require("telescope.builtin").live_grep()
-end
-
-function M.telescope_diagnostics()
-	require("telescope.builtin").diagnostics()
-end
-
-function M.telescope_git_history()
-	require("telescope.builtin").git_bcommits()
-end
-
 function M.toggle_quickfix()
 	local qf_exists = false
 	for _, win in pairs(vim.fn.getwininfo()) do
@@ -90,54 +64,6 @@ function M.toggle_quickfix()
 	if not vim.tbl_isempty(vim.fn.getqflist()) then
 		vim.cmd("copen")
 	end
-end
-
-function M.lsp_find_references()
-	require("telescope.builtin").lsp_references()
-end
-
-function M.lsp_goto_definition()
-	require("telescope.builtin").lsp_definitions()
-end
-
-function M.lsp_peek_definition()
-	vim.api.nvim_exec(":Lspsaga peek_definition", true)
-end
-
-function M.lsp_goto_type_definition()
-	vim.api.nvim_exec(":Lspsaga goto_type_definition", true)
-end
-
-function M.lsp_show_hover_doc()
-	vim.api.nvim_exec(":Lspsaga hover_doc", true)
-end
-
-function M.lsp_rename_symbol()
-	vim.lsp.buf.rename()
-end
-
-function M.lsp_open_diagnostic_float()
-	vim.api.nvim_exec("Lspsaga show_cursor_diagnostics", true)
-end
-
-function M.lsp_next_diagnostic()
-	vim.api.nvim_exec("Lspsaga diagnostic_jump_next", true)
-end
-
-function M.lsp_previus_diagnostic()
-	vim.api.nvim_exec("Lspsaga diagnostic_jump_prev", true)
-end
-
-function M.lsp_code_action()
-	vim.api.nvim_exec("Lspsaga code_action", true)
-end
-
-function M.lsp_show_outline()
-	vim.api.nvim_exec("Lspsaga outline", true)
-end
-
-function M.lsp_show_finder()
-	vim.api.nvim_exec("Lspsaga finder tyd+ref+imp+def", true)
 end
 
 function M.color_print()
