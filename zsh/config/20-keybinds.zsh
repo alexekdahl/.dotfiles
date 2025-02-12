@@ -1,0 +1,5 @@
+bindkey -r '^a'
+bindkey -r '^r'
+bindkey -r '^b'
+bindkey -s '^a' 'fzf-open-project\n'
+bindkey -s '^b' 'change_wallpaper\n'
