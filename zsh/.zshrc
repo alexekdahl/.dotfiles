@@ -21,8 +21,10 @@ fi
 # ------------------------------------------------------------------------------
 # Plugins & Theme
 # ------------------------------------------------------------------------------
+
 source "$HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme"
 source "$HOME/.p10k.zsh"
+# source "$DOTFILES/zsh/custom_promt.zsh"
 source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$HOME/.zsh/zsh-vi-mode/zsh-vi-mode.zsh"
