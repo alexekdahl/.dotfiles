@@ -13,7 +13,8 @@ function ff() {
         cd "$choice"
     fi
 
-    file=$(fzf --preview='bat --style=numbers --color=always {}') && vim "$file"
+    file=$(fzf --preview='bat --style=numbers --color=always {}')
+    [ -n "$file" ] && nvim "$file"
 }
 
 # Find pattern inside a file and open it in Neovim at the line where the pattern is found and sets Neovim root to git root.

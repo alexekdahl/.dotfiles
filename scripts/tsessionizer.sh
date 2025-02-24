@@ -39,8 +39,6 @@ colorize_projects() {
 
 # Use fzf to select a project directory
 select_project() {
-    local fzf_height="50%"
-    
     local project_list=$(get_project_list)
     echo "$project_list" | colorize_projects | \
     fzf --ansi -m -1 --border=rounded --border-label="Repo" --color="border:#5A5F8C"
@@ -55,7 +53,7 @@ manage_tmux_session() {
         if ! tmux has-session -t "$session_name" 2>/dev/null; then
             tmux new-session -d -s "$session_name" -n "CODE" -c "$project_dir"
             if [[ "$session_name" != "_DOTFILES" ]]; then
-                tmux new-window -t "$session_name" -n "TEST" -c "$project_dir"
+                tmux new-window -t "$session_name" -n "TERMINAL" -c "$project_dir"
             fi
             tmux select-window -t "$session_name:1"
             tmux attach-session -t "$session_name"
@@ -64,7 +62,7 @@ manage_tmux_session() {
         if ! tmux has-session -t "$session_name" 2>/dev/null; then
             tmux new-session -d -s "$session_name" -n "CODE" -c "$project_dir"
             if [[ "$session_name" != "_DOTFILES" ]]; then
-                tmux new-window -t "$session_name" -n "TEST" -c "$project_dir"
+                tmux new-window -t "$session_name" -n "TERMINAL" -c "$project_dir"
             fi
         fi
         tmux select-window -t "$session_name:1"
