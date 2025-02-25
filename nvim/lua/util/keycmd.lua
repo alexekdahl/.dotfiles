@@ -1,5 +1,16 @@
 local feedkeys = vim.api.nvim_feedkeys
 
+local format_strings = {
+	lua = 'print("\\27[33m%s:\\27[0m", %s)',
+	go = 'fmt.Printf("\\033[33m%s:\\033[0m %%v\\n", %s)',
+	javascript = 'console.log("\\x1b[33m%s:\\x1b[0m", %s);',
+	typescript = 'console.log("\\x1b[33m%s:\\x1b[0m", %s);',
+	python = 'print(f"\\033[33m{%s=}\\033[0m")',
+	rust = 'println!("\\x1b[33m{}: {:?}\\x1b[0m", %s);',
+	c = 'printf("\\033[33m%s: %%d\\033[0m\\n", %s);',
+	nim = 'echo "\\e[33m%s: \\e[0m", $%s',
+}
+
 local M = {}
 
 function M.save_all()
@@ -67,18 +78,22 @@ function M.toggle_quickfix()
 end
 
 function M.color_print()
-	local filetype = vim.bo.filetype
-	local default = '<esc>oprint("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>xxxxx'
-
-	if filetype == "go" then
-		vim.api.nvim_input('<esc>ofmt.Println("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>xxxxx')
-	elseif filetype == "typescript" then
-		vim.api.nvim_input('<esc>oconsole.log("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>xxxxx')
-	elseif filetype == "javascript" then
-		vim.api.nvim_input('<esc>oconsole.log("\\x1b[33m<c-r>"->", <c-r>", "\\x1b[0m")<esc>xxxxx')
-	else
-		vim.api.nvim_input(default)
+	local clipboard = vim.fn.getreg("+")
+	if clipboard == "" then
+		vim.notify("Clipboard is empty", vim.log.levels.WARN)
+		return
 	end
+
+	local filetype = vim.bo.filetype
+	local format_string = format_strings[filetype] or 'print("\\27[33m%s:\\27[0m", %s)'
+	local print_statement = string.format(format_string, clipboard, clipboard)
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local line = cursor_pos[1]
+	local current_line = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1] or ""
+	local indentation = current_line:match("^%s*") or ""
+
+	vim.api.nvim_buf_set_lines(0, line, line, false, { indentation .. print_statement })
+	vim.api.nvim_win_set_cursor(0, { line + 1, 0 })
 end
 
 function M.toggle_copilot()

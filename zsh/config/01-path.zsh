@@ -19,3 +19,4 @@ export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH+:$PATH}";
 export PATH="$GOBIN:$PATH"
 export PATH="$NIMBLEBIN:$PATH"
 export PATH="$CARGOBIN:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
