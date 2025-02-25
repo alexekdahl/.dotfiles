@@ -96,24 +96,11 @@ local config = function()
 				},
 			})
 		end,
-		["ts_ls"] = function()
-			lspconfig.ts_ls.setup({
-				on_attach = on_attach,
-				capabilities = capabilities,
-				filetypes = {
-					"typescript",
-					"javascript",
-				},
-				root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
-			})
-		end,
 		["efm"] = function()
 			lspconfig.efm.setup({
 				filetypes = {
 					"lua",
 					"python",
-					"javascript",
-					"typescript",
 				},
 				init_options = {
 					documentFormatting = true,
@@ -132,14 +119,6 @@ local config = function()
 						python = {
 							require("efmls-configs.linters.flake8"),
 							require("efmls-configs.formatters.black"),
-						},
-						typescript = {
-							require("efmls-configs.linters.eslint_d"),
-							require("efmls-configs.formatters.prettier_d"),
-						},
-						javascript = {
-							require("efmls-configs.linters.eslint_d"),
-							require("efmls-configs.formatters.prettier_d"),
 						},
 					},
 				},

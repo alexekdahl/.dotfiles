@@ -1,4 +1,5 @@
 local feedkeys = vim.api.nvim_feedkeys
+local M = {}
 
 local format_strings = {
 	lua = 'print("\\27[33m%s:\\27[0m", %s)',
@@ -11,56 +12,42 @@ local format_strings = {
 	nim = 'echo "\\e[33m%s: \\e[0m", $%s',
 }
 
-local M = {}
-
 function M.save_all()
-	vim.api.nvim_exec(":wa!", true)
+	vim.cmd("wa!")
 end
-
 function M.paste_no_registry()
 	feedkeys('"_dP', "n", true)
 end
-
 function M.visual_inner_word()
 	feedkeys("viw", "n", true)
 end
-
 function M.yank_inner_word()
 	feedkeys("yiw", "n", true)
 end
-
 function M.add_line_below()
 	vim.api.nvim_input("o<Esc>")
 end
-
 function M.focus_split_down()
-	vim.api.nvim_exec("<C-W><C-J>", true)
+	vim.cmd.wincmd("j")
 end
-
 function M.focus_split_left()
-	vim.api.nvim_exec("<C-W><C-H>", true)
+	vim.cmd.wincmd("h")
 end
-
 function M.focus_split_up()
-	vim.api.nvim_exec("<C-W><C-K>", true)
+	vim.cmd.wincmd("k")
 end
-
 function M.focus_split_right()
-	vim.api.nvim_exec("<C-W><C-L>", true)
+	vim.cmd.wincmd("l")
 end
-
 function M.split_vertical()
-	vim.api.nvim_exec("vsplit", true)
+	vim.cmd("vsplit")
 end
-
 function M.split_horizontal()
-	vim.api.nvim_exec("split", true)
+	vim.cmd("split")
 end
-
 function M.go_test()
-	vim.api.nvim_exec("GoTestFunc", true)
+	vim.cmd("GoTestFunc")
 end
-
 function M.toggle_quickfix()
 	local qf_exists = false
 	for _, win in pairs(vim.fn.getwininfo()) do
@@ -76,14 +63,12 @@ function M.toggle_quickfix()
 		vim.cmd("copen")
 	end
 end
-
 function M.color_print()
 	local clipboard = vim.fn.getreg("+")
 	if clipboard == "" then
 		vim.notify("Clipboard is empty", vim.log.levels.WARN)
 		return
 	end
-
 	local filetype = vim.bo.filetype
 	local format_string = format_strings[filetype] or 'print("\\27[33m%s:\\27[0m", %s)'
 	local print_statement = string.format(format_string, clipboard, clipboard)
@@ -91,13 +76,10 @@ function M.color_print()
 	local line = cursor_pos[1]
 	local current_line = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1] or ""
 	local indentation = current_line:match("^%s*") or ""
-
 	vim.api.nvim_buf_set_lines(0, line, line, false, { indentation .. print_statement })
 	vim.api.nvim_win_set_cursor(0, { line + 1, 0 })
 end
-
 function M.toggle_copilot()
-	vim.api.nvim_exec(":CopilotToggle", true)
+	vim.cmd("CopilotToggle")
 end
-
 return M

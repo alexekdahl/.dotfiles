@@ -4,9 +4,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	group = lsp_fmt_group,
 	callback = function()
 		-- Get active clients for both efm and gopls
-		local efm = vim.lsp.get_active_clients({ name = "efm" })
-		local gopls = vim.lsp.get_active_clients({ name = "gopls" })
-		local nim_langserver = vim.lsp.get_active_clients({ name = "nim_langserver" })
+		local efm = vim.lsp.get_clients({ name = "efm" })
+		local gopls = vim.lsp.get_clients({ name = "gopls" })
+		local nim_langserver = vim.lsp.get_clients({ name = "nim_langserver" })
 
 		-- Check if both efm and gopls are not active, then return
 		if vim.tbl_isempty(efm) and vim.tbl_isempty(gopls) then
@@ -20,7 +20,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 		-- Format with gopls if available
 		if not vim.tbl_isempty(nim_langserver) then
-            print("Formatting with nim_langserver")
 			vim.lsp.buf.format({ name = "nim_langserver", async = true })
 		end
 
