@@ -156,10 +156,10 @@ return {
 		explorer = { enabled = true },
 		gitbrowse = { enabled = true },
 		indent = {
-            enabled = true,
-            animate = { enabled = false },
-            scope = { enabled = false },
-        },
+			enabled = true,
+			animate = { enabled = false },
+			scope = { enabled = false },
+		},
 	},
 	keys = keys,
 }
