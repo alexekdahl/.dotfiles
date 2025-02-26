@@ -141,7 +141,12 @@ local keys = {
 	{
 		"<leader>gh",
 		function()
-			Snacks.gitbrowse.open()
+			Snacks.gitbrowse.open({
+				open = function(url)
+					-- add to global clipboard instead of open in browser
+					vim.fn.setreg("+", url)
+				end,
+			})
 		end,
 		mode = { "n", "v" },
 	},
@@ -149,7 +154,7 @@ local keys = {
 
 return {
 	"folke/snacks.nvim",
-	priority = 1000,
+	priority = 10000,
 	lazy = false,
 	opts = {
 		picker = { enabled = true, layout = { cycle = false } },
@@ -161,5 +166,14 @@ return {
 			scope = { enabled = false },
 		},
 	},
+	init = function()
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "VeryLazy",
+			callback = function()
+				Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+				Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>ul")
+			end,
+		})
+	end,
 	keys = keys,
 }
