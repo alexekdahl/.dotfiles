@@ -15,7 +15,7 @@ alias vi="/usr/bin/vim"
 # -Misc-
 alias brewski="brew doctor; brew update && brew upgrade && brew cleanup -s"
 alias reload='source ~/.zshrc'
-alias update='sudo apt update && sudo apt upgrade -y; sudo snap refresh; brewski'
+alias update='sudo apt update && sudo apt upgrade -y; sudo snap refresh; brewski; sudo apt auto-remove'
 alias c='clear'
 alias :q='exit'
 alias lock='i3lock -c 191900'
