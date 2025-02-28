@@ -1,7 +1,3 @@
-# -History-
-alias h="history -10"
-alias hg="history | grep"
-
 # -Tmux-
 alias th="tmux new-session -A -s MISC"
 
@@ -10,7 +6,6 @@ alias zz="zellij kill-all-sessions -y; zellij delete-all-sessions -y"
 
 # -Vim-
 alias vim="nvim"
-alias vi="/usr/bin/vim"
 
 # -Misc-
 alias brewski="brew doctor; brew update && brew upgrade && brew cleanup -s"

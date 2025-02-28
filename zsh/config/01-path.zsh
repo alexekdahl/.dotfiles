@@ -1,5 +1,6 @@
 HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew";
 
+export XDG_CONFIG_HOME="$HOME/.config"
 export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar";
 export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew";
 export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH+:$MANPATH}:";
@@ -12,7 +13,7 @@ export CARGOBIN="$HOME/.cargo/bin"
 export PERSONAL="$HOME/dev/personal"
 export DOTFILES="$HOME/.dotfiles"
 export XDG_DATA_DIRS="$HOMEBREW_PREFIX/share:$XDG_DATA_DIRS"
-export XDG_CONFIG_HOME="$HOME/.config"
+export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 
 # Path
 export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH+:$PATH}";
