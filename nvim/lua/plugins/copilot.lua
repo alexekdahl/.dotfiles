@@ -2,12 +2,12 @@ return {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
 	event = "InsertEnter",
-	cond = function()
-		local should_disable = require("util.folder").should_disable
-		local current_dir = vim.fn.getcwd()
-		local ONPREM_REPO = vim.env.ONPREM_REPO or ""
-		return should_disable(current_dir, ONPREM_REPO)
-	end,
+	-- cond = function()
+	-- 	local should_disable = require("util.folder").should_disable
+	-- 	local current_dir = vim.fn.getcwd()
+	-- 	local ONPREM_REPO = vim.env.ONPREM_REPO or ""
+	-- 	return should_disable(current_dir, ONPREM_REPO)
+	-- end,
 	opts = {
 		panel = {
 			enabled = true,

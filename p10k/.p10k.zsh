@@ -24,7 +24,7 @@
     status                  # exit code of the last command
     command_execution_time  # duration of the last command
     background_jobs         # presence of background jobs
-    time                    # current time
+    # time                    # current time
     newline
   )
 
