@@ -2,9 +2,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-unsetopt correct_all
-setopt histignorealldups sharehistory
-
 # ------------------------------------------------------------------------------
 # Core config (aliases, functions, environment, etc.)
 # ------------------------------------------------------------------------------

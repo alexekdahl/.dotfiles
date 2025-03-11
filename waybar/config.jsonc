@@ -6,7 +6,6 @@
     "margin-top": 6,
     "margin-left": 8,
     "margin-right": 8,
-    
     "modules-left": [
         "hyprland/workspaces",
         "hyprland/window"
@@ -15,10 +14,12 @@
         "tray",
         "network",
         "pulseaudio",
+        "custom/pulseaudio-cycle",
+        "bluetooth",
         "battery",
-        "clock"
+        "custom/github",
+        "clock",
     ],
-    
     "hyprland/workspaces": {
         "on-click": "activate",
         "format-icons": {
@@ -46,24 +47,20 @@
 
         }
     },
-    
     "hyprland/window": {
         "format": " {}",
         "max-length": 50,
         "separate-outputs": true
     },
-    
     "tray": {
         "icon-size": 14,
         "spacing": 0
     }, 
-
     "clock": {
         "format": "  {:%H:%M}",
         "format-alt": " {:%Y-%m-%d}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
-    
     "network": {
         "format-wifi": "{essid}",
         "format-ethernet": "{ipaddr}/{cidr}",
@@ -73,7 +70,6 @@
         "tooltip-format": "{ifname} via {gwaddr}",
         "on-click-right": "alacritty -e nmtui",
     },
-    
     "pulseaudio": {
         "format": "󰕾 {volume}%",
         "format-bluetooth": "󰂰 {volume}%",
@@ -90,7 +86,14 @@
         },
         "on-click": "pavucontrol"
     },
-    
+    "custom/pulseaudio-cycle": {
+        "return-type": "json",
+        "exec-on-event": true,
+        "interval": "5s",
+        "exec": "pactl --format=json list sinks | jq -cM --unbuffered \"map(select(.name == \\\"$(pactl get-default-sink)\\\"))[0].properties | [.\\\"media.name\\\",.\\\"alsa.name\\\",.\\\"node.nick\\\",.\\\"alsa.long_card_name\\\"] | map(select(length>0))[0] | {text:.}\"",
+        "exec-if": "sleep 0.1",
+        "on-click": "pactl --format=json list sinks short | jq -cM --unbuffered \"[.[].name] | .[((index(\\\"$(pactl get-default-sink)\\\")+1)%length)]\" | xargs pactl set-default-sink"
+    },
     "battery": {
         "states": {
             "good": 95,
@@ -102,5 +105,22 @@
         "format-plugged": "{icon} {capacity}%",
         "format-alt": "{icon}  {time}",
         "format-icons": [" ", " ", " ", " "]
+    },
+    "custom/github": {
+        "format": "{} ",
+        "return-type": "json",
+        "default": [""],
+        "interval": 600,
+        "exec": "$HOME/.dotfiles/waybar/github.sh",
+        "on-click": "xdg-open https://github.com/notifications"
+    },
+    "bluetooth": {
+        // "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
+        "format": " {status}",
+        "format-disabled": "", // an empty format will hide the module
+        "format-connected": " {num_connections} connected",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
     }
 }

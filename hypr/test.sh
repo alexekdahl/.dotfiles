@@ -28,12 +28,12 @@ handle_lid_event() {
     if is_external_connected; then
       # Lid open + external connected: enable both displays
       echo "Enabling both displays"
-      hyprctl keyword monitor "$INTERNAL_MONITOR,preferred,auto,auto"
-      hyprctl keyword monitor "$EXTERNAL_MONITOR,preferred,auto,1"
+      hyprctl keyword monitor "$INTERNAL_MONITOR,preferred,0x0,1"
+      hyprctl keyword monitor "$EXTERNAL_MONITOR,preferred,0x0,1"
     else
       # Lid open, no external: enable internal only
       echo "Enabling internal display only"
-      hyprctl keyword monitor "$INTERNAL_MONITOR,preferred,auto,auto"
+      hyprctl keyword monitor "$INTERNAL_MONITOR,preferred,0x0,1"
     fi
   else
     if is_external_connected; then
@@ -55,7 +55,7 @@ if [ -n "$1" ]; then
 else
   # Try to detect lid state if not provided
   if grep -q "open" /proc/acpi/button/lid/LID/state 2>/dev/null || \
-     grep -q "open" /proc/acpi/button/lid/LID0/state 2>/dev/null; then
+    grep -q "open" /proc/acpi/button/lid/LID0/state 2>/dev/null; then
     LID_STATE="open"
   else
     LID_STATE="closed"

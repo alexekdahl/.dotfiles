@@ -25,7 +25,7 @@ alias spdt='speedtest --simple'
 alias myip='ip -br a'
 
 # -Go-
-alias test='go test ./... -count=1 --short --race | gocolorize'
+# alias test='go test ./... -count=1 --short --race | gocolorize'
 
 # -Python-
 alias py='python3'

@@ -118,7 +118,7 @@ function change_wallpaper() {
     selected_wallpaper=$(find ~/Pictures/wallpapers -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" \) | fzf --border=rounded --height 50%)
 
     if [[ -n $selected_wallpaper ]]; then
-        feh --bg-fill "$selected_wallpaper"
+        swww img "$selected_wallpaper"
     else
         echo "No wallpaper selected."
     fi

@@ -1,5 +1,4 @@
 * {
-    /* Use multiple fonts in the family to ensure fallbacks work */
     font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands", "Noto Sans", sans-serif;
     font-size: 13px;
 }
@@ -13,9 +12,9 @@
 }
 
 window#waybar {
-    background: rgba(30, 30, 46, 0.7);
+    background: rgba(40, 44, 52, 0.7); /* Darker One Dark Pro background */
     border-radius: 10px;
-    color: #cdd6f4;
+    color: #abb2bf; /* Foreground text */
     transition-property: background-color;
     transition-duration: 0.5s;
 }
@@ -31,22 +30,33 @@ window#waybar.hidden {
 #workspaces button {
     padding: 0 5px;
     background-color: transparent;
-    color: #cdd6f4;
+    color: #abb2bf;
     border-radius: 10px;
 }
 
+
 #workspaces button:hover {
-    background: rgba(57, 62, 99, 0.5);
+    background: rgba(56, 58, 66, 0.5);
     box-shadow: inherit;
 }
 
+
 #workspaces button.active {
-    background-color: rgba(49, 50, 68, 0.7);
+    background-color: rgba(56, 58, 66, 0.7);
 }
 
+
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+    color: #e06c75; /* Red */
 }
+
+
+#workspaces button:nth-child(1) { color: #61afef; } /* Blue */
+#workspaces button:nth-child(2) { color: #c678dd; } /* Purple */
+#workspaces button:nth-child(3) { color: #98c379; } /* Green */
+#workspaces button:nth-child(4) { color: #e5c07b; } /* Yellow */
+#workspaces button:nth-child(5) { color: #e06c75; } /* Red */
+
 
 #clock,
 #battery,
@@ -56,34 +66,47 @@ window#waybar.hidden {
 #temperature,
 #network,
 #pulseaudio,
+#pulseaudio-cycle,
 #tray,
 #mode,
+#bluetooth,
+#custom-github,
 #window {
     padding: 0 10px;
     margin: 0 4px;
-    color: #cdd6f4;
+    color: #abb2bf;
 }
-#tray{
+
+
+#tray {
     padding: 0 0 0 8px;
     margin: 0 0 0 2px;
 }
 
-#network {
-    padding: 0 10 0 0px;
-    margin: 0 4 0 0px;
+
+#custom-pulseaudio-cycle {
+    color: #56b6c2; /* Cyan */
+    padding: 0 10px 0 0;
+    margin: 0 4px 0 0;
 }
-/* MODULE-SPECIFIC STYLING */
+
+
+#network {
+    padding: 0 10px 0 0;
+    margin: 0 4px 0 0;
+}
+
 
 #battery {
-    color: #a6e3a1;
+    color: #98c379; /* Green */
 }
 
 #battery.charging, #battery.plugged {
-    color: #a6e3a1;
+    color: #98c379; /* Green */
 }
 
 #battery.critical:not(.charging) {
-    color: #f53c3c;
+    color: #e06c75; /* Red */
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -92,45 +115,56 @@ window#waybar.hidden {
 }
 
 #cpu {
-    color: #f38ba8;
+    color: #e06c75; /* Red */
 }
 
 #memory {
-    color: #fab387;
+    color: #d19a66; /* Orange */
 }
 
 #network {
-    color: #89b4fa;
+    color: #61afef; /* Blue */
 }
 
 #network.disconnected {
-    color: #f53c3c;
+    color: #e06c75; /* Red */
 }
 
 #pulseaudio {
-    color: #89dceb;
+    padding: 0 0 0 10px;
+    margin: 0 0 0 4px;
+    color: #56b6c2; /* Cyan */
 }
 
 #pulseaudio.muted {
-    color: #f38ba8;
+    color: #e06c75; /* Red */
 }
 
 #temperature {
-    color: #f9e2af;
+    color: #e5c07b; /* Yellow */
 }
 
 #temperature.critical {
-    color: #f53c3c;
+    color: #e06c75; /* Red */
 }
 
 #clock {
-    color: #cba6f7;
+    color: #c678dd; /* Purple */
     font-weight: bold;
 }
 
+#bluetooth {
+    color: #61afef; /* Blue */
+}
+
+#custom-github {
+    color: #2DA44E; /* GitHub Green */
+}
+
+
 @keyframes blink {
     to {
-        background-color: #f53c3c;
-        color: #181825;
+        background-color: #e06c75;
+        color: #282c34;
     }
 }
