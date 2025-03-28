@@ -5,6 +5,13 @@ local config = function()
 	local lspconfig = require("lspconfig")
 	local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+	lspconfig.nushell.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		handlers = handlers,
+		cmd = { "nu", "--lsp" },
+		filetypes = { "nu" },
+	})
 	require("mason-lspconfig").setup_handlers({
 		["gopls"] = function()
 			lspconfig.gopls.setup({

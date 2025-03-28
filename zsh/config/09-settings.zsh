@@ -7,7 +7,21 @@ unsetopt menu_complete   # do not autoselect the first completion entry
 unsetopt flowcontrol
 unsetopt correct_all
 
-setopt histignorealldups sharehistory
+# History file configuration
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=10000
+
+# History command configuration
+setopt extended_history       # Record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # Delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_space      # Ignore commands that start with space
+setopt hist_verify            # Show command with history expansion to user before running it
+setopt inc_append_history     # Add commands to HISTFILE in order of execution
+setopt share_history          # Share command history data
+setopt inc_append_history_time
+setopt HIST_FCNTL_LOCK
+
 setopt auto_menu         # show completion menu on successive tab press
 setopt complete_in_word
 setopt always_to_end

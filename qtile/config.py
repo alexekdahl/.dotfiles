@@ -5,6 +5,7 @@ from libqtile.layout.bsp import Bsp
 from libqtile import bar, widget, hook
 from libqtile.config import Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
+from qtile_extras.layout.decorations import GradientBorder
 
 from os.path import expanduser
 import subprocess
@@ -72,8 +73,10 @@ keys = [
     Key([SUPER], "w", lazy.window.kill()),
     # Application Launch
     Key([SUPER], "space", lazy.spawn(f"{HOME}/.dotfiles/scripts/start_alacritty")),
-    Key([ALT], "d", lazy.spawn(f"{HOME}/.config/rofi/scripts/launcher.sh")),
-    Key([ALT, SUPER], "m", lazy.spawn(f"{HOME}/.dotfiles/scripts/switch_to_monitor.sh")),
+    Key([ALT], "d", lazy.spawn(f"{HOME}/.dotfiles/rofi/scripts/launcher.sh")),
+    Key(
+        [ALT, SUPER], "m", lazy.spawn(f"{HOME}/.dotfiles/scripts/switch_to_monitor.sh")
+    ),
     Key([SUPER], "p", lazy.spawn("xfce4-screenshooter")),
     # System Control
     Key([SUPER, "control"], "r", lazy.restart()),

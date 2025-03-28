@@ -46,24 +46,43 @@ function fzf-history() {
   local preview_cmd='
     cmd=$(echo {} | awk "{print \$1}")
     if man "$cmd" &>/dev/null; then
-      man "$cmd" | col -bx
+      man "$cmd" | col -bx | bat --style=plain --color=always --language=man
     else
-      echo {} | bat --style=plain --color=always --language=sh
+      echo {} | sed "s/^[ \t]*[0-9]*\**[ \t]*//" | bat --style=plain --color=always --language=sh
     fi'
-
+  
+  # Atom One Dark inspired color scheme for fzf
+  local fzf_colors="--color=fg:#a2a8be,bg:#21252c,hl:#61afef,fg+:#abb2bf,bg+:#2c313a,hl+:#61afef,pointer:#e06c75,info:#e5c07b,spinner:#98c379,header:#56b6c2,prompt:#c678dd,marker:#e5c07b"
+  
+  # Color for different command types using your palette
+  local highlight_cmd='
+    sed "s/\(sudo\)/\x1b[38;2;224;108;117m\1\x1b[0m/g;
+         s/\(git\)/\x1b[38;2;152;195;121m\1\x1b[0m/g;
+         s/\(docker\|kubectl\)/\x1b[38;2;97;175;239m\1\x1b[0m/g;
+         s/\(vim\|nvim\|vi\)/\x1b[38;2;198;120;221m\1\x1b[0m/g;
+         s/\(ssh\|scp\)/\x1b[38;2;229;192;123m\1\x1b[0m/g"'
+  
   # Use minimal local options for safety
   setopt localoptions noglob
   
   if zmodload -F zsh/parameter p:{commands,history} 2>/dev/null && (( ${+commands[perl]} )); then
     selected=$(printf '%s\t%s\0' "${(kv)history[@]}" |
       perl -0 -ne 'if (!$seen{(/^\s*[0-9]+\**\t(.*)/s, $1)}++) { s/\n/\n\t/g; print; }' |
-      fzf --read0 --query="$LBUFFER" --height=10% --preview "$preview_cmd" --preview-window=top:10% --bind="ctrl-r:toggle-sort")
+      fzf --read0 --ansi --query="$LBUFFER" $fzf_colors --height=40% \
+          --preview "$preview_cmd" --preview-window=top:30% \
+          --bind="ctrl-r:toggle-sort" \
+          --header=$'\e[38;2;86;182;194mCTRL-R\e[0m: Toggle Sort | \e[38;2;152;195;121mEnter\e[0m: Execute | \e[38;2;229;192;123mESC\e[0m: Cancel' |
+      eval "$highlight_cmd")
   else
     selected=$(fc -rl 1 | awk '{
       cmd=$0; 
       sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); 
       if (!seen[cmd]++) print $0 
-    }' | fzf --query="$LBUFFER" --height=10%  --preview "$preview_cmd" --preview-window=top:10% --bind="ctrl-r:toggle-sort")
+    }' | eval "$highlight_cmd" |
+      fzf --ansi --query="$LBUFFER" $fzf_colors --height=40% \
+          --preview "$preview_cmd" --preview-window=top:30% \
+          --bind="ctrl-r:toggle-sort" \
+          --header=$'\e[38;2;86;182;194mCTRL-R\e[0m: Toggle Sort | \e[38;2;152;195;121mEnter\e[0m: Execute | \e[38;2;229;192;123mESC\e[0m: Cancel')
   fi
   
   ret=$?
@@ -72,7 +91,8 @@ function fzf-history() {
     if [[ $(awk '{print $1; exit}' <<< "$selected") =~ ^[1-9][0-9]* ]]; then
       zle vi-fetch-history -n $MATCH
     else
-      LBUFFER="$selected"
+      # Strip ANSI color codes when setting LBUFFER
+      LBUFFER=$(echo "$selected" | sed 's/\x1b\[[0-9;]*m//g' | sed 's/^[ \t]*[0-9]*\**[ \t]*//')
     fi
   fi
   
@@ -118,7 +138,7 @@ function change_wallpaper() {
     selected_wallpaper=$(find ~/Pictures/wallpapers -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" \) | fzf --border=rounded --height 50%)
 
     if [[ -n $selected_wallpaper ]]; then
-        swww img "$selected_wallpaper"
+        feh --bg-fill "$selected_wallpaper"
     else
         echo "No wallpaper selected."
     fi
