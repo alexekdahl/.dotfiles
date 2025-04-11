@@ -63,7 +63,7 @@ local config = function()
 			lspconfig.golangci_lint_ls.setup({
 				filetypes = { "go", "gomod" },
 				init_options = {
-					command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
+					command = { "golangci-lint", "run", "--issues-exit-code=1" },
 				},
 				root_dir = lspconfig.util.root_pattern("go.mod", ".golangci.yaml", ".git", "go.work"),
 			})
