@@ -5,7 +5,6 @@ return {
 	opts = {
 		ensure_installed = {
 			"efm",
-			"ts_ls",
 			"pyright",
 			"lua_ls",
 			"gopls",

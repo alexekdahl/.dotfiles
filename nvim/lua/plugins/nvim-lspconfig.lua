@@ -22,7 +22,7 @@ local config = function()
 				root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
 				settings = {
 					gopls = {
-						buildFlags = { "-tags=acap" },
+						buildFlags = { "-tags=acap", "-tags=task_engine_suite" },
 						analyses = {
 							unsusedparams = true,
 							unreachable = true,
@@ -49,12 +49,15 @@ local config = function()
 				handlers = handlers,
 				filetypes = { "nim" },
 				root_dir = lspconfig.util.root_pattern("nim.cfg", ".git", "*.nimble"),
-				nim = {
-					nimsuggestPath = vim.env.NIMBLEBIN .. "/nimsuggest",
-					autoCheckFile = true,
-					projectMapping = {
-						projectFile = "main.nim",
-						fileRegex = ".*\\.nim",
+				settings = {
+					nim = {
+						-- nimsuggestPath = vim.env.NIMBIN .. "/nimsuggest",
+						autoCheckFile = true,
+						maxNimsuggestProcesses = 2,
+						-- projectMapping = {
+						-- 	projectFile = "src/main.nim",
+						-- 	fileRegex = ".*\\.nim",
+						-- },
 					},
 				},
 			})

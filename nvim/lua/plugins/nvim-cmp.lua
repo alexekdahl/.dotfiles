@@ -6,9 +6,7 @@ return {
 	config = function()
 		local cmp = require("cmp")
 		local lspkind = require("lspkind")
-
 		vim.opt.completeopt = "menu,menuone,noselect"
-
 		cmp.setup({
 			completion = {
 				winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:None",

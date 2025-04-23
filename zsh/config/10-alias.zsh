@@ -6,6 +6,7 @@ alias zz="zellij kill-all-sessions -y; zellij delete-all-sessions -y"
 
 # -Vim-
 alias vim="nvim"
+alias v="\vim"
 
 # -Misc-
 alias brewski="brew doctor; brew update && brew upgrade && brew cleanup -s"

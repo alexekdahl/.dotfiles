@@ -7,4 +7,5 @@ config="$HOME/.dotfiles/rofi/config"
 rofi \
     -show drun \
     -config $config.rasi \
-    -theme $theme.rasi
+    -theme $theme.rasi \
+    -normal-window

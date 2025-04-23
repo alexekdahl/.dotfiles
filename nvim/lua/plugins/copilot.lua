@@ -31,7 +31,7 @@ return {
 			},
 		},
 		filetypes = {
-			["*"] = false,
+			["*"] = true,
 			python = true,
 			go = true,
 			yaml = true,
