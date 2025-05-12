@@ -6,6 +6,7 @@ WORDCHARS=''
 unsetopt menu_complete   # do not autoselect the first completion entry
 unsetopt flowcontrol
 unsetopt correct_all
+typeset -U path
 
 # History file configuration
 HISTFILE=~/.zsh_history
