@@ -2,24 +2,34 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# compile zsh file, and source them - first run is slower
+function zsource() {
+  local file=$1
+  local zwc="${file}.zwc"
+  if [[ -f "$file" && (! -f "$zwc" || "$file" -nt "$file") ]]; then
+    zcompile "$file"
+  fi
+  source "$file"
+}
+
 # ------------------------------------------------------------------------------
 # Core config (aliases, functions, environment, etc.)
 # ------------------------------------------------------------------------------
 
 for conf_file in "$HOME/.dotfiles/zsh/config/"*.zsh; do
-  source "${conf_file}"
+  zsource "${conf_file}"
 done
 unset conf_file
 
 if [[ -r "$HOME/.secret/work.zsh" ]]; then
-    source "$HOME/.secret/work.zsh"
+    zsource "$HOME/.secret/work.zsh"
 fi
 
 # ------------------------------------------------------------------------------
 # Plugins & Theme
 # ------------------------------------------------------------------------------
 
-source "$HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme"
-source "$HOME/.p10k.zsh"
-source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+zsource "$HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme"
+zsource "$HOME/.p10k.zsh"
+zsource "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+zsource "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"

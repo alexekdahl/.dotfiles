@@ -1,6 +1,5 @@
 {
   "cmp-nvim-lsp": { "branch": "main", "commit": "a8912b88ce488f411177fc8aed358b04dc246d7b" },
-  "copilot-lsp": { "branch": "main", "commit": "3510b84737cab09e66714fce5ba18f6249fdf60c" },
   "copilot.lua": { "branch": "master", "commit": "7ba73866b9b3c696f80579c470c6eec374d3acec" },
   "efmls-configs-nvim": { "branch": "main", "commit": "e071a098ac1e56e349af649c25e982348f5504e5" },
   "git-blame.nvim": { "branch": "master", "commit": "8503b199edf9a666fe7b1a989cf14e3c26b2eb03" },
