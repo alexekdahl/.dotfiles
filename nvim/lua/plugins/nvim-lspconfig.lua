@@ -22,7 +22,7 @@ local config = function()
 				root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
 				settings = {
 					gopls = {
-						buildFlags = { "-tags=acap", "-tags=task_engine_suite" },
+						buildFlags = { "-tags=acap" },
 						analyses = {
 							unsusedparams = true,
 							unreachable = true,
@@ -65,9 +65,6 @@ local config = function()
 		["golangci_lint_ls"] = function()
 			lspconfig.golangci_lint_ls.setup({
 				filetypes = { "go", "gomod" },
-				init_options = {
-					command = { "golangci-lint", "run", "--issues-exit-code=1" },
-				},
 				root_dir = lspconfig.util.root_pattern("go.mod", ".golangci.yaml", ".git", "go.work"),
 			})
 		end,
@@ -125,10 +122,6 @@ local config = function()
 						lua = {
 							require("efmls-configs.linters.luacheck"),
 							require("efmls-configs.formatters.stylua"),
-						},
-						python = {
-							require("efmls-configs.linters.flake8"),
-							require("efmls-configs.formatters.black"),
 						},
 					},
 				},
