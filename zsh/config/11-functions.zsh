@@ -2,17 +2,16 @@
 function ff() {
     local choice
     local file
-
-    # Check if in a bare repository
-    if [ "$(git rev-parse --is-bare-repository)" = "true" ]; then
+    
+    # Check if in a bare repository (suppress errors for non-git folders)
+    if git rev-parse --is-bare-repository 2>/dev/null | grep -q "true"; then
         choice=$(find . -maxdepth 1 -type d | grep -v './.bare' | sed 's|^\./||' | fzf)
         if [ -z "$choice" ]; then
             return 0
         fi
-
         cd "$choice"
     fi
-
+    
     file=$(fzf --preview='bat --style=numbers --color=always {}')
     [ -n "$file" ] && nvim "$file"
 }

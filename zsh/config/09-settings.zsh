@@ -1,6 +1,22 @@
+# Load completion list module
 zmodload -i zsh/complist
+
+# Ensure cache directory exists
+[[ -d "$HOME/.zsh/cache" ]] || mkdir -p "$HOME/.zsh/cache"
+
+# Initialize completion with optimization
 autoload -Uz compinit
-compinit
+# Check if dump exists and is less than 24 hours old
+if [[ -f "$HOME/.zcompdump" && "$HOME/.zcompdump" -nt /usr/share/zsh ]] && 
+   [[ ! "$HOME/.zcompdump.zwc" -ot "$HOME/.zcompdump" ]]; then
+    # Skip the security check (compaudit) for faster startup
+    compinit -C
+else
+    # Full initialization with security check
+    compinit
+    # Compile the dump file for faster loading next time
+    [[ -f "$HOME/.zcompdump" && ! -f "$HOME/.zcompdump.zwc" ]] && zcompile "$HOME/.zcompdump"
+fi
 WORDCHARS=''
 
 unsetopt menu_complete   # do not autoselect the first completion entry
