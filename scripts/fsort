@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+shopt -s nullglob nocaseglob
+
+D="${1:-$HOME/Downloads}"
+declare -A MAP=(
+  [Images]="jpg jpeg png gif webp heic svg"
+  [Docs]="doc docx xls xlsx ppt pptx txt md rtf odt ods odp csv tsv"
+  [PDFs]="pdf"
+  [Archives]="zip tar gz bz2 xz 7z rar"
+  [Video]="mp4 mkv mov avi webm mov"
+  [Code]="py js ts go rs cpp h hpp java cs sh zsh fish ps1 json yaml yml toml ini"
+  [Installers]="dmg pkg deb rpm msi"
+  [ACAPs]="eap upd exe"
+)
+
+mkdir -p "$D"
+for f in "$D"/*; do
+  [[ -f "$f" ]] || continue
+  ext="${f##*.}"; ext="${ext,,}"
+  dest="Other"
+  for folder in "${!MAP[@]}"; do
+    for e in ${MAP[$folder]}; do
+      if [[ "$ext" == "$e" ]]; then dest="$folder"; break 2; fi
+    done
+  done
+  mkdir -p "$D/$dest"
+  mv -n -- "$f" "$D/$dest/"
+done

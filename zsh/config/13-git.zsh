@@ -40,14 +40,12 @@ function gadd {
 # git commit browser
 function glog {
   git log --color=always \
-      --pretty=format:"%Cred%h%Creset %Cgreen(%cr) %C(bold blue)<%an> -%C(yellow)%d%Creset %s  %Creset" "$@" \
-      --abbrev-commit |
-  fzf --ansi --reverse --preview "git show --color=always --name-only {1}" \
-      --bind "ctrl-m:execute:
-                (grep -o '[a-f0-9]\{7\}' | head -1 |
-                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
-                {}
-FZF-EOF"
+    --pretty=format:"%Cred%h%Creset %Cgreen(%cr) %C(bold blue)<%an> -%C(yellow)%d%Creset %s%Creset" "$@" \
+    --abbrev-commit |
+  fzf --ansi --reverse --no-sort --tiebreak=index \
+      --preview "git show --color=always --name-only {1}" \
+      --bind "ctrl-m:execute:git show --color=always {1} | less -R" \
+      --bind "ctrl-s:execute:git checkout {1}" 
 }
 
 function gst() {
@@ -108,41 +106,3 @@ function grename() {
     git push --set-upstream origin "$2"
   fi
 }
-
-function git-stats() {
-  # ANSI color codes
-  BOLD="\033[1m"
-  GREEN="\033[32m"
-  CYAN="\033[36m"
-  RESET="\033[0m"
-
-  author_name=$1
-  total_lines=$(git ls-files | xargs wc -l | tail -n 1 | awk '{print $1}')
-  my_lines=$(git ls-files | parallel -j+0 "git blame --line-porcelain {} | grep -F \"author ${author_name}\" | wc -l" | awk '{sum += $1} END {print sum}')
-  total_commits=$(git rev-list --count HEAD)
-  my_commits=$(git rev-list --count HEAD --author="$author_name")
-  lines_percentage=$(echo "scale=2; $my_lines / $total_lines * 100" | bc)
-  commits_percentage=$(echo "scale=2; $my_commits / $total_commits * 100" | bc)
-  top_3=$(git log --pretty=format:'%aN' | sort | uniq -c | sort -rn | head -3)
-
-  echo -e "${BOLD}${GREEN}Git Repository Statistics:${RESET}"
-  echo -e "${BOLD}${CYAN}Total lines in repo:${RESET} $total_lines"
-  echo -e "${BOLD}${CYAN}Lines added by you:${RESET} $my_lines"
-  echo -e "${BOLD}${CYAN}Total commits:${RESET} $total_commits"
-  echo -e "${BOLD}${CYAN}Your commits:${RESET} $my_commits"
-  echo -e "${BOLD}${CYAN}Your lines (percentage):${RESET} $lines_percentage%"
-
-  echo -e "\n${BOLD}${CYAN}Top 3 contributors by commit count:${RESET}\n$top_3"
-
-  echo -e "\n${BOLD}${CYAN}Line percentages for top 3 contributors:${RESET}"
-  echo "$top_3" | while read -r line; do
-    contributor="$(echo "$line" | awk '{for (i=2; i<=NF; i++) printf $i (i<NF?" ":"")}')"
-    contrib_lines=$(git ls-files | parallel -j+0 "git blame --line-porcelain {} | grep -F \"author ${contributor}\" | wc -l" | awk '{sum += $1} END {print sum}')
-    if [ -z "$contrib_lines" ]; then
-      contrib_lines=0
-    fi
-    contrib_lines_percentage=$(echo "scale=2; $contrib_lines / $total_lines * 100" | bc)
-    echo -e "${BOLD}${CYAN}Lines added by ${contributor}:${RESET} $contrib_lines (${contrib_lines_percentage}%)"
-  done
-}
-

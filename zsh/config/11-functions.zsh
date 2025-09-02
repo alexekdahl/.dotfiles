@@ -142,3 +142,39 @@ function change_wallpaper() {
         echo "No wallpaper selected."
     fi
 }
+
+function ls() {
+  local minrows=20
+  local termwidth=$COLUMNS
+  local maxcols=3
+
+  eza --icons=always --colour=never -1 --sort=type | awk -v minrows="$minrows" -v termwidth="$termwidth" -v maxcols="$maxcols" '
+  {
+      lines[NR] = $0
+      if (length($0) > maxlen) maxlen = length($0)
+  }
+  END {
+      colwidth = maxlen + 3
+      maxcols_fit = int(termwidth / colwidth)
+      if (maxcols_fit < 1) maxcols_fit = 1
+      if (maxcols_fit > maxcols) maxcols_fit = maxcols
+
+      rows = (NR < minrows ? NR : minrows)
+      cols = int((NR + rows - 1) / rows)
+
+      if (cols > maxcols_fit) {
+          cols = maxcols_fit
+          rows = int((NR + cols - 1) / cols)
+      }
+
+      for (r = 1; r <= rows; r++) {
+          for (c = 0; c < cols; c++) {
+              idx = r + c * rows
+              if (idx <= NR) {
+                  printf "%-*s", colwidth, lines[idx]
+              }
+          }
+          print ""
+      }
+  }'
+}
