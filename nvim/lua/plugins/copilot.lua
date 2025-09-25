@@ -3,12 +3,25 @@ return {
 	cmd = "Copilot",
 	event = "InsertEnter",
 	cond = function()
-		local should_disable = require("util.folder").should_disable
 		local current_dir = vim.fn.getcwd()
 		local ONPREM_REPO = vim.env.ONPREM_REPO or ""
-		return should_disable(current_dir, ONPREM_REPO)
+		return not require("util.folder").should_disable(current_dir, ONPREM_REPO)
 	end,
 	opts = {
+		server = {
+			type = "binary",
+			custom_server_filepath = nil,
+		},
+		server_opts_overrides = {
+			settings = {
+				advanced = {
+					inlineSuggestCount = 1,
+				},
+				telemetry = {
+					telemetryLevel = "off",
+				},
+			},
+		},
 		panel = {
 			enabled = true,
 			auto_refresh = false,
@@ -38,7 +51,6 @@ return {
 			lua = true,
 			nim = true,
 			gitcommit = true,
-			puml = true,
 			sh = function()
 				if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
 					return false

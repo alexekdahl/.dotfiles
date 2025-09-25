@@ -5,13 +5,6 @@ local config = function()
 	local lspconfig = require("lspconfig")
 	local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-	lspconfig.nushell.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		handlers = handlers,
-		cmd = { "nu", "--lsp" },
-		filetypes = { "nu" },
-	})
 	require("mason-lspconfig").setup_handlers({
 		["gopls"] = function()
 			lspconfig.gopls.setup({
@@ -24,7 +17,7 @@ local config = function()
 					gopls = {
 						buildFlags = { "-tags=acap" },
 						analyses = {
-							unsusedparams = true,
+							unusedparams = true,
 							unreachable = true,
 							nilness = true,
 							unusedwrite = true,
@@ -36,7 +29,7 @@ local config = function()
 						annotations = {
 							inline = false,
 						},
-						staticcheck = true,
+						-- staticcheck = true,
 						gofumpt = true,
 					},
 				},
@@ -60,12 +53,6 @@ local config = function()
 						-- },
 					},
 				},
-			})
-		end,
-		["golangci_lint_ls"] = function()
-			lspconfig.golangci_lint_ls.setup({
-				filetypes = { "go", "gomod" },
-				root_dir = lspconfig.util.root_pattern("go.mod", ".golangci.yaml", ".git", "go.work"),
 			})
 		end,
 		["lua_ls"] = function()

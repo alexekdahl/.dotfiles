@@ -110,24 +110,17 @@ local keys = {
 		desc = "Goto T[y]pe Definition",
 	},
 	{
-		"gt",
-		function()
-			Snacks.picker.lsp_type_definitions()
-		end,
-		desc = "Goto T[y]pe Definition",
-	},
-	{
 		"<leader>gl",
 		function()
-			Snacks.picker.git_log({
-				finder = "git_log",
+			Snacks.picker.git_log_file({
+                finder = "git_log",
+				layout = "vertical",
 				format = "git_log",
 				preview = "git_show",
 				confirm = "git_checkout",
-				layout = "vertical",
 			})
 		end,
-		desc = "Git Log",
+		desc = "Git Log (file)",
 	},
 	{
 		"<leader>e",

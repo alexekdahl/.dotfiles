@@ -5,10 +5,10 @@ M.should_disable = function(current_dir, disabled_folders)
 	for folder in string.gmatch(disabled_folders, "([^,]+)") do
 		-- Check if the current directory path contains the disabled folder path
 		if string.find(current_dir, folder, 1, true) then
-			return false
+			return true
 		end
 	end
-	return true
+	return false
 end
 
 return M

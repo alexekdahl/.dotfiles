@@ -12,8 +12,9 @@ white = "#abb2bf"
 yellow = "#e5c07b"
 
 [colors.cursor]
-cursor = "#61afef"
-text = "#b1b8c5"
+# cursor = "#f2f2f2"
+cursor = "#e69500"
+text = "#21252b"
 
 [colors.normal]
 black = "#21252b"
