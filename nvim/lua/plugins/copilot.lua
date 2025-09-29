@@ -23,12 +23,7 @@ return {
 			},
 		},
 		panel = {
-			enabled = true,
-			auto_refresh = false,
-			layout = {
-				position = "right",
-				ratio = 0.5,
-			},
+			enabled = false,
 		},
 		suggestion = {
 			enabled = true,

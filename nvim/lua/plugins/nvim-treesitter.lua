@@ -3,6 +3,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter-textobjects",
+		"IndianBoy42/tree-sitter-just",
 	},
 	config = function()
 		require("nvim-treesitter.configs").setup({

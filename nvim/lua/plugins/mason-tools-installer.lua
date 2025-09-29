@@ -11,7 +11,6 @@ return {
 			"stylua",
 			"luacheck",
 			"goimports",
-			"golangci-lint",
 			"golines",
 		},
 	},

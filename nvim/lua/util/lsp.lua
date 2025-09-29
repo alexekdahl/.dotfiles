@@ -22,14 +22,17 @@ local M = {}
 -- set keymaps on the active lsp server
 M.on_attach = function(client, bufnr)
 	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-	client.server_capabilities.document_formatting = true
+
+	if client and client.server_capabilities then
+		client.server_capabilities.documentFormattingProvider = true
+	end
 
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
 	mapkey("<leader>r", vim.lsp.buf.rename, "n", bufopts)
 
-	-- Set autocommands conditional on server_capabilities
-	if client.server_capabilities.documentHighlightProvider then
+	-- Set autocommands conditional on server capabilities
+	if client and client.server_capabilities.documentHighlightProvider then
 		autocmd_clear({ group = augroup_highlight, buffer = bufnr })
 		autocmd({ "CursorHold", augroup_highlight, vim.lsp.buf.document_highlight, bufnr })
 		autocmd({ "CursorMoved", augroup_highlight, vim.lsp.buf.clear_references, bufnr })

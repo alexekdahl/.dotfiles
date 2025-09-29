@@ -1,16 +1,16 @@
 return {
-	"williamboman/mason-lspconfig.nvim",
+	"mason-org/mason-lspconfig.nvim",
 	event = "BufReadPre",
-	dependencies = "williamboman/mason.nvim",
+	dependencies = { "mason-org/mason.nvim", "neovim/nvim-lspconfig" },
 	opts = {
 		ensure_installed = {
 			"efm",
 			"pyright",
 			"lua_ls",
 			"gopls",
-			"golangci_lint_ls",
 			"nim_langserver",
+			"just",
 		},
-		automatic_installation = true,
+		automatic_enable = true,
 	},
 }
