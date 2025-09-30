@@ -1,32 +1,45 @@
 -- Auto-format on save
-local lsp_fmt_group = vim.api.nvim_create_augroup("LspFormattingGroup", {})
+local lsp_fmt_group = vim.api.nvim_create_augroup("LspFormattingGroup", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
 	group = lsp_fmt_group,
-	callback = function()
-		-- Get active clients for both efm and gopls
-		local efm = vim.lsp.get_clients({ name = "efm" })
-		local gopls = vim.lsp.get_clients({ name = "gopls" })
-		local nim_langserver = vim.lsp.get_clients({ name = "nim_langserver" })
+	callback = function(args)
+		local bufnr = args.buf
+		local ft = vim.bo[bufnr].filetype
 
-		-- Check if both efm and gopls are not active, then return
-		if vim.tbl_isempty(efm) and vim.tbl_isempty(gopls) then
+		local preferred = {
+			go = "gopls",
+			nim = "nim_langserver",
+			lua = "efm",
+			python = "efm",
+			rust = "rust_analyzer",
+		}
+
+		local want = preferred[ft]
+		if not want then
 			return
 		end
 
-		-- Format with gopls if available
-		if not vim.tbl_isempty(gopls) then
-			vim.lsp.buf.format({ name = "gopls", async = true })
+		-- Only look at clients attached to this buffer
+		local clients = vim.lsp.get_clients({ bufnr = bufnr })
+		local available = vim.tbl_filter(function(c)
+			return c.name == want
+				and (
+					c.server_capabilities.documentFormattingProvider
+					or c.server_capabilities.documentRangeFormattingProvider
+				)
+		end, clients)
+
+		if vim.tbl_isempty(available) then
+			return
 		end
 
-		-- Format with gopls if available
-		if not vim.tbl_isempty(nim_langserver) then
-			vim.lsp.buf.format({ name = "nim_langserver", async = true })
-		end
-
-		-- Format with efm if available
-		if not vim.tbl_isempty(efm) then
-			vim.lsp.buf.format({ name = "efm", async = true })
-		end
+		vim.lsp.buf.format({
+			bufnr = bufnr,
+			async = false,
+			filter = function(c)
+				return c.name == want
+			end,
+		})
 	end,
 })
 

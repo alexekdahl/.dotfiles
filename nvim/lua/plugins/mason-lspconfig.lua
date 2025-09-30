@@ -10,6 +10,7 @@ return {
 			"gopls",
 			"nim_langserver",
 			"just",
+			"rust_analyzer",
 		},
 		automatic_enable = true,
 	},

@@ -19,6 +19,23 @@ local function config()
 	local common = base(caps)
 
 	vim.lsp.config(
+		"rust_analyzer",
+		vim.tbl_deep_extend("force", common, {
+			filetypes = { "rust" },
+			settings = {
+				["rust-analyzer"] = {
+					cargo = {
+						allFeatures = true,
+					},
+					checkOnSave = {
+						command = "clippy",
+					},
+				},
+			},
+		})
+	)
+
+	vim.lsp.config(
 		"gopls",
 		vim.tbl_deep_extend("force", common, {
 			filetypes = { "go", "gomod", "gowork", "gotmpl" },
