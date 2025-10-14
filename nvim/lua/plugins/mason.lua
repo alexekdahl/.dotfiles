@@ -1,8 +1,7 @@
 local icons = require("config.icons").icons
 return {
-	"williamboman/mason.nvim",
+	"mason-org/mason.nvim",
 	cmd = "Mason",
-	event = "BufReadPre",
 	opts = {
 		ui = {
 			icons = {

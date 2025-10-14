@@ -113,7 +113,7 @@ local keys = {
 		"<leader>gl",
 		function()
 			Snacks.picker.git_log_file({
-                finder = "git_log",
+				finder = "git_log",
 				layout = "vertical",
 				format = "git_log",
 				preview = "git_show",

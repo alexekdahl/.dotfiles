@@ -4,7 +4,10 @@ local plugins = "plugins"
 
 local opts = {
 	defaults = { lazy = false },
-	ui = { backdrop = 100 },
+	ui = {
+        backdrop = 100,
+        border = "rounded", -- or "single", "double", "shadow", "none"
+    },
 	performance = {
 		cache = { enabled = true },
 		reset_packpath = true,

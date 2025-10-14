@@ -2,6 +2,7 @@ return {
 	{
 		"olimorris/onedarkpro.nvim",
 		priority = 1000,
+		event = "VimEnter",
 		opts = {
 			colors = {
 				red = "#E06C75",

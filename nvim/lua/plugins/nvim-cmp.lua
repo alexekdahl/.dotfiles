@@ -1,15 +1,18 @@
 return {
 	"hrsh7th/nvim-cmp",
 	dependencies = {
+		"hrsh7th/cmp-nvim-lsp",
 		"onsails/lspkind.nvim",
 	},
+	event = { "LspAttach", "InsertEnter" },
 	config = function()
 		local cmp = require("cmp")
 		local lspkind = require("lspkind")
 		vim.opt.completeopt = "menu,menuone,noselect"
 		cmp.setup({
-			completion = {
-				winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:None",
+			window = {
+				completion = cmp.config.window.bordered(),
+				documentation = cmp.config.window.bordered(),
 			},
 			mapping = cmp.mapping.preset.insert({
 				["<C-k>"] = cmp.mapping.select_prev_item(),

@@ -12,7 +12,7 @@ end
 local function config()
 	local caps = vim.lsp.protocol.make_client_capabilities()
 	local ok, cmp = pcall(require, "cmp_nvim_lsp")
-	if ok and cmp and cmp.default_capabilities then
+	if ok then
 		caps = cmp.default_capabilities(caps)
 	end
 
@@ -126,12 +126,10 @@ end
 
 return {
 	"neovim/nvim-lspconfig",
+	ft = { "go", "lua", "python", "rust", "nim", "just" },
 	dependencies = {
-		"williamboman/mason-lspconfig.nvim", -- or mason-org/mason-lspconfig.nvim v2
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		"mason-org/mason-lspconfig.nvim",
 		"creativenull/efmls-configs-nvim",
-		"hrsh7th/nvim-cmp",
-		"hrsh7th/cmp-nvim-lsp",
 	},
 	config = config,
 }
