@@ -6,19 +6,28 @@ zmodload -i zsh/complist
 
 # Initialize completion with optimization
 autoload -Uz compinit
-# Check if dump exists and is less than 24 hours old
-if [[ -f "$HOME/.zcompdump" && "$HOME/.zcompdump" -nt /usr/share/zsh ]] && 
-   [[ ! "$HOME/.zcompdump.zwc" -ot "$HOME/.zcompdump" ]]; then
-    # Skip the security check (compaudit) for faster startup
-    compinit -C
+
+# Smart compinit: only run full check once per day
+# This uses zsh glob qualifiers:
+#   N = NULL_GLOB (don't error if file doesn't exist)
+#   mh+24 = modified more than 24 hours ago
+if [[ -n "$HOME"/.zcompdump(#qNmh+24) ]]; then
+  # Dump is old (>24h) or doesn't exist - do full init
+  compinit
 else
-    # Full initialization with security check
-    compinit
-    # Compile the dump file for faster loading next time
-    [[ -f "$HOME/.zcompdump" && ! -f "$HOME/.zcompdump.zwc" ]] && zcompile "$HOME/.zcompdump"
+  # Dump is fresh - skip security check for speed
+  compinit -C
 fi
+
+# Compile dump file in background if needed
+if [[ ! -f "$HOME/.zcompdump.zwc" || "$HOME/.zcompdump" -nt "$HOME/.zcompdump.zwc" ]]; then
+  zcompile "$HOME/.zcompdump" &!
+fi
+
+# Don't treat certain characters as word separators
 WORDCHARS=''
 
+# Completion behavior
 unsetopt menu_complete   # do not autoselect the first completion entry
 unsetopt flowcontrol
 unsetopt correct_all
@@ -30,19 +39,21 @@ HISTSIZE=50000
 SAVEHIST=10000
 
 # History command configuration
-setopt extended_history       # Record timestamp of command in HISTFILE
-setopt hist_expire_dups_first # Delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt hist_ignore_space      # Ignore commands that start with space
-setopt hist_verify            # Show command with history expansion to user before running it
-setopt inc_append_history     # Add commands to HISTFILE in order of execution
-setopt share_history          # Share command history data
+setopt extended_history          # Record timestamp of command in HISTFILE
+setopt hist_expire_dups_first    # Delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_space         # Ignore commands that start with space
+setopt hist_verify               # Show command with history expansion to user before running it
+setopt inc_append_history        # Add commands to HISTFILE in order of execution
+setopt share_history             # Share command history data
 setopt inc_append_history_time
 setopt HIST_FCNTL_LOCK
 
-setopt auto_menu         # show completion menu on successive tab press
+# Completion options
+setopt auto_menu                 # show completion menu on successive tab press
 setopt complete_in_word
 setopt always_to_end
 
+# Completion styles
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' special-dirs true
@@ -58,7 +69,7 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
         adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
         clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
         gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
-        ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
+        ldap lp mail mailman mailnull man messagebus mldonkey mysql nagios \
         named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
         operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
         rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
@@ -67,8 +78,7 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 # ... unless we really want to.
 zstyle '*' single-ignored show
 
-zle -N expand-or-complete-with-dots
-
+# History search keybindings
 # Start typing + [Up-Arrow] - fuzzy find history forward
 autoload -U up-line-or-beginning-search
 zle -N up-line-or-beginning-search
@@ -79,5 +89,5 @@ autoload -U down-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
-# automatically load bash completion functions
+# Automatically load bash completion functions
 autoload -U +X bashcompinit && bashcompinit
