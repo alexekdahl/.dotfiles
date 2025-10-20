@@ -16,7 +16,7 @@ local keys = {
 				win = {
 					list = {
 						keys = {
-							["<c-Down>"] = "preview_scroll_down",
+							["<C-Down>"] = { "preview_scroll_down", mode = { "i", "n" } },
 							["<Up>"] = { "preview_scroll_up", mode = { "i", "n" } },
 							["<Left>"] = { "preview_scroll_left", mode = { "i", "n" } },
 							["<Right>"] = { "preview_scroll_right", mode = { "i", "n" } },
@@ -142,6 +142,13 @@ local keys = {
 			})
 		end,
 		mode = { "n", "v" },
+	},
+	{
+		"<leader>fs",
+		function()
+			Snacks.picker.resume()
+		end,
+		desc = "Resume Last Picker",
 	},
 }
 

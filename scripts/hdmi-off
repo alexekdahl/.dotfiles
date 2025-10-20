@@ -1,6 +1,0 @@
-#! /bin/bash
-
-xrandr --output HDMI-1 --off &
-feh --bg-fill ~/Pictures/wallpapers/blue-tree.jpg &
-
-# vi: ft=bash

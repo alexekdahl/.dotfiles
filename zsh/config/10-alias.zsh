@@ -4,6 +4,7 @@ alias th="tmux new-session -A -s MISC"
 # -Vim-
 alias vim="nvim"
 alias v="\vim"
+alias vi="\vim"
 
 # -Misc-
 alias brewski="brew doctor; brew update && brew upgrade && brew cleanup -s"
@@ -13,6 +14,9 @@ alias busy="cat /dev/urandom | hexdump -C | grep 'ca fe'"
 
 # -Network-
 alias ports='lsof -i -n -P'
+alias listen='lsof -i -n -P | grep LISTEN'
+alias portsproc='lsof -i -n -P | awk '\''NR==1 || !seen[$1]++'\'''
+
 alias spdt='speedtest --simple'
 alias myip='ip -br a'
 
