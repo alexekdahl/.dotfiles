@@ -1,0 +1,15 @@
+#!/bin/bash
+# ssh tunnel to build server
+ssh -D 8080 -C -q -N build &
+sleep 1
+SSH_PID=$!
+
+echo "Tunnel started (PID: $SSH_PID)"
+echo "Ctrl+C (or close browser) to stop the tunnel and reset settings"
+
+# set proxy settings for Chrome (or any other browser but dont know how)
+google-chrome --proxy-server="socks5://localhost:8080" &> /dev/null
+
+# when browser closes, kill SSH tunnel
+kill $SSH_PID
+echo "Tunnel stopped"
