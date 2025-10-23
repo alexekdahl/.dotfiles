@@ -5,11 +5,15 @@ set -e
 DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
 BREWFILE="$DOTFILES/Brewfile"
 ZSH_DIR="$HOME/.zsh"
+FONTS_DIR="$HOME/.local/share/fonts"
+NVIM_CONFIG_DIR="$HOME/.config/nvim"
 
-# Install zsh plugins
-echo "Installing zsh plugins..."
 mkdir -p "$ZSH_DIR"
+mkdir -p "$FONTS_DIR"
+mkdir -p "$HOME/.local/bin"
+mkdir -p "$HOME/.config/tmux"
 
+echo "Installing zsh plugins..."
 if [[ -d "$ZSH_DIR/zsh-defer" ]]; then
     echo "Updating zsh-defer..."
     cd "$ZSH_DIR/zsh-defer" && git pull
@@ -63,8 +67,9 @@ fi
 ln -s "$DOTFILES/p10k/.p10k.zsh" "$HOME/.p10k.zsh"
 echo "Created symlink: ~/.p10k.zsh -> $DOTFILES/p10k/.p10k.zsh"
 
-# Create tmux config directory
-mkdir -p "$HOME/.config/tmux"
+ln -s "$DOTFILES/git/git-bare-clone" "$HOME/.local/bin/"
+ln -s "$DOTFILES/git/git-rebase-own" "$HOME/.local/bin/"
+
 
 # Symlink tmux.conf
 if [[ -f "$HOME/.config/tmux/tmux.conf" && ! -L "$HOME/.config/tmux/tmux.conf" ]]; then
@@ -111,10 +116,10 @@ fi
 
 # Symlink Neovim config directory
 echo "Setting up Neovim configuration..."
-NVIM_CONFIG_DIR="$HOME/.config/nvim"
-rm -rf "$NVIM_CONFIG_DIR"  # Remove if it exists
-mkdir -p "$(dirname "$NVIM_CONFIG_DIR")"  # Ensure parent exists
 ln -s "$DOTFILES/nvim" "$NVIM_CONFIG_DIR"
+
+echo "Setting up vim configuration..."
+ln -s "$DOTFILES/vim/.vimrc" "$HOME/.vimrc"
 
 # Load Homebrew into PATH if it exists
 if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
@@ -133,9 +138,6 @@ fi
 
 # Install fonts
 echo "Installing fonts..."
-FONTS_DIR="$HOME/.local/share/fonts"
-mkdir -p "$FONTS_DIR"
-
 if [[ -f "$DOTFILES/fonts/fonts.zip" ]]; then
     echo "Extracting fonts from fonts.zip..."
     unzip -o "$DOTFILES/fonts/fonts.zip" -d "$FONTS_DIR"
@@ -149,9 +151,7 @@ else
     echo "fonts.zip not found at $DOTFILES/fonts/fonts.zip"
 fi
 
-
 $TPM_DIR/bin/install_plugins
 nvim --headless "+Lazy! install" +qa
 
 echo "Done! Run 'exec zsh' to start using your shell configuration."
-
