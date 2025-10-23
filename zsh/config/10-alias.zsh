@@ -4,7 +4,7 @@ alias th="tmux new-session -A -s MISC"
 # -Vim-
 alias vim="nvim"
 alias v="\vim"
-alias vi="\nvim"
+alias vi="vim"
 
 # -Misc-
 alias brewski="brew doctor; brew update && brew upgrade && brew cleanup -s"

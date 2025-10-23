@@ -1,0 +1,7 @@
+brew "bpytop"
+brew "gh"
+brew "fastfetch"
+brew "fnm"
+brew "go"
+brew "just"
+brew "upx"

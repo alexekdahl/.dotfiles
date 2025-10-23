@@ -15,7 +15,7 @@ fi
 # Source and execute the main setup script
 if [[ -f "$DOTFILES/setup.sh" ]]; then
     echo "Running setup script..."
-    bash "$DOTFILES/setup.sh"
+    bash "$DOTFILES/setup/setup.sh"
 else
     echo "Error: setup.sh not found in $DOTFILES"
     exit 1

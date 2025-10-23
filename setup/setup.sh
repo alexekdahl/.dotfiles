@@ -3,15 +3,18 @@
 set -e
 
 DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
-BREWFILE="$DOTFILES/Brewfile"
+BREWFILE="$DOTFILES/setup/Brewfile"
 ZSH_DIR="$HOME/.zsh"
 FONTS_DIR="$HOME/.local/share/fonts"
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
+ALACRITTY_CONFIG_DIR="$HOME/.config/alacritty"
+TMUX_CONFIG_DIR="$HOME/.config/tmux"
 
 mkdir -p "$ZSH_DIR"
 mkdir -p "$FONTS_DIR"
+mkdir -p "$ALACRITTY_CONFIG_DIR"
+mkdir -p "$TMUX_CONFIG_DIR"
 mkdir -p "$HOME/.local/bin"
-mkdir -p "$HOME/.config/tmux"
 
 echo "Installing zsh plugins..."
 if [[ -d "$ZSH_DIR/zsh-defer" ]]; then
@@ -113,6 +116,10 @@ if ! command -v brew &> /dev/null; then
     echo "Homebrew not found. Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
+
+# Symlink alacritty config directory
+echo "Setting up alacritty configuration..."
+ln -s "$DOTFILES/alcaritty" "$ALACRITTY_CONFIG_DIR"
 
 # Symlink Neovim config directory
 echo "Setting up Neovim configuration..."
