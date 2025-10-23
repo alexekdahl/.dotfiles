@@ -13,7 +13,7 @@ else
 fi
 
 # Source and execute the main setup script
-if [[ -f "$DOTFILES/setup.sh" ]]; then
+if [[ -f "$DOTFILES/setup/setup.sh" ]]; then
     echo "Running setup script..."
     bash "$DOTFILES/setup/setup.sh"
 else
