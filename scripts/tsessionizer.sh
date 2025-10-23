@@ -52,20 +52,12 @@ manage_tmux_session() {
     if [ -z $TMUX ]; then
         if ! tmux has-session -t "$session_name" 2>/dev/null; then
             tmux new-session -d -s "$session_name" -n "CODE" -c "$project_dir"
-            if [[ "$session_name" != "_DOTFILES" ]]; then
-                tmux new-window -t "$session_name" -n "TERMINAL" -c "$project_dir"
-            fi
-            tmux select-window -t "$session_name:1"
             tmux attach-session -t "$session_name"
         fi
     else
         if ! tmux has-session -t "$session_name" 2>/dev/null; then
             tmux new-session -d -s "$session_name" -n "CODE" -c "$project_dir"
-            if [[ "$session_name" != "_DOTFILES" ]]; then
-                tmux new-window -t "$session_name" -n "TERMINAL" -c "$project_dir"
-            fi
         fi
-        tmux select-window -t "$session_name:1"
         tmux switch-client -t "$session_name"
     fi
 }

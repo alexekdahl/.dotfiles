@@ -6,14 +6,6 @@ DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
 BREWFILE="$DOTFILES/Brewfile"
 ZSH_DIR="$HOME/.zsh"
 
-# Install Homebrew packages
-if [[ -f "$BREWFILE" ]]; then
-    echo "Installing Homebrew packages from Brewfile..."
-    brew bundle install --file="$BREWFILE"
-else
-    echo "Warning: Brewfile not found at $BREWFILE"
-fi
-
 # Install zsh plugins
 echo "Installing zsh plugins..."
 mkdir -p "$ZSH_DIR"
@@ -102,7 +94,7 @@ echo "Created symlink: ~/.config/tmux/modules -> $DOTFILES/tmux/modules"
 
 # Install TPM (Tmux Plugin Manager)
 echo "Installing TPM (Tmux Plugin Manager)..."
-TPM_DIR="$HOME/.config/tmux/plugins/tpm"
+TPM_DIR="$HOME/.local/share/tmux/plugins/tpm"
 
 if [[ -d "$TPM_DIR" ]]; then
     echo "Updating TPM..."
@@ -112,4 +104,54 @@ else
     git clone --depth=1 https://github.com/tmux-plugins/tpm "$TPM_DIR"
 fi
 
-echo "Done."
+if ! command -v brew &> /dev/null; then
+    echo "Homebrew not found. Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# Symlink Neovim config directory
+echo "Setting up Neovim configuration..."
+NVIM_CONFIG_DIR="$HOME/.config/nvim"
+rm -rf "$NVIM_CONFIG_DIR"  # Remove if it exists
+mkdir -p "$(dirname "$NVIM_CONFIG_DIR")"  # Ensure parent exists
+ln -s "$DOTFILES/nvim" "$NVIM_CONFIG_DIR"
+
+# Load Homebrew into PATH if it exists
+if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [[ -f "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f "$HOME/.linuxbrew/bin/brew" ]]; then
+    eval "$($HOME/.linuxbrew/bin/brew shellenv)"
+fi
+
+# Install Homebrew packages
+if [[ -f "$BREWFILE" ]]; then
+    echo "Installing Homebrew packages from Brewfile..."
+    brew bundle install --file="$BREWFILE"
+fi
+
+# Install fonts
+echo "Installing fonts..."
+FONTS_DIR="$HOME/.local/share/fonts"
+mkdir -p "$FONTS_DIR"
+
+if [[ -f "$DOTFILES/fonts/fonts.zip" ]]; then
+    echo "Extracting fonts from fonts.zip..."
+    unzip -o "$DOTFILES/fonts/fonts.zip" -d "$FONTS_DIR"
+    
+    # Rebuild font cache
+    if command -v fc-cache &> /dev/null; then
+        fc-cache -fv "$FONTS_DIR"
+        echo "Font cache rebuilt"
+    fi
+else
+    echo "fonts.zip not found at $DOTFILES/fonts/fonts.zip"
+fi
+
+
+$TPM_DIR/bin/install_plugins
+nvim --headless "+Lazy! install" +qa
+
+echo "Done! Run 'exec zsh' to start using your shell configuration."
+

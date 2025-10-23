@@ -86,14 +86,23 @@ local function config()
 	vim.lsp.config(
 		"pyright",
 		vim.tbl_deep_extend("force", common, {
+			filetypes = { "python" },
 			settings = {
 				pyright = { disableOrganizeImports = false },
 				python = {
 					analysis = {
+						typeCheckingMode = "standard",
 						useLibraryCodeForTypes = true,
 						autoSearchPaths = true,
-						diagnosticMode = "workspace",
+						diagnosticMode = "openFilesOnly",
 						autoImportCompletions = true,
+						diagnosticSeverityOverrides = {
+							reportUnusedImport = "error",
+							reportUnusedVariable = "error",
+							reportGenericTypeIssues = "error",
+							reportOptionalMemberAccess = "warning",
+							reportOptionalSubscription = "warning",
+						},
 					},
 				},
 			},
