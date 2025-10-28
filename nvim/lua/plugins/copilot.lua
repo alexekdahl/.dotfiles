@@ -2,6 +2,7 @@ return {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
 	event = "InsertEnter",
+	enabled = false,
 	cond = function()
 		local current_dir = vim.fn.getcwd()
 		local ONPREM_REPO = vim.env.ONPREM_REPO or ""

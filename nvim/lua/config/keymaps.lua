@@ -12,7 +12,6 @@ mapkey("<C-p>", cmd.paste_no_registry, "v")
 mapkey("<leader>v", cmd.visual_inner_word, "n")
 mapkey("<leader>y", cmd.yank_inner_word, "n")
 mapkey("<leader>o", cmd.add_line_below, "n")
-mapkey("<leader>s", cmd.save_all, "n")
 
 mapkey("<leader>t", cmd.go_test, "n")
 

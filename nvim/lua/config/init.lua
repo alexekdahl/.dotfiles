@@ -5,9 +5,9 @@ local plugins = "plugins"
 local opts = {
 	defaults = { lazy = false },
 	ui = {
-        backdrop = 100,
-        border = "rounded", -- or "single", "double", "shadow", "none"
-    },
+		backdrop = 100,
+		border = "rounded", -- or "single", "double", "shadow", "none"
+	},
 	performance = {
 		cache = { enabled = true },
 		reset_packpath = true,
@@ -37,4 +37,5 @@ require("config.globals")
 require("config.options")
 require("config.keymaps")
 require("config.autocmds")
+require("util.argslist").setup()
 require("lazy").setup(plugins, opts)
