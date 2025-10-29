@@ -82,4 +82,73 @@ end
 function M.toggle_copilot()
 	vim.cmd("CopilotToggle")
 end
+
+function M.telescope_marksman()
+	local ok, marksman = pcall(require, "marksman")
+	if not ok then
+		return
+	end
+	local ok, _ = pcall(require, "telescope")
+	if not ok then
+		marksman.show_marks()
+		return
+	end
+
+	local marks = marksman.get_marks()
+
+	if vim.tbl_isempty(marks) then
+		vim.notify("No marks in current project", vim.log.levels.INFO)
+		return
+	end
+
+	local pickers = require("telescope.pickers")
+	local finders = require("telescope.finders")
+	local conf = require("telescope.config").values
+	local actions = require("telescope.actions")
+	local action_state = require("telescope.actions.state")
+
+	local entries = {}
+	for name, mark in pairs(marks) do
+		table.insert(entries, {
+			value = name,
+			display = name .. " - " .. vim.fn.fnamemodify(mark.file, ":~:.") .. ":" .. mark.line,
+			ordinal = name .. " " .. mark.file .. " " .. (mark.text or ""),
+			filename = mark.file,
+			lnum = mark.line,
+			col = mark.col,
+			text = mark.text,
+		})
+	end
+
+	table.sort(entries, function(a, b)
+		local mark_a = marks[a.value]
+		local mark_b = marks[b.value]
+		return (mark_a.created_at or 0) > (mark_b.created_at or 0)
+	end)
+
+	pickers
+		.new({}, {
+			prompt_title = "Project Marks",
+			finder = finders.new_table({
+				results = entries,
+				entry_maker = function(entry)
+					return entry
+				end,
+			}),
+			sorter = conf.generic_sorter({}),
+			previewer = conf.grep_previewer({}),
+			attach_mappings = function(prompt_bufnr)
+				actions.select_default:replace(function()
+					actions.close(prompt_bufnr)
+					local selection = action_state.get_selected_entry()
+					if selection then
+						marksman.goto_mark(selection.value)
+					end
+				end)
+
+				return true
+			end,
+		})
+		:find()
+end
 return M
