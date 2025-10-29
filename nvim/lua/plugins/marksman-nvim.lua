@@ -44,5 +44,10 @@ return {
 			desc = "Go to mark 4",
 		},
 	},
-	opts = {},
+	opts = {
+		search_in_ui = false,
+		sort_marks = false,
+		max_marks = 5,
+		silent = true,
+	},
 }

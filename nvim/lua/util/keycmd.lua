@@ -151,4 +151,38 @@ function M.telescope_marksman()
 		})
 		:find()
 end
+
+function M.snacks_marksman()
+	local ok, marksman = pcall(require, "marksman")
+	if not ok then
+		return {}
+	end
+
+	local marks = marksman.get_marks()
+	if vim.tbl_isempty(marks) then
+		return {}
+	end
+
+	local results = {}
+	for name, mark in pairs(marks) do
+		local entry = {
+			text = name,
+			file = mark.file,
+			pos = { tonumber(mark.line) or 1, tonumber(mark.col) or 1 },
+			display = string.format("%s %s:%d", name, vim.fn.fnamemodify(mark.file, ":~:."), tonumber(mark.line) or 1),
+			ordinal = name .. " " .. vim.fn.fnamemodify(mark.file, ":t"),
+			mark_name = name,
+		}
+		table.insert(results, entry)
+	end
+
+	-- Sort by creation time (newest first)
+	table.sort(results, function(a, b)
+		local mark_a = marks[a.mark_name]
+		local mark_b = marks[b.mark_name]
+		return (mark_a.created_at or 0) > (mark_b.created_at or 0)
+	end)
+
+	return results
+end
 return M
