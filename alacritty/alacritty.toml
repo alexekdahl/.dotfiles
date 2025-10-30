@@ -33,7 +33,7 @@ y = 0
 
 [general]
 import = [
-    "~/.config/alacritty/themes/onedark.toml"
+    "~/.config/alacritty/themes/conifer.toml"
 ]
 
 [window]

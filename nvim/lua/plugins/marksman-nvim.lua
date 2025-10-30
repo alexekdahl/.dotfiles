@@ -49,5 +49,17 @@ return {
 		sort_marks = false,
 		max_marks = 5,
 		silent = true,
+		minimal = true,
+		highlights = {
+			ProjectMarksTitle = { fg = "#60B197" },
+			ProjectMarksNumber = { fg = "#AA749F" },
+			ProjectMarksName = { fg = "#85B884" },
+			ProjectMarksFile = { fg = "#ABBAB5" },
+			ProjectMarksLine = { fg = "#D19B6E" },
+			ProjectMarksText = { fg = "#727272" },
+			ProjectMarksHelp = { fg = "#60B197" },
+			ProjectMarksBorder = { fg = "#525252" },
+			ProjectMarksSearch = { fg = "#FFE591" },
+		},
 	},
 }
