@@ -6,17 +6,6 @@ return {
 	lazy = false,
 	opts = {
 		picker = {
-			sources = {
-				marksman = {
-					name = "Marksman Marks",
-					finder = cmd.snacks_marksman,
-					confirm = function(item)
-						if item and item.mark_name then
-							require("marksman").goto_mark(item.mark_name)
-						end
-					end,
-				},
-			},
 			enabled = true,
 			layout = { cycle = false },
 		},
@@ -184,13 +173,6 @@ return {
 				Snacks.picker.resume()
 			end,
 			desc = "Resume Last Picker",
-		},
-		{
-			"<leader>b",
-			function()
-				Snacks.picker.pick("marksman")
-			end,
-			desc = "Find Marks",
 		},
 	},
 }

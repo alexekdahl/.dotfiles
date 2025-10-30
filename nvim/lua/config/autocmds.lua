@@ -43,14 +43,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
-local filetype_group = vim.api.nvim_create_augroup("FileTypeSettings", { clear = true })
--- Disable colorcolumn for Markdown and text files
-vim.api.nvim_create_autocmd("FileType", {
-	group = filetype_group,
-	pattern = { "markdown", "text" },
-	command = "setlocal colorcolumn=",
-})
-
 -- Cursorline highlighting control
 --  Only have it on in the active buffer
 local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
