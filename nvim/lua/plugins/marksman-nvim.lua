@@ -50,6 +50,7 @@ return {
 		max_marks = 5,
 		silent = true,
 		minimal = true,
+		undo_levels = 1,
 		highlights = {
 			ProjectMarksTitle = { fg = "#60B197" },
 			ProjectMarksNumber = { fg = "#AA749F" },
