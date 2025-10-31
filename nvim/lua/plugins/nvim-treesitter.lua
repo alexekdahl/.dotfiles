@@ -39,9 +39,6 @@ return {
 				autopairs = {
 					enable = true,
 				},
-				rainbow = {
-					enable = true,
-				},
 				refactor = {
 					highlight_definitions = {
 						enable = true,
@@ -55,8 +52,6 @@ return {
 					keymaps = {
 						init_selection = "<c-space>",
 						node_incremental = "<c-space>",
-						scope_incremental = "<c-s>",
-						node_decremental = "<M-space>",
 					},
 				},
 				textobjects = {
@@ -64,12 +59,8 @@ return {
 						enable = true,
 						lookahead = true,
 						keymaps = {
-							["aa"] = "@parameter.outer",
-							["ia"] = "@parameter.inner",
 							["af"] = "@function.outer",
 							["if"] = "@function.inner",
-							["ac"] = "@class.outer",
-							["ic"] = "@class.inner",
 						},
 					},
 					move = {

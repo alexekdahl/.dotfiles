@@ -51,8 +51,8 @@ function fzf-history() {
     fi'
   
   # Atom One Dark inspired color scheme for fzf
-  local fzf_colors="--color=fg:#a2a8be,bg:#21252c,hl:#61afef,fg+:#abb2bf,bg+:#2c313a,hl+:#61afef,pointer:#e06c75,info:#e5c07b,spinner:#98c379,header:#56b6c2,prompt:#c678dd,marker:#e5c07b"
-  
+  local fzf_colors="--color=fg:#D6D6D6,bg:#151515,hl:#85B884,fg+:#E1E1E1,bg+:#202020,hl+:#B3DBA9,pointer:#D7867D,info:#FFE591,spinner:#60B197,header:#ABBAB5,prompt:#AA749F,marker:#F6AD6C"  
+
   # Color for different command types using your palette
   local highlight_cmd='
     sed "s/\(sudo\)/\x1b[38;2;224;108;117m\1\x1b[0m/g;
