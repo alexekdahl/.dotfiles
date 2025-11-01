@@ -46,10 +46,10 @@ return {
 	},
 	opts = {
 		search_in_ui = false,
-		sort_marks = false,
 		max_marks = 4,
 		silent = true,
 		minimal = true,
+		disable_default_keys = true,
 		highlights = {
 			ProjectMarksTitle = { fg = "#60B197" },
 			ProjectMarksNumber = { fg = "#AA749F" },
