@@ -1,5 +1,44 @@
-local on_attach = require("util.lsp").on_attach
-local handlers = require("util.lsp").handlers
+local autocmd_clear = vim.api.nvim_clear_autocmds
+local augroup_highlight = vim.api.nvim_create_augroup("custom-lsp-references", { clear = true })
+local mapkey = require("util.keymapper").mapkey
+
+local handlers = {
+	["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { signs = false }),
+}
+
+local autocmd = function(args)
+	local event = args[1]
+	local group = args[2]
+	local callback = args[3]
+
+	vim.api.nvim_create_autocmd(event, {
+		group = group,
+		buffer = args[4],
+		callback = function()
+			callback()
+		end,
+		once = args.once,
+	})
+end
+
+local function on_attach(client, bufnr)
+	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+	if client and client.server_capabilities then
+		client.server_capabilities.documentFormattingProvider = true
+	end
+
+	local bufopts = { noremap = true, silent = true, buffer = bufnr }
+
+	mapkey("<leader>r", vim.lsp.buf.rename, "n", bufopts)
+
+	-- Set autocommands conditional on server capabilities
+	if client and client.server_capabilities.documentHighlightProvider then
+		autocmd_clear({ group = augroup_highlight, buffer = bufnr })
+		autocmd({ "CursorHold", augroup_highlight, vim.lsp.buf.document_highlight, bufnr })
+		autocmd({ "CursorMoved", augroup_highlight, vim.lsp.buf.clear_references, bufnr })
+	end
+end
 
 local function base(common_caps)
 	return {

@@ -1,5 +1,14 @@
 local opt = vim.opt
 local cmd = vim.cmd
+local global = vim.g
+
+global.mapleader = " "
+global.maplocalleader = " "
+global.editorconfig = true
+global.gitblame_display_virtual_text = 0
+global.gitblame_message_template = "<author> • <date> • <sha> • <summary>"
+global.gitblame_date_format = "%x"
+global.background = "dark"
 
 opt.relativenumber = true
 opt.hlsearch = false

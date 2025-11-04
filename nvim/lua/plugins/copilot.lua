@@ -1,3 +1,14 @@
+local function should_disable(current_dir, disabled_folders)
+	disabled_folders = disabled_folders or ""
+	for folder in string.gmatch(disabled_folders, "([^,]+)") do
+		-- Check if the current directory path contains the disabled folder path
+		if string.find(current_dir, folder, 1, true) then
+			return true
+		end
+	end
+	return false
+end
+
 return {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
@@ -6,7 +17,7 @@ return {
 	cond = function()
 		local current_dir = vim.fn.getcwd()
 		local ONPREM_REPO = vim.env.ONPREM_REPO or ""
-		return not require("util.folder").should_disable(current_dir, ONPREM_REPO)
+		return not should_disable(current_dir, ONPREM_REPO)
 	end,
 	opts = {
 		server = {
