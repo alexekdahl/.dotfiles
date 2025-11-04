@@ -3,6 +3,7 @@ local M = {}
 -- Cache store with TTLs
 local cache = {
 	diagnostics = { value = "", time = 0, ttl = 100 },
+	mode = { value = "n", time = 0, ttl = 50 }, -- Cache mode with 50ms TTL
 }
 
 local function now()
@@ -12,6 +13,18 @@ end
 local function is_cache_valid(key)
 	local c = cache[key]
 	return c.value ~= "" and (now() - c.time) < c.ttl
+end
+
+-- Get cached mode with debouncing
+local function get_cached_mode()
+	if is_cache_valid("mode") then
+		return cache.mode.value
+	end
+
+	local mode = vim.api.nvim_get_mode().mode
+	cache.mode.value = mode
+	cache.mode.time = now()
+	return mode
 end
 
 -- Diagnostics with caching
@@ -136,7 +149,7 @@ end
 
 -- Build statusline
 function M.statusline()
-	local mode = vim.api.nvim_get_mode().mode
+	local mode = get_cached_mode() -- Use cached mode
 	local mode_map = {
 		n = "%#SLineNormal#",
 		i = "%#SLineInsert#",
@@ -163,7 +176,7 @@ function M.statusline()
 		" ",
 		get_git_blame(),
 		"%=", -- right align
-		color,
+		"%#Comment#",
 		get_diagnostics(),
 		" %p%% %l:%c ",
 	}, "")
@@ -183,14 +196,14 @@ function M.setup()
 
 	-- Define highlight groups with force=true to override
 	local bg = "#161716"
-	vim.api.nvim_set_hl(0, "SLineNormal", { fg = "#525252", bg = bg })
-	vim.api.nvim_set_hl(0, "SLineInsert", { fg = "#89b4fa", bg = bg })
-	vim.api.nvim_set_hl(0, "SLineVisual", { fg = "#f5c2e7", bg = bg })
-	vim.api.nvim_set_hl(0, "SLineCommand", { fg = "#fab387", bg = bg })
+	vim.api.nvim_set_hl(0, "SLineNormal", { fg = "#aa749f", bg = bg, bold = true })
+	vim.api.nvim_set_hl(0, "SLineInsert", { fg = "#89b4fa", bg = bg, bold = true })
+	vim.api.nvim_set_hl(0, "SLineVisual", { fg = "#85b884", bg = bg, bold = true })
+	vim.api.nvim_set_hl(0, "SLineCommand", { fg = "#f6ad6c", bg = bg, bold = true })
 
 	-- Override default statusline highlights
-	vim.api.nvim_set_hl(0, "StatusLine", { fg = "#525252", bg = bg })
-	vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#3a3a3a", bg = bg })
+	vim.api.nvim_set_hl(0, "StatusLine", { fg = "#525252", bg = bg, bold = true })
+	vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#3a3a3a", bg = bg, bold = true })
 
 	-- Efficient autocmds with grouped updates
 	local group = vim.api.nvim_create_augroup("StatuslineOptimized", { clear = true })
@@ -218,11 +231,25 @@ function M.setup()
 		callback = trim_blame_cache,
 	})
 
-	-- Mode change updates
+	-- Mode change updates with debouncing
+	local mode_timer = nil
 	vim.api.nvim_create_autocmd("ModeChanged", {
 		group = group,
 		callback = function()
-			vim.cmd.redrawstatus()
+			-- Cancel previous timer if exists
+			if mode_timer then
+				vim.loop.timer_stop(mode_timer)
+				mode_timer = nil
+			end
+
+			-- Invalidate mode cache immediately
+			cache.mode.time = 0
+
+			-- Schedule redraw after a small delay
+			mode_timer = vim.defer_fn(function()
+				vim.cmd.redrawstatus()
+				mode_timer = nil
+			end, 50) -- 50ms delay
 		end,
 	})
 
@@ -230,7 +257,7 @@ function M.setup()
 	vim.api.nvim_create_autocmd("ColorScheme", {
 		group = group,
 		callback = function()
-			vim.api.nvim_set_hl(0, "SLineNormal", { fg = "#525252", bg = bg })
+			vim.api.nvim_set_hl(0, "SLineNormal", { fg = "#aa749f", bg = bg })
 			vim.api.nvim_set_hl(0, "SLineInsert", { fg = "#89b4fa", bg = bg })
 			vim.api.nvim_set_hl(0, "SLineVisual", { fg = "#f5c2e7", bg = bg })
 			vim.api.nvim_set_hl(0, "SLineCommand", { fg = "#fab387", bg = bg })
