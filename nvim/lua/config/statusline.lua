@@ -216,7 +216,7 @@ function M.statusline()
 end
 
 -- Setup function
-function M.setup()
+local function setup()
 	_G.statusline = M.statusline
 	vim.o.statusline = "%!v:lua.statusline()"
 	vim.o.laststatus = 3
@@ -274,4 +274,4 @@ function M.setup()
 	})
 end
 
-return M
+setup()
