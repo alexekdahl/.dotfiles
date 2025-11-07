@@ -1,9 +1,6 @@
 return {
 	"lewis6991/gitsigns.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    cond = function()
-        return vim.fn.isdirectory(".git") == 1
-    end,
+	event = { "BufReadPre", "BufNewFile" },
 	opts = {
 		signs = {
 			add = { text = "│" },

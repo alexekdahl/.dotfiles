@@ -48,7 +48,7 @@ return {
 		search_in_ui = false,
 		max_marks = 4,
 		silent = true,
-		minimal = false,
+		minimal = true,
 		disable_default_keys = true,
 		debounce_ms = 100,
 		highlights = {
