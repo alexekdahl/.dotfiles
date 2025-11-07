@@ -18,5 +18,6 @@ mapkey("<leader>t", cmd.go_test, "n")
 
 mapkey("<C-b>", cmd.toggle_quickfix, "n")
 mapkey("<leader>l", cmd.color_print, "n")
+mapkey("<C-s>", cmd.smart_replace, "n")
 mapkey("]", vim.diagnostic.goto_next, "n")
 mapkey("[", vim.diagnostic.goto_prev, "n")
