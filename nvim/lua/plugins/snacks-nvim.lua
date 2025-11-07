@@ -1,5 +1,3 @@
-local cmd = require("util.keycmd")
-
 return {
 	"folke/snacks.nvim",
 	priority = 10000,
