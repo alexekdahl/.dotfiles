@@ -1,9 +1,8 @@
 return {
-	"lucasadelino/conifer.nvim",
+	"alexekdahl/tachyon.nvim",
 	priority = 1000,
 	event = "VimEnter",
 	opts = {
-		transparent = true,
 		styles = {
 			variables = { fg = "#fafafa" },
 			Normal = { fg = "#fafafa" },
@@ -11,7 +10,7 @@ return {
 		},
 	},
 	config = function(_, opts)
-		require("conifer").setup(opts)
-		vim.cmd.colorscheme("conifer")
+		require("tachyon").setup(opts)
+		vim.cmd.colorscheme("tachyon")
 	end,
 }

@@ -110,6 +110,16 @@ local function get_git_blame()
 	local line = vim_api_nvim_win_get_cursor(0)[1]
 	local cache_key = bufnr * 100000 + line -- Numeric key is faster
 
+	-- skip invalid or non-file buffers
+	if not vim.api.nvim_buf_is_valid(bufnr) then
+		return ""
+	end
+	local file = vim_api_nvim_buf_get_name(bufnr)
+	if file == "" or file:match("^%s*$") or vim.bo[bufnr].buftype ~= "" then
+		return ""
+	end
+
+	-- Check cache
 	local cached = blame_cache[cache_key]
 	if cached then
 		local now = vim_loop_now()
@@ -132,14 +142,17 @@ local function get_git_blame()
 	blame_timer = vim.defer_fn(function()
 		last_fetch_time = vim_loop_now()
 
+		-- validate again inside async block
+		if not vim.api.nvim_buf_is_valid(bufnr) then
+			return
+		end
 		local file = vim_api_nvim_buf_get_name(bufnr)
-		if file == "" then
+		if file == "" or file:match("^%s*$") or vim.bo[bufnr].buftype ~= "" then
 			return
 		end
 
-		-- Faster file check
 		local stat = vim.loop.fs_stat(file)
-		if not stat or not stat.type == "file" then
+		if not stat or stat.type ~= "file" then
 			return
 		end
 
@@ -147,6 +160,14 @@ local function get_git_blame()
 			{ "git", "blame", "-L", line .. "," .. line, "--porcelain", file },
 			{ text = true },
 			vim.schedule_wrap(function(result)
+				-- buffer could have been closed by now
+				if not vim.api.nvim_buf_is_valid(bufnr) then
+					return
+				end
+				if file == "" or file:match("^%s*$") or vim.bo[bufnr].buftype ~= "" then
+					return
+				end
+
 				if result.code ~= 0 then
 					blame_cache[cache_key] = { v = "", t = vim_loop_now() }
 					last_displayed_blame = ""
@@ -155,7 +176,6 @@ local function get_git_blame()
 				end
 
 				local output = result.stdout
-				-- Use single pattern match for efficiency
 				local sha, author, time_str, summary =
 					output:match("^(%x+).-\nauthor ([^\n]+).-\nauthor%-time (%d+).-\nsummary ([^\n]+)")
 
@@ -172,7 +192,6 @@ local function get_git_blame()
 					last_displayed_blame = formatted
 					blame_cache_count = blame_cache_count + 1
 
-					-- Trim cache if needed
 					if blame_cache_count > MAX_BLAME_ENTRIES then
 						blame_cache = {}
 						blame_cache_count = 0

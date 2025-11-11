@@ -45,14 +45,13 @@ return {
 		},
 	},
 	opts = {
-		search_in_ui = false,
 		max_marks = 4,
 		silent = true,
 		minimal = true,
 		disable_default_keys = true,
 		debounce_ms = 100,
 		highlights = {
-			ProjectMarksTitle = { fg = "#60B197" },
+			ProjectMarksTitle = { fg = "#FFE591" },
 			ProjectMarksNumber = { fg = "#525252" },
 			ProjectMarksName = { fg = "#85B884" },
 			ProjectMarksFile = { fg = "#ABBAB5" },
