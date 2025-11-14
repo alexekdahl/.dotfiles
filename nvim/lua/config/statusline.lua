@@ -1,247 +1,189 @@
 local M = {}
 
--- Pre-allocate and reuse tables to reduce GC pressure
-local diag_parts = {}
-local statusline_parts = {}
+local diag_cache = { value = "", ts = 0 }
+local mode_cache = { value = "n", ts = 0 }
+local blame_cache = {}
+local last_blame = ""
+local last_blame_ts = 0
+local blame_timer
 
--- Flatten cache structure and use numeric indices for faster access
-local cache_diag_value = ""
-local cache_diag_time = 0
-local cache_mode_value = "n"
-local cache_mode_time = 0
-
--- Pre-compute constants
 local DIAG_TTL = 100
 local MODE_TTL = 50
 local BLAME_TTL = 5000
-local DEBOUNCE_MS = 800
-local MAX_BLAME_ENTRIES = 50
+local DEBOUNCE = 800
+local MAX_BLAME = 50
 
--- Use locals for frequently accessed functions
-local vim_loop_now = vim.loop.now
-local vim_diagnostic_get = vim.diagnostic.get
-local vim_api_nvim_get_current_buf = vim.api.nvim_get_current_buf
-local vim_api_nvim_get_mode = vim.api.nvim_get_mode
-local vim_api_nvim_win_get_cursor = vim.api.nvim_win_get_cursor
-local vim_api_nvim_buf_get_name = vim.api.nvim_buf_get_name
-local string_format = string.format
-local table_concat = table.concat
+local icons = {
+	[vim.diagnostic.severity.ERROR] = " ",
+	[vim.diagnostic.severity.WARN] = " ",
+	[vim.diagnostic.severity.INFO] = " ",
+	[vim.diagnostic.severity.HINT] = "󰌵 ",
+}
 
--- Pre-define diagnostic levels with icons (avoid recreating)
-local DIAG_ERROR = vim.diagnostic.severity.ERROR
-local DIAG_WARN = vim.diagnostic.severity.WARN
-local DIAG_INFO = vim.diagnostic.severity.INFO
-local DIAG_HINT = vim.diagnostic.severity.HINT
-local DIAG_ICONS = { " ", " ", " ", "󰌵 " }
-
--- Git blame state
-local blame_cache = {}
-local blame_timer = nil
-local last_fetch_time = 0
-local last_displayed_blame = ""
-local blame_cache_count = 0
-
--- Pre-computed mode color map (faster lookup)
-local MODE_COLORS = {
+local mode_colors = {
 	n = "%#SLineNormal#",
 	i = "%#SLineInsert#",
 	v = "%#SLineVisual#",
 	V = "%#SLineVisual#",
 	["\22"] = "%#SLineVisual#",
 	c = "%#SLineCommand#",
+	t = "%#SLineCommand#",
 	s = "%#SLineVisual#",
 	S = "%#SLineVisual#",
 	["\19"] = "%#SLineVisual#",
 	R = "%#SLineInsert#",
 	r = "%#SLineInsert#",
 	["!"] = "%#SLineCommand#",
-	t = "%#SLineCommand#",
 }
-local DEFAULT_COLOR = "%#SLineNormal#"
 
--- Optimized diagnostics function
+local default_color = "%#SLineNormal#"
+
 local function get_diagnostics()
-	local now = vim_loop_now()
-	if cache_diag_value ~= "" and (now - cache_diag_time) < DIAG_TTL then
-		return cache_diag_value
+	local now = vim.loop.now()
+	if now - diag_cache.ts < DIAG_TTL then
+		return diag_cache.value
 	end
 
-	-- Clear parts table instead of creating new one
-	for i = 1, #diag_parts do
-		diag_parts[i] = nil
-	end
-
-	local bufnr = vim_api_nvim_get_current_buf()
-	local part_count = 0
-
-	-- Unrolled loop for better performance
-	local count = #vim_diagnostic_get(bufnr, { severity = DIAG_ERROR })
-	if count > 0 then
-		part_count = part_count + 1
-		diag_parts[part_count] = DIAG_ICONS[1] .. count
-	end
-
-	count = #vim_diagnostic_get(bufnr, { severity = DIAG_WARN })
-	if count > 0 then
-		part_count = part_count + 1
-		diag_parts[part_count] = DIAG_ICONS[2] .. count
-	end
-
-	count = #vim_diagnostic_get(bufnr, { severity = DIAG_INFO })
-	if count > 0 then
-		part_count = part_count + 1
-		diag_parts[part_count] = DIAG_ICONS[3] .. count
-	end
-
-	count = #vim_diagnostic_get(bufnr, { severity = DIAG_HINT })
-	if count > 0 then
-		part_count = part_count + 1
-		diag_parts[part_count] = DIAG_ICONS[4] .. count
-	end
-
-	cache_diag_value = part_count > 0 and table_concat(diag_parts, " ", 1, part_count) or ""
-	cache_diag_time = now
-	return cache_diag_value
-end
-
--- Optimized git blame function
-local function get_git_blame()
-	local bufnr = vim_api_nvim_get_current_buf()
-	local line = vim_api_nvim_win_get_cursor(0)[1]
-	local cache_key = bufnr * 100000 + line -- Numeric key is faster
-
-	-- skip invalid or non-file buffers
-	if not vim.api.nvim_buf_is_valid(bufnr) then
-		return ""
-	end
-	local file = vim_api_nvim_buf_get_name(bufnr)
-	if file == "" or file:match("^%s*$") or vim.bo[bufnr].buftype ~= "" then
+	local diags = vim.diagnostic.get(vim.api.nvim_get_current_buf())
+	if #diags == 0 then
+		diag_cache.value = ""
+		diag_cache.ts = now
 		return ""
 	end
 
-	-- Check cache
-	local cached = blame_cache[cache_key]
-	if cached then
-		local now = vim_loop_now()
-		if (now - cached.t) < BLAME_TTL then
-			last_displayed_blame = cached.v
-			return cached.v
+	local counts = { 0, 0, 0, 0 }
+
+	for _, d in ipairs(diags) do
+		counts[d.severity] = counts[d.severity] + 1
+	end
+
+	local parts = {}
+	for sev, count in pairs(counts) do
+		if count > 0 then
+			parts[#parts + 1] = icons[sev] .. count
 		end
 	end
 
-	local now = vim_loop_now()
-	if (now - last_fetch_time) < DEBOUNCE_MS then
-		return last_displayed_blame
+	diag_cache.value = table.concat(parts, " ")
+	diag_cache.ts = now
+	return diag_cache.value
+end
+
+-- ===== Git blame (debounced + cached) ===== --
+local function parse_blame(output)
+	local sha, author, time_str, summary
+	for line in output:gmatch("[^\n]+") do
+		sha = sha or line:match("^(%x+)")
+		author = author or line:match("^author%s+(.*)")
+		time_str = time_str or line:match("^author%-time%s+(%d+)")
+		summary = summary or line:match("^summary%s+(.*)")
+	end
+	if not (sha and author and time_str and summary) then
+		return ""
 	end
 
+	return string.format(
+		"%s • %s • %s • %s",
+		author,
+		vim.fn.strftime("%b %d %Y", tonumber(time_str)),
+		sha:sub(1, 7),
+		summary
+	)
+end
+
+local function get_git_blame()
+	local bufnr = vim.api.nvim_get_current_buf()
+	if not vim.api.nvim_buf_is_valid(bufnr) then
+		return ""
+	end
+
+	local file = vim.api.nvim_buf_get_name(bufnr)
+	if file == "" or vim.api.nvim_buf_get_option(bufnr, "buftype") ~= "" then
+		return ""
+	end
+
+	local line = vim.api.nvim_win_get_cursor(0)[1]
+	local key = bufnr * 100000 + line
+	local now = vim.loop.now()
+
+	-- Cache hit
+	local cached = blame_cache[key]
+	if cached and now - cached.ts < BLAME_TTL then
+		last_blame = cached.val
+		return cached.val
+	end
+
+	-- Too soon to run again
+	if now - last_blame_ts < DEBOUNCE then
+		return last_blame
+	end
+
+	-- Debounce git call
 	if blame_timer then
-		vim.loop.timer_stop(blame_timer)
+		blame_timer:stop()
 		blame_timer = nil
 	end
 
 	blame_timer = vim.defer_fn(function()
-		last_fetch_time = vim_loop_now()
-
-		-- validate again inside async block
-		if not vim.api.nvim_buf_is_valid(bufnr) then
-			return
-		end
-		local file = vim_api_nvim_buf_get_name(bufnr)
-		if file == "" or file:match("^%s*$") or vim.bo[bufnr].buftype ~= "" then
-			return
-		end
-
-		local stat = vim.loop.fs_stat(file)
-		if not stat or stat.type ~= "file" then
-			return
-		end
+		last_blame_ts = vim.loop.now()
 
 		vim.system(
 			{ "git", "blame", "-L", line .. "," .. line, "--porcelain", file },
 			{ text = true },
 			vim.schedule_wrap(function(result)
-				-- buffer could have been closed by now
-				if not vim.api.nvim_buf_is_valid(bufnr) then
-					return
-				end
-				if file == "" or file:match("^%s*$") or vim.bo[bufnr].buftype ~= "" then
-					return
-				end
-
 				if result.code ~= 0 then
-					blame_cache[cache_key] = { v = "", t = vim_loop_now() }
-					last_displayed_blame = ""
+					blame_cache[key] = { val = "", ts = vim.loop.now() }
+					last_blame = ""
 					vim.cmd("redrawstatus")
 					return
 				end
 
-				local output = result.stdout
-				local sha, author, time_str, summary =
-					output:match("^(%x+).-\nauthor ([^\n]+).-\nauthor%-time (%d+).-\nsummary ([^\n]+)")
+				local formatted = parse_blame(result.stdout) or ""
+				blame_cache[key] = { val = formatted, ts = vim.loop.now() }
+				last_blame = formatted
 
-				if sha and author and time_str and summary then
-					local formatted = string_format(
-						"%s • %s • %s • %s",
-						author,
-						os.date("%b %d %Y", tonumber(time_str)),
-						sha:sub(1, 7),
-						summary
-					)
-
-					blame_cache[cache_key] = { v = formatted, t = vim_loop_now() }
-					last_displayed_blame = formatted
-					blame_cache_count = blame_cache_count + 1
-
-					if blame_cache_count > MAX_BLAME_ENTRIES then
-						blame_cache = {}
-						blame_cache_count = 0
-					end
-
-					vim.cmd("redrawstatus")
+				if vim.tbl_count(blame_cache) > MAX_BLAME then
+					blame_cache = {}
 				end
+
+				vim.cmd("redrawstatus")
 			end)
 		)
-	end, DEBOUNCE_MS)
+	end, DEBOUNCE)
 
-	return last_displayed_blame
+	return last_blame
 end
 
--- Main statusline function - optimized for minimal allocations
 function M.statusline()
-	local now = vim_loop_now()
+	local now = vim.loop.now()
 
-	-- Get mode with cache
+	-- Mode with TTL cache
 	local mode
-	if cache_mode_value ~= "" and (now - cache_mode_time) < MODE_TTL then
-		mode = cache_mode_value
+	if now - mode_cache.ts < MODE_TTL then
+		mode = mode_cache.value
 	else
-		mode = vim_api_nvim_get_mode().mode
-		cache_mode_value = mode
-		cache_mode_time = now
+		mode = vim.api.nvim_get_mode().mode
+		mode_cache.value = mode
+		mode_cache.ts = now
 	end
 
-	-- Build statusline with pre-allocated table
-	statusline_parts[1] = MODE_COLORS[mode] or DEFAULT_COLOR
-	statusline_parts[2] = " %t "
-	statusline_parts[3] = "%#Comment#"
-	statusline_parts[4] = " "
-	statusline_parts[5] = get_git_blame()
-	statusline_parts[6] = "%="
-	statusline_parts[7] = "%#Comment#"
-	statusline_parts[8] = get_diagnostics()
-	statusline_parts[9] = " %p%% %l:%c "
-
-	return table_concat(statusline_parts, "", 1, 9)
+	return table.concat({
+		mode_colors[mode] or default_color,
+		" %t ",
+		"%#Comment# ",
+		get_git_blame(),
+		"%=",
+		"%#Comment#",
+		get_diagnostics(),
+		" %p%% %l:%c ",
+	})
 end
 
--- Setup function
 local function setup()
 	_G.statusline = M.statusline
 	vim.o.statusline = "%!v:lua.statusline()"
 	vim.o.laststatus = 3
-	vim.o.updatetime = 1000
 
-	-- Batch highlight settings
 	local bg = "#161716"
 	local hls = {
 		{ "SLineNormal", { fg = "#aa749f", bg = bg, bold = true } },
@@ -256,35 +198,30 @@ local function setup()
 		vim.api.nvim_set_hl(0, hl[1], hl[2])
 	end
 
-	-- Single augroup for all autocmds
-	local group = vim.api.nvim_create_augroup("StatuslineOptimized", { clear = true })
+	local grp = vim.api.nvim_create_augroup("StatuslineOptimized", { clear = true })
 
-	-- Combine related autocmds
 	vim.api.nvim_create_autocmd("DiagnosticChanged", {
-		group = group,
+		group = grp,
 		callback = function()
-			cache_diag_time = 0
-			vim.cmd.redrawstatus()
+			diag_cache.ts = 0
 		end,
 	})
 
 	vim.api.nvim_create_autocmd("CursorHold", {
-		group = group,
+		group = grp,
 		callback = get_git_blame,
 	})
 
-	-- Simplified mode change handler
 	vim.api.nvim_create_autocmd("ModeChanged", {
-		group = group,
+		group = grp,
 		callback = function()
-			cache_mode_time = 0
-			vim.defer_fn(vim.cmd.redrawstatus, 50)
+			mode_cache.ts = 0
+			vim.defer_fn(vim.cmd.redrawstatus, 40)
 		end,
 	})
 
-	-- ColorScheme handler with cached highlight definitions
 	vim.api.nvim_create_autocmd("ColorScheme", {
-		group = group,
+		group = grp,
 		callback = function()
 			for _, hl in ipairs(hls) do
 				vim.api.nvim_set_hl(0, hl[1], hl[2])
