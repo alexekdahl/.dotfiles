@@ -69,7 +69,6 @@ local function get_diagnostics()
 	return diag_cache.value
 end
 
--- ===== Git blame (debounced + cached) ===== --
 local function parse_blame(output)
 	local sha, author, time_str, summary
 	for line in output:gmatch("[^\n]+") do
@@ -169,7 +168,7 @@ function M.statusline()
 
 	return table.concat({
 		mode_colors[mode] or default_color,
-		" %t ",
+		" %{toupper(expand('%:t'))} ",
 		"%#Comment# ",
 		get_git_blame(),
 		"%=",
