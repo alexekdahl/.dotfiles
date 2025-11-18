@@ -1,4 +1,5 @@
 return {
+    enabled = false,
 	"mason-org/mason-lspconfig.nvim",
 	ft = { "go", "lua", "python", "rust", "nim", "just" },
 	dependencies = {

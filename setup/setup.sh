@@ -251,7 +251,6 @@ install_neovim_plugins() {
 
 main() {
     log_info "Starting dotfiles setup..."
-    
     create_directories
 
     setup_shell_configs
@@ -271,7 +270,6 @@ main() {
     install_neovim_plugins
     install_fonts
 
-    
     log_success "Setup complete! Run 'source .zshrc' to start using your shell configuration."
 }
 

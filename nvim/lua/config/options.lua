@@ -17,7 +17,7 @@ opt.errorbells = false
 opt.tabstop = 4
 opt.softtabstop = 4
 opt.shiftwidth = 4
-opt.expandtab = true
+opt.expandtab = false
 opt.smartindent = true
 opt.number = true
 opt.swapfile = false
@@ -42,3 +42,7 @@ opt.colorcolumn = "100"
 
 cmd.backupdir = os.getenv("HOME") .. "/.vim/undodir"
 cmd.colorscheme("tachyon")
+
+vim.diagnostic.config({
+	signs = false,
+})

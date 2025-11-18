@@ -43,7 +43,7 @@ select_project() {
     
     local project_list=$(get_project_list)
     local fzf_output=$(echo "$project_list" | colorize_projects | \
-    fzf --ansi -m -1 --border=rounded --border-label="Repo" --color="border:#808000" --height "$fzf_height" --expect=ctrl-a)
+    fzf --ansi -m -1 --border=rounded --border-label="Repo" --color="border:#222222" --height "$fzf_height" --expect=ctrl-a)
 
     local pressed_key=$(head -1 <<<"$fzf_output")
     local selected_dir=$(tail -n +2 <<<"$fzf_output")

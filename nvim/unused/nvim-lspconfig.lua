@@ -174,6 +174,7 @@ end
 
 return {
 	"neovim/nvim-lspconfig",
+	enabled = false,
 	ft = { "go", "lua", "python", "rust", "nim", "just" },
 	dependencies = {
 		"mason-org/mason-lspconfig.nvim",

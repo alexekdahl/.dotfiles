@@ -41,7 +41,7 @@ colorize_projects() {
 select_project() {
     local project_list=$(get_project_list)
     echo "$project_list" | colorize_projects | \
-    fzf --ansi -m -1 --border=rounded --border-label="Repo" --color="border:#5A5F8C"
+    fzf --ansi -m -1 --border=rounded --border-label="Repo" --color="border:#222222"
 }
 
 # Create a new tmux session or attach to an existing one

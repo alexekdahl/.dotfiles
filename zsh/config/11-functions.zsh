@@ -51,7 +51,7 @@ function fzf-history() {
     fi'
   
   # Atom One Dark inspired color scheme for fzf
-  local fzf_colors="--color=fg:#D6D6D6,bg:#151515,hl:#85B884,fg+:#E1E1E1,bg+:#202020,hl+:#B3DBA9,pointer:#D7867D,info:#FFE591,spinner:#60B197,header:#ABBAB5,prompt:#AA749F,marker:#F6AD6C"  
+  local fzf_colors="--color=fg:#D6D6D6,bg:#000000,hl:#85B884,fg+:#E1E1E1,bg+:#202020,hl+:#B3DBA9,pointer:#D7867D,info:#FFE591,spinner:#60B197,header:#ABBAB5,prompt:#AA749F,marker:#F6AD6C"  
 
   # Color for different command types using your palette
   local highlight_cmd='

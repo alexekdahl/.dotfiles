@@ -6,7 +6,7 @@
 
 vim.cmd("hi clear")
 if vim.fn.exists("syntax_on") == 1 then
-	vim.cmd("syntax reset")
+  vim.cmd("syntax reset")
 end
 vim.g.colors_name = "tachyon"
 
@@ -14,23 +14,23 @@ vim.g.colors_name = "tachyon"
 -- PALETTE (Base16)
 -----------------------------------------
 local c = {
-	base00 = "#000000",
-	base01 = "#121212",
-	base02 = "#222222",
-	base03 = "#333333",
-	base30 = "#727272",
-	base04 = "#999999",
-	base05 = "#c1c1c1",
-	base06 = "#999999",
-	base07 = "#c1c1c1",
-	base08 = "#5f8787",
-	base09 = "#aaaaaa",
-	base0A = "#8c7f70",
-	base0B = "#9b8d7f",
-	base0C = "#aaaaaa",
-	base0D = "#888888",
-	base0E = "#999999",
-	base0F = "#444444",
+  base00 = "#000000",
+  base01 = "#121212",
+  base02 = "#222222",
+  base03 = "#333333",
+  base30 = "#727272",
+  base04 = "#999999",
+  base05 = "#c1c1c1",
+  base06 = "#999999",
+  base07 = "#c1c1c1",
+  base08 = "#5f8787",
+  base09 = "#aaaaaa",
+  base0A = "#8c7f70",
+  base0B = "#9b8d7f",
+  base0C = "#aaaaaa",
+  base0D = "#888888",
+  base0E = "#999999",
+  base0F = "#444444",
 }
 
 local set = vim.api.nvim_set_hl
@@ -113,25 +113,37 @@ set(0, "DiagnosticUnderlineHint", { sp = c.base0C, underline = true })
 -- TREESITTER
 -----------------------------------------
 local ts = {
-	["@comment"] = { fg = c.base30 },
-	["@constant"] = { fg = c.base09 },
-	["@string"] = { fg = c.base0B },
-	["@number"] = { fg = c.base09 },
-	["@boolean"] = { fg = c.base09 },
-	["@variable"] = { fg = c.base05 },
-	["@variable.builtin"] = { fg = c.base0E },
-	["@function"] = { fg = c.base0D },
-	["@function.builtin"] = { fg = c.base0D },
-	["@keyword"] = { fg = c.base0E },
-	["@type"] = { fg = c.base0A },
-	["@type.builtin"] = { fg = c.base0A },
-	["@field"] = { fg = c.base05 },
-	["@property"] = { fg = c.base05 },
-	["@operator"] = { fg = c.base05 },
-	["@punctuation"] = { fg = c.base04 },
+  ["@comment"] = { fg = c.base30 },
+  ["@constant"] = { fg = c.base09 },
+  ["@string"] = { fg = c.base0B },
+  ["@number"] = { fg = c.base09 },
+  ["@boolean"] = { fg = c.base09 },
+  ["@variable"] = { fg = c.base05 },
+  ["@variable.builtin"] = { fg = c.base0E },
+  ["@function"] = { fg = c.base0D },
+  ["@function.builtin"] = { fg = c.base0D },
+  ["@keyword"] = { fg = c.base0E },
+  ["@type"] = { fg = c.base0A },
+  ["@type.builtin"] = { fg = c.base0A },
+  ["@field"] = { fg = c.base05 },
+  ["@property"] = { fg = c.base05 },
+  ["@operator"] = { fg = c.base05 },
+  ["@punctuation"] = { fg = c.base04 },
+  ["@text"] = { fg = c.base05 },
+  ["@text.strong"] = { fg = c.base07, bold = true },
+  ["@text.emphasis"] = { fg = c.base06, italic = true },
+  ["@text.title"] = { fg = c.base07, bold = true },
+  ["@text.literal"] = { fg = c.base0C }, -- inline code
+  ["@text.uri"] = { fg = c.base0D, underline = true },
+  ["@markup.quote"] = { fg = c.base0A, italic = true },
+  ["@markup.list"] = { fg = c.base08 },
+  ["@markup.link"] = { fg = c.base0D },
+  ["@markup.link.label"] = { fg = c.base0D },
+  ["@markup.raw"] = { fg = c.base0C }, -- fenced code blocks
 }
+
 for group, spec in pairs(ts) do
-	set(0, group, spec)
+  set(0, group, spec)
 end
 
 -----------------------------------------
@@ -162,71 +174,71 @@ set(0, "NoiceFormatProgress", { fg = c.base0A })
 -- SNACKS.NVIM
 -----------------------------------------
 local snacks = {
-	-- Indent guides
-	SnacksIndent = { fg = c.base02 },
-	SnacksIndentScope = { fg = c.base04 },
-	SnacksIndentCurrent = { fg = c.base04 },
+  -- Indent guides
+  SnacksIndent = { fg = c.base02 },
+  SnacksIndentScope = { fg = c.base04 },
+  SnacksIndentCurrent = { fg = c.base04 },
 
-	-- Explorer folders (no blue/teal)
-	SnacksExplorerDirectory = { fg = c.base04 }, -- cold silver
-	SnacksExplorerDirectoryIcon = { fg = c.base04 }, -- cold silver
-	SnacksExplorerFolderArrow = { fg = c.base03 }, -- dark grey
+  -- Explorer folders (no blue/teal)
+  SnacksExplorerDirectory = { fg = c.base04 },     -- cold silver
+  SnacksExplorerDirectoryIcon = { fg = c.base04 }, -- cold silver
+  SnacksExplorerFolderArrow = { fg = c.base03 },   -- dark grey
 
-	SnacksExplorerFile = { fg = c.base05 },
-	SnacksExplorerSymlink = { fg = c.base0E },
-	SnacksExplorerSpecialFile = { fg = c.base0A },
+  SnacksExplorerFile = { fg = c.base05 },
+  SnacksExplorerSymlink = { fg = c.base0E },
+  SnacksExplorerSpecialFile = { fg = c.base0A },
 
-	-- Icons (monochrome metal)
-	SnacksExplorerIcon = { fg = c.base04 },
+  -- Icons (monochrome metal)
+  SnacksExplorerIcon = { fg = c.base04 },
 
-	-- Git status (subtle)
-	SnacksExplorerGitAdded = { fg = c.base0B },
-	SnacksExplorerGitModified = { fg = c.base0D },
-	SnacksExplorerGitDeleted = { fg = c.base08 },
-	SnacksExplorerGitRenamed = { fg = c.base0A },
-	SnacksExplorerGitUntracked = { fg = c.base04 },
-	-- Selection
-	SnacksExplorerSelection = { fg = c.base00, bg = c.base05, bold = true },
-	SnacksExplorerCursorLine = { bg = c.base01 },
+  -- Git status (subtle)
+  SnacksExplorerGitAdded = { fg = c.base0B },
+  SnacksExplorerGitModified = { fg = c.base0D },
+  SnacksExplorerGitDeleted = { fg = c.base08 },
+  SnacksExplorerGitRenamed = { fg = c.base0A },
+  SnacksExplorerGitUntracked = { fg = c.base04 },
+  -- Selection
+  SnacksExplorerSelection = { fg = c.base00, bg = c.base05, bold = true },
+  SnacksExplorerCursorLine = { bg = c.base01 },
 
-	-- Hidden
-	SnacksExplorerHidden = { fg = c.base03 },
+  -- Hidden
+  SnacksExplorerHidden = { fg = c.base03 },
 
-	-- Preview panel
-	SnacksExplorerPreviewNormal = { fg = c.base05, bg = c.base00 },
-	SnacksExplorerPreviewBorder = { fg = c.base02 },
+  -- Preview panel
+  SnacksExplorerPreviewNormal = { fg = c.base05, bg = c.base00 },
+  SnacksExplorerPreviewBorder = { fg = c.base02 },
 
-	-- Title
-	SnacksExplorerTitle = { fg = c.base0E, bold = true },
+  -- Title
+  SnacksExplorerTitle = { fg = c.base0E, bold = true },
 
-	-- Picker
-	SnacksPickerNormal = { fg = c.base05, bg = c.base00 },
-	SnacksPickerBorder = { fg = c.base02 },
-	SnacksPickerTitle = { fg = c.base0D, bold = true },
-	SnacksPickerMatch = { fg = c.base0A },
-	SnacksPickerSelection = { fg = c.base00, bg = c.base05, bold = true },
-	SnacksPickerPrompt = { fg = c.base0D },
+  -- Picker
+  SnacksPickerNormal = { fg = c.base05, bg = c.base00 },
+  SnacksPickerBorder = { fg = c.base02 },
+  SnacksPickerTitle = { fg = c.base0D, bold = true },
+  SnacksPickerMatch = { fg = c.base0A },
+  SnacksPickerSelection = { fg = c.base00, bg = c.base05, bold = true },
+  SnacksPickerPrompt = { fg = c.base0D },
 
-	-- Picker links
-	SnacksPickerCol = { fg = c.base03 },
-	SnacksPickerDir = { fg = c.base04 },
-	SnacksPickerBufFlags = { link = "SnacksPickerDir" },
+  -- Picker links
+  SnacksPickerCol = { fg = c.base03 },
+  SnacksPickerDir = { fg = c.base04 },
+  SnacksPickerBufFlags = { link = "SnacksPickerDir" },
 
-	-- Menus
-	SnacksMenuNormal = { fg = c.base05, bg = c.base00 },
-	SnacksMenuBorder = { fg = c.base02 },
-	SnacksMenuSelection = { fg = c.base00, bg = c.base05, bold = true },
+  -- Menus
+  SnacksMenuNormal = { fg = c.base05, bg = c.base00 },
+  SnacksMenuBorder = { fg = c.base02 },
+  SnacksMenuSelection = { fg = c.base00, bg = c.base05, bold = true },
 
-	-- Notify
-	SnacksNotifyInfo = { fg = c.base0D },
-	SnacksNotifyWarn = { fg = c.base0A },
-	SnacksNotifyError = { fg = c.base08 },
-	SnacksNotifyBorder = { fg = c.base02 },
+  -- Notify
+  SnacksNotifyInfo = { fg = c.base0D },
+  SnacksNotifyWarn = { fg = c.base0A },
+  SnacksNotifyError = { fg = c.base08 },
+  SnacksNotifyBorder = { fg = c.base02 },
 }
 
 -- Apply
 for group, spec in pairs(snacks) do
-	vim.api.nvim_set_hl(0, group, spec)
+  vim.api.nvim_set_hl(0, group, spec)
 end
 
 -----------------------------------------
@@ -241,28 +253,51 @@ set(0, "UndotreeBranch", { fg = c.base0D })
 set(0, "DevIconDefault", { fg = c.base05 })
 
 -----------------------------------------
--- LSPSAGA (full theme)
+-- Markdown Highlight Support
 -----------------------------------------
+local md = {
+  -- Main text
+  markdownText = { fg = c.base05 },
 
-local saga_winbar = {
-	LspSagaWinbar = { fg = c.base05, bg = c.base00 },
-	LspSagaWinbarContext = { fg = c.base05, bg = c.base00 },
-	LspSagaWinbarSymbol = { fg = c.base05, bg = c.base00 },
-	LspSagaWinbarSep = { fg = c.base03, bg = c.base00 },
-	LspSagaWinbarFile = { fg = c.base0D, bg = c.base00, bold = true },
-	LspSagaWinbarFileIcon = { fg = c.base0D, bg = c.base0D },
+  -- Headings
+  markdownH1 = { fg = c.base07, bold = true },
+  markdownH2 = { fg = c.base06, bold = true },
+  markdownH3 = { fg = c.base06, bold = true },
+  markdownH4 = { fg = c.base05, bold = true },
+  markdownH5 = { fg = c.base05 },
+  markdownH6 = { fg = c.base04 },
 
-	LspSagaWinbarFolderName = { fg = c.base05, bg = c.base00 },
-	LspSagaWinbarModule = { fg = c.base0E, bg = c.base00 },
-	SagaFolder = { fg = c.base0D, bg = c.base00 },
+  -- Bold / Italic
+  markdownBold = { fg = c.base07, bold = true },
+  markdownItalic = { fg = c.base06, italic = true },
+  markdownBoldItalic = { fg = c.base07, bold = true, italic = true },
 
-	WinBar = { fg = c.base05, bg = c.base00 },
-	WinBarNC = { fg = c.base03, bg = c.base00 },
-	SagaBorder = { fg = c.base02 },
-	SagaNormal = { fg = c.base05, bg = c.base00 },
+  -- Code blocks
+  markdownCode = { fg = c.base0C },
+  markdownCodeBlock = { fg = c.base0C },
+  markdownCodeDelimiter = { fg = c.base03 },
+
+  -- Links
+  markdownLinkText = { fg = c.base0D, underline = true },
+  markdownLinkTextDelimiter = { fg = c.base03 },
+  markdownUrl = { fg = c.base0D, underline = true },
+
+  -- Blockquotes
+  markdownBlockquote = { fg = c.base0A, italic = true },
+
+  -- Lists
+  markdownListMarker = { fg = c.base08 },
+  markdownOrderedListMarker = { fg = c.base08 },
+
+  -- Horizontal rule
+  markdownRule = { fg = c.base02 },
+
+  -- Inline HTML
+  markdownHtmlTag = { fg = c.base0E },
+  markdownHtmlArg = { fg = c.base0D },
+  markdownHtmlTagName = { fg = c.base0E },
 }
 
-for group, spec in pairs(saga_winbar) do
-	vim.api.nvim_set_hl(0, group, spec)
+for group, spec in pairs(md) do
+  vim.api.nvim_set_hl(0, group, spec)
 end
------------------------------------------
