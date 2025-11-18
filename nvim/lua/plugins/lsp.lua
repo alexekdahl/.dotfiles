@@ -27,11 +27,7 @@ local function on_attach(client, bufnr)
 end
 
 return {
-  "mason-org/mason.nvim",
-  dependencies = {
-    "mason-org/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
-  },
+  "neovim/nvim-lspconfig",
   ft = { "go", "lua", "python", "rust", "nim", "just" },
   opts = {
     servers = {
@@ -120,19 +116,19 @@ return {
   },
 
   config = function(_, opts)
-    require("mason").setup()
-
-    require("mason-lspconfig").setup({
-      ensure_installed = {
-        "pyright",
-        "lua_ls",
-        "gopls",
-        "nim_langserver",
-        "just",
-        "rust_analyzer",
-      },
-      automatic_enable = true,
-    })
+    -- require("mason").setup()
+    --
+    -- require("mason-lspconfig").setup({
+    --   ensure_installed = {
+    --     "pyright",
+    --     "lua_ls",
+    --     "gopls",
+    --     "nim_langserver",
+    --     "just",
+    --     "rust_analyzer",
+    --   },
+    --   automatic_enable = true,
+    -- })
 
     autocmd("BufWritePre", {
       group = grp_format,
