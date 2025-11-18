@@ -183,7 +183,8 @@ local function setup()
 	vim.o.statusline = "%!v:lua.statusline()"
 	vim.o.laststatus = 3
 
-	local bg = "#161716"
+	local bg = "#000000"
+
 	local hls = {
 		{ "SLineNormal", { fg = "#aa749f", bg = bg, bold = true } },
 		{ "SLineInsert", { fg = "#89b4fa", bg = bg, bold = true } },

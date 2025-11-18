@@ -23,7 +23,6 @@ opt.number = true
 opt.swapfile = false
 opt.backup = false
 opt.undofile = true
-cmd.backupdir = os.getenv("HOME") .. "/.vim/undodir"
 opt.incsearch = true
 opt.scrolloff = 18
 opt.isfname:append("@-@")
@@ -40,3 +39,6 @@ opt.signcolumn = "number"
 opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 opt.wrap = false
 opt.colorcolumn = "100"
+
+cmd.backupdir = os.getenv("HOME") .. "/.vim/undodir"
+cmd.colorscheme("tachyon")
