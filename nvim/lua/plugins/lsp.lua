@@ -116,19 +116,6 @@ return {
   },
 
   config = function(_, opts)
-    -- require("mason").setup()
-    --
-    -- require("mason-lspconfig").setup({
-    --   ensure_installed = {
-    --     "pyright",
-    --     "lua_ls",
-    --     "gopls",
-    --     "nim_langserver",
-    --     "just",
-    --     "rust_analyzer",
-    --   },
-    --   automatic_enable = true,
-    -- })
 
     autocmd("BufWritePre", {
       group = grp_format,
