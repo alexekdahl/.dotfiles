@@ -8,15 +8,8 @@ if [[ -f "$BREWFILE" ]]; then
     brew bundle install --file="$BREWFILE"
 fi
 
-mv $HOME/go $HOME/.go
-
-sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
-sudo apt update -y
-sudo apt install brave-browser -y
-
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 rustup update
 rustup component add rust-analyzer
-cargo install alacritty --force
 cargo install just-lsp
+nimble install nimlangserver
