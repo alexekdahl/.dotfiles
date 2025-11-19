@@ -1,5 +1,6 @@
 brew "bpytop"
 brew "gh"
+brew "eza"
 brew "fastfetch"
 brew "fnm"
 brew "go"

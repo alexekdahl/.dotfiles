@@ -1,5 +1,4 @@
 brew "bat"
-brew "eza"
 brew "ripgrep"
 brew "gcc"
 brew "luarocks"

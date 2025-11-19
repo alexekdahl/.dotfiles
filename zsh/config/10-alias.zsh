@@ -34,6 +34,7 @@ alias cp='cp -iv'
 alias mkdir='mkdir -p'
 alias du='du --max-depth=1 --si'
 alias df='df --all --si --print-type'
+alias ls="ls --color=always"
 alias lsa="ls -a -d .??*"
 alias ll='ls -lF --group-directories-first'
 alias lla='ls -laF -d .??* --group-directories-first'
