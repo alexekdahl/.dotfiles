@@ -14,7 +14,7 @@ vim.g.colors_name = "tachyon"
 -- PALETTE (Base16)
 -----------------------------------------
 local c = {
-  base00 = "#000000",
+  base00 = "#030201",
   base01 = "#121212",
   base02 = "#222222",
   base03 = "#333333",
@@ -202,7 +202,7 @@ local snacks = {
   SnacksExplorerCursorLine = { bg = c.base01 },
 
   -- Hidden
-  SnacksExplorerHidden = { fg = c.base03 },
+  SnacksExplorerHidden = { fg = c.base05 },
 
   -- Preview panel
   SnacksExplorerPreviewNormal = { fg = c.base05, bg = c.base00 },
@@ -246,58 +246,3 @@ end
 -----------------------------------------
 set(0, "UndotreeNode", { fg = c.base0A })
 set(0, "UndotreeBranch", { fg = c.base0D })
-
------------------------------------------
--- DEVSICONS
------------------------------------------
-set(0, "DevIconDefault", { fg = c.base05 })
-
------------------------------------------
--- Markdown Highlight Support
------------------------------------------
-local md = {
-  -- Main text
-  markdownText = { fg = c.base05 },
-
-  -- Headings
-  markdownH1 = { fg = c.base07, bold = true },
-  markdownH2 = { fg = c.base06, bold = true },
-  markdownH3 = { fg = c.base06, bold = true },
-  markdownH4 = { fg = c.base05, bold = true },
-  markdownH5 = { fg = c.base05 },
-  markdownH6 = { fg = c.base04 },
-
-  -- Bold / Italic
-  markdownBold = { fg = c.base07, bold = true },
-  markdownItalic = { fg = c.base06, italic = true },
-  markdownBoldItalic = { fg = c.base07, bold = true, italic = true },
-
-  -- Code blocks
-  markdownCode = { fg = c.base0C },
-  markdownCodeBlock = { fg = c.base0C },
-  markdownCodeDelimiter = { fg = c.base03 },
-
-  -- Links
-  markdownLinkText = { fg = c.base0D, underline = true },
-  markdownLinkTextDelimiter = { fg = c.base03 },
-  markdownUrl = { fg = c.base0D, underline = true },
-
-  -- Blockquotes
-  markdownBlockquote = { fg = c.base0A, italic = true },
-
-  -- Lists
-  markdownListMarker = { fg = c.base08 },
-  markdownOrderedListMarker = { fg = c.base08 },
-
-  -- Horizontal rule
-  markdownRule = { fg = c.base02 },
-
-  -- Inline HTML
-  markdownHtmlTag = { fg = c.base0E },
-  markdownHtmlArg = { fg = c.base0D },
-  markdownHtmlTagName = { fg = c.base0E },
-}
-
-for group, spec in pairs(md) do
-  vim.api.nvim_set_hl(0, group, spec)
-end

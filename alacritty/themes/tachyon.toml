@@ -2,7 +2,7 @@
 draw_bold_text_with_bright_colors = false
 
 [colors.primary]
-background = "#000000"
+background = "#030201"
 foreground = "#c1c1c1"
 
 [colors.normal]

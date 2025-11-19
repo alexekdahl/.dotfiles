@@ -165,7 +165,9 @@ typeset -g COLOR_VCS_MODIFIED=243                # colour for VCS modified foreg
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION='❮'
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_CONTENT_EXPANSION='❯'
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_CONTENT_EXPANSION='▶'
-
+  # 
+  # 
+  # typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=' '
   # Set the chevron colour based on Vim mode using descriptive variables.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_FOREGROUND=$COLOR_CHEVRON_VIINS     # insert mode chevron (blue)
   typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIVIS_FOREGROUND=$COLOR_CHEVRON_VIVIS    # visual mode chevron (yellow)
