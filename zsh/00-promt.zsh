@@ -19,10 +19,12 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-p10k
   # Check if we're in a bare repo root (not in an actual worktree)
   [[ -f .git && -d .bare ]] && { hook_com[branch]=""; return }
   
-  local clean='%76F'        # green
-  local modified='%178F'    # yellow
-  local untracked='%39F'    # blue
-  local conflicted='%196F'  # red
+  # Tachyon-style dimmed monochrome VCS
+  local vcs_dim='%243F'     # dim cold silver (≈ base30/base04)
+  local clean=$vcs_dim
+  local modified=$vcs_dim
+  local untracked=$vcs_dim
+  local conflicted=$vcs_dim
   
   local branch res
   
@@ -73,12 +75,15 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-p10k
     stashes=$(git rev-list --walk-reflogs --count refs/stash 2>/dev/null || echo 0)
   fi
   
-  (( conflicts )) && res+=" ${conflicted}~${conflicts}"
-  (( staged )) && res+=" ${modified}+${staged}"
-  (( unstaged )) && res+=" ${modified}!${unstaged}"
-  (( untracked_count )) && res+=" ${untracked}?${untracked_count}"
-  (( stashes )) && res+=" ${clean}*${stashes}"
-  
+  local flags=""
+  (( conflicts ))       && flags+="~${conflicts}"
+  (( staged ))          && flags+="+${staged}"
+  (( unstaged ))        && flags+="!${unstaged}"
+  (( untracked_count )) && flags+="?${untracked_count}"
+  (( stashes ))         && flags+="*${stashes}"
+
+  [[ -n $flags ]] && res+=" ${clean}${flags}"
+
   hook_com[branch]=$res
 }
 
@@ -114,9 +119,9 @@ function zle-line-init {
 zle -N zle-keymap-select
 zle -N zle-line-init
 
-# --- Multiline Prompt (P10k colors) ---
-PROMPT='%238F╭─%f 🦒 %001F%B%~%b%f ${vcs_info_msg_0_}
-%238F╰─%f%(?.${VI_MODE_COLOR}.%160F)❯%f '
+# --- Multiline Prompt (Tachyon-style) ---
+PROMPT='%251F%B%~:%b%f%243F${vcs_info_msg_0_}%f
+%238F%f%(?.${VI_MODE_COLOR}.%160F)❯%f '
 
 # No right prompt
 RPROMPT=''
@@ -129,5 +134,6 @@ precmd() {
 # --- Transient Prompt ---
 preexec() {
   print -rn -- $'\e[2A\r\e[0J'
-  print -Prn -- "%39F❯%f ${1}"$'\n'
+  # keep chevron blue, command text tinted like Tachyon String
+  print -Prn -- "%39F❯%f %137F${1}%f"$'\n'
 }

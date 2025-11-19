@@ -42,7 +42,6 @@ opt.colorcolumn = "100"
 
 cmd.backupdir = os.getenv("HOME") .. "/.vim/undodir"
 cmd.colorscheme("tachyon")
-
 vim.diagnostic.config({
-	signs = false,
+  signs = false,
 })

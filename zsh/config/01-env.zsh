@@ -10,4 +10,3 @@ export BAT_THEME="tachyon"
 export EDITOR="nvim"
 export ZVM_CURSOR_STYLE_ENABLED=false
 export ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
-

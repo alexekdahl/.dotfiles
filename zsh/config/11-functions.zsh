@@ -133,7 +133,7 @@ function ls() {
   local termwidth=$COLUMNS
   local maxcols=3
 
-  eza $1 --icons=always --colour=never -1 --sort=type | awk -v minrows="$minrows" -v termwidth="$termwidth" -v maxcols="$maxcols" '
+  eza $1 --icons=always -1 --sort=type | awk -v minrows="$minrows" -v termwidth="$termwidth" -v maxcols="$maxcols" '
   {
       lines[NR] = $0
       if (length($0) > maxlen) maxlen = length($0)
