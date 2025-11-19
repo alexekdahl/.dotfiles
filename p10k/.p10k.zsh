@@ -20,10 +20,10 @@ typeset -g COLOR_PROMPT_OK=70
 typeset -g COLOR_PROMPT_ERROR=160
 
 # Blue for the Vim insert‑mode chevron (VIINS). Predominant colour when editing in insert mode.
-typeset -g COLOR_CHEVRON_VIINS=39
+typeset -g COLOR_CHEVRON_VIINS=65
 
 # Yellow for the Vim visual‑mode chevron (VIVIS). Highlights the prompt symbol in visual mode.
-typeset -g COLOR_CHEVRON_VIVIS=178
+typeset -g COLOR_CHEVRON_VIVIS=131
 
 # Yellow used when the current user is root.
 typeset -g COLOR_CONTEXT_ROOT=178
@@ -52,9 +52,6 @@ typeset -g FG_GIT_UNTRACKED="%${COLOR_DIM}F" # untracked statuses
 typeset -g FG_GIT_CONFLICTED="%${COLOR_DIM}F" # conflicted statuses
 typeset -g FG_GIT_NEUTRAL="%${COLOR_DIM}F"         # neutral/meta statuses
 
-# Foreground escape for multiline prefixes and ruler.
-typeset -g FG_MULTILINE_PREFIX="%${COLOR_MULTILINE_PREFIX}F"
-
 # VCS segment colours for explicit use
 typeset -g COLOR_VCS_VISUAL_IDENTIFIER=243        # colour for VCS visual identifier when repo is loaded
 typeset -g COLOR_VCS_LOADING_IDENTIFIER=243      # colour for the VCS icon while status is loading
@@ -80,25 +77,15 @@ typeset -g COLOR_VCS_MODIFIED=243                # colour for VCS modified foreg
   autoload -Uz is-at-least && is-at-least 5.1 || return
 
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+    prompt_char
     dir
     vcs_joined
-    newline
-    prompt_char
   )
 
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     command_execution_time
     background_jobs
-    newline
   )
-
-  if [[ $POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR != ' ' ]]; then
-    typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND=$COLOR_MULTILINE_PREFIX
-    typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=' '
-    typeset -g POWERLEVEL9K_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL=' '
-    typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_FIRST_SEGMENT_END_SYMBOL='%{%}'
-    typeset -g POWERLEVEL9K_EMPTY_LINE_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='%{%}'
-  fi
 
   function my_git_formatter() {
     emulate -L zsh
@@ -160,26 +147,18 @@ typeset -g COLOR_VCS_MODIFIED=243                # colour for VCS modified foreg
   functions -M my_git_formatter 2>/dev/null
 
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
-  typeset -g POWERLEVEL9K_ICON_PADDING=none
+  typeset -g POWERLEVEL9K_ICON_PADDING=1
   typeset -g POWERLEVEL9K_BACKGROUND=
   typeset -g POWERLEVEL9K_{LEFT,RIGHT}_{LEFT,RIGHT}_WHITESPACE=
   typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SUBSEGMENT_SEPARATOR=' '
   typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SEGMENT_SEPARATOR=
   typeset -g POWERLEVEL9K_ICON_BEFORE_CONTENT=true
   typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-  typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX=""
-  typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=''
-  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_SUFFIX=
-  typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_SUFFIX=
-  typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_SUFFIX=
-  typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=' '
+  typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=''
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL=
-  typeset -g POWERLEVEL9K_SHOW_RULER=false
+  typeset -g POWERLEVEL9K_SHOW_RULER=true
   typeset -g POWERLEVEL9K_RULER_CHAR='─'
   typeset -g POWERLEVEL9K_RULER_FOREGROUND=$COLOR_MULTILINE_PREFIX
-  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR=' '
-  typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='🦒'
   typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=$COLOR_PROMPT_OK
   typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=$COLOR_PROMPT_ERROR
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
@@ -199,7 +178,7 @@ typeset -g COLOR_VCS_MODIFIED=243                # colour for VCS modified foreg
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
   typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=$COLOR_DIR
   typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=$COLOR_DIR
-  typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
+  typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
   local anchor_files=(
     .bzr .citc .git .hg .node-version .python-version .go-version
     .ruby-version .lua-version .java-version .perl-version .php-version

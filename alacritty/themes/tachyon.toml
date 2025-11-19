@@ -3,7 +3,7 @@ draw_bold_text_with_bright_colors = false
 
 [colors.primary]
 background = "#000000"
-foreground = "#E1E1E1"
+foreground = "#c1c1c1"
 
 [colors.normal]
 black = "#21252b"
