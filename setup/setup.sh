@@ -8,6 +8,7 @@ ZSH_DIR="$HOME/.zsh"
 FONTS_DIR="$HOME/.local/share/fonts"
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 ALACRITTY_CONFIG_DIR="$HOME/.config/alacritty"
+BAT_CONFIG_DIR="$HOME/.config/alacritty"
 TMUX_CONFIG_DIR="$HOME/.config/tmux"
 LOCAL_BIN="$HOME/.local/bin"
 TPM_DIR="$HOME/.local/share/tmux/plugins/tpm"
@@ -74,6 +75,7 @@ create_directories() {
     ensure_dir "$FONTS_DIR"
     ensure_dir "$ALACRITTY_CONFIG_DIR"
     ensure_dir "$TMUX_CONFIG_DIR"
+    ensure_dir "$BAT_CONFIG_DIR"
     ensure_dir "$LOCAL_BIN"
 }
 
@@ -121,6 +123,15 @@ setup_tmux_config() {
     
     backup_and_symlink "$DOTFILES/tmux/tmux.conf" "$TMUX_CONFIG_DIR/tmux.conf"
     backup_and_symlink "$DOTFILES/tmux/modules" "$TMUX_CONFIG_DIR/modules"
+}
+
+setup_bat_config() {
+    log_info "Setting up bat configuration..."
+    
+    if [[ -L "$BAT_CONFIG_DIR" ]]; then
+        rm "$BAT_CONFIG_DIR"
+    fi
+    backup_and_symlink "$DOTFILES/bat" "$BAT_CONFIG_DIR"
 }
 
 install_tpm() {
@@ -256,6 +267,7 @@ main() {
     setup_shell_configs
     setup_git_tools
     setup_tmux_config
+    setup_bat_config
     setup_alacritty
     setup_neovim
     setup_vim
