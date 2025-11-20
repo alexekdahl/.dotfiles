@@ -5,12 +5,11 @@ local global = vim.g
 global.mapleader = " "
 global.maplocalleader = " "
 global.editorconfig = true
-global.gitblame_display_virtual_text = 0
-global.gitblame_message_template = "<author> • <date> • <sha> • <summary>"
-global.gitblame_date_format = "%x"
 global.background = "dark"
+global.lsp_autostart = true
 
 opt.relativenumber = true
+vim.opt.showmode = false
 opt.hlsearch = false
 opt.hidden = true
 opt.errorbells = false
@@ -42,6 +41,12 @@ opt.colorcolumn = "100"
 
 cmd.backupdir = os.getenv("HOME") .. "/.vim/undodir"
 cmd.colorscheme("tachyon")
-vim.diagnostic.config({
-  signs = false,
-})
+
+vim.diagnostic.config({ signs = false })
+
+-- fix this!
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("gopls")
+vim.lsp.enable("nim_langserver")
+vim.lsp.enable("pyright")
+vim.lsp.enable("rust_analyzer")

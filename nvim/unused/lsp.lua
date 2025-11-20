@@ -11,11 +11,6 @@ local function on_attach(client, bufnr)
 
   local opts = { buffer = bufnr, silent = true }
 
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-  vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
-  vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, opts)
-  vim.keymap.set("n", "<leader>k", function()
-    vim.diagnostic.open_float({ border = "rounded" })
   end, opts)
 
   if client.server_capabilities.documentHighlightProvider then
@@ -28,6 +23,7 @@ end
 
 return {
   "neovim/nvim-lspconfig",
+  enabled = false,
   ft = { "go", "lua", "python", "rust", "nim", "just" },
   opts = {
     servers = {
