@@ -43,10 +43,3 @@ cmd.backupdir = os.getenv("HOME") .. "/.vim/undodir"
 cmd.colorscheme("tachyon")
 
 vim.diagnostic.config({ signs = false })
-
--- fix this!
-vim.lsp.enable("lua_ls")
-vim.lsp.enable("gopls")
-vim.lsp.enable("nim_langserver")
-vim.lsp.enable("pyright")
-vim.lsp.enable("rust_analyzer")
