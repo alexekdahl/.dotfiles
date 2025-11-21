@@ -64,6 +64,7 @@ map("n", "<leader>uC", function() Snacks.picker.colorschemes() end, { desc = "Co
 map("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Goto [D]efinition" })
 map("n", "gt", function() Snacks.picker.lsp_type_definitions() end, { desc = "Goto T[y]pe Definition" })
 map("n", "<leader>fs", function() Snacks.picker.resume() end, { desc = "Resume Last Picker" })
+map("n", "<leader>u", function() Snacks.picker.undo() end, { desc = "Undo History" })
 
 map("n", "<leader>ff", function()
   Snacks.picker.files({

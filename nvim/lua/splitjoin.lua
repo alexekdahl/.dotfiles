@@ -2,10 +2,6 @@ local M = {}
 
 M.max_join_length = 260
 
----------------------------------------------------------------------
--- Language node types
----------------------------------------------------------------------
-
 local LANG_NODE_TYPES = {
   lua = {
     table_constructor = true,
@@ -48,14 +44,6 @@ local function is_arglist_node(ft, node)
   return false
 end
 
-local function is_container_node(ft, node)
-  return is_target_node(ft, node) and not is_arglist_node(ft, node)
-end
-
----------------------------------------------------------------------
--- Get enclosing node
----------------------------------------------------------------------
-
 local function get_enclosing_node()
   local bufnr = vim.api.nvim_get_current_buf()
   local ft = vim.bo[bufnr].filetype
@@ -81,10 +69,6 @@ local function get_enclosing_node()
 
   return nil
 end
-
----------------------------------------------------------------------
--- Helpers
----------------------------------------------------------------------
 
 local function trim(s)
   return (s:gsub("^%s+", ""):gsub("%s+$", ""))
@@ -140,10 +124,6 @@ local function get_nodes_for_edit(ft, node)
   end
 end
 
----------------------------------------------------------------------
--- Prefix/suffix + bracket detection
----------------------------------------------------------------------
-
 local function detect_brackets(bufnr, range_node, is_args, items_node)
   local sr, sc, er, ec
 
@@ -179,7 +159,6 @@ local function detect_brackets(bufnr, range_node, is_args, items_node)
 
   -- find open on first line, starting from node start
   -- Note: Treesitter uses 0-indexed columns, Lua strings use 1-indexed positions
-  -- Plain search (true parameter) doesn't need vim.pesc()
   local open_pos = first:find(open_char, sc + 1, true)
   if not open_pos then
     open_pos = first:find(open_char, 1, true)
@@ -198,10 +177,6 @@ local function detect_brackets(bufnr, range_node, is_args, items_node)
   return prefix, suffix, open_char, close_char, false
 end
 
----------------------------------------------------------------------
--- Extract items
----------------------------------------------------------------------
-
 local function get_items_text(bufnr, items_node)
   local items = {}
   for child in items_node:iter_children() do
@@ -216,11 +191,6 @@ local function get_items_text(bufnr, items_node)
   return items
 end
 
----------------------------------------------------------------------
--- Formatting helpers
----------------------------------------------------------------------
-
--- Full normalization for containers
 local function normalize_container_item(x)
   x = x:gsub("%s*=%s*", " = ")
   x = x:gsub("%s*:%s*", ": ")
@@ -228,7 +198,6 @@ local function normalize_container_item(x)
   return trim(x)
 end
 
--- Minimal normalization for argument lists
 local function normalize_arg_item(x)
   x = x:gsub("%s*,%s*", ", ")
   x = x:gsub("%s+", " ")
@@ -239,10 +208,6 @@ local function is_multiline_node(node)
   local sr, _, er, _ = node:range()
   return er > sr
 end
-
----------------------------------------------------------------------
--- JOIN
----------------------------------------------------------------------
 
 local function do_join(bufnr, node, ft)
   local items_node, range_node, is_args = get_nodes_for_edit(ft, node)
@@ -286,10 +251,6 @@ local function do_join(bufnr, node, ft)
   vim.api.nvim_buf_set_lines(bufnr, sr, er + 1, false, { joined })
 end
 
----------------------------------------------------------------------
--- SPLIT
----------------------------------------------------------------------
-
 local function do_split(bufnr, node, ft)
   local items_node, range_node, is_args = get_nodes_for_edit(ft, node)
   if has_comment_child(items_node) then return end
@@ -329,10 +290,6 @@ local function do_split(bufnr, node, ft)
   vim.api.nvim_buf_set_lines(bufnr, sr, er + 1, false, out)
   vim.api.nvim_win_set_cursor(0, { sr + 2, #out[2] })
 end
-
----------------------------------------------------------------------
--- PUBLIC API
----------------------------------------------------------------------
 
 function M.toggle(opts)
   opts = opts or {}
