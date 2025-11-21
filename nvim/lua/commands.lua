@@ -45,6 +45,10 @@ function M.split_horizontal()
   vim.cmd("split")
 end
 
+function M.split_join_toggle()
+  vim.cmd("SplitJoinToggle")
+end
+
 function M.go_test()
   vim.cmd("GoTestFunc")
 end

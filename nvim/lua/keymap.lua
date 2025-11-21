@@ -29,6 +29,7 @@ map("n", "<leader>t", cmd.go_test, { desc = "Go Test" })
 map("n", "<C-b>", cmd.toggle_quickfix, { desc = "Toggle Quickfix" })
 map("n", "<leader>l", cmd.color_print, { desc = "Color print" })
 map("n", "<C-s>", cmd.smart_replace, { desc = "Smart replace" })
+map("n", "<leader>m", cmd.split_join_toggle, { desc = "Toggle split/join" })
 
 ----------------------------------------------------------------------
 -- Diagnostics + LSP
