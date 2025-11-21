@@ -1,36 +1,37 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
-vim.api.nvim_create_autocmd("InsertCharPre", {
+local function keys(str)
+  return vim.api.nvim_replace_termcodes(str, true, false, true)
+end
+
+vim.api.nvim_create_autocmd("InsertEnter", {
+  once = true,
   callback = function()
-    local char = vim.v.char
+    local pairs = {
+      ["("] = { close = ")", inside = false },
+      ["["] = { close = "]", inside = true },
+      ["{"] = { close = "}", inside = true },
+    }
 
-    -- ( ) → cursor AFTER closing
-    if char == "(" then
-      vim.v.char = "()"                        -- replace typed char
-      vim.schedule(function()
-        vim.api.nvim_feedkeys("l", "n", false) -- move right into after ')'
-      end)
-      return
-    end
+    local ns = vim.api.nvim_create_namespace("my_autopairs")
 
-    -- { } → cursor INSIDE
-    if char == "{" then
-      vim.v.char = "{}"
-      vim.schedule(function()
-        vim.api.nvim_feedkeys("ha", "n", false) -- move left + insert
-      end)
-      return
-    end
+    vim.on_key(function(ch)
+      if vim.fn.mode() ~= "i" then return end
 
-    -- [ ] → cursor INSIDE
-    if char == "[" then
-      vim.v.char = "[]"
-      vim.schedule(function()
-        vim.api.nvim_feedkeys("ha", "n", false)
-      end)
-      return
-    end
+      local p = pairs[ch]
+      if not p then return end
+
+      -- Insert closing character
+      vim.api.nvim_feedkeys(p.close, "n", false)
+
+      -- Move cursor inside if needed
+      if p.inside then
+        vim.schedule(function()
+          vim.api.nvim_feedkeys(keys("<Left>"), "n", false)
+        end)
+      end
+    end, ns)
   end,
 })
 
