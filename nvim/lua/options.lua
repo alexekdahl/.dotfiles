@@ -9,7 +9,7 @@ global.background = "dark"
 global.lsp_autostart = true
 
 opt.relativenumber = true
-vim.opt.showmode = false
+opt.showmode = false
 opt.hlsearch = false
 opt.hidden = true
 opt.errorbells = false
@@ -25,7 +25,7 @@ opt.undofile = true
 opt.incsearch = true
 opt.scrolloff = 18
 opt.isfname:append("@-@")
-opt.cmdheight = 1
+opt.cmdheight = 0
 opt.updatetime = 50
 opt.termguicolors = true
 opt.shortmess:append("c")

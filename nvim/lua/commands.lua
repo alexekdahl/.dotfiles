@@ -132,34 +132,7 @@ function M.snacks_marksman()
 end
 
 function M.smart_replace()
-  vim.ui.input({ prompt = " : search" }, function(search)
-    if not search or search == "" then
-      return
-    end
-
-    vim.ui.input({ prompt = "󰛔 : replace " .. search }, function(replace)
-      if not replace then
-        return
-      end
-
-      -- %        whole file
-      -- .        current line
-      -- $        last line
-      -- 1,10     explicit line span
-      -- .,$      from current to end
-      vim.ui.input({
-        prompt = " Scope: ",
-        default = "%",
-      }, function(scope)
-        scope = (scope == "" or scope == nil) and "%" or scope
-
-        local cmd =
-            string.format("%ss/%s/%s/g", scope, vim.fn.escape(search, "/\\"), vim.fn.escape(replace, "/\\"))
-
-        vim.cmd(cmd)
-      end)
-    end)
-  end)
+  vim.cmd("SmartReplace")
 end
 
 return M
