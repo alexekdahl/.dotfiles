@@ -99,8 +99,3 @@ end, { desc = "Explorer" })
 map({ "n", "v" }, "<leader>gh", function()
   Snacks.gitbrowse.open({ open = function(url) vim.fn.setreg("+", url) end })
 end, { desc = "Git Browse (copy URL)" })
-
-
-----------------------------------------------------------------------
--- End of keymaps file
-----------------------------------------------------------------------

@@ -5,7 +5,7 @@ local function keys(str)
   return vim.api.nvim_replace_termcodes(str, true, false, true)
 end
 
-vim.api.nvim_create_autocmd("InsertEnter", {
+autocmd("InsertEnter", {
   once = true,
   callback = function()
     local pairs = {
