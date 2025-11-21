@@ -4,22 +4,10 @@ zmodload -i zsh/complist
 # Ensure cache directory exists
 [[ -d "$HOME/.zsh/cache" ]] || mkdir -p "$HOME/.zsh/cache"
 
-# Initialize completion with optimization
 autoload -Uz compinit
+compinit -C 
 
-# Smart compinit: only run full check once per day
-# This uses zsh glob qualifiers:
-#   N = NULL_GLOB (don't error if file doesn't exist)
-#   mh+24 = modified more than 24 hours ago
-if [[ -n "$HOME"/.zcompdump(#qNmh+24) ]]; then
-  # Dump is old (>24h) or doesn't exist - do full init
-  compinit
-else
-  # Dump is fresh - skip security check for speed
-  compinit -C
-fi
-
-# Compile dump file in background if needed
+# compile in background
 if [[ ! -f "$HOME/.zcompdump.zwc" || "$HOME/.zcompdump" -nt "$HOME/.zcompdump.zwc" ]]; then
   zcompile "$HOME/.zcompdump" &!
 fi
