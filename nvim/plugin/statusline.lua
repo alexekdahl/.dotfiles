@@ -183,21 +183,6 @@ local function setup()
   vim.o.statusline = "%!v:lua.statusline()"
   vim.o.laststatus = 3
 
-  local bg = "#000000"
-
-  local hls = {
-    { "SLineNormal",  { fg = "#aa749f", bg = bg, bold = true } },
-    { "SLineInsert",  { fg = "#aa749f", bg = bg, bold = true } },
-    { "SLineVisual",  { fg = "#85b884", bg = bg, bold = true } },
-    { "SLineCommand", { fg = "#f6ad6c", bg = bg, bold = true } },
-    { "StatusLine",   { fg = "#525252", bg = bg, bold = true } },
-    { "StatusLineNC", { fg = "#3a3a3a", bg = bg, bold = true } },
-  }
-
-  for _, hl in ipairs(hls) do
-    vim.api.nvim_set_hl(0, hl[1], hl[2])
-  end
-
   local grp = vim.api.nvim_create_augroup("StatuslineOptimized", { clear = true })
 
   vim.api.nvim_create_autocmd("DiagnosticChanged", {
@@ -217,15 +202,6 @@ local function setup()
     callback = function()
       mode_cache.ts = 0
       vim.defer_fn(vim.cmd.redrawstatus, 40)
-    end,
-  })
-
-  vim.api.nvim_create_autocmd("ColorScheme", {
-    group = grp,
-    callback = function()
-      for _, hl in ipairs(hls) do
-        vim.api.nvim_set_hl(0, hl[1], hl[2])
-      end
     end,
   })
 end
