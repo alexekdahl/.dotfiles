@@ -32,6 +32,7 @@ RUN bash -c '\
     \
     # Run post-install with Homebrew in PATH
     bash ~/.dotfiles/setup/post-install.sh; \
+    mkdir -p ~/dev/personal; \
     '
 
 SHELL ["/bin/zsh", "-c"]
