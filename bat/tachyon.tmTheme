@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+ "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+ <dict>
+  <key>name</key>
+  <string>tachyon</string>
+
+  <key>settings</key>
+  <array>
+
+   <!-- Global -->
+   <dict>
+    <key>settings</key>
+    <dict>
+     <key>background</key><string>#030201</string>
+     <key>foreground</key><string>#c1c1c1</string>
+     <key>caret</key><string>#c1c1c1</string>
+     <key>invisibles</key><string>#333333</string>
+     <key>lineHighlight</key><string>#121212</string>
+     <key>selection</key><string>#222222</string>
+    </dict>
+   </dict>
+
+   <!-- Comments -->
+   <dict>
+    <key>scope</key><string>comment</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#333333</string></dict>
+   </dict>
+
+   <!-- Keywords -->
+   <dict>
+    <key>scope</key><string>keyword, storage.type</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#999999</string></dict>
+   </dict>
+
+   <!-- Strings -->
+   <dict>
+    <key>scope</key><string>string</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#8c7f70</string></dict>
+   </dict>
+
+   <!-- Numbers -->
+   <dict>
+    <key>scope</key><string>constant.numeric</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#aaaaaa</string></dict>
+   </dict>
+
+   <!-- Booleans, constants -->
+   <dict>
+    <key>scope</key><string>constant.language</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#9b8d7f</string></dict>
+   </dict>
+
+   <!-- Function names -->
+   <dict>
+    <key>scope</key><string>entity.name.function</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#c1c1c1</string></dict>
+   </dict>
+
+   <!-- Types / Classes -->
+   <dict>
+    <key>scope</key><string>entity.name.type, support.type</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#888888</string></dict>
+   </dict>
+
+   <!-- Variables -->
+   <dict>
+    <key>scope</key><string>variable</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#c1c1c1</string></dict>
+   </dict>
+
+   <!-- Operators -->
+   <dict>
+    <key>scope</key><string>keyword.operator</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#727272</string></dict>
+   </dict>
+
+   <!-- Punctuation -->
+   <dict>
+    <key>scope</key><string>punctuation</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#727272</string></dict>
+   </dict>
+
+   <!-- Attributes (HTML, CSS, etc) -->
+   <dict>
+    <key>scope</key><string>entity.other.attribute-name</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#9b8d7f</string></dict>
+   </dict>
+
+   <!-- HTML tags -->
+   <dict>
+    <key>scope</key><string>entity.name.tag</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#999999</string></dict>
+   </dict>
+
+   <!-- Markdown headings -->
+   <dict>
+    <key>scope</key><string>markup.heading</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#c1c1c1</string></dict>
+   </dict>
+
+   <!-- Markdown bold -->
+   <dict>
+    <key>scope</key><string>markup.bold</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#c1c1c1</string></dict>
+   </dict>
+
+   <!-- Markdown italic -->
+   <dict>
+    <key>scope</key><string>markup.italic</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#999999</string></dict>
+   </dict>
+
+   <!-- Markdown code blocks -->
+   <dict>
+    <key>scope</key><string>markup.raw.inline</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#aaaaaa</string></dict>
+   </dict>
+
+   <!-- Links -->
+   <dict>
+    <key>scope</key><string>markup.underline.link</string>
+    <key>settings</key>
+    <dict><key>foreground</key><string>#888888</string></dict>
+   </dict>
+
+   <!-- Diff additions -->
+   <dict>
+    <key>scope</key><string>markup.inserted</string>
+    <key>settings</key>
+    <dict>
+     <key>foreground</key><string>#9b8d7f</string>
+    </dict>
+   </dict>
+
+   <!-- Diff deletions -->
+   <dict>
+    <key>scope</key><string>markup.deleted</string>
+    <key>settings</key>
+    <dict>
+     <key>foreground</key><string>#5f8787</string>
+    </dict>
+   </dict>
+
+   <!-- Diff changed -->
+   <dict>
+    <key>scope</key><string>markup.changed</string>
+    <key>settings</key>
+    <dict>
+     <key>foreground</key><string>#8c7f70</string>
+    </dict>
+   </dict>
+
+  </array>
+ </dict>
+</plist>

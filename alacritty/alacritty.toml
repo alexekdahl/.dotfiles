@@ -14,7 +14,7 @@ y = 0
 
 [font.italic]
 family = "MesloLGM Nerd Font"
-style = "Italic"
+style = "Regular"
 
 [font.normal]
 family = "MesloLGM Nerd Font"
@@ -36,3 +36,6 @@ import = [
 startup_mode = "Fullscreen"
 decorations = "None"
 opacity = 1
+
+[mouse]
+hide_when_typing = true
