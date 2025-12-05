@@ -52,17 +52,70 @@ end, { desc = "Diagnostic Float" })
 -- Snacks Picker Integrations
 ----------------------------------------------------------------------
 map("n", "<leader>:", function() Snacks.picker.command_history() end, { desc = "Command History" })
-map("n", "<leader>fl", function() Snacks.picker.grep() end, { desc = "Grep" })
-map("n", "<leader>fr", function() Snacks.picker.lsp_references() end, { desc = "References", nowait = true })
-map("n", "<leader>fc", function() Snacks.picker.git_status() end, { desc = "Git Status" })
+map(
+  "n",
+  "<leader>fl",
+  function()
+    Snacks.picker.grep({
+      cmd = "rg",
+      hidden = true,
+      layout = {
+        preset = "ivy",
+      },
+    })
+  end,
+  { desc = "Grep" }
+)
+map("n", "<leader>fr", function()
+  Snacks.picker.lsp_references({
+    cmd = "rg",
+    hidden = true,
+    layout = {
+      preset = "ivy",
+    },
+  })
+end, { desc = "References", nowait = true })
+map("n", "<leader>fc", function()
+  Snacks.picker.git_status({
+    cmd = "rg",
+    hidden = true,
+    layout = {
+      preset = "ivy",
+    },
+  })
+end, { desc = "Git Status" })
 map({ "n", "x" }, "<leader>sw", function() Snacks.picker.grep_word() end, { desc = "Grep Word / Selection" })
-map("n", "<leader>d", function() Snacks.picker.diagnostics() end, { desc = "Diagnostics" })
+map("n", "<leader>d", function()
+  Snacks.picker.diagnostics({
+    cmd = "rg",
+    hidden = true,
+    layout = {
+      preset = "ivy",
+    },
+  })
+end, { desc = "Diagnostics" })
 map("n", "<leader>fm", function() Snacks.picker.man() end, { desc = "Man Pages" })
 map("n", "<leader>sm", function() Snacks.picker.marks() end, { desc = "Marks" })
 map("n", "<leader>fq", function() Snacks.picker.qflist() end, { desc = "Quickfix List" })
 map("n", "<leader>uC", function() Snacks.picker.colorschemes() end, { desc = "Colorschemes" })
-map("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Goto [D]efinition" })
-map("n", "gt", function() Snacks.picker.lsp_type_definitions() end, { desc = "Goto T[y]pe Definition" })
+map("n", "gd", function()
+  Snacks.picker.lsp_definitions({
+    cmd = "rg",
+    hidden = true,
+    layout = {
+      preset = "ivy",
+    },
+  })
+end, { desc = "Goto [D]efinition" })
+map("n", "gt", function()
+  Snacks.picker.lsp_type_definitions({
+    cmd = "rg",
+    hidden = true,
+    layout = {
+      preset = "ivy",
+    },
+  })
+end, { desc = "Goto T[y]pe Definition" })
 map("n", "<leader>fs", function() Snacks.picker.resume() end, { desc = "Resume Last Picker" })
 map("n", "<leader>u", function() Snacks.picker.undo() end, { desc = "Undo History" })
 
@@ -71,15 +124,8 @@ map("n", "<leader>ff", function()
     cmd = "rg",
     exclude = { ".git/", "node_modules/" },
     hidden = true,
-    win = {
-      list = {
-        keys = {
-          ["<C-Down>"] = { "preview_scroll_down", mode = { "i", "n" } },
-          ["<Up>"]     = { "preview_scroll_up", mode = { "i", "n" } },
-          ["<Left>"]   = { "preview_scroll_left", mode = { "i", "n" } },
-          ["<Right>"]  = { "preview_scroll_right", mode = { "i", "n" } },
-        },
-      },
+    layout = {
+      preset = "ivy",
     },
   })
 end, { desc = "Find Files" })

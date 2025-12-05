@@ -30,7 +30,6 @@ local c = {
   base0D     = "#888888",
   base0E     = "#999999",
   base0F     = "#444444",
-
   sl_normal  = "#aa749f",
   sl_insert  = "#aa749f",
   sl_visual  = "#85b884",

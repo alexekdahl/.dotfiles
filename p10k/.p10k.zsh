@@ -77,9 +77,10 @@ typeset -g COLOR_VCS_MODIFIED=243                # colour for VCS modified foreg
   autoload -Uz is-at-least && is-at-least 5.1 || return
 
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-    prompt_char
     dir
     vcs_joined
+    newline
+    prompt_char
   )
 
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
