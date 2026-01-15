@@ -4,44 +4,55 @@ M.max_join_length = 260
 
 local LANG_NODE_TYPES = {
   lua = {
-    table_constructor = true,
-    arguments = true,
+    table_constructor = { arglist = false },
+    arguments = { arglist = true },
   },
   javascript = {
-    array = true,
-    object = true,
-    array_pattern = true,
-    object_pattern = true,
-    arguments = true,
+    array = { arglist = false },
+    object = { arglist = false },
+    array_pattern = { arglist = false },
+    object_pattern = { arglist = false },
+    arguments = { arglist = true },
+  },
+  typescript = {
+    array = { arglist = false },
+    object = { arglist = false },
+    array_pattern = { arglist = false },
+    object_pattern = { arglist = false },
+    arguments = { arglist = true },
   },
   json = {
-    object = true,
-    array = true,
+    object = { arglist = false },
+    array = { arglist = false },
   },
   python = {
-    list = true,
-    dictionary = true,
-    argument_list = true,
+    list = { arglist = false },
+    dictionary = { arglist = false },
+    argument_list = { arglist = true },
   },
   go = {
-    composite_literal = true,
-    argument_list = true,
+    composite_literal = { arglist = false },
+    argument_list = { arglist = true },
+  },
+  rust = {
+    array = { arglist = false },
+    tuple_expression = { arglist = false },
+    struct_expression = { arglist = false },
+    arguments = { arglist = true },
   },
 }
 
 local function is_target_node(ft, node)
   local m = LANG_NODE_TYPES[ft]
   if not m then return false end
-  return m[node:type()] or false
+  return m[node:type()] ~= nil
 end
 
 local function is_arglist_node(ft, node)
-  local t = node:type()
-  if ft == "lua" and t == "arguments" then return true end
-  if ft == "javascript" and t == "arguments" then return true end
-  if ft == "python" and t == "argument_list" then return true end
-  if ft == "go" and t == "argument_list" then return true end
-  return false
+  local m = LANG_NODE_TYPES[ft]
+  if not m then return false end
+  local node_cfg = m[node:type()]
+  return node_cfg and node_cfg.arglist or false
 end
 
 local function get_enclosing_node()
@@ -128,26 +139,25 @@ local function detect_brackets(bufnr, range_node, is_args, items_node)
   local sr, sc, er, ec
 
   if is_args then
-    -- For arglists, use the arguments node range, not the parent
     sr, sc, er, ec = items_node:range()
   else
     sr, sc, er, ec = range_node:range()
   end
 
   local first = get_line(bufnr, sr)
-  local last  = get_line(bufnr, er)
+  local last = get_line(bufnr, er)
 
   local open_char, close_char
+  local map = { ["["] = "]", ["{"] = "}", ["("] = ")" }
 
   if is_args then
     open_char, close_char = "(", ")"
   else
     local idx = sc + 1
     open_char = first:sub(idx, idx)
-    local map = { ["["] = "]", ["{"] = "}", ["("] = ")" }
     close_char = map[open_char]
     if not close_char then
-      -- fallback: scan for first bracket in line
+      -- Fallback: find first bracket character
       open_char = first:match("[%[%{%(%)]")
       close_char = open_char and map[open_char] or nil
     end
@@ -157,14 +167,9 @@ local function detect_brackets(bufnr, range_node, is_args, items_node)
     return nil, nil, nil, nil, true
   end
 
-  -- find open on first line, starting from node start
-  -- Note: Treesitter uses 0-indexed columns, Lua strings use 1-indexed positions
-  local open_pos = first:find(open_char, sc + 1, true)
-  if not open_pos then
-    open_pos = first:find(open_char, 1, true)
-  end
-
-  -- find *last* close_char on last line
+  -- Find opening bracket position on first line, starting from node start
+  local open_pos = first:find(open_char, sc + 1, true) or first:find(open_char, 1, true)
+  -- Find last closing bracket position on last line
   local close_pos = last_index_of(last, close_char)
 
   if not open_pos or not close_pos then
@@ -179,10 +184,13 @@ end
 
 local function get_items_text(bufnr, items_node)
   local items = {}
+  local skip_types = { comment = true, [","] = true, [";"] = true }
+
   for child in items_node:iter_children() do
-    if child:named() and child:type() ~= "comment" then
+    local child_type = child:type()
+    if child:named() and not skip_types[child_type] then
       local t = get_text(bufnr, child)
-      t = trim(t:gsub(",$", ""))
+      t = trim(t:gsub(",$", ""):gsub(";$", ""))
       if t ~= "" then
         table.insert(items, t)
       end
@@ -192,14 +200,20 @@ local function get_items_text(bufnr, items_node)
 end
 
 local function normalize_container_item(x)
+  -- Normalize spacing around operators
   x = x:gsub("%s*=%s*", " = ")
   x = x:gsub("%s*:%s*", ": ")
+  x = x:gsub("%s*,%s*", ", ")
+  -- Collapse multiple spaces to single space
   x = x:gsub("%s+", " ")
   return trim(x)
 end
 
 local function normalize_arg_item(x)
+  -- Normalize spacing in nested structures
   x = x:gsub("%s*,%s*", ", ")
+  x = x:gsub("%s*:%s*", ": ")
+  -- Collapse multiple spaces to single space
   x = x:gsub("%s+", " ")
   return trim(x)
 end
@@ -288,7 +302,13 @@ local function do_split(bufnr, node, ft)
   table.insert(out, indent .. close_char .. suffix)
 
   vim.api.nvim_buf_set_lines(bufnr, sr, er + 1, false, out)
-  vim.api.nvim_win_set_cursor(0, { sr + 2, #out[2] })
+
+  -- Position cursor at the first item (start of second line content)
+  if #out > 1 then
+    local cursor_line = sr + 2
+    local cursor_col = #out[2] - #trim(out[2])
+    vim.api.nvim_win_set_cursor(0, { cursor_line, cursor_col })
+  end
 end
 
 function M.toggle(opts)

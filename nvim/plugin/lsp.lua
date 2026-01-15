@@ -28,13 +28,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end,
       })
     end
-
-    if client and client:supports_method("textDocument/completion") then
-      if client.name == "lua-language-server" then
-        client.server_capabilities.completionProvider.triggerCharacters = { ".", ":" }
-      end
-      vim.lsp.completion.enable(true, args.data.client_id, buf, { autotrigger = true })
-    end
   end,
 })
 

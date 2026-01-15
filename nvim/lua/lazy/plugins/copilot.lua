@@ -1,0 +1,57 @@
+return {
+  "zbirenbaum/copilot.lua",
+  -- enabled = false,
+  cmd = "Copilot",
+  event = "InsertEnter",
+  opts = {
+    panel = {
+      enabled = true,
+      auto_refresh = false,
+      layout = {
+        position = "right",
+        ratio = 0.5,
+      },
+    },
+    suggestion = {
+      enabled = true,
+      auto_trigger = true,
+      debounce = 75,
+      keymap = {
+        accept = false,
+        accept_word = false,
+        accept_line = false,
+        next = "<M-v>",
+        prev = "<M-c>",
+        dismiss = "<C-e>",
+      },
+    },
+    filetypes = {
+      ["*"] = true,
+      python = true,
+      go = true,
+      yaml = true,
+      lua = true,
+      nim = true,
+      gitcommit = true,
+      puml = true,
+      sh = function()
+        if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
+          return false
+        end
+        return true
+      end,
+    },
+  },
+  config = function(_, opts)
+    require("copilot").setup(opts)
+    vim.keymap.set("i", "<Tab>", function()
+      if require("copilot.suggestion").is_visible() then
+        require("copilot.suggestion").accept()
+      else
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+      end
+    end, {
+      silent = true,
+    })
+  end,
+}
