@@ -37,7 +37,7 @@ opt.cursorline = true
 opt.signcolumn = "number"
 opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 opt.wrap = false
-opt.colorcolumn = "100"
+opt.colorcolumn = "80,100"
 
 cmd.backupdir = os.getenv("HOME") .. "/.vim/undodir"
 cmd.colorscheme("tachyon")

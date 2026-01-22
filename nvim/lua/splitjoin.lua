@@ -136,12 +136,12 @@ local function get_nodes_for_edit(ft, node)
 end
 
 local function detect_brackets(bufnr, range_node, is_args, items_node)
-  local sr, sc, er, ec
+  local sr, sc, er
 
   if is_args then
-    sr, sc, er, ec = items_node:range()
+    sr, sc, er, _ = items_node:range()
   else
-    sr, sc, er, ec = range_node:range()
+    sr, sc, er, _ = range_node:range()
   end
 
   local first = get_line(bufnr, sr)

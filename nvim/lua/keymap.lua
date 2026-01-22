@@ -44,28 +44,14 @@ end, { desc = "LSP Hover" })
 
 map("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP Rename" })
 map({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
-map("n", "<leader>k", function()
-  vim.diagnostic.open_float({ border = "rounded" })
-end, { desc = "Diagnostic Float" })
+map("n", "<leader>k", function() vim.diagnostic.open_float({ border = "rounded" }) end, { desc = "Diagnostic Float" })
 
 ----------------------------------------------------------------------
 -- Snacks Picker Integrations
 ----------------------------------------------------------------------
 map("n", "<leader>:", function() Snacks.picker.command_history() end, { desc = "Command History" })
-map(
-  "n",
-  "<leader>fl",
-  function()
-    Snacks.picker.grep({
-      cmd = "rg",
-      hidden = true,
-      layout = {
-        preset = "ivy",
-      },
-    })
-  end,
-  { desc = "Grep" }
-)
+map("n", "<leader>fl", function() Snacks.picker.grep({ cmd = "rg", hidden = true, layout = { preset = "ivy", }, }) end,
+  { desc = "Grep" })
 map("n", "<leader>fr", function()
   Snacks.picker.lsp_references({
     cmd = "rg",
@@ -75,6 +61,15 @@ map("n", "<leader>fr", function()
     },
   })
 end, { desc = "References", nowait = true })
+map("n", "<leader>ft", function()
+  Snacks.picker.lsp_implementations({
+    cmd = "rg",
+    hidden = true,
+    layout = {
+      preset = "ivy",
+    },
+  })
+end, { desc = "Implements" })
 map("n", "<leader>fc", function()
   Snacks.picker.git_status({
     cmd = "rg",
