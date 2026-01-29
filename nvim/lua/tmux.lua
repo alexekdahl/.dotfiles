@@ -5,7 +5,6 @@ local function vim_navigate(direction)
   local before = vim.api.nvim_get_current_win()
   local ok = pcall(vim.cmd, "wincmd " .. direction)
   if not ok then
-    -- match original behavior a bit: show friendly message on error
     vim.api.nvim_echo({
       { "E11: Invalid in command-line window; <CR> executes, CTRL-C quits: wincmd " .. direction, "ErrorMsg" },
     }, false, {})
