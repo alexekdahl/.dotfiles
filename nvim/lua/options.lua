@@ -28,7 +28,8 @@ opt.isfname:append("@-@")
 opt.cmdheight = 0
 opt.updatetime = 50
 opt.termguicolors = true
-opt.shortmess:append("c")
+opt.shortmess:append("cWFtTIasoOA")
+opt.more = false
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
 opt.splitbelow = true

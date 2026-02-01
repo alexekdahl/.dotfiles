@@ -2,7 +2,7 @@ local feedkeys = vim.api.nvim_feedkeys
 local M = {}
 
 function M.save_all()
-  vim.cmd("wa!")
+  vim.cmd("silent! wa!")
 end
 
 function M.paste_no_registry()
