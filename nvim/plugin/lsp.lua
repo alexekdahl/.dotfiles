@@ -1,6 +1,9 @@
 local autocmd = vim.api.nvim_create_autocmd
 local lsp_group = vim.api.nvim_create_augroup("lsp#", {})
 
+-- Set LSP log level to only show warnings and errors
+vim.lsp.set_log_level("warn")
+
 vim.api.nvim_create_autocmd("LspAttach", {
   group = lsp_group,
   callback = function(args)

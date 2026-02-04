@@ -9,7 +9,6 @@ return {
       cb(git)
       return
     end
-
     cb(start)
   end
 }

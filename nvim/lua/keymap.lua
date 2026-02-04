@@ -38,13 +38,20 @@ map("n", "<leader>m", cmd.split_join_toggle, { desc = "Toggle split/join" })
 map("n", "]", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
 map("n", "[", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
 
-map("n", "K", function()
-  vim.lsp.buf.hover({ border = "rounded" })
-end, { desc = "LSP Hover" })
+map("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end, { desc = "LSP Hover" })
 
 map("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP Rename" })
 map({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
 map("n", "<leader>k", function() vim.diagnostic.open_float({ border = "rounded" }) end, { desc = "Diagnostic Float" })
+
+----------------------------------------------------------------------
+-- Snacks Picker Integrations
+----------------------------------------------------------------------
+map("n", "<leader>fm", function() Snacks.picker.man() end, { desc = "Man Pages" })
+map("n", "<leader>sm", function() Snacks.picker.marks() end, { desc = "Marks" })
+map("n", "<leader>fq", function() Snacks.picker.qflist() end, { desc = "Quickfix List" })
+map("n", "<leader>uC", function() Snacks.picker.colorschemes() end, { desc = "Colorschemes" })
+map("n", "<leader>?", function() Snacks.picker.keymaps() end, { desc = "Keymaps" })
 
 ----------------------------------------------------------------------
 -- Snacks Picker Integrations
@@ -89,10 +96,6 @@ map("n", "<leader>d", function()
     },
   })
 end, { desc = "Diagnostics" })
-map("n", "<leader>fm", function() Snacks.picker.man() end, { desc = "Man Pages" })
-map("n", "<leader>sm", function() Snacks.picker.marks() end, { desc = "Marks" })
-map("n", "<leader>fq", function() Snacks.picker.qflist() end, { desc = "Quickfix List" })
-map("n", "<leader>uC", function() Snacks.picker.colorschemes() end, { desc = "Colorschemes" })
 map("n", "gd", function()
   Snacks.picker.lsp_definitions({
     cmd = "rg",

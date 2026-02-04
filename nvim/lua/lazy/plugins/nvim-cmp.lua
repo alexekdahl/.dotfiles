@@ -3,7 +3,7 @@ return {
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
   },
-  event = { "LspAttach", "InsertEnter" },
+  event = "InsertEnter",
   config = function()
     local cmp = require("cmp")
     vim.opt.completeopt = "menu,menuone,noselect"

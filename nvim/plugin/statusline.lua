@@ -7,6 +7,11 @@ local last_blame = ""
 local last_blame_ts = 0
 local blame_timer
 
+local spinner_frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+local spinner_idx = 1
+local spinner_timer = nil
+local lsp_progress = {}
+
 local DIAG_TTL = 100
 local MODE_TTL = 50
 local BLAME_TTL = 5000
@@ -88,6 +93,34 @@ local function parse_blame(output)
     sha:sub(1, 7),
     summary
   )
+end
+
+local function get_lsp_status()
+  if vim.tbl_isempty(lsp_progress) then
+    return ""
+  end
+  local names = {}
+  for name in pairs(lsp_progress) do
+    names[#names + 1] = name
+  end
+  return spinner_frames[spinner_idx] .. " " .. table.concat(names, ", ") .. " "
+end
+
+local function start_spinner()
+  if spinner_timer then return end
+  spinner_timer = vim.uv.new_timer()
+  spinner_timer:start(0, 80, vim.schedule_wrap(function()
+    spinner_idx = spinner_idx % #spinner_frames + 1
+    vim.cmd.redrawstatus()
+  end))
+end
+
+local function stop_spinner()
+  if spinner_timer then
+    spinner_timer:stop()
+    spinner_timer:close()
+    spinner_timer = nil
+  end
 end
 
 local function get_git_blame()
@@ -173,6 +206,7 @@ function M.statusline()
     get_git_blame(),
     "%=",
     "%#Comment#",
+    get_lsp_status(),
     get_diagnostics(),
     " %p%% %l:%c ",
   })
@@ -202,6 +236,25 @@ local function setup()
     callback = function()
       mode_cache.ts = 0
       vim.defer_fn(vim.cmd.redrawstatus, 40)
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("LspProgress", {
+    group = grp,
+    callback = function(ev)
+      local client = vim.lsp.get_client_by_id(ev.data.client_id)
+      if not client then return end
+      local kind = ev.data.params.value.kind
+      if kind == "begin" then
+        lsp_progress[client.name] = true
+        start_spinner()
+      elseif kind == "end" then
+        lsp_progress[client.name] = nil
+        if vim.tbl_isempty(lsp_progress) then
+          stop_spinner()
+          vim.cmd.redrawstatus()
+        end
+      end
     end,
   })
 end
