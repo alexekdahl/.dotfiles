@@ -35,8 +35,8 @@ map("n", "<leader>m", cmd.split_join_toggle, { desc = "Toggle split/join" })
 -- Diagnostics + LSP
 ----------------------------------------------------------------------
 
-map("n", "]", vim.diagnostic.get_next, { desc = "Next Diagnostic" })
-map("n", "[", vim.diagnostic.get_prev, { desc = "Prev Diagnostic" })
+map("n", "]", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
+map("n", "[", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
 
 map("n", "K", function()
   vim.lsp.buf.hover({ border = "rounded" })

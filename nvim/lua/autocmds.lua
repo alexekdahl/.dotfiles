@@ -35,21 +35,6 @@ autocmd("InsertEnter", {
   end,
 })
 
-vim.opt.cmdheight = 0
-autocmd({ "CmdlineEnter", "CmdlineLeave" }, {
-  group = augroup("cmdline-auto-hide", { clear = true }),
-  callback = function(args)
-    local entering = args.event == "CmdlineEnter"
-    local target_height = entering and 1 or 0
-    if vim.opt_local.cmdheight:get() ~= target_height then
-      vim.opt_local.cmdheight = target_height
-    end
-    vim.o.laststatus = entering and 0 or 3
-    vim.cmd.redrawstatus()
-  end,
-})
-
-
 local grp_cursor = augroup("CursorLineControl", { clear = true })
 local function set_cursorline(event, value)
   autocmd(event, {
