@@ -41,62 +41,22 @@ function fff() {
 }
 
 function fzf-history() {
-  local selected ret
-  local preview_cmd='
-    cmd=$(echo {} | awk "{print \$1}")
-    if man "$cmd" &>/dev/null; then
-      man "$cmd" | col -bx | bat --style=plain --color=always --language=man
-    else
-      echo {} | sed "s/^[ \t]*[0-9]*\**[ \t]*//" | bat --style=plain --color=always --language=sh
-    fi'
-  
-  # Atom One Dark inspired color scheme for fzf
-  local fzf_colors="--color=fg:#D6D6D6,bg:#000000,hl:#85B884,fg+:#E1E1E1,bg+:#202020,hl+:#B3DBA9,pointer:#D7867D,info:#FFE591,spinner:#60B197,header:#ABBAB5,prompt:#AA749F,marker:#F6AD6C"  
-
-  # Color for different command types using your palette
-  local highlight_cmd='
-    sed "s/\(sudo\)/\x1b[38;2;224;108;117m\1\x1b[0m/g;
-         s/\(git\)/\x1b[38;2;152;195;121m\1\x1b[0m/g;
-         s/\(docker\|kubectl\)/\x1b[38;2;97;175;239m\1\x1b[0m/g;
-         s/\(vim\|nvim\|vi\)/\x1b[38;2;198;120;221m\1\x1b[0m/g;
-         s/\(ssh\|scp\)/\x1b[38;2;229;192;123m\1\x1b[0m/g"'
-  
-  # Use minimal local options for safety
+  local selected
   setopt localoptions noglob
-  
-  if zmodload -F zsh/parameter p:{commands,history} 2>/dev/null && (( ${+commands[perl]} )); then
-    selected=$(printf '%s\t%s\0' "${(kv)history[@]}" |
-      perl -0 -ne 'if (!$seen{(/^\s*[0-9]+\**\t(.*)/s, $1)}++) { s/\n/\n\t/g; print; }' |
-      fzf --read0 --ansi --query="$LBUFFER" $fzf_colors --height=40% \
-          --preview "$preview_cmd" --preview-window=top:30% \
-          --bind="ctrl-r:toggle-sort" \
-          --header=$'\e[38;2;86;182;194mCTRL-R\e[0m: Toggle Sort | \e[38;2;152;195;121mEnter\e[0m: Execute | \e[38;2;229;192;123mESC\e[0m: Cancel' |
-      eval "$highlight_cmd")
-  else
-    selected=$(fc -rl 1 | awk '{
-      cmd=$0; 
-      sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); 
-      if (!seen[cmd]++) print $0 
-    }' | eval "$highlight_cmd" |
-      fzf --ansi --query="$LBUFFER" $fzf_colors --height=40% \
-          --preview "$preview_cmd" --preview-window=top:30% \
-          --bind="ctrl-r:toggle-sort" \
-          --header=$'\e[38;2;86;182;194mCTRL-R\e[0m: Toggle Sort | \e[38;2;152;195;121mEnter\e[0m: Execute | \e[38;2;229;192;123mESC\e[0m: Cancel')
+
+  selected=$(fc -rl 1 |
+    awk '!seen[$0]++' |
+    fzf --query="$LBUFFER" --height=40% \
+        --preview 'echo {} | sed "s/^[ \t]*[0-9]*\**[ \t]*//" | bat --style=plain --color=always -l sh' \
+        --preview-window=top:30% \
+        --bind="ctrl-r:toggle-sort" \
+        --header="CTRL-R: Toggle Sort | Enter: Execute | ESC: Cancel")
+
+  if [[ -n "$selected" ]]; then
+    LBUFFER=${selected##*[0-9]  }
   fi
-  
-  ret=$?
-  
-  if [ -n "$selected" ]; then
-    if [[ $(awk '{print $1; exit}' <<< "$selected") =~ ^[1-9][0-9]* ]]; then
-      zle vi-fetch-history -n $MATCH
-    else
-      # Strip ANSI color codes when setting LBUFFER
-      LBUFFER=$(echo "$selected" | sed 's/\x1b\[[0-9;]*m//g' | sed 's/^[ \t]*[0-9]*\**[ \t]*//')
-    fi
-  fi
-  
+
   zle reset-prompt
-  return $ret
 }
 
 function fzf-open-project() {

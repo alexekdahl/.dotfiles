@@ -31,7 +31,6 @@ setopt extended_history          # Record timestamp of command in HISTFILE
 setopt hist_expire_dups_first    # Delete duplicates first when HISTFILE size exceeds HISTSIZE
 setopt hist_ignore_space         # Ignore commands that start with space
 setopt hist_verify               # Show command with history expansion to user before running it
-setopt inc_append_history        # Add commands to HISTFILE in order of execution
 setopt share_history             # Share command history data
 setopt inc_append_history_time
 setopt HIST_FCNTL_LOCK
@@ -70,12 +69,14 @@ zstyle '*' single-ignored show
 # Start typing + [Up-Arrow] - fuzzy find history forward
 autoload -U up-line-or-beginning-search
 zle -N up-line-or-beginning-search
-bindkey "^[[A" up-line-or-beginning-search
+bindkey -M viins "^[[A" up-line-or-beginning-search
+bindkey -M vicmd "^[[A" up-line-or-beginning-search
 
 # Start typing + [Down-Arrow] - fuzzy find history backward
 autoload -U down-line-or-beginning-search
 zle -N down-line-or-beginning-search
-bindkey "^[[B" down-line-or-beginning-search
+bindkey -M viins "^[[B" down-line-or-beginning-search
+bindkey -M vicmd "^[[B" down-line-or-beginning-search
 
 # Automatically load bash completion functions
 autoload -U +X bashcompinit && bashcompinit

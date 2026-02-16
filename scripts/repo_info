@@ -1,9 +1,0 @@
-#!/bin/bash
-
-total_lines=$(git ls-files | xargs wc -l | awk '{total += $1} END {print total}')
-file_counts=$(git ls-files | awk -F. '{ext[$NF]++} END {for (e in ext) print ext[e], e}' | sort -nr)
-
-echo "Total lines of code: $total_lines"
-echo "============================================================="
-echo "Number of files by type:"
-echo "$file_counts"
