@@ -7,7 +7,6 @@ return {
     local filename = vim.api.nvim_buf_get_name(bufnr)
     local cwd = vim.fs.dirname(filename)
 
-    -- First attempt: `go env -json GOMOD`
     local ok = pcall(vim.system, { "go", "env", "-json", "GOMOD" }, { cwd = cwd }, function(out)
       if out.code ~= 0 then return end
 
