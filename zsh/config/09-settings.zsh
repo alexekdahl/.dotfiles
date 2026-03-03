@@ -5,7 +5,11 @@ zmodload -i zsh/complist
 [[ -d "$HOME/.zsh/cache" ]] || mkdir -p "$HOME/.zsh/cache"
 
 autoload -Uz compinit
-compinit -C 
+if [[ -n "$HOME/.zcompdump"(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 # compile in background
 if [[ ! -f "$HOME/.zcompdump.zwc" || "$HOME/.zcompdump" -nt "$HOME/.zcompdump.zwc" ]]; then
@@ -24,7 +28,7 @@ typeset -U path
 # History file configuration
 HISTFILE=~/.zsh_history
 HISTSIZE=50000
-SAVEHIST=10000
+SAVEHIST=50000
 
 # History command configuration
 setopt extended_history          # Record timestamp of command in HISTFILE
@@ -32,7 +36,6 @@ setopt hist_expire_dups_first    # Delete duplicates first when HISTFILE size ex
 setopt hist_ignore_space         # Ignore commands that start with space
 setopt hist_verify               # Show command with history expansion to user before running it
 setopt share_history             # Share command history data
-setopt inc_append_history_time
 setopt HIST_FCNTL_LOCK
 
 # Completion options

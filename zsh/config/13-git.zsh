@@ -2,7 +2,7 @@
 
 alias gco='git checkout'
 alias ggl='git pull origin $(current_branch)'
-alias gsl="git stash list --pretty=format:'%Cblue%gd%Cred: %C(yellow)%s"
+alias gsl="git stash list --pretty=format:'%Cblue%gd%Cred: %C(yellow)%s'"
 alias greset='git reset --hard HEAD'
 alias uncommit='git reset --soft HEAD~'
 alias gstash='git stash save --include-untracked'
@@ -12,7 +12,6 @@ alias gun='git --no-pager diff --name-only --cached | fzf --print0 -m -1 --borde
 alias gad='git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --height 10% | xargs -0 -t -o git add'
 alias grd='git ls-files -m -o --exclude-standard | fzf --print0 -m -1 --border=rounded --height 40% | xargs -0 -t -o git restore'
 alias remotebranch="git for-each-ref --format='%(color:cyan)%(authordate:format:%m/%d/%Y %I:%M %p)    %(align:25,left)%(color:yellow)%(authorname)%(end) %(color:reset)%(refname:strip=3)' --sort=authordate refs/remotes"
-alias grebase="git fetch origin master:master && git rebase -i master"
 alias gw="git worktree"
 alias gws="git worktree list"
 alias gwd="git worktree prune"
@@ -91,6 +90,7 @@ function gst() {
 
 function current_branch() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo ${ref#refs/heads/}
 }
 
 function grename() {
