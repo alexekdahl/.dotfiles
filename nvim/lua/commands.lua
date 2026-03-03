@@ -49,6 +49,10 @@ function M.split_join_toggle()
   vim.cmd("SplitJoinToggle")
 end
 
+function M.zen_toggle()
+  vim.cmd("ZenToggle")
+end
+
 function M.go_test()
   vim.cmd("GoTestFunc")
 end
