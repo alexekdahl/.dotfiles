@@ -1,43 +1,14 @@
 #!/usr/bin/env zsh
 
-# ---------------------------------------------------------------------
-# Colour variables with descriptive names
-#
-# Adjust the numeric values below to tweak your colour scheme. Each
-# variable name indicates where the colour is used in the prompt.
-# ---------------------------------------------------------------------
-
-# Dark grey used for the multiline prompt gap, prefix symbols and ruler.
-# Changing this adjusts decorations on multi‑line prompts and the vertical ruler.
 typeset -g COLOR_MULTILINE_PREFIX=238
-
-# Green used for “OK” states such as successful prompts and clean Git statuses.
-# This affects the default chevron and git segments when there are no warnings or errors.
 typeset -g COLOR_PROMPT_OK=70
-
-# Red used for error states and conflicts. When commands fail or Git reports conflicts,
-# this draws attention.
 typeset -g COLOR_PROMPT_ERROR=160
-
-# Blue for the Vim insert‑mode chevron (VIINS). Predominant colour when editing in insert mode.
 typeset -g COLOR_CHEVRON_VIINS=65
-
-# Yellow for the Vim visual‑mode chevron (VIVIS). Highlights the prompt symbol in visual mode.
 typeset -g COLOR_CHEVRON_VIVIS=131
-
-# Yellow used when the current user is root.
 typeset -g COLOR_CONTEXT_ROOT=178
-
-# Pale yellow for remote and remote‑sudo contexts. Differentiates sessions on remote hosts or via sudo over SSH.
 typeset -g COLOR_CONTEXT_REMOTE=180
-
-# Grey for subdued Git meta information and VCS loading state. Neutral colours de‑emphasise less important details.
 typeset -g COLOR_NEUTRAL=244
-
-# Colour for directory segments (current working directory).
 typeset -g COLOR_DIR=244
-
-# Colours for other segments
 typeset -g COLOR_EXECUTION_TIME=101    # command execution time segment
 typeset -g COLOR_BACKGROUND_JOBS=70    # background jobs segment
 typeset -g COLOR_GO_VERSION=37         # Go version segment
@@ -59,10 +30,8 @@ typeset -g COLOR_VCS_CLEAN=243                    # colour for VCS clean foregro
 typeset -g COLOR_VCS_UNTRACKED=243                # colour for VCS untracked foreground
 typeset -g COLOR_VCS_MODIFIED=243                # colour for VCS modified foreground
 
-# ---------------------------------------------------------------------
 # Prompt configuration
-# ---------------------------------------------------------------------
-
+#
 'builtin' 'local' '-a' 'p10k_config_opts'
 [[ ! -o 'aliases'         ]] || p10k_config_opts+=('aliases')
 [[ ! -o 'sh_glob'         ]] || p10k_config_opts+=('sh_glob')

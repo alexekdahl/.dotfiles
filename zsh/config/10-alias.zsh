@@ -1,5 +1,5 @@
 # -Tmux-
-alias th="tmux new-session -A -s MISC"
+alias th="tmux new-session -A -s MISC '~/.dotfiles/scripts/startup.sh; exec $SHELL'"
 
 # -Vim-
 alias vim="nvim"

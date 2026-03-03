@@ -34,9 +34,7 @@ filetype on
 filetype indent on
 filetype plugin on
 
-" =====================================================
 " Embedded colorscheme: tachyon
-" =====================================================
 set bg=dark
 highlight Normal        guifg=#FEFEFE guibg=#202020
 highlight NormalFloat   guifg=#FEFEFE guibg=#202020
