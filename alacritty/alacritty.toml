@@ -33,7 +33,6 @@ import = [
 ]
 
 [window]
-startup_mode = "Fullscreen"
 decorations = "None"
 opacity = 1
 

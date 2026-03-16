@@ -11,6 +11,7 @@ alias brewski="brew doctor; brew update && brew upgrade && brew cleanup -s"
 alias reload='source ~/.zshrc'
 alias update='sudo apt update && sudo apt upgrade -y; sudo snap refresh; brewski; sudo apt auto-remove'
 alias myip='ip -br a'
+alias du='du -h --max-depth=1 | sort -hr'
 
 # -Python-
 alias py='python3'

@@ -13,7 +13,7 @@ vim.g.colors_name = "tachyon-light"
 -- PALETTE (Base16)
 -----------------------------------------
 local c = {
-  base00     = "#ede8e2",
+  base00     = "#d0c3b3",
   base01     = "#e2ddd7",
   base02     = "#d4cfc8",
   base03     = "#b2ada7",
