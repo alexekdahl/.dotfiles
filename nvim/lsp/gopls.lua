@@ -35,7 +35,7 @@ return {
   settings = {
     autoformat = true,
     gopls = {
-      buildFlags = { "-tags=acap" },
+      buildFlags = { "-tags=acap,production" },
       analyses = {
         unusedparams = true,
         unreachable = true,

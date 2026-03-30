@@ -12,7 +12,6 @@ autocmd("InsertEnter", {
       ["("] = { close = ")", inside = true },
       ["["] = { close = "]", inside = true },
       ["{"] = { close = "}", inside = true },
-      ['"'] = { close = '"', inside = true },
     }
 
     local ns = vim.api.nvim_create_namespace("my_autopairs")
