@@ -1,7 +1,5 @@
 -- Keymaps
 local map = vim.keymap.set
-local opts = { noremap = true, silent = true }
-
 local cmd = require("commands")
 
 ----------------------------------------------------------------------
@@ -20,6 +18,7 @@ map("n", "<leader>sh", cmd.split_horizontal, { desc = "Split Horizontal" })
 -- Editing Helpers
 ----------------------------------------------------------------------
 
+map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
 map("v", "<C-p>", cmd.paste_no_registry, { desc = "Paste no registry" })
 map("n", "<leader>v", cmd.visual_inner_word, { desc = "Select inner Word" })
 map("n", "<leader>y", cmd.yank_inner_word, { desc = "Yank inner Word" })
@@ -36,8 +35,8 @@ map("n", "<leader>z", cmd.zen_toggle, { desc = "Zen Mode" })
 -- Diagnostics + LSP
 ----------------------------------------------------------------------
 
-map("n", "]", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
-map("n", "[", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
+map("n", "]", function() vim.diagnostic.jump({ count = vim.v.count1 }) end, { desc = "Next Diagnostic" })
+map("n", "[", function() vim.diagnostic.jump({ count = -vim.v.count1 }) end, { desc = "Prev Diagnostic" })
 
 map("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end, { desc = "LSP Hover" })
 
@@ -58,8 +57,11 @@ map("n", "<leader>?", function() Snacks.picker.keymaps() end, { desc = "Keymaps"
 -- Snacks Picker Integrations
 ----------------------------------------------------------------------
 map("n", "<leader>:", function() Snacks.picker.command_history() end, { desc = "Command History" })
-map("n", "<leader>fl", function() Snacks.picker.grep({ cmd = "rg", hidden = true, layout = { preset = "ivy", }, }) end,
-  { desc = "Grep" })
+map("n", "<leader>fl", function()
+  Snacks.picker.grep({
+    cmd = "rg", hidden = true, layout = { preset = "ivy" }
+  })
+end, { desc = "Grep" })
 map("n", "<leader>fr", function()
   Snacks.picker.lsp_references({
     cmd = "rg",
@@ -93,7 +95,22 @@ map("n", "<leader>d", function()
     cmd = "rg",
     hidden = true,
     layout = {
-      preset = "ivy",
+      layout = {
+        box = "vertical",
+        backdrop = false,
+        row = -1,
+        width = 0,
+        height = 0.4,
+        border = "top",
+        title = " {title} {live} {flags}",
+        title_pos = "left",
+        { win = "input", height = 1, border = "bottom" },
+        {
+          box = "horizontal",
+          { win = "list",    border = "none" },
+          { win = "preview", title = "{preview}", width = 0.4, border = "left" },
+        },
+      },
     },
   })
 end, { desc = "Diagnostics" })

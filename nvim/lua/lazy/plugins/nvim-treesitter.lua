@@ -18,6 +18,7 @@ return {
       "nim",
       "gomod",
       "rust",
+      "just",
     })
 
     vim.api.nvim_create_autocmd("FileType", {

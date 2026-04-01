@@ -10,7 +10,6 @@ global.lsp_autostart = true
 
 opt.relativenumber = true
 opt.showmode = false
-opt.hlsearch = false
 opt.hidden = true
 opt.errorbells = false
 opt.tabstop = 4

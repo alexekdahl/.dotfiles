@@ -45,6 +45,7 @@ return {
         assign = false,
         shadow = true,
         fieldalignment = false,
+        ST1000 = false,
       },
       annotations = { inline = false },
       gofumpt = true,
