@@ -19,5 +19,9 @@
     algorithm = histogram
 [rerere]
 	enable = true
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
+[credential "https://github.com"]
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[mergetool "nvimdiff"]
+    cmd = nvim -d $LOCAL $MERGED $REMOTE
