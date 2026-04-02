@@ -1,7 +1,7 @@
-return {
-  "lewis6991/gitsigns.nvim",
-  event = { "BufReadPre", "BufNewFile" },
-  opts = {
+vim.schedule(function()
+  vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
+
+  require("gitsigns").setup({
     signs = {
       add = { text = "│" },
       change = { text = "│" },
@@ -45,7 +45,6 @@ return {
         vim.keymap.set(mode, l, r, opts)
       end
 
-      -- Navigation
       map("n", "L", function()
         if vim.wo.diff then
           return "L"
@@ -69,5 +68,5 @@ return {
       map("n", "<leader>hh", gs.preview_hunk)
       map("n", "<leader>hu", gs.reset_hunk)
     end,
-  },
-}
+  })
+end)

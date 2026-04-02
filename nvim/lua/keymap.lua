@@ -1,35 +1,73 @@
 -- Keymaps
 local map = vim.keymap.set
-local cmd = require("commands")
+
+local function toggle_quickfix()
+  for _, win in pairs(vim.fn.getwininfo()) do
+    if win["quickfix"] == 1 then
+      vim.cmd("cclose")
+      return
+    end
+  end
+  if not vim.tbl_isempty(vim.fn.getqflist()) then
+    vim.cmd("copen")
+  end
+end
+
+local function color_print()
+  local clipboard = vim.fn.getreg("+")
+  if clipboard == "" then
+    vim.notify("Clipboard is empty", vim.log.levels.WARN)
+    return
+  end
+  local format_strings = {
+    lua = 'print("\\27[33m%s:\\27[0m", %s)',
+    go = 'fmt.Printf("\\033[33m%s:\\033[0m %%v\\n", %s)',
+    javascript = 'console.log("\\x1b[33m%s:\\x1b[0m", %s);',
+    typescript = 'console.log("\\x1b[33m%s:\\x1b[0m", %s);',
+    python = 'print(f"\\033[33m{%s=}\\033[0m")',
+    rust = 'println!("\\x1b[33m{}: {:?}\\x1b[0m", %s);',
+    c = 'printf("\\033[33m%s: %%d\\033[0m\\n", %s);',
+    nim = 'echo "\\e[33m%s: \\e[0m", $%s',
+  }
+  local filetype = vim.bo.filetype
+  local fmt = format_strings[filetype] or 'print("\\27[33m%s:\\27[0m", %s)'
+  local print_statement = string.format(fmt, clipboard, clipboard)
+  local cursor_pos = vim.api.nvim_win_get_cursor(0)
+  local line = cursor_pos[1]
+  local current_line = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1] or ""
+  local indentation = current_line:match("^%s*") or ""
+  vim.api.nvim_buf_set_lines(0, line, line, false, { indentation .. print_statement })
+  vim.api.nvim_win_set_cursor(0, { line + 1, 0 })
+end
 
 ----------------------------------------------------------------------
 -- Window Navigation
 ----------------------------------------------------------------------
 
-map("n", "<C-J>", cmd.focus_split_down, { desc = "Focus split Down" })
-map("n", "<C-H>", cmd.focus_split_left, { desc = "Focus split Left" })
-map("n", "<C-K>", cmd.focus_split_up, { desc = "Focus split Up" })
-map("n", "<C-L>", cmd.focus_split_right, { desc = "Focus split Right" })
+map("n", "<C-J>", function() require("custom.tmux").navigate("j") end, { desc = "Focus split Down" })
+map("n", "<C-H>", function() require("custom.tmux").navigate("h") end, { desc = "Focus split Left" })
+map("n", "<C-K>", function() require("custom.tmux").navigate("k") end, { desc = "Focus split Up" })
+map("n", "<C-L>", function() require("custom.tmux").navigate("l") end, { desc = "Focus split Right" })
 
-map("n", "<leader>sv", cmd.split_vertical, { desc = "Split Vertical" })
-map("n", "<leader>sh", cmd.split_horizontal, { desc = "Split Horizontal" })
+map("n", "<leader>sv", "<cmd>vsplit<CR>", { desc = "Split Vertical" })
+map("n", "<leader>sh", "<cmd>split<CR>", { desc = "Split Horizontal" })
 
 ----------------------------------------------------------------------
 -- Editing Helpers
 ----------------------------------------------------------------------
 
 map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
-map("v", "<C-p>", cmd.paste_no_registry, { desc = "Paste no registry" })
-map("n", "<leader>v", cmd.visual_inner_word, { desc = "Select inner Word" })
-map("n", "<leader>y", cmd.yank_inner_word, { desc = "Yank inner Word" })
-map("n", "<leader>o", cmd.add_line_below, { desc = "Add line Below" })
-map("n", "<leader>s", cmd.save_all, { desc = "Save All" })
-map("n", "<leader>t", cmd.go_test, { desc = "Go Test" })
-map("n", "<C-b>", cmd.toggle_quickfix, { desc = "Toggle Quickfix" })
-map("n", "<leader>l", cmd.color_print, { desc = "Color print" })
-map("n", "<C-s>", cmd.smart_replace, { desc = "Smart replace" })
-map("n", "<leader>m", cmd.split_join_toggle, { desc = "Toggle split/join" })
-map("n", "<leader>z", cmd.zen_toggle, { desc = "Zen Mode" })
+map("v", "<C-p>", '"_dP', { desc = "Paste no registry" })
+map("n", "<leader>v", "viw", { desc = "Select inner Word" })
+map("n", "<leader>y", "yiw", { desc = "Yank inner Word" })
+map("n", "<leader>o", "o<Esc>", { desc = "Add line Below" })
+map("n", "<leader>s", "<cmd>silent! wa!<CR>", { desc = "Save All" })
+map("n", "<leader>t", "<cmd>GoTestFunc<CR>", { desc = "Go Test" })
+map("n", "<C-b>", toggle_quickfix, { desc = "Toggle Quickfix" })
+map("n", "<leader>l", color_print, { desc = "Color print" })
+map("n", "<C-s>", function() require("custom.replace").smart_replace() end, { desc = "Smart replace" })
+map("n", "<leader>m", function() require("custom.splitjoin").toggle({}) end, { desc = "Toggle split/join" })
+map("n", "<leader>z", function() require("custom.zen").toggle() end, { desc = "Zen Mode" })
 
 ----------------------------------------------------------------------
 -- Diagnostics + LSP

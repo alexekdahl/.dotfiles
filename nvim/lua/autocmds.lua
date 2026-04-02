@@ -5,6 +5,17 @@ local function keys(str)
   return vim.api.nvim_replace_termcodes(str, true, false, true)
 end
 
+vim.api.nvim_create_user_command(
+  "PackUpdate",
+  function() vim.pack.update() end,
+  {}
+)
+vim.api.nvim_create_user_command(
+  "PackStatus",
+  function() vim.pack.update(nil, { offline = true }) end,
+  {}
+)
+
 autocmd("InsertEnter", {
   once = true,
   callback = function()

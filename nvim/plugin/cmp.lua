@@ -1,10 +1,11 @@
-return {
-  "hrsh7th/nvim-cmp",
-  dependencies = {
-    "hrsh7th/cmp-nvim-lsp",
-  },
-  event = "InsertEnter",
-  config = function()
+vim.pack.add({
+  "https://github.com/hrsh7th/nvim-cmp",
+  "https://github.com/hrsh7th/cmp-nvim-lsp",
+})
+
+vim.api.nvim_create_autocmd("InsertEnter", {
+  once = true,
+  callback = function()
     local cmp = require("cmp")
     vim.opt.completeopt = "menu,menuone,noselect"
     cmp.setup({
@@ -53,4 +54,4 @@ return {
       },
     })
   end,
-}
+})
