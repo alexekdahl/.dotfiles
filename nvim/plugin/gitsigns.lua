@@ -18,14 +18,25 @@ vim.schedule(function()
       follow_files = true,
     },
     attach_to_untracked = false,
-    current_line_blame = false,
+    current_line_blame = true,
     current_line_blame_opts = {
-      virt_text = true,
-      virt_text_pos = "eol",
-      delay = 1000,
+      virt_text = false,
+      delay = 250,
       ignore_whitespace = false,
     },
-    current_line_blame_formatter = "<author> • <date> • <sha>",
+    current_line_blame_formatter = function(_, blame_info)
+      if blame_info.author == "Not Committed Yet" then
+        return { { blame_info.author, "GitSignsCurrentLineBlame" } }
+      end
+      local text = string.format(
+        "%s | %s | %s | %s",
+        blame_info.author,
+        blame_info.summary,
+        os.date("%b %d %Y", blame_info.author_time),
+        blame_info.abbrev_sha
+      )
+      return { { text, "GitSignsCurrentLineBlame" } }
+    end,
     sign_priority = 6,
     update_debounce = 100,
     status_formatter = nil,

@@ -1,6 +1,4 @@
-vim.pack.add({
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
-})
+vim.pack.add({ "https://github.com/nvim-treesitter/nvim-treesitter" })
 
 require("nvim-treesitter").setup({})
 
