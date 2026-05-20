@@ -5,7 +5,7 @@
       "src": "https://github.com/hrsh7th/cmp-nvim-lsp"
     },
     "gitsigns.nvim": {
-      "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
+      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "marksman.nvim": {

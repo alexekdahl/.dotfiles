@@ -16,6 +16,11 @@ vim.api.nvim_create_user_command(
   {}
 )
 
+autocmd({ "FocusGained", "BufEnter", "VimResume", "CursorHold" }, {
+  pattern = '*',
+  command = 'checktime'
+})
+
 autocmd("InsertEnter", {
   once = true,
   callback = function()

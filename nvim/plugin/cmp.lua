@@ -1,4 +1,7 @@
-vim.pack.add({ "https://github.com/hrsh7th/nvim-cmp" })
+vim.pack.add({
+  "https://github.com/hrsh7th/nvim-cmp",
+  "https://github.com/hrsh7th/cmp-nvim-lsp",
+})
 
 vim.api.nvim_create_autocmd("InsertEnter", {
   once = true,

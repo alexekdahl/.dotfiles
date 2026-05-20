@@ -16,6 +16,7 @@ require("nvim-treesitter").install({
   "gomod",
   "rust",
   "just",
+  "cpp",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
