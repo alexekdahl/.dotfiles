@@ -21,7 +21,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "snacks.nvim": {
-      "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
+      "rev": "0770753c88228f7f15449c6a5b242e3f7cd0d71c",
       "src": "https://github.com/folke/snacks.nvim"
     }
   }

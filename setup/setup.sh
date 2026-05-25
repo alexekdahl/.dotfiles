@@ -128,10 +128,21 @@ setup_tmux_config() {
 setup_bat_config() {
     log_info "Setting up bat configuration..."
     
-    if [[ -L "$BAT_CONFIG_DIR" ]]; then
-        rm "$BAT_CONFIG_DIR"
+    ensure_dir "$BAT_CONFIG_DIR"
+    
+    # Symlink themes directory
+    if [[ -d "$DOTFILES/bat/themes" ]]; then
+        backup_and_symlink "$DOTFILES/bat/themes" "$BAT_CONFIG_DIR/themes"
     fi
-    backup_and_symlink "$DOTFILES/bat" "$BAT_CONFIG_DIR"
+    
+    # Symlink other bat config files if they exist
+    for file in "$DOTFILES/bat"/*; do
+        if [[ -f "$file" ]]; then
+            local filename
+            filename=$(basename "$file")
+            backup_and_symlink "$file" "$BAT_CONFIG_DIR/$filename"
+        fi
+    done
 }
 
 install_tpm() {
@@ -181,15 +192,16 @@ install_brew_packages() {
 setup_alacritty() {
     log_info "Setting up Alacritty configuration..."
     
-    # Remove existing symlink if present
-    if [[ -L "$ALACRITTY_CONFIG_DIR" ]]; then
-        rm "$ALACRITTY_CONFIG_DIR"
+    ensure_dir "$ALACRITTY_CONFIG_DIR"
+    
+    # Symlink alacritty.toml
+    if [[ -f "$DOTFILES/alacritty/alacritty.toml" ]]; then
+        backup_and_symlink "$DOTFILES/alacritty/alacritty.toml" "$ALACRITTY_CONFIG_DIR/alacritty.toml"
     fi
     
-    if [[ -d "$DOTFILES/alacritty" ]]; then
-        backup_and_symlink "$DOTFILES/alacritty" "$ALACRITTY_CONFIG_DIR"
-    else
-        log_error "Alacritty config directory not found at $DOTFILES/alacritty"
+    # Symlink themes directory
+    if [[ -d "$DOTFILES/alacritty/themes" ]]; then
+        backup_and_symlink "$DOTFILES/alacritty/themes" "$ALACRITTY_CONFIG_DIR/themes"
     fi
 }
 
